@@ -1,7 +1,7 @@
-import * as React from "react"
-import * as SliderPrimitive from "@radix-ui/react-slider"
+import * as React from "react";
+import * as SliderPrimitive from "@radix-ui/react-slider";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 function Slider({
   className,
@@ -16,10 +16,10 @@ function Slider({
       Array.isArray(value)
         ? value
         : Array.isArray(defaultValue)
-          ? defaultValue
-          : [min, max],
+        ? defaultValue
+        : [min, max],
     [value, defaultValue, min, max]
-  )
+  );
 
   return (
     <SliderPrimitive.Root
@@ -55,7 +55,40 @@ function Slider({
         />
       ))}
     </SliderPrimitive.Root>
-  )
+  );
 }
 
-export { Slider }
+function SliderProduct() {
+  const [value, setValue] = React.useState([50, 300]); 
+  const maxValue = 400;
+
+  return (
+    <div className="w-full max-w-sm mt-2">
+      {/* Slider */}
+      <Slider
+        value={value}
+        onValueChange={setValue}
+        max={maxValue}
+        step={1}
+      />
+
+      {/* Valores + botão */}
+      <div className="flex justify-between items-center mt-4 text-sm text-gray-600">
+        {/* Botão */}
+        <button className="bg-[#101828] text-white px-6 py-1 rounded-xs hover:bg-[#1f2937] transition cursor-pointer">
+          Filtrar
+        </button>
+
+        {/* Valores */}
+        <div className="flex items-center gap-1 text-gray-800 font-medium">
+          <span>R$ {value[0]}</span>
+          <span>-</span>
+          <span>R$ {value[1]}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+export { Slider, SliderProduct };

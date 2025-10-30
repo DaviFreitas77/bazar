@@ -11,7 +11,7 @@ export interface Product {
   color: string[];
   sizes: string[];
   material: string;
-  image: string;
+  image: string[];
   category: string;
 }
 
