@@ -129,19 +129,23 @@ interface SheetSearchProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   children?: React.ReactNode;
+  side: "left" | "right";
+  tittle:string
 }
-function SheetSearch({open,onOpenChange,children}:SheetSearchProps) {
+function SheetSearch({open,onOpenChange,children,side,tittle}:SheetSearchProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="left">
+      <SheetContent side={side}>
         <SheetHeader>
-          <SheetTitle className="text-xl">Fltros</SheetTitle>
+          <SheetTitle className="text-xl">{tittle}</SheetTitle>
         {children}
         </SheetHeader>
       </SheetContent>
     </Sheet>
   )
 }
+
+
 
 export {
   Sheet,

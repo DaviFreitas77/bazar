@@ -45,7 +45,7 @@ export function Product() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 md:px-4 w-full lg:px-8 lg:max-w-xl">
+        <div className="flex flex-col gap-4 md:px-4 w-full lg:px-8 lg:max-w-xl">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900 mb-2">
               {prod.productName}

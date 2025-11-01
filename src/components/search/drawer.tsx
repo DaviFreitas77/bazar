@@ -25,7 +25,7 @@ export function DrawerFilterMobile({
   applyFilterProducts,
 }: DrawerFilterMobileProps) {
   return (
-    <SheetSearch open={open} onOpenChange={onOpenChange}>
+    <SheetSearch open={open} onOpenChange={onOpenChange} side="left" tittle="Filtros">
       <AccordionFilter name="Cores">
         {allColors.map((color) => (
           <label

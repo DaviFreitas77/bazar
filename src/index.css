@@ -118,3 +118,40 @@
     @apply bg-background text-foreground;
   }
 }
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+.swiper-button-prev,
+.swiper-button-next {
+  width: 40px !important;
+  height: 40px !important;
+  
+  background-color: #ffffff; 
+  border-radius: 100%; 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+
+.swiper-button-prev::after {
+  content: '\f053';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #9E5330; 
+  font-size: 15px;
+}
+
+
+.swiper-button-next::after {
+  content: '\f054';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #9E5330;
+  font-size: 15px;
+}
+
+.swiper-navigation-icon{
+  display: none;
+}

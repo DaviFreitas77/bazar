@@ -1,0 +1,27 @@
+/* Customiza o botão "próximo" */
+.swiper-button-next {
+  color: #000; /* muda a cor do ícone */
+  background-color: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  right: 10px; /* reposiciona */
+}
+
+/* Customiza o botão "anterior" */
+.swiper-button-prev {
+  color: #000;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  left: 10px;
+}
+
+/* Se quiser mudar o ícone padrão */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 16px; /* tamanho do ícone */
+  font-weight: bold;
+}

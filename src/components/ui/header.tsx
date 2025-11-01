@@ -2,13 +2,18 @@ import { AiOutlineUser } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
 import { LiaShoppingBagSolid } from "react-icons/lia";
 import { IoMdHeartEmpty } from "react-icons/io";
+import { SheetSearch } from "./sheet";
+import { useState } from "react";
 
 export function Header() {
+  const [openCart, setOpenCart] = useState<boolean>(false);
+  const [openFavorite, setOpenFavorite] = useState<boolean>(false);
+  const [openSearch, setOpenSearch] = useState<boolean>(false);
+
   return (
     <header className="w-full border-b border-gray-200 shadow-sm">
-      {/* Barra superior (pode servir para promoções, mensagens, etc.) */}
       <section className="bg-[#D0AB91] text-white text-center py-2 text-sm tracking-wide">
-        Frete grátis em pedidos acima de R$299 
+        Frete grátis em pedidos acima de R$299
       </section>
 
       {/* Header principal */}
@@ -23,6 +28,7 @@ export function Header() {
           <div className="flex items-center gap-8 text-gray-800">
             {/* Pesquisa */}
             <button
+              onClick={() => setOpenSearch(true)}
               className="hover:text-[#D0AB91] transition-colors"
               title="Pesquisar"
             >
@@ -40,6 +46,7 @@ export function Header() {
 
             {/* Favoritos */}
             <button
+              onClick={() => setOpenFavorite(true)}
               className="hover:text-[#D0AB91] transition-colors"
               title="Favoritos"
             >
@@ -48,6 +55,7 @@ export function Header() {
 
             {/* Sacola */}
             <button
+              onClick={() => setOpenCart(true)}
               className="hover:text-[#D0AB91] transition-colors relative"
               title="Sacola"
             >
@@ -60,6 +68,26 @@ export function Header() {
           </div>
         </div>
       </section>
+      <SheetSearch
+        open={openCart}
+        onOpenChange={setOpenCart}
+        side="right"
+        tittle="Carrinho"
+      />
+
+      <SheetSearch
+        open={openFavorite}
+        onOpenChange={setOpenFavorite}
+        side="right"
+        tittle="Favoritos"
+      />
+
+      <SheetSearch
+        open={openSearch}
+        onOpenChange={setOpenSearch}
+        side="right"
+        tittle="Pesquisar"
+      />
     </header>
   );
 }
