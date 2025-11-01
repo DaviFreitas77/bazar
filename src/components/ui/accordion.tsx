@@ -71,7 +71,7 @@ function AccordionFilter({name,children}:AccordionProps) {
   return (
     <Accordion type="single" collapsible defaultValue="item-1">
       <AccordionItem value="item-1">
-       <AccordionTrigger className="text-lg">{name}</AccordionTrigger>
+       <AccordionTrigger className="text-base font-semibold text-gray-900">{name}</AccordionTrigger>
        <div className="border border-gray-100/70 mb-2"></div>
         <AccordionContent>{children}</AccordionContent>
       </AccordionItem>

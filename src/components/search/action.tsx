@@ -13,8 +13,8 @@ export function ActionButtons({
 }: ActionButtonsProps) {
   return (
     <section
-      className={`flex justify-between items-center mt-4 mb-2  ${
-        showSidebar ? "w-full max-w-7xl " : "w-full"
+      className={`flex justify-between items-center mt-4 mb-2    ${
+        showSidebar ? "w-full max-w-7xl pr-5" : "w-full pr-8"
       }`}
     >
       <div className="flex gap-2">

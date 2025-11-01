@@ -1,4 +1,3 @@
-
 import {
   getProducts,
   searchProducts,
@@ -80,9 +79,14 @@ export function Search() {
     <main className=" px-2 md:px-6 flex flex-col gap-6">
       <section className="flex gap-6 justify-center ">
         {showSidebar ? (
-          <DrawerDesktop allColors={allColors}  allSizes={allSizes} selectedColor={selectedColor} selectedSize={selectedSize} applyFilterProducts={applyFilterProducts}/>
+          <DrawerDesktop
+            allColors={allColors}
+            allSizes={allSizes}
+            selectedColor={selectedColor}
+            selectedSize={selectedSize}
+            applyFilterProducts={applyFilterProducts}
+          />
         ) : null}
-
 
         <DrawerFilterMobile
           open={drawerOpen}
@@ -96,21 +100,25 @@ export function Search() {
 
         {/* Conteúdo principal */}
         <div
-          className={` flex flex-col   items-center ${
-            showSidebar ? "w-full max-w-[1300px]" : "w-full max-w-[1920px]"
+          className={` flex flex-col   items-center  ${
+            showSidebar ? "w-full max-w-[1100px]" : "w-full max-w-[1420px]"
           }`}
         >
-          <BannerSearch showSidebar={showSidebar}/>
+          <BannerSearch showSidebar={showSidebar} />
 
-          
-        <ActionButtons showSidebar={showSidebar} products={products} setShowSidebar={setShowSidebar} setDrawerOpen={setDrawerOpen}/>
+          <ActionButtons
+            showSidebar={showSidebar}
+            products={products}
+            setShowSidebar={setShowSidebar}
+            setDrawerOpen={setDrawerOpen}
+          />
 
           {/* Grid de produtos */}
           <div
             className={` grid gap-2 w-full  ${
               showSidebar
-                ? "grid-cols-2 md:grid-cols-3  xl:grid-cols-4"
-                : "grid-cols-2 md:grid-cols-3  lg:grid-cols-4 2xl:grid-cols-5 max-w-[1920px]"
+                ? "grid-cols-2 sm:grid-cols-3  xl:grid-cols-4"
+                : "grid-cols-2 sm:grid-cols-3  lg:grid-cols-5 max-w-[1920px]"
             }`}
           >
             {currentItems.map((product) => (
@@ -127,9 +135,18 @@ export function Search() {
           </div>
 
           {currentItems.length === 0 ? (
-           <EmptyProduct inputValue={inputValue} setInputValue={setInputValue} setSearchParams={setSearchParams} />
+            <EmptyProduct
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              setSearchParams={setSearchParams}
+            />
           ) : (
-           <PaginationSearch  currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />
+            <PaginationSearch
+              currentPage={currentPage}
+              totalPages={totalPages}
+              nextPage={nextPage}
+              prevPage={prevPage}
+            />
           )}
         </div>
       </section>
