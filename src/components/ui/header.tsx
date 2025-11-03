@@ -12,7 +12,7 @@ export function Header() {
 
   return (
     <header className="w-full border-b border-gray-200 shadow-sm">
-      <section className="bg-[#D0AB91] text-white text-center py-2 text-sm tracking-wide">
+      <section className="bg-primary-50 text-white text-center py-2 text-sm tracking-wide">
         Frete grátis em pedidos acima de R$299
       </section>
 
@@ -26,17 +26,18 @@ export function Header() {
 
           {/* Ações */}
           <div className="flex items-center gap-8 text-gray-800">
+            
             {/* Pesquisa */}
             <button
               onClick={() => setOpenSearch(true)}
-              className="hover:text-[#D0AB91] transition-colors"
+              className="hover:text-primary-50 transition-colors"
               title="Pesquisar"
             >
               <CiSearch size={22} />
             </button>
 
             {/* Conta */}
-            <div className="flex items-center gap-2 hover:text-[#D0AB91] transition-colors cursor-pointer">
+            <div className="flex items-center gap-2 hover:text-primary-50 transition-colors cursor-pointer">
               <AiOutlineUser size={22} />
               <div className="leading-4">
                 <p className="text-gray-600 font-medium">Minha conta</p>
@@ -47,7 +48,7 @@ export function Header() {
             {/* Favoritos */}
             <button
               onClick={() => setOpenFavorite(true)}
-              className="hover:text-[#D0AB91] transition-colors"
+              className="hover:text-primary-50 transition-colors"
               title="Favoritos"
             >
               <IoMdHeartEmpty size={22} />
@@ -56,12 +57,12 @@ export function Header() {
             {/* Sacola */}
             <button
               onClick={() => setOpenCart(true)}
-              className="hover:text-[#D0AB91] transition-colors relative"
+              className="hover:text-primary-50 transition-colors relative"
               title="Sacola"
             >
               <LiaShoppingBagSolid size={22} />
               {/* Badge da sacola */}
-              <span className="absolute -top-2 -right-2 bg-[#D0AB91] text-white text-[10px] font-semibold rounded-full px-[5px]">
+              <span className="absolute -top-2 -right-2 bg-primary-50 text-white text-[10px] font-semibold rounded-full px-[5px]">
                 2
               </span>
             </button>

@@ -14,7 +14,7 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
   return (
     <section className="w-full px-4 md:px-8">
       <div className="mx-auto max-w-[1450px] w-full">
-        <h2 className="text-xl font-bold mb-3">Recomendamos para você</h2>
+        <h2 className="text-xl font-semibold mb-3 text-gray-900">Recomendamos para você</h2>
         <Swiper
           modules={[Navigation, Pagination]}
    

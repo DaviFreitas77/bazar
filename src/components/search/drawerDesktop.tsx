@@ -19,20 +19,20 @@ export function DrawerDesktop({allColors,allSizes,selectedColor,selectedSize,app
                 {allColors.map((color) => (
                   <label
                     key={color}
-                    className={`flex items-center gap-2 cursor-pointer text-gray-500 hover:text-black mt-1 capitalize`}
+                    className={`flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-100 mt-1 capitalize`}
                   >
                     <input
                       type="checkbox"
                       value={color}
                       checked={selectedColor === color}
-                      className="accent-black w-4 h-4"
+                      className="accent-primary-100 w-4 h-4"
                       onChange={(e) => {
                         applyFilterProducts("filterColor", e.target.value);
                       }}
                     />
                     <span
                       className={`${
-                        selectedColor === color ? "text-black" : ""
+                        selectedColor === color ? "text-primary-100" : ""
                       }`}
                     >
                       {color}
@@ -44,20 +44,20 @@ export function DrawerDesktop({allColors,allSizes,selectedColor,selectedSize,app
                 {allSizes.map((sizes) => (
                   <label
                     key={sizes}
-                    className="flex items-center gap-2 cursor-pointer text-gray-500 hover:text-black mt-1 py-1"
+                    className="flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-100 mt-1 py-1"
                   >
                     <input
                       type="checkbox"
                       value={sizes}
                       checked={selectedSize === sizes}
-                      className="accent-black w-4 h-4"
+                      className="accent-primary-100 w-4 h-4"
                       onChange={(e) => {
                         applyFilterProducts("filterSize", e.target.value);
                       }}
                     />
                     <span
                       className={`${
-                        selectedSize === sizes ? "text-black" : ""
+                        selectedSize === sizes ? "text-primary-100" : ""
                       }`}
                     >
                       {sizes}

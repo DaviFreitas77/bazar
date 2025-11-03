@@ -89,7 +89,7 @@ export function Product() {
               {prod.sizes.map((size: string) => (
                 <span
                   key={size}
-                  className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-800 cursor-pointer hover:bg-[#9E5330] hover:text-white transition"
+                  className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 text-gray-800 cursor-pointer hover:bg-primary-100 hover:text-white transition"
                 >
                   {size}
                 </span>
@@ -98,7 +98,7 @@ export function Product() {
           </AccordionFilter>
 
           {/* Botão comprar */}
-          <button className="bg-[#9E5330] text-white py-3 w-full rounded-xs font-medium text-base hover:bg-[#864326] transition">
+          <button className="bg-primary-50 text-white py-3 w-full rounded-xs font-medium text-base hover:opacity-85 cursor-pointer ">
             Adicionar à sacola
           </button>
 
@@ -110,7 +110,7 @@ export function Product() {
                 placeholder="Digite seu CEP"
                 className="border border-gray-200 p-3 rounded-xs w-full focus:outline-none focus:ring-1 focus:ring-[#9E5330]"
               />
-              <button className="bg-[#9E5330] text-white px-6 rounded-xs hover:bg-[#864326] transition">
+              <button className="bg-primary-50 text-white px-6 rounded-xs hover:bg-[#864326] transition">
                 Consultar
               </button>
             </div>

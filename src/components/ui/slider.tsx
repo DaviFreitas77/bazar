@@ -75,7 +75,7 @@ function SliderProduct() {
       {/* Valores + botão */}
       <div className="flex justify-between items-center mt-4 text-sm text-gray-600">
         {/* Botão */}
-        <button className="bg-[#101828] text-white px-6 py-1 rounded-xs hover:bg-[#1f2937] transition cursor-pointer">
+        <button className="bg-primary-50 text-white px-6 py-1 rounded-xs hover:bg-primary-100 transition cursor-pointer">
           Filtrar
         </button>
 

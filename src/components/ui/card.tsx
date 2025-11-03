@@ -24,7 +24,7 @@ export function CardProduct({
   return (
     <div
       onClick={handleClick}
-      className="max-w-[250px] w-full bg-white rounded-sm shadow-sm max-h-130"
+      className="max-w-[250px] w-full bg-white rounded-sm shadow-sm max-h-130 hover:opacity-85 cursor-pointer"
     >
       <div>
         <img
@@ -57,7 +57,7 @@ export function CardProduct({
           {currentPrice}
         </p>
 
-        <button className="text-sm  w-full bg-[#9E5330] text-white py-2 px-4 rounded-xs font-semibold hover:bg-[#864326] transition-colors">
+        <button className="text-sm  w-full bg-primary-50 text-white py-2 px-4 rounded-xs font-semibold hover:opacity-85 cursor-pointer transition-colors">
           Adicionar ao carrinho
         </button>
       </div>
