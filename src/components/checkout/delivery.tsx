@@ -6,9 +6,7 @@ import { Remove } from "./sub-component/remove";
 export function ChooseDelivery() {
   return (
     <section className="lg:col-span-2">
-     
-
-      <div className="border border-gray-200 bg-white shadow-sm p-8 rounded-md">
+      <div className="p-2 md:p-8 rounded-md">
         {/* Título */}
         <div className="flex items-center gap-3 border-b border-gray-100 pb-4">
           <div className="bg-[#F4EDE7] p-2 rounded-full text-primary-50">
@@ -26,15 +24,10 @@ export function ChooseDelivery() {
 
         <Choose />
 
-        <Adress/>
+        <Adress />
         {/* <Remove /> */}
 
-        {/* Botão */}
-        <div className="mt-8 flex justify-end">
-          <button className="bg-primary-50 hover:opacity-85 cursor-pointer text-white font-medium px-8 py-3 rounded-md  transition duration-200 shadow-sm">
-            Continuar
-          </button>
-        </div>
+       
       </div>
     </section>
   );

@@ -24,11 +24,11 @@ export function CardProduct({
   return (
     <div
       onClick={handleClick}
-      className="max-w-[250px] w-full bg-white rounded-sm shadow-sm max-h-130 hover:opacity-85 cursor-pointer"
+      className="max-w-[250px] w-full bg-white rounded-sm shadow-sm max-h-130  "
     >
       <div>
         <img
-          className="w-full aspect-[3/3] object-cover object-top"
+          className="w-full aspect-[3/3] object-cover object-top hover:opacity-85 cursor-pointer"
           src={imageUrl}
           alt="Vestido um ombro Aura"
         />
@@ -57,7 +57,7 @@ export function CardProduct({
           {currentPrice}
         </p>
 
-        <button className="text-sm  w-full bg-primary-50 text-white py-2 px-4 rounded-xs font-semibold hover:opacity-85 cursor-pointer transition-colors">
+        <button className="text-sm  w-full bg-primary-50 text-white py-2 px-4 rounded-xs font-semibold hover:bg-primary-100 cursor-pointer transition-colors">
           Adicionar ao carrinho
         </button>
       </div>

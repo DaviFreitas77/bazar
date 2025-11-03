@@ -6,26 +6,12 @@ import { FaRegUser } from "react-icons/fa";
 export function PeopleInformation() {
   return (
     <section className="lg:col-span-2">
-      {/* Cabeçalho */}
-      <div className="flex items-center gap-3 mb-10">
-        <div className="bg-[#F4EDE7] p-3 rounded-full text-[#A2785A] shadow-sm">
-          <LiaShoppingBagSolid size={22} />
-        </div>
-        <div>
-          <h2 className="text-2xl text-gray-900 font-semibold">
-            Finalize sua compra
-          </h2>
-          <p className="text-sm text-gray-500">
-            Conclua seu pedido em poucos segundos.
-          </p>
-        </div>
-      </div>
-
+    
       {/* Formulário */}
-      <div className="border border-gray-200 bg-white shadow-sm p-8 rounded-md">
+      <div className="px-2 py-6 md:p-8 rounded-md">
         {/* Título */}
         <div className="flex items-center gap-3 border-b border-gray-100 pb-4">
-          <div className="bg-[#F4EDE7] p-2 rounded-full text-[#A2785A]">
+          <div className="bg-[#F4EDE7] p-2 rounded-full text-primary-50">
             <CiUser size={22} />
           </div>
           <div>
@@ -98,12 +84,7 @@ export function PeopleInformation() {
           </div>
         </div>
 
-        {/* Botão */}
-        <div className="mt-8 flex justify-end">
-          <button className="bg-bg-primary-50  text-white font-medium px-8 py-3 rounded-md transition duration-200 shadow-sm">
-            Continuar
-          </button>
-        </div>
+    
       </div>
     </section>
   );

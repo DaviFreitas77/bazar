@@ -1,7 +1,7 @@
 import { LiaShoppingBagSolid } from "react-icons/lia";
 export function TitlePage(){
     return(
-        <div className="flex items-center gap-3 mb-10  w-full  max-w-[1450px]">
+        <div className="flex items-center gap-3 mb-10  w-full  max-w-7xl">
                 <div className="bg-[#F4EDE7] p-3 rounded-full text-primary-50 shadow-sm">
                   <LiaShoppingBagSolid size={22} />
                 </div>

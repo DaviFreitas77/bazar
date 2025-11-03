@@ -2,7 +2,7 @@ import { LiaShoppingBagSolid } from "react-icons/lia";
 import { FiTrash2 } from "react-icons/fi";
 export function Summary(){
     return(
-         <section className="border border-gray-200 bg-white shadow-sm rounded-md p-6 h-fit  ">
+         <section className="border border-gray-200 bg-white md:shadow-sm rounded-md p-2 pt-4 md:p-6 h-fit  max-w-md">
           <div className="flex items-center gap-3 mb-6">
             <div className="bg-[#F4EDE7] p-3 rounded-full text-primary-50 shadow-sm">
               <LiaShoppingBagSolid size={22} />
@@ -87,7 +87,7 @@ export function Summary(){
                     placeholder="Digite seu cupom"
                     className="border border-gray-200 px-4 py-3 w-full rounded-md outline-none focus:ring-2 focus:ring-[#D0AB91]/50 transition duration-200 bg-[#F9FAFB]"
                   />
-                  <button className="absolute right-1.5 bg-primary-50 text-white font-medium px-5 py-2 rounded-md  transition duration-200 shadow-sm">
+                  <button className="absolute right-1.5 bg-primary-50 text-white font-medium px-5 py-2 rounded-md  transition duration-200 shadow-sm cursor-pointer">
                     Aplicar
                   </button>
                 </div>

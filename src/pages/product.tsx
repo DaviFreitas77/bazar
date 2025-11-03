@@ -98,7 +98,7 @@ export function Product() {
           </AccordionFilter>
 
           {/* Botão comprar */}
-          <button className="bg-primary-50 text-white py-3 w-full rounded-xs font-medium text-base hover:opacity-85 cursor-pointer ">
+          <button className="bg-primary-50 hover:bg-primary-100 text-white py-3 w-full rounded-xs font-medium text-base hover:opacity-85 cursor-pointer ">
             Adicionar à sacola
           </button>
 
@@ -110,7 +110,7 @@ export function Product() {
                 placeholder="Digite seu CEP"
                 className="border border-gray-200 p-3 rounded-xs w-full focus:outline-none focus:ring-1 focus:ring-[#9E5330]"
               />
-              <button className="bg-primary-50 text-white px-6 rounded-xs hover:bg-[#864326] transition">
+              <button className="bg-primary-50 text-white px-6 rounded-xs hover:bg-primary-100 transition cursor-pointer">
                 Consultar
               </button>
             </div>
