@@ -4,6 +4,9 @@ import { LiaShoppingBagSolid } from "react-icons/lia";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { SheetSearch } from "./sheet";
 import { useState } from "react";
+import { PopularSearches } from "../searchBar/PopularSearches";
+import { InputSearch } from "../searchBar/inputSearch";
+import { ShowProductsSearchded } from "../searchBar/showProductsSearched";
 
 export function Header() {
   const [openCart, setOpenCart] = useState<boolean>(false);
@@ -26,7 +29,6 @@ export function Header() {
 
           {/* Ações */}
           <div className="flex items-center gap-8 text-gray-800">
-            
             {/* Pesquisa */}
             <button
               onClick={() => setOpenSearch(true)}
@@ -70,6 +72,7 @@ export function Header() {
         </div>
       </section>
       <SheetSearch
+         widthSheet={400} 
         open={openCart}
         onOpenChange={setOpenCart}
         side="right"
@@ -77,6 +80,7 @@ export function Header() {
       />
 
       <SheetSearch
+          widthSheet={400} 
         open={openFavorite}
         onOpenChange={setOpenFavorite}
         side="right"
@@ -84,11 +88,19 @@ export function Header() {
       />
 
       <SheetSearch
+         widthSheet={500} 
         open={openSearch}
         onOpenChange={setOpenSearch}
         side="right"
-        tittle="Pesquisar"
-      />
+        tittle=""
+      >
+        <InputSearch />
+
+        <PopularSearches />
+
+        <h3 className="mt-4  text-gray-900">Produtos sugeridos</h3>
+        <ShowProductsSearchded />
+      </SheetSearch>
     </header>
   );
 }

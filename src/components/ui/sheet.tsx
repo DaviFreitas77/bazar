@@ -130,12 +130,16 @@ interface SheetSearchProps {
   onOpenChange: (open: boolean) => void;
   children?: React.ReactNode;
   side: "left" | "right";
-  tittle:string
+  tittle:string,
+  widthSheet:number
 }
-function SheetSearch({open,onOpenChange,children,side,tittle}:SheetSearchProps) {
+function SheetSearch({open,onOpenChange,children,side,tittle,widthSheet}:SheetSearchProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side={side}>
+      <SheetContent 
+       style={{ width: `${widthSheet}px` }}
+       className={`sm:max-w-2xl overflow-auto`} 
+      side={side}>
         <SheetHeader>
           <SheetTitle className="text-xl">{tittle}</SheetTitle>
         {children}

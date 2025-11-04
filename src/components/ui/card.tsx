@@ -35,7 +35,7 @@ export function CardProduct({
       </div>
 
       <div className="px-2 py-4 space-y-3">
-        <h3 className="text-sm lg:text-base font-semibold text-gray-900">
+        <h3 className="text-sm lg:text-base  text-gray-900">
           {nameProduct}
         </h3>
 

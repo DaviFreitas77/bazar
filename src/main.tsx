@@ -4,14 +4,16 @@ import { BrowserRouter } from "react-router-dom";
 import { CheckoutProvider } from "@/context/checkoutContext";
 import "./index.css";
 import App from "./App.tsx";
+import { ProductsSearchedProvider } from "./context/productsSearcherContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
-    <CheckoutProvider>
-      <StrictMode>
-        <App />
-      </StrictMode>
-      
-    </CheckoutProvider>
+    <ProductsSearchedProvider>
+      <CheckoutProvider>
+        <StrictMode>
+          <App />
+        </StrictMode>
+      </CheckoutProvider>
+    </ProductsSearchedProvider>
   </BrowserRouter>
 );
