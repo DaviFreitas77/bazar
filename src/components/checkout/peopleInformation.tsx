@@ -2,11 +2,29 @@ import { CiUser } from "react-icons/ci";
 import { MdEmail, MdPhone } from "react-icons/md";
 import { LiaShoppingBagSolid } from "react-icons/lia";
 import { FaRegUser } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import { PeopleInformationSchema } from "@/schemas/schemaCheckout";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useCheckout } from "@/context/checkoutContext";
 
 export function PeopleInformation() {
+   const {setStep } = useCheckout();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<CheckoutProps.InformationsProps>({
+    resolver: yupResolver(PeopleInformationSchema),
+  });
+
+  const onSubmit = (data: CheckoutProps.InformationsProps) => {
+    console.log(data);
+    setStep(2)
+
+  };
+
   return (
     <section className="lg:col-span-2">
-    
       {/* Formulário */}
       <div className="px-2 py-6 md:p-8 rounded-md">
         {/* Título */}
@@ -25,18 +43,27 @@ export function PeopleInformation() {
         </div>
 
         {/* Inputs */}
-        <div className="mt-8 space-y-5">
+        <form className="mt-8 space-y-5" onSubmit={handleSubmit(onSubmit)}>
           {/* Nome e Sobrenome */}
           <div className="flex flex-col md:flex-row items-center gap-4">
             <div className="flex flex-col w-full gap-1">
               <label className="text-gray-900 font-medium text-sm">Nome</label>
               <div className="relative">
-                <FaRegUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <FaRegUser className="absolute left-3 top-6 -translate-y-1/2 text-gray-400" />
+
                 <input
+                  {...register("name")}
                   type="text"
                   placeholder="Seu nome"
                   className="border border-gray-200 py-3 pl-10 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-[#D0AB91]/50 transition duration-200 bg-[#F9FAFB]"
                 />
+                <div className="h-2 mt-1">
+                  {errors.name && (
+                    <span className="text-red-500 text-sm">
+                      {errors.name.message}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -45,12 +72,20 @@ export function PeopleInformation() {
                 Sobrenome
               </label>
               <div className="relative">
-                <FaRegUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <FaRegUser className="absolute left-3 top-6 -translate-y-1/2 text-gray-400" />
                 <input
+                  {...register("lastName")}
                   type="text"
                   placeholder="Seu sobrenome"
                   className="border border-gray-200 py-3 pl-10 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-[#D0AB91]/50 transition duration-200 bg-[#F9FAFB]"
                 />
+                <div className="h-2 mt-1">
+                  {errors.lastName && (
+                    <span className="text-red-500 text-sm">
+                      {errors.lastName.message}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -59,12 +94,21 @@ export function PeopleInformation() {
           <div className="flex flex-col w-full gap-1">
             <label className="text-gray-900 font-medium text-sm">Email</label>
             <div className="relative">
-              <MdEmail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <MdEmail className="absolute left-3 top-6 -translate-y-1/2 text-gray-400" />
               <input
+                {...register("email")}
                 type="email"
                 placeholder="seuemail@gmail.com"
                 className="border border-gray-200 py-3 pl-10 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-[#D0AB91]/50 transition duration-200 bg-[#F9FAFB]"
               />
+
+              <div className="h-2 mt-1">
+                {errors.email && (
+                  <span className="text-red-500 text-sm">
+                    {errors.email.message}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 
@@ -74,17 +118,32 @@ export function PeopleInformation() {
               Telefone
             </label>
             <div className="relative">
-              <MdPhone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <MdPhone className="absolute left-3 top-6 -translate-y-1/2 text-gray-400" />
               <input
+                {...register("phone")}
                 type="text"
                 placeholder="(00) 00000-0000"
                 className="border border-gray-200 py-3 pl-10 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-[#D0AB91]/50 transition duration-200 bg-[#F9FAFB]"
               />
+              <div className="h-2 mt-1">
+                {errors.phone && (
+                  <span className="text-red-500 text-sm">
+                    {errors.phone.message}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-
-    
+          <button
+            type="submit"
+            disabled={!isValid}
+            className={`bg-primary-50 cursor-pointer text-white font-medium px-8 py-3 rounded-md transition duration-200 shadow-sm ${
+              !isValid && "opacity-50"
+            }`}
+          >
+            Continuar
+          </button>
+        </form>
       </div>
     </section>
   );

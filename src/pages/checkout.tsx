@@ -4,12 +4,12 @@ import { ChooseDelivery } from "@/components/checkout/delivery";
 import { TitlePage } from "@/components/checkout/sub-component/titlePage";
 import { Summary } from "@/components/checkout/sub-component/summary";
 import { ProgressStep } from "@/components/checkout/progress";
-import { useState } from "react";
 import { Payment } from "@/components/checkout/payment";
 import { PaymentConfirmed } from "@/components/checkout/paymentConfirmed";
+import { useCheckout } from "@/context/checkoutContext";
 
 export function Checkout() {
-  const [step, setStep] = useState(1);
+ const { step } = useCheckout();
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-2 md:px-6 py-12">
       <TitlePage />
@@ -28,26 +28,7 @@ export function Checkout() {
             <PaymentConfirmed />
           )}
 
-          {/* Botão */}
-          <div
-            className={`m-8 flex justify-between ${step === 4 ? "hidden" : "block"
-              }`}
-          >
-            <button
-              onClick={() => setStep((prev) => prev - 1)}
-              className={` ${step === 1 ? "hidden" : "block"
-                } bg-gray-200 hover:bg-primary-50 cursor-pointer  text-white font-medium px-8 py-3 rounded-md transition duration-200 shadow-sm `}
-            >
-              Voltar
-            </button>
 
-            <button
-              onClick={() => setStep((prev) => prev + 1)}
-              className="bg-primary-50 cursor-pointer text-white font-medium px-8 py-3 rounded-md transition duration-200 shadow-sm"
-            >
-              Continuar
-            </button>
-          </div>
         </div>
 
         <Summary />

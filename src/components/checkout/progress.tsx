@@ -23,7 +23,7 @@ export function ProgressStep({ step }: ProgressProps) {
                 : "text-primary-50 font-semibold"
             }`}
           >
-            Dados pessoais
+            Dados
           </span>
         </div>
 
@@ -34,7 +34,7 @@ export function ProgressStep({ step }: ProgressProps) {
         ></div>
 
         {/* step2 */}
-        <div className="flex items-center flex-col gap-1 mx-10">
+        <div className="flex items-center flex-col gap-1 ">
           <div
             className={`flex items-center justify-center w-10 h-10 rounded-full ${
               step >= 2
@@ -60,7 +60,7 @@ export function ProgressStep({ step }: ProgressProps) {
         ></div>
 
         {/* step3 */}
-        <div className="flex items-center flex-col gap-1 ml-10">
+        <div className="flex items-center flex-col gap-1 ">
           <div
             className={`flex items-center justify-center w-10 h-10 rounded-full ${
               step >= 3
@@ -80,12 +80,12 @@ export function ProgressStep({ step }: ProgressProps) {
         </div>
 
         <div
-          className={`w-30 h-1 bg-gray-200 mt-5 ${
+          className={`w-30 h-1 bg-gray-200 mt-5  ${
             step >= 4 && "bg-primary-100"
           }`}
         ></div>
 
-        <div className="flex items-center flex-col gap-1 ml-10">
+        <div className="flex items-center flex-col gap-1 ">
           <div
             className={`flex items-center justify-center w-10 h-10 rounded-full ${
               step >= 4

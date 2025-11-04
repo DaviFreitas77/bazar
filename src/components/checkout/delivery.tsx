@@ -1,4 +1,4 @@
-import { LiaShoppingBagSolid } from "react-icons/lia";
+
 import { CiDeliveryTruck } from "react-icons/ci";
 import { Choose } from "./sub-component/chooseDelivery";
 import { Adress } from "./sub-component/adress";
