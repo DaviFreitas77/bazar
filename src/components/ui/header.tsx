@@ -6,7 +6,7 @@ import { SheetSearch } from "./sheet";
 import { useState } from "react";
 import { PopularSearches } from "../searchBar/PopularSearches";
 import { InputSearch } from "../searchBar/inputSearch";
-import { ShowProductsSearchded } from "../searchBar/showProductsSearched";
+import { ShowProductsSearched } from "../searchBar/showProductsSearched";
 
 export function Header() {
   const [openCart, setOpenCart] = useState<boolean>(false);
@@ -72,7 +72,7 @@ export function Header() {
         </div>
       </section>
       <SheetSearch
-         widthSheet={400} 
+        widthSheet={400}
         open={openCart}
         onOpenChange={setOpenCart}
         side="right"
@@ -80,7 +80,7 @@ export function Header() {
       />
 
       <SheetSearch
-          widthSheet={400} 
+        widthSheet={400}
         open={openFavorite}
         onOpenChange={setOpenFavorite}
         side="right"
@@ -88,7 +88,7 @@ export function Header() {
       />
 
       <SheetSearch
-         widthSheet={500} 
+        widthSheet={500}
         open={openSearch}
         onOpenChange={setOpenSearch}
         side="right"
@@ -99,7 +99,7 @@ export function Header() {
         <PopularSearches />
 
         <h3 className="mt-4  text-gray-900">Produtos sugeridos</h3>
-        <ShowProductsSearchded />
+        <ShowProductsSearched />
       </SheetSearch>
     </header>
   );

@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { CheckoutProvider } from "@/context/checkoutContext";
 import "./index.css";
 import App from "./App.tsx";
-import { ProductsSearchedProvider } from "./context/productsSearcherContext.tsx";
+import { ProductsSearchedProvider } from "./context/productsSearchedContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>

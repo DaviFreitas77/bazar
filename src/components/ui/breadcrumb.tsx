@@ -3,6 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { ChevronRight, MoreHorizontal } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { useProductsSearched } from "@/context/productsSearchedContext";
 
 function Breadcrumb({ ...props }: React.ComponentProps<"nav">) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />;
@@ -99,6 +100,7 @@ function BreadcrumbEllipsis({
 }
 
 function BreadcrumbPages() {
+  const { nameProduct } = useProductsSearched();
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -107,11 +109,11 @@ function BreadcrumbPages() {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink>Categoria</BreadcrumbLink>
+          <BreadcrumbLink>Pesquisa</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>Moletom</BreadcrumbPage>
+          <BreadcrumbPage>{nameProduct}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -126,5 +128,5 @@ export {
   BreadcrumbPage,
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
-  BreadcrumbPages
+  BreadcrumbPages,
 };

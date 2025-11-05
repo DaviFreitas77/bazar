@@ -1,14 +1,13 @@
-import { useProductsSearched } from "@/context/productsSearcherContext";
+import { useProductsSearched } from "@/context/productsSearchedContext";
 import { searchProducts } from "@/utils/productsUtild";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 export function InputSearch() {
-  const [search, setSearch] = useState<string>("");
-  const { setProducts } = useProductsSearched();
+  const { nameProduct,setNameProduct,setProducts } = useProductsSearched();
 
   const memoizedResults = useMemo(() => {
-    return searchProducts(search);
-  }, [search]);
+    return searchProducts(nameProduct);
+  }, [nameProduct]);
 
   setProducts(memoizedResults);
 
@@ -16,7 +15,8 @@ export function InputSearch() {
     <input
       type="text"
       placeholder="Pesquisar"
-      onChange={(e) => setSearch(e.target.value)}
+      value={nameProduct}
+      onChange={(e) => setNameProduct(e.target.value)}
       className="
             w-[90%]
             outline-none
