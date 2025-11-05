@@ -7,6 +7,8 @@ import { useState } from "react";
 import { PopularSearches } from "../searchBar/PopularSearches";
 import { InputSearch } from "../searchBar/inputSearch";
 import { ShowProductsSearched } from "../searchBar/showProductsSearched";
+import { CartProducts } from "../shoppingCart/cartProducts";
+
 
 export function Header() {
   const [openCart, setOpenCart] = useState<boolean>(false);
@@ -71,13 +73,16 @@ export function Header() {
           </div>
         </div>
       </section>
+
       <SheetSearch
         widthSheet={400}
         open={openCart}
         onOpenChange={setOpenCart}
         side="right"
         tittle="Carrinho"
-      />
+      >
+       <CartProducts/>
+      </SheetSearch>
 
       <SheetSearch
         widthSheet={400}
