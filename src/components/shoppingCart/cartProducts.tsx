@@ -16,20 +16,20 @@ export function CartProducts() {
           <div className="flex items-end justify-between ">
             <p className="font-semibold text-gray-900 mt-10">R$ 129,90</p>
             <div className="flex items-center gap-3 mt-1">
-              <button className="p-1 rounded-full border border-primary-50 hover:bg-primary-50 cursor-pointer">
+              <button className="p-1 rounded-full border border-primary-50 hover:bg-primary-100 hover:text-white cursor-pointer">
                 <Minus size={16} />
               </button>
 
               <p className="text-sm font-medium text-gray-700">1</p>
 
-              <button className="p-1  border rounded-full border-primary-50 hover:bg-primary-50 cursor-pointer">
+              <button className="p-1  border rounded-full border-primary-50 hover:bg-primary-100 hover:text-white cursor-pointer">
                 <Plus size={16} />
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex gap-3 border-b py-2 border-gray-200">
+      <div className="flex gap-3 border-b pb-3 border-gray-200">
         <img
           src="/images/moletom.jpg"
           alt="produto"
@@ -41,19 +41,20 @@ export function CartProducts() {
           <div className="flex items-end justify-between ">
             <p className="font-semibold text-gray-900 mt-10">R$ 129,90</p>
             <div className="flex items-center gap-3 mt-1">
-              <button className="p-1 rounded-full border border-primary-50 hover:bg-primary-50 cursor-pointer">
+              <button className="p-1 rounded-full border border-primary-50 hover:bg-primary-100 hover:text-white cursor-pointer">
                 <Minus size={16} />
               </button>
 
               <p className="text-sm font-medium text-gray-700">1</p>
 
-              <button className="p-1  border rounded-full border-primary-50 hover:bg-primary-50 cursor-pointer">
+              <button className="p-1  border rounded-full border-primary-50 hover:bg-primary-100 hover:text-white cursor-pointer">
                 <Plus size={16} />
               </button>
             </div>
           </div>
         </div>
       </div>
+    
 
       <TotalShoppingCart />
     </section>

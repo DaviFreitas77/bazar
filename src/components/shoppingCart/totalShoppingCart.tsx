@@ -8,10 +8,11 @@ export function TotalShoppingCart(){
                     O valor final, incluindo os descontos e fretes, será calculado na próxima etapa.</p>
                 <div className="flex flex-col gap-2   border-t py-4 border-gray-200">
                     <div className="flex justify-between">
-                        <p className="font-semibold text-lg">Total</p>
+                        <p className="font-semibold text-base
+                        text-gray-800">Total</p>
                         <p className="text-primary-50 font-semibold">R$ 300,00</p>
                     </div>
-                    <button className="w-full px-8 bg-primary-50 py-3 text-white rounded-sm cursor-pointer hover:opacity-85">Finalizar Comprar</button>
+                    <button className="w-full px-8 bg-primary-50 py-3 text-white rounded-sm cursor-pointer hover:bg-primary-100 transition-all duration-300">Finalizar Comprar</button>
                 </div>
             </section>
     )
