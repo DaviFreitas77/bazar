@@ -5,6 +5,7 @@ import { registerUser } from "@/api/auth.api";
 import { useState } from "react";
 import { Loading } from "../loading/loading";
 import { useUser } from "@/context/userContext";
+import { toast } from "sonner"
 
 interface FormRegisterProps {
   onChangeForm: () => void;
@@ -31,6 +32,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
       const response = await registerUser(data);
       console.log(response);
       onClose();
+      toast.success("Cadastro realizado!")
       setEmail(response.user.email);
       setName(response.user.name);
     } catch (error: any) {

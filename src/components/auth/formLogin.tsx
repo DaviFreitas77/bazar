@@ -5,6 +5,7 @@ import { loginUser } from "@/api/auth.api";
 import { useState } from "react";
 import { Loading } from "../loading/loading";
 import { useUser } from "@/context/userContext";
+import { toast } from "sonner"
 
 interface FormLoginProps {
   onChangeForm: () => void;
@@ -28,6 +29,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       setEmail(response.user.email);
       setName(response.user.name);
       onClose();
+      toast.success("Login realizado")
     } catch (error) {
       console.log(error);
     } finally {
@@ -80,6 +82,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
           <a id="show-form-password" className="text-primary text-sm hover:underline">
             Esqueceu a senha?
           </a>
+          
         </div>
         <div className="flex w-full">
           <button type="submit" className="bg-primary-50 transition-colors text-white px-6 py-3 rounded-sm font-semibold w-full hover:bg-primary-100 cursor-pointer">
@@ -93,6 +96,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
           </button>
         </p>
       </form>
+
     </main>
   );
 }

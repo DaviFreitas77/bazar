@@ -8,7 +8,7 @@ import { ProductsSearchedProvider } from "./context/productsSearchedContext.tsx"
 import { UserProvider, useUser } from "./context/userContext.tsx";
 import axios from "axios";
 import { getMe } from "./api/auth.api.ts";
-
+import { Toaster } from "@/components/ui/sonner"
 function InitApp() {
   const { setName, setEmail } = useUser();
 
@@ -47,6 +47,7 @@ createRoot(document.getElementById("root")!).render(
         <CheckoutProvider>
           <StrictMode>
             <InitApp />
+            <Toaster/>
           </StrictMode>
         </CheckoutProvider>
       </ProductsSearchedProvider>
