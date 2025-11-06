@@ -1,14 +1,8 @@
 import * as yup from "yup";
 
 export const PeopleInformationSchema = yup.object().shape({
-  name: yup
-    .string()
-    .required("Nome é obrigatório")
-    .min(4, "Minimo de 4 caractéres"),
-  lastName: yup
-    .string()
-    .required("Sobrenome é obrigatório")
-    .min(4, "Minimo de 4 caractéres"),
+  name: yup.string().required("Nome é obrigatório").min(4, "Minimo de 4 caractéres"),
+  lastName: yup.string().required("Sobrenome é obrigatório").min(4, "Minimo de 4 caractéres"),
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
   phone: yup.string().required("Telefone é obrigatório"),
 });

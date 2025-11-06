@@ -3,18 +3,22 @@ import { CiSearch } from "react-icons/ci";
 import { LiaShoppingBagSolid } from "react-icons/lia";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { SheetSearch } from "./sheet";
-import { useState } from "react";
+import {useState } from "react";
 import { PopularSearches } from "../searchBar/PopularSearches";
 import { InputSearch } from "../searchBar/inputSearch";
 import { ShowProductsSearched } from "../searchBar/showProductsSearched";
 import { CartProducts } from "../shoppingCart/cartProducts";
-
+import { ModalAuth } from "../auth/modalAuth";
+import { useUser } from "@/context/userContext";
 
 export function Header() {
   const [openCart, setOpenCart] = useState<boolean>(false);
   const [openFavorite, setOpenFavorite] = useState<boolean>(false);
   const [openSearch, setOpenSearch] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+ const { name } = useUser();
 
+ 
   return (
     <header className="w-full border-b border-gray-200 shadow-sm">
       <section className="bg-primary-50 text-white text-center py-2 text-sm tracking-wide">
@@ -29,8 +33,7 @@ export function Header() {
             Logo
           </span>
 
-          {/* Ações */}
-          <div className="flex items-center gap-8 text-gray-800">
+          <div className="flex items-center gap-4 text-gray-800">
             {/* Pesquisa */}
             <button
               onClick={() => setOpenSearch(true)}
@@ -41,12 +44,32 @@ export function Header() {
             </button>
 
             {/* Conta */}
-            <div className="flex items-center gap-2 hover:text-primary-50 transition-colors cursor-pointer">
+            <div className="flex items-center gap-2  transition-colors cursor-pointer">
               <AiOutlineUser size={22} />
-              <div className="leading-4">
-                <p className="text-gray-600 font-medium">Minha conta</p>
-                <p className="text-xs text-gray-500">Entrar / Cadastre-se</p>
-              </div>
+              {name ? (
+                <p className="capitalize">{name}</p>
+              ) : (
+                <div className="leading-4 flex flex-col items-start">
+                  <button className="text-gray-600 font-medium">
+                    Minha conta
+                  </button>
+                  <button className="text-xs text-gray-500">
+                    <span
+                      onClick={() => setShowModal(true)}
+                      className="hover:text-primary-50 cursor-pointer"
+                    >
+                      Entrar
+                    </span>{" "}
+                    /{" "}
+                    <span
+                      onClick={() => setShowModal(true)}
+                      className="hover:text-primary-50 cursor-pointer"
+                    >
+                      Cadastre-se
+                    </span>{" "}
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Favoritos */}
@@ -81,7 +104,7 @@ export function Header() {
         side="right"
         tittle="Carrinho"
       >
-       <CartProducts/>
+        <CartProducts />
       </SheetSearch>
 
       <SheetSearch
@@ -106,6 +129,8 @@ export function Header() {
         <h3 className="mt-4  text-gray-900">Produtos sugeridos</h3>
         <ShowProductsSearched />
       </SheetSearch>
+
+      <ModalAuth open={showModal} onClose={() => setShowModal(false)} />
     </header>
   );
 }

@@ -17,33 +17,32 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
         <h2 className="text-xl font-semibold mb-3 text-gray-900">Recomendamos para você</h2>
         <Swiper
           modules={[Navigation, Pagination]}
-   
-           speed={1000}
+          speed={1000}
           breakpoints={{
             320: {
               slidesPerView: 1.5,
               spaceBetween: 10,
-                slidesPerGroup:2
+              slidesPerGroup: 2,
             },
             640: {
               slidesPerView: 3.2,
               spaceBetween: 15,
-              slidesPerGroup:3
+              slidesPerGroup: 3,
             },
             1024: {
               slidesPerView: 4,
               spaceBetween: 20,
-              slidesPerGroup:4
+              slidesPerGroup: 4,
             },
             1366: {
               slidesPerView: 5,
               spaceBetween: 20,
-              slidesPerGroup:5
+              slidesPerGroup: 5,
             },
             1536: {
               slidesPerView: 5,
               spaceBetween: 25,
-              slidesPerGroup:5
+              slidesPerGroup: 5,
             },
           }}
           navigation
@@ -52,14 +51,7 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
         >
           {suggestionProducts.map((item) => (
             <SwiperSlide key={item.id}>
-              <CardProduct
-                currentPrice={item.currentPrice}
-                originalPrice={item.originalPrice}
-                imageUrl={item.image[0]}
-                nameProduct={item.productName}
-                idProduct={item.id}
-                tamanhos={item.sizes}
-              />
+              <CardProduct currentPrice={item.currentPrice} originalPrice={item.originalPrice} imageUrl={item.image[0]} nameProduct={item.productName} idProduct={item.id} tamanhos={item.sizes} />
             </SwiperSlide>
           ))}
         </Swiper>

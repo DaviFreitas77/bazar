@@ -9,15 +9,10 @@ interface CheckoutContextType {
 // Criação do contexto
 const CheckoutContext = createContext<CheckoutContextType | undefined>(undefined);
 
-
 export function CheckoutProvider({ children }: { children: React.ReactNode }) {
   const [step, setStep] = useState(1);
 
-  return (
-    <CheckoutContext.Provider value={{ step, setStep }}>
-      {children}
-    </CheckoutContext.Provider>
-  );
+  return <CheckoutContext.Provider value={{ step, setStep }}>{children}</CheckoutContext.Provider>;
 }
 
 // para consumir o contexto
