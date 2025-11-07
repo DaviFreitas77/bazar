@@ -1,20 +1,22 @@
-declare namespace ProductProps {
-  
-  interface Card {
-    idProduct: number;
-    nameProduct: string;
-    tamanhos: string[];
-    currentPrice: string;
-    originalPrice?: string;
-    imageUrl: string;
+import type { PrinterCheck } from "lucide-react";
+
+
+
+ export interface Card {
+    id: number;
+    name: string;
+    sizes: string[];
+    price: number;
+    lastPrice?: number;
+    image: string;
   }
 
-  interface Product {
+ export interface Product {
     id: number;
-    productName: string;
+    name: string;
     description: string;
-    currentPrice: string;
-    originalPrice: string;
+    price: number;
+    lastPrice: number;
     discount: string;
     rating: number;
     reviews: number;
@@ -22,12 +24,13 @@ declare namespace ProductProps {
     sizes: string[];
     material: string;
     image: string[];
-    category: string;
+    category: number;
   }
 
-  interface Category {
+  export interface Category {
     id: string;
     name: string;
     description: string;
   }
-}
+  
+

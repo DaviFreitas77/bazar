@@ -1,3 +1,7 @@
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -9,6 +13,8 @@ import { UserProvider, useUser } from "./context/userContext.tsx";
 import axios from "axios";
 import { getMe } from "./api/auth.api.ts";
 import { Toaster } from "@/components/ui/sonner"
+const queryClient = new QueryClient()
+
 function InitApp() {
   const { setName, setEmail } = useUser();
 
@@ -41,6 +47,7 @@ function InitApp() {
 }
 
 createRoot(document.getElementById("root")!).render(
+  <QueryClientProvider client={queryClient}>
   <BrowserRouter>
     <UserProvider>
       <ProductsSearchedProvider>
@@ -53,4 +60,5 @@ createRoot(document.getElementById("root")!).render(
       </ProductsSearchedProvider>
     </UserProvider>
   </BrowserRouter>
+  </QueryClientProvider>
 );

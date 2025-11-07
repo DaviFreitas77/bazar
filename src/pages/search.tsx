@@ -1,9 +1,4 @@
-import {
-  getProducts,
-  searchProducts,
-  filterColorsProducts,
-  filterSizesProducts,
-} from "@/utils/productsUtild";
+import { filterColorsProducts, filterSizesProducts } from "@/utils/productsUtild";
 import { CardProduct } from "@/components/ui/card";
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -13,6 +8,9 @@ import { PaginationSearch } from "@/components/search/pagination";
 import { EmptyProduct } from "@/components/search/emptyProduct";
 import { ActionButtons } from "@/components/search/action";
 import { DrawerDesktop } from "@/components/search/drawerDesktop";
+import { useProductsByCategory } from "@/api/products.api";
+import { LoadingPage } from "@/components/loading/loadingPage";
+import type { Product } from "@/@types/product";
 
 export function Search() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -21,9 +19,12 @@ export function Search() {
   const [selectedSize, setSelectedSize] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+  const [idCategory, setIdCategory] = useState<number | null>(1);
   const search = searchParams.get("q");
   const [currentPage, setCurrentPage] = useState(1);
   let productsPerPage = 16;
+
+  const { data: productsCategory, isLoading: isLoadingProductCategory} = useProductsByCategory(idCategory);
 
   const applyFilterProducts = (filter: string, value: string) => {
     if (filter === "filterColor") {
@@ -33,12 +34,9 @@ export function Search() {
       setSelectedSize((prev) => (prev === value ? "" : value));
     }
   };
-  const products = useMemo(() => {
-    return search ? searchProducts(search) : getProducts();
-  }, [search]);
 
   const filteredProducts = useMemo(() => {
-    let result = [...products];
+    let result: Product[] = Array.isArray(productsCategory) ? [...productsCategory] : [];
 
     if (selectedColor) {
       result = filterColorsProducts(selectedColor, result);
@@ -49,14 +47,11 @@ export function Search() {
     }
 
     return result;
-  }, [products, selectedColor, selectedSize]);
+  }, [productsCategory, selectedColor, selectedSize]);
 
   const indexOfLastItem = currentPage * productsPerPage;
   const indexOfFirstItem = indexOfLastItem - productsPerPage;
-  const currentItems = filteredProducts.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
+  const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
   const nextPage = () => {
@@ -67,89 +62,50 @@ export function Search() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  //cores do produto para filtro
-  const allColors = [
-    ...new Set(currentItems.flatMap((product) => product.color)),
-  ];
-  const allSizes = [
-    ...new Set(currentItems.flatMap((product) => product.sizes)),
-  ];
+  const allColors = [...new Set(filteredProducts.flatMap((product) => product.color))];
+  const allSizes = [...new Set(filteredProducts.flatMap((product) => product.sizes))];
 
   return (
-    <main className=" px-2 md:px-6 flex flex-col gap-6">
-      <section className="flex gap-6 justify-center ">
-        {showSidebar ? (
-          <DrawerDesktop
-            allColors={allColors}
-            allSizes={allSizes}
-            selectedColor={selectedColor}
-            selectedSize={selectedSize}
-            applyFilterProducts={applyFilterProducts}
-          />
-        ) : null}
+    <main className="px-2 md:px-6 flex flex-col gap-6">
+      {isLoadingProductCategory ? (
+        <section className="flex items-center justify-center h-screen w-full">
+          <LoadingPage />
+        </section>
+      ) : (
+        <section className="flex gap-6 justify-center">
+          {currentItems.length === 0 ? null : (
+            <>
+              {showSidebar && <DrawerDesktop allColors={allColors} allSizes={allSizes} selectedColor={selectedColor} selectedSize={selectedSize} applyFilterProducts={applyFilterProducts} />}
 
-        <DrawerFilterMobile
-          open={drawerOpen}
-          onOpenChange={setDrawerOpen}
-          allColors={allColors}
-          allSizes={allSizes}
-          selectedColor={selectedColor}
-          selectedSize={selectedSize}
-          applyFilterProducts={applyFilterProducts}
-        />
-
-        {/* Conteúdo principal */}
-        <div
-          className={` flex flex-col   items-center  ${
-            showSidebar ? "w-full max-w-[1100px]" : "w-full max-w-[1420px]"
-          }`}
-        >
-          <BannerSearch showSidebar={showSidebar} />
-
-          <ActionButtons
-            showSidebar={showSidebar}
-            products={products}
-            setShowSidebar={setShowSidebar}
-            setDrawerOpen={setDrawerOpen}
-          />
-
-          {/* Grid de produtos */}
-          <div
-            className={` grid gap-2 w-full  ${
-              showSidebar
-                ? "grid-cols-2 sm:grid-cols-3  xl:grid-cols-4"
-                : "grid-cols-2 sm:grid-cols-3  lg:grid-cols-5 max-w-[1920px]"
-            }`}
-          >
-            {currentItems.map((product) => (
-              <CardProduct
-                key={product.id}
-                idProduct={product.id}
-                nameProduct={product.productName}
-                tamanhos={product.sizes}
-                currentPrice={product.currentPrice}
-                originalPrice={product.originalPrice}
-                imageUrl={product.image[0]}
-              />
-            ))}
-          </div>
-
-          {currentItems.length === 0 ? (
-            <EmptyProduct
-              inputValue={inputValue}
-              setInputValue={setInputValue}
-              setSearchParams={setSearchParams}
-            />
-          ) : (
-            <PaginationSearch
-              currentPage={currentPage}
-              totalPages={totalPages}
-              nextPage={nextPage}
-              prevPage={prevPage}
-            />
+              <DrawerFilterMobile open={drawerOpen} onOpenChange={setDrawerOpen} allColors={allColors} allSizes={allSizes} selectedColor={selectedColor} selectedSize={selectedSize} applyFilterProducts={applyFilterProducts} />
+            </>
           )}
-        </div>
-      </section>
+  
+          <div className={`flex flex-col items-center ${showSidebar ? "w-full max-w-[1100px]" : "w-full max-w-[1420px]"}`}>
+
+            {currentItems.length === 0 ? (
+              <div className="flex h-[80vh] w-full justify-center items-center">
+                <EmptyProduct inputValue={inputValue} setInputValue={setInputValue} setSearchParams={setSearchParams} />
+              </div>
+            ) : (
+              <>
+                <BannerSearch showSidebar={showSidebar} />
+
+                <ActionButtons showSidebar={showSidebar} products={filteredProducts} setShowSidebar={setShowSidebar} setDrawerOpen={setDrawerOpen} />
+
+                <div className={`grid gap-2 w-full ${showSidebar ? "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-[1920px]"}`}>
+                  {currentItems.map((product) => (
+                    <CardProduct key={product.id} id={product.id} name={product.name} sizes={product.sizes} price={product.price} image={product.image[0]} />
+                  ))}
+                </div>
+
+                {/* Paginação */}
+                <PaginationSearch currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />
+              </>
+            )}
+          </div>
+        </section>
+      )}
     </main>
   );
 }

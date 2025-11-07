@@ -5,13 +5,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { CardProduct } from "../ui/card";
+import type {Product } from "@/@types/product";
 
 interface SuggestionProductProps {
-  suggestionProducts: ProductProps.Product[];
+  suggestionProducts: Product[];
 }
 
 export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps) {
-  return (
+
+    return (
     <section className="w-full px-4 md:px-8">
       <div className="mx-auto max-w-[1450px] w-full">
         <h2 className="text-xl font-semibold mb-3 text-gray-900">Recomendamos para você</h2>
@@ -51,7 +53,7 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
         >
           {suggestionProducts.map((item) => (
             <SwiperSlide key={item.id}>
-              <CardProduct currentPrice={item.currentPrice} originalPrice={item.originalPrice} imageUrl={item.image[0]} nameProduct={item.productName} idProduct={item.id} tamanhos={item.sizes} />
+              <CardProduct  price={item.price} image={item.image[0]} name={item.name} id={item.id} sizes={item.sizes} />
             </SwiperSlide>
           ))}
         </Swiper>

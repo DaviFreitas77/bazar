@@ -16,9 +16,9 @@ export function DrawerDesktop({allColors,allSizes,selectedColor,selectedSize,app
               <BreadcrumbPages />
 
               <AccordionFilter name="Cores">
-                {allColors.map((color) => (
+                {allColors.map((color,index) => (
                   <label
-                    key={color}
+                    key={index}
                     className={`flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-100 mt-1 capitalize`}
                   >
                     <input
@@ -41,9 +41,9 @@ export function DrawerDesktop({allColors,allSizes,selectedColor,selectedSize,app
                 ))}
               </AccordionFilter>
               <AccordionFilter name="Tamanhos">
-                {allSizes.map((sizes) => (
+                {allSizes.map((sizes,index) => (
                   <label
-                    key={sizes}
+                    key={index}
                     className="flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-100 mt-1 py-1"
                   >
                     <input
