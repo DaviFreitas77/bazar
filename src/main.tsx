@@ -1,7 +1,4 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -12,8 +9,9 @@ import { ProductsSearchedProvider } from "./context/productsSearchedContext.tsx"
 import { UserProvider, useUser } from "./context/userContext.tsx";
 import axios from "axios";
 import { getMe } from "./api/auth.api.ts";
-import { Toaster } from "@/components/ui/sonner"
-const queryClient = new QueryClient()
+import { Toaster } from "@/components/ui/sonner";
+import { CartProvider } from "./context/cartContext.tsx";
+const queryClient = new QueryClient();
 
 function InitApp() {
   const { setName, setEmail } = useUser();
@@ -28,7 +26,7 @@ function InitApp() {
 
         const user = await getMe().catch((err) => {
           if (err.response.status === 401) return null;
-          throw err; 
+          throw err;
         });
 
         if (user) {
@@ -48,17 +46,19 @@ function InitApp() {
 
 createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
-  <BrowserRouter>
-    <UserProvider>
-      <ProductsSearchedProvider>
-        <CheckoutProvider>
-          <StrictMode>
-            <InitApp />
-            <Toaster/>
-          </StrictMode>
-        </CheckoutProvider>
-      </ProductsSearchedProvider>
-    </UserProvider>
-  </BrowserRouter>
+    <BrowserRouter>
+      <UserProvider>
+        <CartProvider>
+          <ProductsSearchedProvider>
+            <CheckoutProvider>
+              <StrictMode>
+                <InitApp />
+                <Toaster />
+              </StrictMode>
+            </CheckoutProvider>
+          </ProductsSearchedProvider>
+        </CartProvider>
+      </UserProvider>
+    </BrowserRouter>
   </QueryClientProvider>
 );

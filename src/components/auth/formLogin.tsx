@@ -12,6 +12,7 @@ interface FormLoginProps {
   onClose: () => void;
 }
 export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const { setName, setEmail } = useUser();
   const {
@@ -30,7 +31,10 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       setName(response.user.name);
       onClose();
       toast.success("Login realizado");
-    } catch (error) {
+    } catch (error:any) {
+      if(error.status === 401){
+        setErrorMessage("Credenciais inválidas")
+      }
       console.log(error);
     } finally {
       setLoading(false);
@@ -72,7 +76,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
           </div>
           <div className="w-full">
             <input {...register("password")} name="password" type="password" className="px-3 py-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Senha" />
-            <div className="h-2 mt-1 mb-4">{errors.password && <span className="text-red-500 text-xs">{errors.password.message}</span>}</div>
+            <div className="h-2 mt-1 mb-4">{errors.password ? <span className="text-red-500 text-xs">{errors.password.message}</span> : <span className="text-red-500 text-xs">{errorMessage}</span>}</div>
           </div>
         </div>
         <div className="flex justify-between items-center mb-4">

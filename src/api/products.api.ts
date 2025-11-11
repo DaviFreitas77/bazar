@@ -2,6 +2,30 @@ import { api } from "@/lib/api";
 import type { Product } from "@/@types/product";
 import { useQuery } from "@tanstack/react-query";
 
+export interface ApiProduct {
+  id: number;
+  name: string;
+  price: string;
+  lastPrice: string;
+  category: number;
+
+  sizes: {
+    id: number;
+    name: string;
+  }[];
+
+  color: {
+    id: number;
+    name: string;
+  }[];
+
+  description: string;
+
+  image: {
+    id: number;
+    image: string;
+  }[];
+}
 
 const getProductsByCategory = async (id: number): Promise<Product[]> => {
   const { data } = await api.get<Product[]>(`/productsByCategory/${id}`);
@@ -20,9 +44,9 @@ export const useProductsByCategory = (id: number | null) => {
 };
 
 
-export const apiGetProductById = async (id: number): Promise<Product> => {
+export const apiGetProductById = async (id: number): Promise<ApiProduct> => {
   try {
-    const { data } = await api.get<Product>(`/product/${id}`);
+    const { data } = await api.get<ApiProduct>(`/product/${id}`);
     return data;
   } catch (error) {
     console.error("Erro ao buscar produtos por categoria:", error);

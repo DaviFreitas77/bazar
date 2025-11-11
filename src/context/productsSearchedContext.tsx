@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from "react";
-
+import  type { Product } from "@/@types/product";
 interface productsSearchedType {
-  products: ProductProps.Product[];
-  setProducts: React.Dispatch<React.SetStateAction<ProductProps.Product[]>>;
+  products: Product[];
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
   nameProduct: string;
   setNameProduct: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -10,7 +10,7 @@ interface productsSearchedType {
 const searchedProductsContext = createContext<productsSearchedType | undefined>(undefined);
 
 export function ProductsSearchedProvider({ children }: { children: React.ReactNode }) {
-  const [products, setProducts] = useState<ProductProps.Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [nameProduct, setNameProduct] = useState<string>("");
   return <searchedProductsContext.Provider value={{ products, setProducts, nameProduct, setNameProduct }}>{children}</searchedProductsContext.Provider>;
 }

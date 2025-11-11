@@ -10,6 +10,7 @@ import { ShowProductsSearched } from "../searchBar/showProductsSearched";
 import { CartProducts } from "../shoppingCart/cartProducts";
 import { ModalAuth } from "../auth/modalAuth";
 import { useUser } from "@/context/userContext";
+import { useCart } from "@/context/cartContext";
 
 export function Header() {
   const [openCart, setOpenCart] = useState<boolean>(false);
@@ -17,6 +18,7 @@ export function Header() {
   const [openSearch, setOpenSearch] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
  const { name } = useUser();
+ const {state} = useCart()
 
  
   return (
@@ -90,7 +92,7 @@ export function Header() {
               <LiaShoppingBagSolid size={22} />
               {/* Badge da sacola */}
               <span className="absolute -top-2 -right-2 bg-primary-50 text-white text-[10px] font-semibold rounded-full px-[5px]">
-                2
+                {state.length}
               </span>
             </button>
           </div>

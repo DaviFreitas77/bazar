@@ -26,23 +26,28 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
               spaceBetween: 10,
               slidesPerGroup: 2,
             },
-            640: {
-              slidesPerView: 3.2,
+            540: {
+              slidesPerView: 2.5,
               spaceBetween: 15,
+              slidesPerGroup: 2.5,
+            },
+            800:{
+              slidesPerView: 3,
+              spaceBetween: 10,
               slidesPerGroup: 3,
             },
             1024: {
-              slidesPerView: 4,
-              spaceBetween: 20,
+              slidesPerView: 4.5,
+              spaceBetween: 10,
               slidesPerGroup: 4,
             },
             1366: {
               slidesPerView: 5,
-              spaceBetween: 20,
+              spaceBetween: 10,
               slidesPerGroup: 5,
             },
             1536: {
-              slidesPerView: 5,
+              slidesPerView: 5.5,
               spaceBetween: 25,
               slidesPerGroup: 5,
             },
