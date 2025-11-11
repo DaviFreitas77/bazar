@@ -66,6 +66,8 @@ export function Product() {
     setSelectedColor(null);
     setSelectedSize(null);
   };
+
+  
   return (
     <main className="flex flex-col items-center justify-center py-10 min-h-screen ">
       {isLoadingProduct ? (
@@ -76,7 +78,7 @@ export function Product() {
             <div className="flex flex-col justify-center  md:flex-row gap-2 w-full max-w-3xl  ">
               <div className="grid grid-cols-2 gap-1">
                 {product?.image.map((img) => (
-                  <img src={img.image} alt={img.image} className="w-full max-w-xl h-auto  object-cover rounded-xs border border-gray-200 shadow-sm" />
+                  <img key={img.id} src={img.image} alt={img.image} className="w-full max-w-xl h-auto  object-cover rounded-xs border border-gray-200 shadow-sm" />
                 ))}
               </div>
 
@@ -91,8 +93,18 @@ export function Product() {
               <div>
                 <h1 className="text-2xl font-semibold text-gray-900 mb-2">{product?.name}</h1>
                 <div className="flex flex-col mt-4">
-                  <p className="text-gray-600 text-sm line-through">{product?.lastPrice}</p>
-                  <p className="text-xl font-bold text-primary-100">{product?.price}.</p>
+                  <p className="text-gray-600 text-sm line-through">
+                    {Number(product?.lastPrice).toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </p>
+                  <p className="text-xl font-bold text-primary-100">
+                    {Number(product?.price).toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </p>
                 </div>
               </div>
 

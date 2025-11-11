@@ -11,6 +11,7 @@ export const apiAddProduct = async (data: any) => {
 };
 
 export const apiSyncCart = async (data: any) => {
+  console.log(data)
   const response = await api.post(`/shoppingCart/sync`, {products:data});
   return response.data;
 };
