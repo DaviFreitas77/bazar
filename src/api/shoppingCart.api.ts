@@ -20,3 +20,9 @@ export const apiGetCart = async () => {
   const response = await api.get(`/shoppingCart/getCart`);
   return response.data;
 };
+
+
+export const apiShoppingCart = async () => {
+  const response = await api.get(`/shoppingCart/getShoppingCart`);
+  return response.data;
+};

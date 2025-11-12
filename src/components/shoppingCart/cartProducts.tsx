@@ -16,8 +16,8 @@ export function CartProducts() {
   return (
     <section className="mt-2 flex flex-col gap-2">
       {state.length > 0 ? (
-        state.map((item) => (
-          <div key={item.id} className="flex gap-3 border-b pb-3 border-gray-200">
+        state.map((item,index) => (
+          <div key={index} className="flex gap-3 border-b pb-3 border-gray-200">
             <img src={item.image} alt={item.name} className="w-20 object-cover" />
             <div className="w-full">
               <p className="font-semibold text-gray-700">{item.name}</p>

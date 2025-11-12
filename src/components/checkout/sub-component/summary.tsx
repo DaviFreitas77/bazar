@@ -1,6 +1,14 @@
 import { LiaShoppingBagSolid } from "react-icons/lia";
 import { FiTrash2 } from "react-icons/fi";
-export function Summary(){
+import type { Product } from "@/@types/product";
+
+
+interface SummaryProps{
+  products: Product[]
+}
+export function Summary({products}:SummaryProps){
+  
+
     return(
          <section className="border border-gray-200 bg-white md:shadow-sm rounded-md p-2 pt-4 md:p-6 h-fit  max-w-md">
           <div className="flex items-center gap-3 mb-6">
@@ -38,7 +46,7 @@ export function Summary(){
 
               {/* Preço + Lixeira */}
               <div className="flex items-center gap-4">
-                <p className="font-semibold text-gray-800">R$ 149,90</p>
+                <p className="font-semibold text-gray-800"></p>
                 <button
                   className="text-gray-400 hover:text-red-500 transition duration-200"
                   title="Remover do carrinho"

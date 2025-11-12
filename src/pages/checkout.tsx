@@ -7,9 +7,28 @@ import { ProgressStep } from "@/components/checkout/progress";
 import { Payment } from "@/components/checkout/payment";
 import { PaymentConfirmed } from "@/components/checkout/paymentConfirmed";
 import { useCheckout } from "@/context/checkoutContext";
+import { useEffect, useState } from "react";
+import { apiShoppingCart } from "@/api/shoppingCart.api";
 
 export function Checkout() {
  const { step } = useCheckout();
+ const [infoCheckout,setInfoCheckout] = useState([])
+
+
+  useEffect(()=>{
+    const fetchProducts = async () => {
+      try {
+
+        const response = await apiShoppingCart();
+
+        setInfoCheckout(response)
+      }catch(error){
+        console.log(error)
+      }
+    }
+    fetchProducts()
+  },[])
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-2 md:px-6 py-12">
       <TitlePage />
@@ -31,7 +50,7 @@ export function Checkout() {
 
         </div>
 
-        <Summary />
+        <Summary products={infoCheckout}/>
       </div>
     </main>
   );
