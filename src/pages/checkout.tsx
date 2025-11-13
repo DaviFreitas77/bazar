@@ -9,25 +9,28 @@ import { PaymentConfirmed } from "@/components/checkout/paymentConfirmed";
 import { useCheckout } from "@/context/checkoutContext";
 import { useEffect, useState } from "react";
 import { apiShoppingCart } from "@/api/shoppingCart.api";
+import type { ProductCheckout } from "@/@types/product";
 
+export interface checkoutProps {
+  total: string;
+  products: ProductCheckout[];
+}
 export function Checkout() {
- const { step } = useCheckout();
- const [infoCheckout,setInfoCheckout] = useState([])
+  const { step } = useCheckout();
+  const [infoCheckout, setInfoCheckout] = useState<checkoutProps | null>(null);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     const fetchProducts = async () => {
       try {
-
         const response = await apiShoppingCart();
 
-        setInfoCheckout(response)
-      }catch(error){
-        console.log(error)
+        setInfoCheckout(response);
+      } catch (error) {
+        console.log(error);
       }
-    }
-    fetchProducts()
-  },[])
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-2 md:px-6 py-12">
@@ -36,21 +39,9 @@ export function Checkout() {
       <ProgressStep step={step} />
 
       <div className="w-full max-w-7xl flex gap-10">
-        <div className="w-full h-fit border border-gray-200 rounded-md">
-          {step === 1 ? (
-            <PeopleInformation />
-          ) : step === 2 ? (
-            <ChooseDelivery />
-          ) : step === 3 ? (
-            <Payment />
-          ) : (
-            <PaymentConfirmed />
-          )}
+        <div className="w-full h-fit border border-gray-200 rounded-md">{step === 1 ? <PeopleInformation /> : step === 2 ? <ChooseDelivery /> : step === 3 ? <Payment /> : <PaymentConfirmed />}</div>
 
-
-        </div>
-
-        <Summary products={infoCheckout}/>
+        <Summary products={infoCheckout?.products || []} total={infoCheckout?.total || "0.00"} />
       </div>
     </main>
   );

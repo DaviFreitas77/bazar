@@ -60,3 +60,18 @@ font-family: Inter, sans-serif;
 .swiper-navigation-icon{
   display: none;
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;  /* espessura */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f0f0f0; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #9E5330; /* cor da barra */
+  border-radius: 10px;    /* arredondada */
+  border: 2px solid #f0f0f0; /* espaço ao redor */
+
+}

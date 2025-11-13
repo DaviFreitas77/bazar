@@ -128,7 +128,6 @@ export function Header() {
 
         <PopularSearches />
 
-        <h3 className="mt-4  text-gray-900">Produtos sugeridos</h3>
         <ShowProductsSearched />
       </SheetSearch>
 

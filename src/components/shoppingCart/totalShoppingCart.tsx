@@ -19,6 +19,7 @@ export function TotalShoppingCart() {
   const goCheckout = () => {
     if (!name) {
       setShowModal(true);
+      return;
     }
     navigation("/checkout");
   };
@@ -38,8 +39,16 @@ export function TotalShoppingCart() {
           </p>
           <p className="text-primary-50 font-semibold">{total}</p>
         </div>
-        <button onClick={goCheckout} className="w-full px-8 bg-primary-50 py-3 text-white rounded-sm cursor-pointer hover:bg-primary-100 transition-all duration-300">
-          Finalizar Comprar
+        <button
+          onClick={goCheckout}
+          disabled={state.length === 0}
+          className={`
+    w-full px-8 py-3 rounded-sm text-white font-medium
+    transition-all duration-300
+    ${state.length === 0 ? "bg-gray-300 cursor-not-allowed opacity-60" : "bg-primary-50 hover:bg-primary-100 cursor-pointer"}
+  `}
+        >
+          Finalizar Compra
         </button>
       </div>
       <ModalAuth open={showModal} onClose={() => setShowModal(false)} />

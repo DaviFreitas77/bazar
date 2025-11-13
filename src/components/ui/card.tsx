@@ -18,7 +18,7 @@ export function CardProduct({ id, name, sizes, price, image, }: Card) {
 
         <div className="flex items-center gap-2">
           <span className="text-xs lg:text-base font-medium text-gray-500">Tam:</span>
-          {sizes.map((tamanho) => (
+          {sizes?.map((tamanho) => (
             <span key={tamanho} className="flex items-center justify-center w-5 h-5  rounded-full bg-gray-100 text-xs font-semibold text-gray-700 ring-1 ring-gray-300">
               {tamanho}
             </span>

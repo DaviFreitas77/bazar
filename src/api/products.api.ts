@@ -39,10 +39,9 @@ export const useProductsByCategory = (id: number | null) => {
       if (id === null) throw new Error("Category id is null");
       return getProductsByCategory(id);
     },
-    enabled:!!id
+    enabled: !!id,
   });
 };
-
 
 export const apiGetProductById = async (id: number): Promise<ApiProduct> => {
   try {
@@ -54,16 +53,15 @@ export const apiGetProductById = async (id: number): Promise<ApiProduct> => {
   }
 };
 
-
 export const useProductById = (id: number) => {
   return useQuery({
     queryKey: ["productsByCategory", id],
-    queryFn: () => { return apiGetProductById(id);
+    queryFn: () => {
+      return apiGetProductById(id);
     },
-    enabled:!!id
+    enabled: !!id,
   });
 };
-
 
 export const apiGetAllProducts = async (): Promise<Product[]> => {
   try {
@@ -73,4 +71,25 @@ export const apiGetAllProducts = async (): Promise<Product[]> => {
     console.error("Erro ao buscar produtos:", error);
     throw error;
   }
+};
+
+ const searchProducts = async (query: string): Promise<Product[]> => {
+  try {
+    const response = await api.get<Product[]>(`/search/${query}`);
+    return response.data;
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+};
+
+
+export const searchParams = (query: string | null) => {
+  return useQuery({
+    queryKey: ["productsSearched", query],
+    queryFn: () => {
+      return searchProducts(query || "");
+    },
+    enabled: !!query,
+  });
 };

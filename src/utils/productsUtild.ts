@@ -15,8 +15,3 @@ export const filterSizesProducts = (
   return products.filter((p) => p.sizes.includes(size));
 };
 
-export const searchProducts = (query: string):Product[] => {
-  return getProducts().filter((product) =>
-    product.productName.toLowerCase().includes(query.toLowerCase())
-  );
-};

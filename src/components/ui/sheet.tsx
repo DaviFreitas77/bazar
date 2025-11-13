@@ -138,7 +138,7 @@ function SheetSearch({open,onOpenChange,children,side,tittle,widthSheet}:SheetSe
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent 
        style={{ width: `${widthSheet}px` }}
-       className={`sm:max-w-2xl overflow-auto `} 
+       className={`sm:max-w-2xl overflow-auto custom-scrollbar`} 
       side={side}>
         <SheetHeader>
           <SheetTitle className="text-xl">{tittle}</SheetTitle>

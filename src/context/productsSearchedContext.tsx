@@ -3,15 +3,15 @@ import  type { Product } from "@/@types/product";
 interface productsSearchedType {
   products: Product[];
   setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
-  nameProduct: string;
-  setNameProduct: React.Dispatch<React.SetStateAction<string>>;
+  nameProduct: string | null;
+  setNameProduct: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const searchedProductsContext = createContext<productsSearchedType | undefined>(undefined);
 
 export function ProductsSearchedProvider({ children }: { children: React.ReactNode }) {
   const [products, setProducts] = useState<Product[]>([]);
-  const [nameProduct, setNameProduct] = useState<string>("");
+  const [nameProduct, setNameProduct] = useState<string | null>(null);
   return <searchedProductsContext.Provider value={{ products, setProducts, nameProduct, setNameProduct }}>{children}</searchedProductsContext.Provider>;
 }
 
