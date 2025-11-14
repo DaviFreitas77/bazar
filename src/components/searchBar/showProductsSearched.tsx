@@ -1,6 +1,6 @@
 import { useProductsSearched } from "@/context/productsSearchedContext";
 import { CardProduct } from "../ui/card";
-import { PackageX, Search } from "lucide-react";
+import { PackageX } from "lucide-react";
 import { Link } from "react-router-dom";
 import { searchParams } from "@/api/products.api";
 import { Loading } from "../loading/loading";
@@ -8,9 +8,7 @@ import { CiSearch } from "react-icons/ci";
 
 export function ShowProductsSearched() {
   const { nameProduct } = useProductsSearched();
-
   const { data: productsSearched, isLoading } = searchParams(nameProduct);
-
   const limitedProducts = productsSearched?.slice(0, 6) ?? [];
 
   if (isLoading && nameProduct) {
@@ -34,7 +32,6 @@ if (!nameProduct) {
     </div>
   );
 }
-
 
   return (
     <section className="flex flex-col gap-4">

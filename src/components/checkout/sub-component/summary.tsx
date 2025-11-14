@@ -8,7 +8,6 @@ interface SummaryProps {
   total: string;
 }
 export function Summary({ products, total }: SummaryProps) {
-  console.log(products);
 
   return (
     <section className="border border-gray-200 bg-white md:shadow-sm rounded-md p-2 pt-4 md:p-6 h-fit  max-w-md">
