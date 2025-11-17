@@ -29,6 +29,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       const response = await loginUser(data);
       setEmail(response.user.email);
       setName(response.user.name);
+ 
       onClose();
       toast.success("Login realizado");
     } catch (error:any) {

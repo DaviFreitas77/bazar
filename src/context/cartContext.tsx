@@ -44,6 +44,9 @@ export function cartReducer(state: CartItem[], action: CartAction) {
     case "delete":
       return state.filter((item) => item.id !== action.payload.id && item.color !== action.payload.color && item.size !== action.payload.size);
 
+    case "clear":
+      return [];
+
     default:
       return state;
   }
@@ -82,21 +85,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [state]);
 
   useEffect(() => {
-    const syncCart = async () => {
-      if (!name) return;
-      try {
-        await apiSyncCart(state);
-      } catch (error: any) {
-        if (error.response.status === 422) {
-          return null;
-        } else {
-          console.error("Erro ao sincronizar o carrinho", error);
-        }
-      }
-    };
 
     const fetchCart = async () => {
       if (!name) return;
+
+
+    localStorage.removeItem("cart");
+    dispatch({ type: "setState", payload: [] });
+    
       try {
         const itemsFromDb = await apiGetCart();
 
@@ -106,7 +102,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         console.error("Erro ao obter o carrinho", err);
       }
     };
-    syncCart();
     fetchCart();
   }, [name]);
 

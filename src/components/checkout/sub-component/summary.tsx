@@ -1,13 +1,13 @@
 import { LiaShoppingBagSolid } from "react-icons/lia";
 import { FiTrash2 } from "react-icons/fi";
-import type { ProductCheckout } from "@/@types/product";
 import { SkeletonSummary } from "@/components/skeleton/summary";
+import type { CartItem } from "@/context/cartContext";
 
 interface SummaryProps {
-  products: ProductCheckout[];
-  total: string;
+  products: CartItem[];
+  total:string
 }
-export function Summary({ products, total }: SummaryProps) {
+export function Summary({ products,total }: SummaryProps) {
 
   return (
     <section className="border border-gray-200 bg-white md:shadow-sm rounded-md p-2 pt-4 md:p-6 h-fit  max-w-md">
@@ -26,7 +26,7 @@ export function Summary({ products, total }: SummaryProps) {
       <div className="space-y-3 border-t border-gray-100 pt-4 text-sm">
         {products.length > 0 ? (
           products.map((product) => (
-            <div className="flex items-center justify-between border border-gray-200 rounded-md p-4">
+            <div key={product.id} className="flex items-center justify-between border border-gray-200 rounded-md p-4">
               {/* Produto */}
               <div className="flex gap-3">
                 <div className="w-18 h-18 bg-gray-100 rounded-md flex items-center justify-center overflow-hidden">
@@ -70,10 +70,11 @@ export function Summary({ products, total }: SummaryProps) {
           <p className="text-gray-800 font-medium">R$ 15,00</p>
         </div>
 
+        
         {total &&(
             <div className="flex items-center justify-between border-t border-gray-100 pt-4">
           <p className="text-gray-900 font-semibold text-lg">Total</p>
-          <p className="text-primary-50 font-bold text-lg">{Number(total).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+          <p className="text-primary-50 font-bold text-lg">{total}</p>
         </div>
         )}
       

@@ -1,3 +1,5 @@
+import { apiChangeStatusOrder } from "@/api/payment.api";
+import { useCart } from "@/context/cartContext";
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 
@@ -10,6 +12,7 @@ export function CheckoutForm({ step, setStep }: CheckoutProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState<boolean>(false);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,6 +37,15 @@ export function CheckoutForm({ step, setStep }: CheckoutProps) {
     }
 
     if (paymentIntent?.status === "succeeded") {
+      const changeStatusOrder = async () => {
+        try {
+          await apiChangeStatusOrder();
+         
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      changeStatusOrder()
       setStep((prev) => prev + 1);
     }
   };

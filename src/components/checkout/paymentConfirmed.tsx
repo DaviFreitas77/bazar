@@ -1,6 +1,8 @@
+import { useCart } from "@/context/cartContext";
 import { MdDone } from "react-icons/md";
 
 export function PaymentConfirmed() {
+  const {dispatch} =  useCart()
   return (
     <section className=" justify-center items-center flex py-10 flex-col gap-15">
       <div className="flex flex-col items-center justify-center">
@@ -24,7 +26,14 @@ export function PaymentConfirmed() {
       </div>
 
       <div className="w-full px-4">
-          <button className="bg-primary-50 hover:bg-primary-100 text-white font-medium transition duration-200 shadow-sm cursor-pointer  px-10 py-3 rounded-md">
+          <button 
+          onClick={()=>{
+            dispatch({
+              type:'clear'
+            })
+            window.location.href = '/'
+          }}
+          className="bg-primary-50 hover:bg-primary-100 text-white font-medium transition duration-200 shadow-sm cursor-pointer  px-10 py-3 rounded-md">
             Acompanhar pedido
           </button>
       </div>

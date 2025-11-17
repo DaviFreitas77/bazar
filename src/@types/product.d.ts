@@ -27,15 +27,6 @@ import type { PrinterCheck } from "lucide-react";
     category: number;
   }
 
-  export interface ProductCheckout {
-    id: number;
-    name: string;
-    sizeName:string;
-    colorName:string;
-    price: number;
-    image: string;
-    quantity:number;
-  }
   export interface Category {
     id: string;
     name: string;

@@ -5,22 +5,25 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import { useEffect, useState } from "react";
 import { CheckoutForm } from "./checkoutForm";
+import { useCart } from "@/context/cartContext";
 const stripePromise = loadStripe("pk_test_51SQZpyBN6OX7QGoMcLis0UIgqie00z0KlQy5PJB72bLtRBqC04BTwV448GQsaetEXns0ysijpqEQTUtGQ1zp1NFM000M6JfP22");
 export function PaymentCard() {
+  const {state} = useCart()
   const { step, setStep } = useCheckout();
   const [clientSecret, setClientSecret] = useState("");
-
+  
+  
   useEffect(() => {
     const createPayment = async () => {
       try {
-        const response = await apiCreatePayment(100);
+        const response = await apiCreatePayment('credit_card',state);
         setClientSecret(response.clientSecret);
       } catch (error) {
         console.log(error);
       }
     };
     createPayment();
-  }, []);
+  }, [state]);
 
   return (
     <section className="border mt-4 px-4 rounded-md py-5 border-gray-200">
