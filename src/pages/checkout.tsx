@@ -14,7 +14,8 @@ import { useCart } from "@/context/cartContext";
 export function Checkout() {
   const { step } = useCheckout();
   const { state } = useCart();
-
+  
+  const orderConfirmed = step === 4;
   const total = useMemo(() => {
     const prices = state.map((item) => item.price * item.quantity);
     const sum = prices.reduce((a, b) => a + b, 0);
@@ -31,7 +32,7 @@ export function Checkout() {
       <div className="w-full max-w-7xl flex gap-10">
         <div className="w-full h-fit border border-gray-200 rounded-md">{step === 1 ? <PeopleInformation /> : step === 2 ? <ChooseDelivery /> : step === 3 ? <Payment /> : <PaymentConfirmed />}</div>
 
-        <Summary products={state} total={total} />
+        <Summary products={state} total={total} isConfirmed={orderConfirmed} />
       </div>
     </main>
   );

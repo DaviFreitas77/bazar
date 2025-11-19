@@ -1,8 +1,17 @@
 import { useCart } from "@/context/cartContext";
+import { useCheckout } from "@/context/checkoutContext";
 import { MdDone } from "react-icons/md";
-
+import { useNavigate } from "react-router-dom";
 export function PaymentConfirmed() {
+  const navigate = useNavigate();
   const {dispatch} =  useCart()
+  const {setStep} = useCheckout()
+
+    const handleConfirm = () => {
+    dispatch({ type: "clear" }); 
+    setStep(1);
+    navigate("/"); 
+  };
   return (
     <section className=" justify-center items-center flex py-10 flex-col gap-15">
       <div className="flex flex-col items-center justify-center">
@@ -27,12 +36,7 @@ export function PaymentConfirmed() {
 
       <div className="w-full px-4">
           <button 
-          onClick={()=>{
-            dispatch({
-              type:'clear'
-            })
-            window.location.href = '/'
-          }}
+          onClick={handleConfirm}
           className="bg-primary-50 hover:bg-primary-100 text-white font-medium transition duration-200 shadow-sm cursor-pointer  px-10 py-3 rounded-md">
             Acompanhar pedido
           </button>

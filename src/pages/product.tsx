@@ -4,7 +4,7 @@ import { SuggestionProduct } from "@/components/product/suggestions";
 import { useProductById, useProductsByCategory } from "@/api/products.api";
 import type { Product } from "@/@types/product";
 import { LoadingPage } from "@/components/loading/loadingPage";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaCircle } from "react-icons/fa";
 import { useCart } from "@/context/cartContext";
 import { useUser } from "@/context/userContext";
@@ -14,7 +14,9 @@ export function Product() {
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
   const [selectedColorName, setSelectedColorName] = useState<string>("");
   const [selectedSizeName, setSelectedSizeName] = useState<string>("");
-  const { dispatch, state } = useCart();
+  const [numberImage, setNumberImage] = useState<number>(0);
+
+  const { dispatch } = useCart();
   const { name } = useUser();
 
   const { pathname } = useLocation();
@@ -29,6 +31,10 @@ export function Product() {
   const { data: product, isLoading: isLoadingProduct } = useProductById(numberId);
 
   const { data: recomendation } = useProductsByCategory(product?.category ?? null);
+
+  const chooseImage = useMemo(() => {
+    return product?.image?.[numberImage]?.image ?? "";
+  }, [product, numberImage]);
 
   const imageProduct = product?.image?.[0]?.image ?? "";
 
@@ -67,7 +73,6 @@ export function Product() {
     setSelectedSize(null);
   };
 
-  
   return (
     <main className="flex flex-col items-center justify-center py-10 min-h-screen ">
       {isLoadingProduct ? (
@@ -76,17 +81,24 @@ export function Product() {
         <>
           <section className="w-full  flex flex-col lg:flex-row justify-evenly gap-10 p-3 max-w-[1700px] px-4 md:px-8">
             <div className="flex flex-col justify-center  md:flex-row gap-2 w-full max-w-3xl  ">
-              <div className="grid grid-cols-2 gap-1">
-                {product?.image.map((img) => (
-                  <img key={img.id} src={img.image} alt={img.image} className="w-full max-w-xl h-auto  object-cover rounded-xs border border-gray-200 shadow-sm" />
-                ))}
-              </div>
-
-              {/* <div className="flex md:flex-col gap-3 justify-center md:center">
-                {product?.image.map((img) => (
-                  <img key={img.id} src={img.image} alt={`Miniatura ${img.id + 1}`} className="w-20 h-30 object-cover rounded-xs border border-gray-200 cursor-pointer hover:opacity-75 transition" />
-                ))}
-              </div> */}
+              {product!.image.length > 2 ? (
+                <div className="grid grid-cols-2 gap-1">
+                  {product?.image.map((img) => (
+                    <img key={img.id} src={img.image} alt={img.image} className="w-full max-w-xl h-auto  object-cover rounded-xs border border-gray-200 shadow-sm" />
+                  ))}
+                </div>
+              ) : (
+                <>
+                  <div className="w-full flex  max-w-2xl">
+                    <img src={chooseImage} className="w-full max-w-2xl h-auto  object-cover rounded-xs border border-gray-200 shadow-sm" />
+                  </div>
+                  <div className="flex md:flex-col gap-3 justify-center md:center">
+                    {product?.image.map((img, index) => (
+                      <img onClick={() => setNumberImage(index)} key={img.id} src={img.image} alt={`Miniatura ${img.id + 1}`} className={`w-20 h-30 object-cover rounded-xs border border-gray-200 cursor-pointer hover:opacity-75 transition ${numberImage === index ? "opacity-25" : ""}`} />
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="flex flex-col gap-4 md:px-4 w-full lg:px-8 lg:max-w-xl">
