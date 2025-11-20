@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import type { Card } from "@/@types/product";
-export function CardProduct({ id, name, sizes, price, image, }: Card) {
+export function CardProduct({ id, name, sizes, price, image, lastPrice }: Card) {
   const navigate = useNavigate();
   function handleClick() {
     navigate(`/product/${id}`);
   }
-
 
   return (
     <div onClick={handleClick} className="max-w-[250px] w-full bg-white rounded-sm shadow-sm max-h-130  ">
@@ -25,12 +24,23 @@ export function CardProduct({ id, name, sizes, price, image, }: Card) {
           ))}
         </div>
 
-        <p className="text-base font-semibold text-gray-700">
-          {(Number(price) || 0).toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          })}
-        </p>
+        <div>
+          {lastPrice && (
+            <p className="text-gray-600 text-xs line-through">
+              {(Number(lastPrice) || 0).toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </p>
+          )}
+
+          <p className="text-base font-semibold text-gray-700">
+            {(Number(price) || 0).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })}
+          </p>
+        </div>
 
         <button className="text-sm  w-full bg-primary-50 text-white py-2 px-4 rounded-xs font-semibold hover:bg-primary-100 cursor-pointer transition-colors">Adicionar ao carrinho</button>
       </div>

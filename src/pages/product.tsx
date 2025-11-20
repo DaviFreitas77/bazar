@@ -104,13 +104,17 @@ export function Product() {
             <div className="flex flex-col gap-4 md:px-4 w-full lg:px-8 lg:max-w-xl">
               <div>
                 <h1 className="text-2xl font-semibold text-gray-900 mb-2">{product?.name}</h1>
+                 <p className="text-gray-700 leading-relaxed">{product?.description}</p>
                 <div className="flex flex-col mt-4">
-                  <p className="text-gray-600 text-sm line-through">
+                  {product?.lastPrice && (
+                    <p className="text-gray-600 text-sm line-through">
                     {Number(product?.lastPrice).toLocaleString("pt-BR", {
                       style: "currency",
                       currency: "BRL",
                     })}
                   </p>
+                  )}
+                  
                   <p className="text-xl font-bold text-primary-100">
                     {Number(product?.price).toLocaleString("pt-BR", {
                       style: "currency",
@@ -120,7 +124,7 @@ export function Product() {
                 </div>
               </div>
 
-              <p className="text-gray-700 leading-relaxed">{product?.description}</p>
+            
 
               {/* Cores */}
               <AccordionFilter name="Cores">

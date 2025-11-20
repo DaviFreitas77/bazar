@@ -75,3 +75,22 @@ font-family: Inter, sans-serif;
   border: 2px solid #f0f0f0; /* espaço ao redor */
 
 }
+
+
+.mp-checkout-bricks__payment-form{
+  padding: 0px !important;
+}
+.mp-checkout-bricks__payment-options-_ANPQa{
+ display:flex !important;
+ flex-direction:column !important;
+ gap:10 !important;
+    width:100% !important;
+}
+.mp-checkout-bricks__selector-NagIaJ{
+ padding: 20px !important;
+   width:100% !important;
+ 
+}
+.mp-checkout-bricks__selector-NagIaJ:hover{
+  background-color: #fcfcfc!important;
+}

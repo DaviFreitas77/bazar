@@ -16,7 +16,7 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
     return (
     <section className="w-full px-4 md:px-8">
       <div className="mx-auto max-w-[1450px] w-full">
-        <h2 className="text-xl font-semibold mb-3 text-gray-900">Recomendamos para você</h2>
+        <h2 className="text-xl font-semibold mb-3 text-gray-900">Talvez você possa gostar</h2>
         <Swiper
           modules={[Navigation, Pagination]}
           speed={1000}
@@ -58,7 +58,7 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
         >
           {suggestionProducts.map((item) => (
             <SwiperSlide key={item.id}>
-              <CardProduct  price={item.price} image={item.image[0]} name={item.name} id={item.id} sizes={item.sizes} />
+              <CardProduct  price={item.price} image={item.image[0]} name={item.name} id={item.id} sizes={item.sizes} lastPrice={item.lastPrice}/>
             </SwiperSlide>
           ))}
         </Swiper>
