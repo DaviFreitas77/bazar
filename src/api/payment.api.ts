@@ -15,15 +15,18 @@ export const apiChangeStatusOrder = async ()=>{
 }
 
 
-export const  apiCreatePreference = async()=>{
-  const response = await api.post("/createPreference");
+export const  apiCreatePreference = async(items:Array<CartItem>)=>{
+  console.log(items)
+  const response = await api.post("/createPreference",{items});
   return response.data;
 }
-export const  apiProcessPayment = async(formdata:any)=>{
 
+export const  apiProcessPayment = async(formdata:any)=>{
   const response = await api.post("/proccessPayment",formdata);
   return response.data;
 }
+
+
 export const  apiProcessPaymentPix = async(formdata:any)=>{
   console.log(formdata)
   const response = await api.post("/proccessPaymentPix",formdata);
