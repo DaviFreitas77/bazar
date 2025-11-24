@@ -3,13 +3,16 @@ import { FiTrash2 } from "react-icons/fi";
 import { SkeletonSummary } from "@/components/skeleton/summary";
 import type { CartItem } from "@/context/cartContext";
 import { MdDone } from "react-icons/md";
+import { useCheckout } from "@/context/checkoutContext";
 
 interface SummaryProps {
   products: CartItem[];
   total: string;
   isConfirmed?: boolean;
+  numberOrder:string
 }
-export function Summary({ products, total, isConfirmed }: SummaryProps) {
+export function Summary({ products, total, isConfirmed,numberOrder }: SummaryProps) {
+  const {step} = useCheckout();
   return (
     <section className="border border-gray-200 bg-white md:shadow-sm rounded-md p-2 pt-4 md:p-6 h-fit  max-w-md">
       <div className="flex items-center gap-3 mb-6">
@@ -54,7 +57,10 @@ export function Summary({ products, total, isConfirmed }: SummaryProps) {
           <SkeletonSummary />
         )}
 
-        <div className="flex items-center justify-between border border-gray-200 rounded-md p-4">
+        {step === 4 ?(
+          null
+        ):(
+           <div className="flex items-center justify-between border border-gray-200 rounded-md p-4">
           <div className="flex-1 w-full">
             <label className="text-gray-900 font-medium text-sm mb-1 block">Cupom de desconto</label>
             <div className="relative flex items-center">
@@ -66,6 +72,8 @@ export function Summary({ products, total, isConfirmed }: SummaryProps) {
             </p>
           </div>
         </div>
+        )}
+       
         <div className="flex items-center justify-between border-t border-gray-100 pt-4">
           <p className="text-gray-600">Frete</p>
           <p className="text-gray-800 font-medium">R$ 15,00</p>
@@ -87,7 +95,7 @@ export function Summary({ products, total, isConfirmed }: SummaryProps) {
               <p className="text-green-800 font-semibold text-base">Pedido processado com sucesso!</p>
             </div>
             <div>
-              <p className="text-green-800 font-semibold">Número do pedido: #12345</p>
+              <p className="text-green-800 font-semibold">Número do pedido: #{numberOrder}</p>
               <p className="text-green-700 text-sm mt-1">Guarde este número para acompanhar seu pedido</p>
             </div>
           </div>

@@ -28,7 +28,7 @@ export interface ApiProduct {
 }
 
 const getProductsByCategory = async (id: number): Promise<Product[]> => {
-  const { data } = await api.get<Product[]>(`/productsByCategory/${id}`);
+  const { data } = await api.get<Product[]>(`prod/productsByCategory/${id}`);
   return data;
 };
 
@@ -45,7 +45,7 @@ export const useProductsByCategory = (id: number | null) => {
 
 export const apiGetProductById = async (id: number): Promise<ApiProduct> => {
   try {
-    const { data } = await api.get<ApiProduct>(`/product/${id}`);
+    const { data } = await api.get<ApiProduct>(`prod/product/${id}`);
     return data;
   } catch (error) {
     console.error("Erro ao buscar produtos por categoria:", error);
@@ -65,7 +65,7 @@ export const useProductById = (id: number) => {
 
 export const apiGetAllProducts = async (): Promise<Product[]> => {
   try {
-    const { data } = await api.get<Product[]>("/products");
+    const { data } = await api.get<Product[]>("prod/products");
     return data;
   } catch (error) {
     console.error("Erro ao buscar produtos:", error);
@@ -75,7 +75,7 @@ export const apiGetAllProducts = async (): Promise<Product[]> => {
 
  const searchProducts = async (query: string): Promise<Product[]> => {
   try {
-    const response = await api.get<Product[]>(`/search/${query}`);
+    const response = await api.get<Product[]>(`prod/search/${query}`);
     return response.data;
   } catch (error) {
     console.log(error)

@@ -2,7 +2,11 @@ import { useCart } from "@/context/cartContext";
 import { useCheckout } from "@/context/checkoutContext";
 import { MdDone } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-export function PaymentConfirmed() {
+
+interface PaymentConfirmedProps{
+  numberOrder:string
+}
+export function PaymentConfirmed({numberOrder}:PaymentConfirmedProps) {
   const navigate = useNavigate();
   const {dispatch} =  useCart()
   const {setStep} = useCheckout()
@@ -26,7 +30,7 @@ export function PaymentConfirmed() {
         </div>
         <div className="bg-green-50 p-6 rounded-2xl border border-green-200 max-w-md mx-auto mt-5">
           <p className="text-green-800 font-semibold">
-            Número do pedido: #12345
+            Número do pedido: #{numberOrder}
           </p>
           <p className="text-green-700 text-sm mt-1">
             Guarde este número para acompanhar seu pedido
