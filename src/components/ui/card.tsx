@@ -42,7 +42,7 @@ export function CardProduct({ id, name, sizes, price, image, lastPrice }: Card) 
           </p>
         </div>
 
-        <button className="text-sm  w-full bg-primary-50 text-white py-2 px-4 rounded-xs font-semibold hover:bg-primary-100 cursor-pointer transition-colors">Adicionar ao carrinho</button>
+        <button className="text-sm  w-full bg-primary-50 text-white py-2 px-2 rounded-xs font-semibold hover:bg-primary-100 cursor-pointer transition-colors">Adicionar ao carrinho</button>
       </div>
     </div>
   );

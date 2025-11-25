@@ -5,7 +5,7 @@ import { apiCreatePreference, apiProcessPayment, apiProcessPaymentPix } from "@/
 import { useCart } from "@/context/cartContext";
 import { useCheckout } from "@/context/checkoutContext";
 export function PaymentMercadoPago() {
-  const { state,dispatch } = useCart();
+  const { state } = useCart();
   const [amount, setAmount] = useState(0);
   const [preferenceId, setPreferenceId] = useState("");
   const [order,setOrder] = useState("")

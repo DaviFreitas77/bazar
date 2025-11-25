@@ -43,7 +43,7 @@ export const useProductsByCategory = (id: number | null) => {
   });
 };
 
-export const apiGetProductById = async (id: number): Promise<ApiProduct> => {
+ const apiGetProductById = async (id: number): Promise<ApiProduct> => {
   try {
     const { data } = await api.get<ApiProduct>(`prod/product/${id}`);
     return data;
@@ -63,7 +63,7 @@ export const useProductById = (id: number) => {
   });
 };
 
-export const apiGetAllProducts = async (): Promise<Product[]> => {
+const apiGetAllProducts = async (): Promise<Product[]> => {
   try {
     const { data } = await api.get<Product[]>("prod/products");
     return data;
@@ -72,6 +72,17 @@ export const apiGetAllProducts = async (): Promise<Product[]> => {
     throw error;
   }
 };
+
+export const useAllProducts = () => {
+  return useQuery({
+    queryKey: ["allProducts"],
+    queryFn: apiGetAllProducts,
+  });
+};
+
+
+
+
 
  const searchProducts = async (query: string): Promise<Product[]> => {
   try {
@@ -84,7 +95,7 @@ export const apiGetAllProducts = async (): Promise<Product[]> => {
 };
 
 
-export const searchParams = (query: string | null) => {
+export const hookSearchParams = (query: string | null) => {
   return useQuery({
     queryKey: ["productsSearched", query],
     queryFn: () => {

@@ -24,7 +24,7 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
             320: {
               slidesPerView: 1.5,
               spaceBetween: 10,
-              slidesPerGroup: 2,
+              slidesPerGroup: 1,
             },
             540: {
               slidesPerView: 2.5,

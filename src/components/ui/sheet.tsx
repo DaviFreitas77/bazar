@@ -131,16 +131,16 @@ interface SheetSearchProps {
   children?: React.ReactNode;
   side: "left" | "right";
   tittle:string,
-  widthSheet:number
+
 }
-function SheetSearch({open,onOpenChange,children,side,tittle,widthSheet}:SheetSearchProps) {
+function SheetSearch({open,onOpenChange,children,side,tittle}:SheetSearchProps) {
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet open={open} onOpenChange={onOpenChange} >
       <SheetContent 
-       style={{ width: `${widthSheet}px` }}
-       className={`sm:max-w-2xl overflow-auto custom-scrollbar`} 
+
+        className="overflow-auto custom-scrollbar w-full sm:w-[500px] sm:max-w-2xl "
       side={side}>
-        <SheetHeader>
+        <SheetHeader className="p-2 md:p-4">
           <SheetTitle className="text-xl">{tittle}</SheetTitle>
         {children}
         </SheetHeader>

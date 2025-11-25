@@ -2,13 +2,13 @@ import { useProductsSearched } from "@/context/productsSearchedContext";
 import { CardProduct } from "../ui/card";
 import { PackageX } from "lucide-react";
 import { Link } from "react-router-dom";
-import { searchParams } from "@/api/products.api";
+import { hookSearchParams } from "@/api/products.api";
 import { Loading } from "../loading/loading";
 import { CiSearch } from "react-icons/ci";
 
 export function ShowProductsSearched() {
   const { nameProduct } = useProductsSearched();
-  const { data: productsSearched, isLoading } = searchParams(nameProduct);
+  const { data: productsSearched, isLoading } = hookSearchParams(nameProduct);
   const limitedProducts = productsSearched?.slice(0, 6) ?? [];
 
   if (isLoading && nameProduct) {
@@ -35,7 +35,7 @@ if (!nameProduct) {
 
   return (
     <section className="flex flex-col gap-4">
-      <div className="grid grid-cols-2 gap-4 justify-center items-center mt-4">
+      <div className="grid grid-cols-2 gap-2 justify-center items-center mt-4">
         {limitedProducts.length > 0 ? (
           limitedProducts.map((item) => (
             <CardProduct

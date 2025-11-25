@@ -49,7 +49,10 @@ export function Header() {
             <div className="flex items-center gap-2  transition-colors cursor-pointer">
               <AiOutlineUser size={22} />
               {name ? (
-                <p className="capitalize">{name}</p>
+                <div className="mt-1">
+                  <p className="capitalize font-bold text-sm leading-3">Olá, {name}</p>
+                  <p className="capitalize text-sm">Meus pedidos</p>
+                </div>
               ) : (
                 <div className="leading-4 flex flex-col items-start">
                   <button className="text-gray-600 font-medium">
@@ -100,7 +103,6 @@ export function Header() {
       </section>
 
       <SheetSearch
-        widthSheet={400}
         open={openCart}
         onOpenChange={setOpenCart}
         side="right"
@@ -110,7 +112,6 @@ export function Header() {
       </SheetSearch>
 
       <SheetSearch
-        widthSheet={400}
         open={openFavorite}
         onOpenChange={setOpenFavorite}
         side="right"
@@ -118,7 +119,7 @@ export function Header() {
       />
 
       <SheetSearch
-        widthSheet={500}
+
         open={openSearch}
         onOpenChange={setOpenSearch}
         side="right"

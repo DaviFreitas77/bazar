@@ -15,3 +15,10 @@ export const filterSizesProducts = (
   return products.filter((p) => p.sizes.includes(size));
 };
 
+
+export const filterCategory = (
+  category: string,
+  products: Product[]
+):  Product[] => {
+  return products.filter((p) => p.category.name === category);
+};

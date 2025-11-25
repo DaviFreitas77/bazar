@@ -16,9 +16,7 @@ export function PopularSearches() {
         className="bg-primary-50/30 px-10 rounded-full py-2 text-sm hover:bg-primary-50/50 cursor-pointer">
           Calça
         </button>
-        <button className="bg-primary-50/30 px-10 rounded-full py-2 text-sm hover:bg-primary-50/50 cursor-pointer">
-          Vestido
-        </button>
+     
       </div>
     </section>
   );

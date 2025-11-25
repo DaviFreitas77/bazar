@@ -24,7 +24,10 @@ import type { PrinterCheck } from "lucide-react";
     sizes: string[];
     material: string;
     image: string[];
-    category: number;
+      category: {
+    id: number;
+    name: string;
+  };
   }
 
   export interface Category {
