@@ -1,6 +1,5 @@
 import { CiUser } from "react-icons/ci";
 import { MdEmail, MdPhone } from "react-icons/md";
-import { LiaShoppingBagSolid } from "react-icons/lia";
 import { FaRegUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { PeopleInformationSchema } from "@/schemas/schemaCheckout";

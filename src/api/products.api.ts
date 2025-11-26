@@ -55,11 +55,12 @@ export const useProductsByCategory = (id: number | null) => {
 
 export const useProductById = (id: number) => {
   return useQuery({
-    queryKey: ["productsByCategory", id],
+    queryKey: ["product", id],
     queryFn: () => {
       return apiGetProductById(id);
     },
     enabled: !!id,
+    
   });
 };
 

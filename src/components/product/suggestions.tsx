@@ -5,15 +5,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { CardProduct } from "../ui/card";
-import type {Product } from "@/@types/product";
+import type { Product } from "@/@types/product";
 
 interface SuggestionProductProps {
   suggestionProducts: Product[];
 }
 
 export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps) {
-
-    return (
+  return (
     <section className="w-full px-4 md:px-8">
       <div className="mx-auto max-w-[1450px] w-full">
         <h2 className="text-xl font-semibold mb-3 text-gray-900">Talvez você possa gostar</h2>
@@ -31,7 +30,7 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
               spaceBetween: 15,
               slidesPerGroup: 2.5,
             },
-            800:{
+            800: {
               slidesPerView: 3,
               spaceBetween: 10,
               slidesPerGroup: 3,
@@ -56,11 +55,12 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
           pagination={{ clickable: true }}
           className="w-full"
         >
-          {suggestionProducts.map((item) => (
-            <SwiperSlide key={item.id}>
-              <CardProduct  price={item.price} image={item.image[0]} name={item.name} id={item.id} sizes={item.sizes} lastPrice={item.lastPrice}/>
-            </SwiperSlide>
-          ))}
+          {suggestionProducts.length > 0 &&
+            suggestionProducts.map((item) => (
+              <SwiperSlide key={item.id}>
+                <CardProduct price={item.price} image={item.image[0]} name={item.name} id={item.id} sizes={item.sizes} lastPrice={item.lastPrice} />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </section>

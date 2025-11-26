@@ -8,7 +8,7 @@ export const PeopleInformationSchema = yup.object().shape({
 });
 
 export const AdressSchema = yup.object().shape({
-  cep: yup.string().required("CEP é obrigatório").max(8, "cep inválido"),
+  zip_code: yup.string().required("CEP é obrigatório").max(8, "cep inválido"),
   street: yup.string().required("Rua é obrigatório"),
   number: yup.string().required("Número é obrigatório"),
   district: yup.string().required("Bairro é obrigatório"),

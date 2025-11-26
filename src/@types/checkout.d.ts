@@ -6,17 +6,14 @@ declare namespace CheckoutProps {
     phone: string;
   }
 
-
-
   interface InformationsAdressProps {
-    cep: string;
+    zip_code: string;
     street: string;
     number: string;
     district: string;
     city: string;
     state: string;
   }
-
 
   interface InformationPaymentCardProps{
     numberCard:string;

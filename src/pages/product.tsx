@@ -15,28 +15,29 @@ export function Product() {
   const [selectedColorName, setSelectedColorName] = useState<string>("");
   const [selectedSizeName, setSelectedSizeName] = useState<string>("");
   const [numberImage, setNumberImage] = useState<number>(0);
-
   const { dispatch } = useCart();
   const { name } = useUser();
-
   const { pathname } = useLocation();
+  const { id } = useParams();
+  const numberId = Number(id);
+  const { data: product, isLoading: isLoadingProduct } = useProductById(numberId);
+
+  const images = product?.image ?? [];
+  const colors = product?.color ?? [];
+  const sizes = product?.sizes ?? [];
 
   useEffect(() => {
     window.scrollTo(0, 0); // Reseta scroll para o topo
   }, [pathname]);
 
-  const { id } = useParams();
-  const numberId = Number(id);
-
-  const { data: product, isLoading: isLoadingProduct } = useProductById(numberId);
-
   const { data: recomendation } = useProductsByCategory(product?.category ?? null);
 
   const chooseImage = useMemo(() => {
-    return product?.image?.[numberImage]?.image ?? "";
+    return images[numberImage]?.image ?? "";
   }, [product, numberImage]);
 
   const imageProduct = product?.image?.[0]?.image ?? "";
+
 
   const handleAddCart = async () => {
     if (!selectedColor || !selectedSize) {
@@ -68,7 +69,6 @@ export function Product() {
         size: selectedSize,
       });
     }
-
     setSelectedColor(null);
     setSelectedSize(null);
   };
@@ -81,19 +81,17 @@ export function Product() {
         <>
           <section className="w-full  flex flex-col lg:flex-row justify-evenly gap-10 p-3 max-w-[1700px] px-4 md:px-8">
             <div className="flex flex-col justify-center  md:flex-row gap-2 w-full max-w-3xl  ">
-              {product!.image.length > 2 ? (
+              {images.length > 2 ? (
                 <div className="grid grid-cols-2 gap-1">
-                  {product?.image.map((img) => (
+                  {images.map((img) => (
                     <img key={img.id} src={img.image} alt={img.image} className="w-full max-w-xl h-auto  object-cover rounded-xs border border-gray-200 shadow-sm" />
                   ))}
                 </div>
               ) : (
                 <>
-                  <div className="w-full flex  max-w-2xl">
-                    <img src={chooseImage} className="w-full max-w-2xl h-auto  object-cover rounded-xs border border-gray-200 shadow-sm" />
-                  </div>
+                  <div className="w-full flex  max-w-2xl">{chooseImage && <img src={chooseImage} className="w-full max-w-2xl h-auto object-cover rounded-xs border border-gray-200 shadow-sm" alt={product?.name ?? "Produto"} />}</div>
                   <div className="flex md:flex-col gap-3 justify-center md:center">
-                    {product?.image.map((img, index) => (
+                    {images.map((img, index) => (
                       <img onClick={() => setNumberImage(index)} key={img.id} src={img.image} alt={`Miniatura ${img.id + 1}`} className={`w-20 h-30 object-cover rounded-xs border border-gray-200 cursor-pointer hover:opacity-75 transition ${numberImage === index ? "opacity-25" : ""}`} />
                     ))}
                   </div>
@@ -104,17 +102,17 @@ export function Product() {
             <div className="flex flex-col gap-4 md:px-4 w-full lg:px-8 lg:max-w-xl">
               <div>
                 <h1 className="text-2xl font-semibold text-gray-900 mb-2">{product?.name}</h1>
-                 <p className="text-gray-700 leading-relaxed">{product?.description}</p>
+                <p className="text-gray-700 leading-relaxed">{product?.description}</p>
                 <div className="flex flex-col mt-4">
                   {product?.lastPrice && (
                     <p className="text-gray-600 text-sm line-through">
-                    {Number(product?.lastPrice).toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </p>
+                      {Number(product?.lastPrice).toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                    </p>
                   )}
-                  
+
                   <p className="text-xl font-bold text-primary-100">
                     {Number(product?.price).toLocaleString("pt-BR", {
                       style: "currency",
@@ -124,12 +122,10 @@ export function Product() {
                 </div>
               </div>
 
-            
-
               {/* Cores */}
               <AccordionFilter name="Cores">
                 <div className="flex gap-3 mt-2 flex-wrap ">
-                  {product?.color.map((color: any) => (
+                  {colors.map((color: any) => (
                     <button
                       onClick={() => {
                         setSelectedColor(color.id);
@@ -147,7 +143,7 @@ export function Product() {
               {/* Tamanhos */}
               <AccordionFilter name="Tamanhos">
                 <div className="flex gap-3 mt-2 flex-wrap">
-                  {product?.sizes.map((size) => (
+                  {sizes.map((size) => (
                     <button
                       onClick={() => {
                         setSelectedSize(size.id);
