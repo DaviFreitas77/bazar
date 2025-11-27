@@ -19,7 +19,7 @@ function InitApp() {
   useEffect(() => {
     async function fetchCsrfAndUser() {
       try {
-        await axios.get("https://web-production-72b71.up.railway.app/sanctum/csrf-cookie", {
+        await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
           withCredentials: true,
           withXSRFToken: true,
         });
