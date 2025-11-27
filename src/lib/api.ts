@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://web-production-72b71.up.railway.app",
+  baseURL: "http://localhost:8000/api",
   withCredentials: true,
   withXSRFToken: true,
 });
