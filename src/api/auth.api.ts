@@ -13,7 +13,8 @@ export const registerUser = async (data: Auth.register) => {
 
 export const loginUser = async (data: Auth.login) => {
   const response: AxiosResponse = await axios.post("https://web-production-72b71.up.railway.app/auth/login",data,{
-    withCredentials:true
+    withCredentials:true,
+    withXSRFToken: true
   });
   return response.data;
 };
