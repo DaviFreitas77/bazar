@@ -2,7 +2,7 @@
 import { CiDeliveryTruck } from "react-icons/ci";
 import { Choose } from "./sub-component/chooseDelivery";
 import { Adress } from "./sub-component/adress";
-import { Remove } from "./sub-component/remove";
+
 export function ChooseDelivery() {
   return (
     <section className="lg:col-span-2">
@@ -25,7 +25,7 @@ export function ChooseDelivery() {
         <Choose />
 
         <Adress />
-        {/* <Remove /> */}
+  
 
        
       </div>
