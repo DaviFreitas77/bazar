@@ -27,7 +27,7 @@ export function Product() {
   const sizes = product?.sizes ?? [];
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Reseta scroll para o topo
+    window.scrollTo(0, 0); 
   }, [pathname]);
 
   const { data: recomendation } = useProductsByCategory(product?.category ?? null);
