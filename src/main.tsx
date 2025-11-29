@@ -7,7 +7,6 @@ import "./index.css";
 import App from "./App.tsx";
 import { ProductsSearchedProvider } from "./context/productsSearchedContext.tsx";
 import { UserProvider, useUser } from "./context/userContext.tsx";
-import axios from "axios";
 import { ensureCsrf, getMe } from "./api/auth.api.ts";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "./context/cartContext.tsx";
