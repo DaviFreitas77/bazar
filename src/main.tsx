@@ -8,7 +8,7 @@ import App from "./App.tsx";
 import { ProductsSearchedProvider } from "./context/productsSearchedContext.tsx";
 import { UserProvider, useUser } from "./context/userContext.tsx";
 import axios from "axios";
-import { getMe } from "./api/auth.api.ts";
+import { ensureCsrf, getMe } from "./api/auth.api.ts";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "./context/cartContext.tsx";
 const queryClient = new QueryClient();
@@ -19,10 +19,7 @@ function InitApp() {
   useEffect(() => {
     async function fetchCsrfAndUser() {
       try {
-        await axios.get("https://web-production-72b71.up.railway.app/sanctum/csrf-cookie", {
-          withCredentials: true,
-          withXSRFToken: true,
-        });
+        await ensureCsrf()
 
         const user = await getMe().catch((err) => {
           if (err.response.status === 401) return null;
