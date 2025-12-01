@@ -4,12 +4,13 @@ import { useMemo, useState } from "react";
 import { CiCircleAlert } from "react-icons/ci";
 import { ModalAuth } from "../auth/modalAuth";
 import { useNavigate } from "react-router-dom";
+import { useUI } from "@/context/UIContext";
 export function TotalShoppingCart() {
   const navigation = useNavigate();
   const [showModal, setShowModal] = useState<boolean>(false);
   const { name } = useUser();
   const { state } = useCart();
-
+  const {setOpenCart} = useUI();
   const total = useMemo(() => {
     const prices = state.map((item) => item.price * item.quantity);
     const sum = prices.reduce((a, b) => a + b, 0);
@@ -40,7 +41,10 @@ export function TotalShoppingCart() {
           <p className="text-primary-50 font-semibold">{total}</p>
         </div>
         <button
-          onClick={goCheckout}
+          onClick={()=>{
+            goCheckout();
+            setOpenCart(false);
+          }}
           disabled={state.length === 0}
           className={`
     w-full px-8 py-3 rounded-sm text-white font-medium

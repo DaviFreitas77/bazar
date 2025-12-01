@@ -10,6 +10,7 @@ import { UserProvider, useUser } from "./context/userContext.tsx";
 import { ensureCsrf, getMe } from "./api/auth.api.ts";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "./context/cartContext.tsx";
+import { UIProvider } from "./context/UIContext.tsx";
 const queryClient = new QueryClient();
 
 function InitApp() {
@@ -18,7 +19,7 @@ function InitApp() {
   useEffect(() => {
     async function fetchCsrfAndUser() {
       try {
-        await ensureCsrf()
+        await ensureCsrf();
 
         const user = await getMe().catch((err) => {
           if (err.response.status === 401) return null;
@@ -44,16 +45,18 @@ createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <UserProvider>
-        <CartProvider>
-          <ProductsSearchedProvider>
-            <CheckoutProvider>
-              <StrictMode>
-                <InitApp />
-                <Toaster />
-              </StrictMode>
-            </CheckoutProvider>
-          </ProductsSearchedProvider>
-        </CartProvider>
+        <UIProvider>
+          <CartProvider>
+            <ProductsSearchedProvider>
+              <CheckoutProvider>
+                <StrictMode>
+                  <InitApp />
+                  <Toaster />
+                </StrictMode>
+              </CheckoutProvider>
+            </ProductsSearchedProvider>
+          </CartProvider>
+        </UIProvider>
       </UserProvider>
     </BrowserRouter>
   </QueryClientProvider>

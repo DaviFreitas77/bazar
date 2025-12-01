@@ -11,14 +11,13 @@ import { CartProducts } from "../shoppingCart/cartProducts";
 import { ModalAuth } from "../auth/modalAuth";
 import { useUser } from "@/context/userContext";
 import { useCart } from "@/context/cartContext";
+import { useUI } from "@/context/UIContext";
 
-export function Header() {
-  const [openCart, setOpenCart] = useState<boolean>(false);
-  const [openFavorite, setOpenFavorite] = useState<boolean>(false);
-  const [openSearch, setOpenSearch] = useState<boolean>(false);
+export function Header() { 
   const [showModal, setShowModal] = useState<boolean>(false);
  const { name } = useUser();
  const {state} = useCart()
+ const {setOpenSearch,setOpenCart,setOpenFavorite,openSearch,openCart,openFavorite} = useUI();
 
  
   return (

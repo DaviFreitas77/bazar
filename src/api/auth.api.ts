@@ -3,7 +3,7 @@ import type { AxiosResponse } from "axios";
 import axios from "axios";
 
 export const ensureCsrf = async () => {
-  await axios.get("https://web-production-72b71.up.railway.app/sanctum/csrf-cookie", {
+  await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
     withCredentials: true,
     withXSRFToken: true,
   });
@@ -14,14 +14,12 @@ export const getMe = async () => {
   return response.data;
 };
 export const registerUser = async (data: Auth.register) => {
-  const response: AxiosResponse = await api.post("/auth/register", data);
+  const response: AxiosResponse = await api.post("http://localhost:8000/auth/register", data);
   return response.data;
 };
 
 export const loginUser = async (data: Auth.login) => {
-  await ensureCsrf();
-
-  const response: AxiosResponse = await axios.post("https://web-production-72b71.up.railway.app/auth/login", data, {
+  const response: AxiosResponse = await axios.post("http://localhost:8000/auth/login", data, {
     withCredentials: true,
     withXSRFToken: true,
   });
