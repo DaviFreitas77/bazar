@@ -14,20 +14,12 @@ export const getMe = async () => {
   return response.data;
 };
 export const registerUser = async (data: Auth.register) => {
-  const response: AxiosResponse = await axios.post("https://web-production-72b71.up.railway.app/auth/register", data,{
-      withCredentials: true,
-      xsrfCookieName: 'XSRF-TOKEN',
-      xsrfHeaderName: 'X-XSRF-TOKEN',
-  });
+  const response: AxiosResponse = await api.post("/auth/register", data
+  );
   return response.data;
 };
 
 export const loginUser = async (data: Auth.login) => {
-  const response: AxiosResponse = await axios.post("https://web-production-72b71.up.railway.app/auth/login", data, {
-    withCredentials: true,
-    xsrfCookieName: 'XSRF-TOKEN',
-      xsrfHeaderName: 'X-XSRF-TOKEN',
- 
-  });
+  const response: AxiosResponse = await api.post("/auth/login", data);
   return response.data;
 };
