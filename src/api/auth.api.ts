@@ -16,6 +16,8 @@ export const getMe = async () => {
 export const registerUser = async (data: Auth.register) => {
   const response: AxiosResponse = await axios.post("https://web-production-72b71.up.railway.app/auth/register", data,{
       withCredentials: true,
+      xsrfCookieName: 'XSRF-TOKEN',
+      xsrfHeaderName: 'X-XSRF-TOKEN',
   });
   return response.data;
 };
@@ -23,6 +25,8 @@ export const registerUser = async (data: Auth.register) => {
 export const loginUser = async (data: Auth.login) => {
   const response: AxiosResponse = await axios.post("https://web-production-72b71.up.railway.app/auth/login", data, {
     withCredentials: true,
+    xsrfCookieName: 'XSRF-TOKEN',
+      xsrfHeaderName: 'X-XSRF-TOKEN',
  
   });
   return response.data;
