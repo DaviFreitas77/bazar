@@ -29,7 +29,6 @@ export function Checkout() {
       const fetchOrder = async () => {
         try {
           const response = await apiLatestOrder();
-          console.log(response);
           setNumberOrder(response.number_order);
         } catch (error) {
           console.error(error);

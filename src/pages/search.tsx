@@ -27,6 +27,7 @@ export function Search() {
 
   const { data: allProducts, isLoading: isLoadingAllProducts } = useAllProducts();
 
+  console.log(allProducts)
   const { data: productsSearched } = hookSearchParams(search);
 
   const applyFilterProducts = (filter: string, value: string) => {

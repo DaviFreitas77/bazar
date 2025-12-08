@@ -14,7 +14,7 @@ import { UIProvider } from "./context/UIContext.tsx";
 const queryClient = new QueryClient();
 
 function InitApp() {
-  const { setName, setEmail } = useUser();
+  const { setName, setEmail, setLoading } = useUser();
 
   useEffect(() => {
     async function fetchCsrfAndUser() {
@@ -32,11 +32,13 @@ function InitApp() {
         }
       } catch (err) {
         console.error("Erro ao pegar CSRF token:", err);
+      } finally {
+        setLoading(false);
       }
     }
 
     fetchCsrfAndUser();
-  }, []);
+  }, [setName, setEmail, setLoading]);
 
   return <App />;
 }
