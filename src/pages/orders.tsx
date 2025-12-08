@@ -19,7 +19,7 @@ export function Orders() {
         return myOrders?.sort((a: myOrderProps, b: myOrderProps) => b.total - a.total);
 
       case "lowestTotal":
-        return myOrders?.sort((a: any, b: any) => a.total - b.total);
+        return myOrders?.sort((a: myOrderProps, b: myOrderProps) => a.total - b.total);
 
       default:
         return myOrders;
