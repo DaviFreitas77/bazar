@@ -1,7 +1,8 @@
 import { useLocation, useParams } from "react-router-dom";
 import { AccordionFilter } from "@/components/ui/accordion";
 import { SuggestionProduct } from "@/components/product/suggestions";
-import { useProductById, useProductsByCategory } from "@/api/products.api";
+import { useProductById } from "@/hooks/useProductById";
+import { useProductsByCategory } from "@/hooks/useProductsByCategory";
 import type { Product } from "@/@types/product";
 import { LoadingPage } from "@/components/loading/loadingPage";
 import { useEffect, useMemo, useState } from "react";

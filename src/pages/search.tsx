@@ -8,10 +8,10 @@ import { PaginationSearch } from "@/components/search/pagination";
 import { EmptyProduct } from "@/components/search/emptyProduct";
 import { ActionButtons } from "@/components/search/action";
 import { DrawerDesktop } from "@/components/search/drawerDesktop";
-import { useAllProducts } from "@/api/products.api";
+import { useAllProducts } from "@/hooks/useAllProducts";
 import { LoadingPage } from "@/components/loading/loadingPage";
 import type { Product } from "@/@types/product";
-import { hookSearchParams } from "@/api/products.api";
+import { hookSearchParams } from "@/hooks/useSearchParams";
 
 export function Search() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -27,7 +27,6 @@ export function Search() {
 
   const { data: allProducts, isLoading: isLoadingAllProducts } = useAllProducts();
 
-  console.log(allProducts)
   const { data: productsSearched } = hookSearchParams(search);
 
   const applyFilterProducts = (filter: string, value: string) => {

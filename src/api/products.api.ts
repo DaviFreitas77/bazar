@@ -1,6 +1,5 @@
 import { api } from "@/lib/api";
 import type { Product } from "@/@types/product";
-import { useQuery } from "@tanstack/react-query";
 
 export interface ApiProduct {
   id: number;
@@ -27,23 +26,14 @@ export interface ApiProduct {
   }[];
 }
 
-const getProductsByCategory = async (id: number): Promise<Product[]> => {
+export const getProductsByCategory = async (id: number): Promise<Product[]> => {
   const { data } = await api.get<Product[]>(`prod/productsByCategory/${id}`);
   return data;
 };
 
-export const useProductsByCategory = (id: number | null) => {
-  return useQuery({
-    queryKey: ["productsByCategory", id],
-    queryFn: () => {
-      if (id === null) throw new Error("Category id is null");
-      return getProductsByCategory(id);
-    },
-    enabled: !!id,
-  });
-};
 
- const apiGetProductById = async (id: number): Promise<ApiProduct> => {
+
+ export const apiGetProductById = async (id: number): Promise<ApiProduct> => {
   try {
     const { data } = await api.get<ApiProduct>(`prod/product/${id}`);
     return data;
@@ -53,18 +43,9 @@ export const useProductsByCategory = (id: number | null) => {
   }
 };
 
-export const useProductById = (id: number) => {
-  return useQuery({
-    queryKey: ["product", id],
-    queryFn: () => {
-      return apiGetProductById(id);
-    },
-    enabled: !!id,
-    
-  });
-};
 
-const apiGetAllProducts = async (): Promise<Product[]> => {
+
+export const apiGetAllProducts = async (): Promise<Product[]> => {
   try {
     const { data } = await api.get<Product[]>("prod/products");
     return data;
@@ -74,18 +55,8 @@ const apiGetAllProducts = async (): Promise<Product[]> => {
   }
 };
 
-export const useAllProducts = () => {
-  return useQuery({
-    queryKey: ["allProducts"],
-    queryFn: apiGetAllProducts,
-  });
-};
 
-
-
-
-
- const searchProducts = async (query: string): Promise<Product[]> => {
+ export const searchProducts = async (query: string): Promise<Product[]> => {
   try {
     const response = await api.get<Product[]>(`prod/search/${query}`);
     return response.data;
@@ -96,12 +67,3 @@ export const useAllProducts = () => {
 };
 
 
-export const hookSearchParams = (query: string | null) => {
-  return useQuery({
-    queryKey: ["productsSearched", query],
-    queryFn: () => {
-      return searchProducts(query || "");
-    },
-    enabled: !!query,
-  });
-};

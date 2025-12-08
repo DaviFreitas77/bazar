@@ -1,5 +1,4 @@
 import { api } from "@/lib/api";
-import { useQuery } from "@tanstack/react-query";
 
 export const getZipCode = async (zipCode: string) => {
   const response = await api.post("checkout/checkZipCode", { zipCode });
@@ -17,7 +16,7 @@ export const createLogradouro = async (logradouro: CheckoutProps.InformationsAdr
 };
 
 
-const getLogradouro = async() =>{
+export const getLogradouro = async() =>{
   try{
     const response = await api.get("checkout/logradouroUser");
     return response.data;
@@ -27,9 +26,3 @@ const getLogradouro = async() =>{
 
 }
 
-export const useLogradouro = () =>{
-  return useQuery({
-    queryKey:["logradouro"],
-    queryFn:getLogradouro
-  })
-}
