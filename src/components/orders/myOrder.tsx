@@ -16,7 +16,7 @@ interface itemsProps {
 }
 
 export function MyOrder({ numberOrder, dateOrder, totalOrder, statusOrder, item }: myOrderProps) {
-  console.log(item)
+
   return (
     <div className="mt-10 border  rounded-sm border-gray-200">
       <div className="flex items-center justify-between border-b p-4 border-gray-200/50 bg-gray-100/50">

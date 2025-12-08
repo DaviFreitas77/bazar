@@ -14,7 +14,7 @@ export function PaymentConfirmed({numberOrder}:PaymentConfirmedProps) {
     const handleConfirm = () => {
     dispatch({ type: "clear" }); 
     setStep(1);
-    navigate("/"); 
+    navigate("/pedidos"); 
   };
   return (
     <section className=" justify-center items-center flex py-10 flex-col gap-15">
