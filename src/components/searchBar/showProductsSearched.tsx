@@ -5,11 +5,13 @@ import { Link } from "react-router-dom";
 import { hookSearchParams } from "@/api/products.api";
 import { Loading } from "../loading/loading";
 import { CiSearch } from "react-icons/ci";
+import { useUI } from "@/context/UIContext";
 
 export function ShowProductsSearched() {
   const { nameProduct } = useProductsSearched();
   const { data: productsSearched, isLoading } = hookSearchParams(nameProduct);
   const limitedProducts = productsSearched?.slice(0, 6) ?? [];
+  const {setOpenSearch} = useUI();
 
   if (isLoading && nameProduct) {
     return (
@@ -34,7 +36,7 @@ if (!nameProduct) {
 }
 
   return (
-    <section className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4 ">
       <div className="grid grid-cols-2 gap-2 justify-center items-center mt-4">
         {limitedProducts.length > 0 ? (
           limitedProducts.map((item) => (
@@ -60,7 +62,8 @@ if (!nameProduct) {
       {limitedProducts.length > 0 && nameProduct && (
         <Link
           to={`/?q=${nameProduct}`}
-          className="text-center border border-primary-50 hover:bg-primary-50 hover:text-white py-2 rounded-md transition-all duration-300 cursor-pointer font-medium"
+          onClick={()=>setOpenSearch(false)}
+          className="text-center border border-primary-50 hover:bg-primary-50 hover:text-white py-2 rounded-md transition-all duration-300 cursor-pointer font-medium  "
         >
           Mostrar todos os produtos
         </Link>

@@ -5,10 +5,7 @@ import { useMyOrders } from "@/hooks/useMyOrders";
 
 export function Orders() {
   const { data: myOrders, isLoading: isLoadingMyOrders } = useMyOrders();
-
-
-
-  
+   
   return (
     <main className="flex justify-center px-5 py-10">
       <div className="w-full flex max-w-[1450px]">

@@ -14,7 +14,7 @@ export const getMe = async () => {
   return response.data;
 };
 export const registerUser = async (data: Auth.register) => {
-  const response: AxiosResponse = await axios.post("http://localhost:8000/auth/register", data
+  const response: AxiosResponse = await api.post("http://localhost:8000/auth/register", data
   );
   return response.data;
 };
