@@ -1,9 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import type { Card } from "@/@types/product";
+import { useUI } from "@/context/UIContext";
 export function CardProduct({ id, name, sizes, price, image, lastPrice }: Card) {
   const navigate = useNavigate();
+  const { setOpenSearch } = useUI();
   function handleClick() {
     navigate(`/product/${id}`);
+    if (setOpenSearch) {
+      setOpenSearch(false);
+    }
   }
 
   return (

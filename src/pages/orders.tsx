@@ -13,7 +13,7 @@ export function Orders() {
   const sortedOrders = useMemo(() => {
     switch (filterOrder) {
       case "relevance":
-        return myOrders;
+        return myOrders?.sort((a: myOrderProps, b: myOrderProps) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
       case "highestTotal":
         return myOrders?.sort((a: myOrderProps, b: myOrderProps) => b.total - a.total);

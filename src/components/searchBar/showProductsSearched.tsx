@@ -2,10 +2,10 @@ import { useProductsSearched } from "@/context/productsSearchedContext";
 import { CardProduct } from "../ui/card";
 import { PackageX } from "lucide-react";
 import { Link } from "react-router-dom";
-import { hookSearchParams } from "@/api/products.api";
 import { Loading } from "../loading/loading";
 import { CiSearch } from "react-icons/ci";
 import { useUI } from "@/context/UIContext";
+import { hookSearchParams } from "@/hooks/useSearchParams";
 
 export function ShowProductsSearched() {
   const { nameProduct } = useProductsSearched();

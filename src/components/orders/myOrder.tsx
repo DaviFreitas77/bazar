@@ -10,13 +10,12 @@ interface myOrderProps {
 interface itemsProps {
   nameProduct: string;
   quantityProduct: string;
-  imageProduct:string;
-  colorProduct:string;
-  sizeProduct:string;
+  imageProduct: string;
+  colorProduct: string;
+  sizeProduct: string;
 }
 
 export function MyOrder({ numberOrder, dateOrder, totalOrder, statusOrder, item }: myOrderProps) {
-
   return (
     <div className="mt-10 border  rounded-sm border-gray-200">
       <div className="flex items-center justify-between border-b p-4 border-gray-200/50 bg-gray-100/50">
@@ -34,15 +33,24 @@ export function MyOrder({ numberOrder, dateOrder, totalOrder, statusOrder, item 
           </p>
         </div>
 
-        <div className="bg-orange-300  text-center px-4 rounded-xs py-3 flex items-center gap-1">
-          <CiTimer size={15} />
-          <p className="text-sm">{statusOrder}</p>
-        </div>
+        {statusOrder == "pending" ? (
+          <div className="flex items-center gap-2">
+            <button className="bg-green-100 hover:bg-green-200 transition-all duration-300 text-center px-4 rounded-xs py-3 flex items-center gap-1 cursor-pointer shadow-sm">Pagamento pendente</button>
+            <div className="bg-orange-300  text-center px-4 rounded-xs py-3 flex items-center gap-1">
+              <CiTimer size={15} />
+              <p className="text-sm">Pendente</p>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-orange-300  text-center px-4 rounded-xs py-3 flex items-center gap-1">
+            <CiTimer size={15} />
+            <p className="text-sm">{statusOrder}</p>
+          </div>
+        )}
       </div>
 
-
       {item &&
-        item.map((product,index) => (
+        item.map((product, index) => (
           <div key={index} className="flex items-start gap-2 mt-4 border-b pb-4 px-4 border-gray-200/50">
             <img src={product.imageProduct} alt="" className="max-w-18" />
 
