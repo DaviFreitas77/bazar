@@ -10,12 +10,13 @@ export function TotalShoppingCart() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { name } = useUser();
   const { state } = useCart();
-  const {setOpenCart} = useUI();
+  const { setOpenCart } = useUI();
   const total = useMemo(() => {
     const prices = state.map((item) => item.price * item.quantity);
     const sum = prices.reduce((a, b) => a + b, 0);
     return sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   }, [state]);
+
 
   const goCheckout = () => {
     if (!name) {
@@ -23,6 +24,7 @@ export function TotalShoppingCart() {
       return;
     }
     navigation("/checkout");
+    setOpenCart(false);
   };
 
   return (
@@ -41,9 +43,9 @@ export function TotalShoppingCart() {
           <p className="text-primary-50 font-semibold">{total}</p>
         </div>
         <button
-          onClick={()=>{
+          onClick={() => {
             goCheckout();
-            setOpenCart(false);
+            
           }}
           disabled={state.length === 0}
           className={`

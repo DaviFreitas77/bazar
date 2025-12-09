@@ -10,6 +10,8 @@ import { FaCircle } from "react-icons/fa";
 import { useCart } from "@/context/cartContext";
 import { useUser } from "@/context/userContext";
 import { apiAddProduct } from "@/api/shoppingCart.api";
+import { toast } from "sonner";
+
 export function Product() {
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
@@ -28,7 +30,7 @@ export function Product() {
   const sizes = product?.sizes ?? [];
 
   useEffect(() => {
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   }, [pathname]);
 
   const { data: recomendation } = useProductsByCategory(product?.category ?? null);
@@ -38,7 +40,6 @@ export function Product() {
   }, [product, numberImage]);
 
   const imageProduct = product?.image?.[0]?.image ?? "";
-
 
   const handleAddCart = async () => {
     if (!selectedColor || !selectedSize) {
@@ -72,6 +73,7 @@ export function Product() {
     }
     setSelectedColor(null);
     setSelectedSize(null);
+    toast.success("Produto adicionado ao carrinho!");
   };
 
   return (

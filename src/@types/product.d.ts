@@ -1,6 +1,3 @@
-import type { PrinterCheck } from "lucide-react";
-
-
 
  export interface Card {
     id: number;
