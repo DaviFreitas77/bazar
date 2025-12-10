@@ -4,15 +4,16 @@ import { SkeletonSummary } from "@/components/skeleton/summary";
 import type { CartItem } from "@/context/cartContext";
 import { MdDone } from "react-icons/md";
 import { useCheckout } from "@/context/checkoutContext";
+import { ApplyCupom } from "../applyCupom";
 
 interface SummaryProps {
   products: CartItem[];
-  total: string;
+  total:string
   isConfirmed?: boolean;
-  numberOrder:string
+  numberOrder: string;
 }
-export function Summary({ products, total, isConfirmed,numberOrder }: SummaryProps) {
-  const {step} = useCheckout();
+export function Summary({ products, isConfirmed, numberOrder,total}: SummaryProps) {
+  const { step } = useCheckout();
   return (
     <section className="border border-gray-200 bg-white md:shadow-sm rounded-md p-2 pt-4 md:p-6 h-fit  max-w-md">
       <div className="flex items-center gap-3 mb-6">
@@ -57,23 +58,10 @@ export function Summary({ products, total, isConfirmed,numberOrder }: SummaryPro
           <SkeletonSummary />
         )}
 
-        {step === 4 ?(
-          null
-        ):(
-           <div className="flex items-center justify-between border border-gray-200 rounded-md p-4">
-          <div className="flex-1 w-full">
-            <label className="text-gray-900 font-medium text-sm mb-1 block">Cupom de desconto</label>
-            <div className="relative flex items-center">
-              <input type="text" placeholder="Digite seu cupom" className="border border-gray-200 px-4 py-3 w-full rounded-md outline-none focus:ring-2 focus:ring-[#D0AB91]/50 transition duration-200 bg-[#F9FAFB]" />
-              <button className="absolute right-1.5 bg-primary-50 text-white font-medium px-5 py-2 rounded-md  transition duration-200 shadow-sm cursor-pointer">Aplicar</button>
-            </div>
-            <p className="text-sm text-gray-500 mt-2">
-              Utilize o cupom <span className="font-semibold text-primary-50">1COMPRA</span> para ganhar <strong>10% de desconto</strong>.
-            </p>
-          </div>
-        </div>
+        {step === 4 ? null : (
+         <ApplyCupom step={step} />
         )}
-       
+
         <div className="flex items-center justify-between border-t border-gray-100 pt-4">
           <p className="text-gray-600">Frete</p>
           <p className="text-gray-800 font-medium">R$ 15,00</p>
@@ -82,7 +70,7 @@ export function Summary({ products, total, isConfirmed,numberOrder }: SummaryPro
         {total && (
           <div className="flex items-center justify-between border-t border-gray-100 pt-4">
             <p className="text-gray-900 font-semibold text-lg">Total</p>
-            <p className="text-primary-50 font-bold text-lg">{total}</p>
+            <p className="text-primary-50 font-bold text-lg"> {total}</p>
           </div>
         )}
 

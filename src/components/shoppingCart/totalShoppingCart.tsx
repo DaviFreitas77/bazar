@@ -5,18 +5,19 @@ import { CiCircleAlert } from "react-icons/ci";
 import { ModalAuth } from "../auth/modalAuth";
 import { useNavigate } from "react-router-dom";
 import { useUI } from "@/context/UIContext";
+
 export function TotalShoppingCart() {
   const navigation = useNavigate();
   const [showModal, setShowModal] = useState<boolean>(false);
+
   const { name } = useUser();
   const { state } = useCart();
   const { setOpenCart } = useUI();
-  const total = useMemo(() => {
+  const subtotal = useMemo(() => {
     const prices = state.map((item) => item.price * item.quantity);
     const sum = prices.reduce((a, b) => a + b, 0);
-    return sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    return sum;
   }, [state]);
-
 
   const goCheckout = () => {
     if (!name) {
@@ -40,12 +41,11 @@ export function TotalShoppingCart() {
           >
             Total
           </p>
-          <p className="text-primary-50 font-semibold">{total}</p>
+          <p className="text-primary-50 font-semibold">{subtotal.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
         </div>
         <button
           onClick={() => {
             goCheckout();
-            
           }}
           disabled={state.length === 0}
           className={`

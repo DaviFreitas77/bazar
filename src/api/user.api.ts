@@ -5,7 +5,6 @@ export const getZipCode = async (zipCode: string) => {
   return response.data;
 };
 
-
 export const createLogradouro = async (logradouro: CheckoutProps.InformationsAdressProps) => {
   try {
     const response = await api.post("checkout/logradouro", logradouro);
@@ -15,14 +14,11 @@ export const createLogradouro = async (logradouro: CheckoutProps.InformationsAdr
   }
 };
 
-
-export const getLogradouro = async() =>{
-  try{
+export const getLogradouro = async () => {
+  try {
     const response = await api.get("checkout/logradouroUser");
     return response.data;
-  }catch(error){
-    console.log(error)
+  } catch (error) {
+    console.log(error);
   }
-
-}
-
+};
