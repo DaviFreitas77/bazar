@@ -16,6 +16,7 @@ export const getMe = async () => {
 export const registerUser = async (data: Auth.register) => {
   const response: AxiosResponse = await axios.post("https://web-production-72b71.up.railway.app/auth/register", data,{
     withCredentials: true,
+    withXSRFToken: true,
   });
   return response.data;
 };
@@ -23,6 +24,7 @@ export const registerUser = async (data: Auth.register) => {
 export const loginUser = async (data: Auth.login) => {
   const response: AxiosResponse = await axios.post("https://web-production-72b71.up.railway.app/auth/login", data,{
     withCredentials: true,
+    withXSRFToken: true,
   });
   return response.data;
 };
