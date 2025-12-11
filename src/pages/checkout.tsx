@@ -13,7 +13,7 @@ import { useCart } from "@/context/cartContext";
 import { apiLatestOrder } from "@/api/order.api";
 
 export function Checkout() {
-  const { step } = useCheckout();
+  const { step, discount } = useCheckout();
   const { state } = useCart();
   const [numberOrder, setNumberOrder] = useState("");
 
@@ -21,15 +21,18 @@ export function Checkout() {
   const total = useMemo(() => {
     const prices = state.map((item) => item.price * item.quantity);
     const sum = prices.reduce((a, b) => a + b, 0);
-    return sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-  }, [state]);
+    const calcDiscount = (Number(sum) / 100) * discount;
+    const totalWithoutDiscount = sum - calcDiscount;
+    return totalWithoutDiscount.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  }, [state, discount]);
+
+  
 
   useEffect(() => {
     if (step === 4) {
       const fetchOrder = async () => {
         try {
           const response = await apiLatestOrder();
-          console.log(response);
           setNumberOrder(response.number_order);
         } catch (error) {
           console.error(error);

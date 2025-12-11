@@ -1,7 +1,8 @@
 import { useLocation, useParams } from "react-router-dom";
 import { AccordionFilter } from "@/components/ui/accordion";
 import { SuggestionProduct } from "@/components/product/suggestions";
-import { useProductById, useProductsByCategory } from "@/api/products.api";
+import { useProductById } from "@/hooks/useProductById";
+import { useProductsByCategory } from "@/hooks/useProductsByCategory";
 import type { Product } from "@/@types/product";
 import { LoadingPage } from "@/components/loading/loadingPage";
 import { useEffect, useMemo, useState } from "react";
@@ -9,6 +10,8 @@ import { FaCircle } from "react-icons/fa";
 import { useCart } from "@/context/cartContext";
 import { useUser } from "@/context/userContext";
 import { apiAddProduct } from "@/api/shoppingCart.api";
+import { toast } from "sonner";
+
 export function Product() {
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
@@ -27,7 +30,7 @@ export function Product() {
   const sizes = product?.sizes ?? [];
 
   useEffect(() => {
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   }, [pathname]);
 
   const { data: recomendation } = useProductsByCategory(product?.category ?? null);
@@ -37,7 +40,6 @@ export function Product() {
   }, [product, numberImage]);
 
   const imageProduct = product?.image?.[0]?.image ?? "";
-
 
   const handleAddCart = async () => {
     if (!selectedColor || !selectedSize) {
@@ -71,6 +73,7 @@ export function Product() {
     }
     setSelectedColor(null);
     setSelectedSize(null);
+    toast.success("Produto adicionado ao carrinho!");
   };
 
   return (

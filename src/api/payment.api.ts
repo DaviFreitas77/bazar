@@ -18,7 +18,6 @@ export const apiChangeStatusOrder = async ()=>{
 
 //mercado pago
 export const  apiCreatePreference = async(items:Array<CartItem>)=>{
-  console.log(items)
   const response = await api.post("mcp/createPreference",{items});
   return response.data;
 }

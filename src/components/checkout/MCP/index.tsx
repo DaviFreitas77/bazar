@@ -1,17 +1,16 @@
 import { initMercadoPago } from "@mercadopago/sdk-react";
 import { useEffect, useState } from "react";
 import { Payment } from "@mercadopago/sdk-react";
-import { apiCreatePreference, apiProcessPayment, apiProcessPaymentPix } from "@/api/payment.api";
+import { apiProcessPayment, apiProcessPaymentPix } from "@/api/payment.api";
 import { useCart } from "@/context/cartContext";
 import { useCheckout } from "@/context/checkoutContext";
 import { Loading } from "@/components/loading/loading";
 import { PixQRCode } from "./PixQrCode";
+import { createOrder } from "@/api/order.api";
 export function PaymentMercadoPago() {
   const { state } = useCart();
-  const [amount, setAmount] = useState(0);
-  const [preferenceId, setPreferenceId] = useState("");
-  const [order, setOrder] = useState("");
-  const { setStep } = useCheckout();
+ 
+  const { setStep,setPreference,preference } = useCheckout();
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
   initMercadoPago("TEST-c87560f2-2e8e-439c-912f-ee65c7460423", {
@@ -20,17 +19,20 @@ export function PaymentMercadoPago() {
 
   useEffect(() => {
     const createPreference = async () => {
-      const response = await apiCreatePreference(state);
-      setPreferenceId(response.id);
-      setAmount(response.total);
-      setOrder(response.order);
+      const response = await createOrder(state);
+      setPreference({
+        id:response.preference.id,
+        total:response.preference.total,
+        orderId:response.preference.orderId
+      });
+     
     };
     createPreference();
-  }, [state]);
+  }, []);
 
   const initialization = {
-    preferenceId,
-    amount: amount,
+    preferenceId:preference.id,
+    amount: preference.total,
   };
   const customization = {
     paymentMethods: {
@@ -47,33 +49,31 @@ export function PaymentMercadoPago() {
       setQrCode(response.point_of_interaction.transaction_data.qr_code);
 
       if (response.status === "approved") {
+       
         setStep((prev) => prev + 1);
       }
       return;
     }
 
     // Caso seja cartão de crédito
-    const response = await apiProcessPayment(formData, order);
+    if (!preference.orderId) return;
+    const response = await apiProcessPayment(formData, preference.orderId);
+     console.log(response)
     if (response.status === "approved") {
+       console.log(response)
       setStep((prev) => prev + 1);
     }
   };
 
   if (qrCodeBase64 && qrCode) {
-    return(
-       <PixQRCode 
-    qrCode={qrCode}
-    qrCodeBase64={qrCodeBase64} 
-    />
-    )
-   
+    return <PixQRCode qrCode={qrCode} qrCodeBase64={qrCodeBase64} />;
   }
-  if (!preferenceId && !amount) {
+  if (!preference.id && !preference.total) {
     return (
       <div className="mt-10">
         <Loading />
       </div>
     );
   }
-  return <div className="w-full mt-10">{amount !== null && preferenceId && <Payment customization={customization} initialization={initialization} onSubmit={handleSubmit} />}</div>;
+  return <div className="w-full mt-10">{preference.total !== null && preference.id && <Payment customization={customization} initialization={initialization} onSubmit={handleSubmit} />}</div>;
 }
