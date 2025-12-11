@@ -1,22 +1,33 @@
 import { useCheckout } from "@/context/checkoutContext";
 import { api } from "@/lib/api";
 import { useState } from "react";
+import { Loading } from "../loading/loading";
 
 export function ApplyCupom({ step }: { step: number }) {
   const { setDiscount, discount, setPreference, preference } = useCheckout();
   const [nameCupom, setNameCupom] = useState("");
+  const [errorCupom, setErrorCupom] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const useCupom = async () => {
-    const response = await api.post("checkout/useCupom", { nameCupom, order: preference.orderId });
-    if (response.status === 200) {
-      setNameCupom("");
-      setDiscount(Number(response.data.discount));
-      console.log(response.data);
-      setPreference({
-        id: response.data.preference.id,
-        total: response.data.preference.total,
-        orderId: response.data.preference.orderId,
-      });
+    setLoading(true);
+    setErrorCupom("");
+    try {
+      const response = await api.post("checkout/useCupom", { nameCupom, order: preference.orderId });
+      if (response.status === 200) {
+        setNameCupom("");
+        setDiscount(Number(response.data.discount));
+        console.log(response.data);
+        setPreference({
+          id: response.data.preference.id,
+          total: response.data.preference.total,
+          orderId: response.data.preference.orderId,
+        });
+      }
+    } catch (error: any) {
+      setErrorCupom(error.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -33,18 +44,21 @@ export function ApplyCupom({ step }: { step: number }) {
           {discount ? (
             <div className="border border-green-200 px-4 py-3 w-full rounded-md bg-green-100 text-green-800 font-semibold text-xs">CUPOM APLICADO</div>
           ) : (
-            <input onChange={(e) => setNameCupom(e.target.value)} type="text" placeholder="Digite seu cupom" className="border border-gray-200 px-4 py-3 w-full rounded-md outline-none focus:ring-2 focus:ring-[#D0AB91]/50 transition duration-200 bg-[#F9FAFB]" />
+            <>
+              <input onChange={(e) => setNameCupom(e.target.value)} type="text" placeholder="Digite seu cupom" className="border border-gray-200 px-4 py-3 w-full rounded-md outline-none focus:ring-2 focus:ring-[#D0AB91]/50 transition duration-200 bg-[#F9FAFB]" />
+              {errorCupom && <p className="text-xs font-bold  text-red-500 mt-1 absolute top-full">{errorCupom}</p>}
+            </>
           )}
 
           {discount ? null : (
-            <button onClick={useCupom} className="absolute right-1.5 bg-primary-50 text-white font-medium px-5 py-2 rounded-md  transition duration-200 shadow-sm cursor-pointer">
-              Aplicar
+            <button onClick={useCupom} className="absolute right-1.5 bg-primary-50 text-white font-medium min-w-20  min-h-10 rounded-md  transition duration-200 shadow-sm cursor-pointer">
+              {loading ? <Loading /> : "Aplicar"}
             </button>
           )}
         </div>
 
         {step === 3 ? (
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-sm text-gray-500 mt-6">
             Utilize o cupom <span className="font-semibold text-primary-50">1COMPRA</span> para ganhar <strong>10% de desconto</strong>.
           </p>
         ) : (

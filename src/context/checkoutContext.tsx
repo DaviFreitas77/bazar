@@ -5,7 +5,7 @@ import { useCart } from "./cartContext";
 interface CheckoutContextType {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
- 
+
   total: number;
   setTotal: React.Dispatch<React.SetStateAction<number>>;
   discount: number;
@@ -15,12 +15,13 @@ interface CheckoutContextType {
     total: number;
     orderId: string;
   };
-  setPreference: React.Dispatch<React.SetStateAction<{
-    id: string;
-    total: number;
-    orderId: string;
-  }>>;
-
+  setPreference: React.Dispatch<
+    React.SetStateAction<{
+      id: string;
+      total: number;
+      orderId: string;
+    }>
+  >;
 }
 
 // Criação do contexto
@@ -31,11 +32,11 @@ export function CheckoutProvider({ children }: { children: React.ReactNode }) {
   const [step, setStep] = useState(1);
   const [total, setTotal] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
-  const [preference,setPreference] = useState({
+  const [preference, setPreference] = useState({
     id: "",
-    total:0,
-    orderId:""
-  })
+    total: 0,
+    orderId: "",
+  });
 
   useEffect(() => {
     if (state.length === 0) {
@@ -43,7 +44,7 @@ export function CheckoutProvider({ children }: { children: React.ReactNode }) {
     }
   }, [state]);
 
-  return <CheckoutContext.Provider value={{ step, setStep,  total, setTotal, discount, setDiscount,preference,setPreference }}>{children}</CheckoutContext.Provider>;
+  return <CheckoutContext.Provider value={{ step, setStep, total, setTotal, discount, setDiscount, preference, setPreference }}>{children}</CheckoutContext.Provider>;
 }
 
 // para consumir o contexto

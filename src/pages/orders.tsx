@@ -5,6 +5,7 @@ import { MyOrder } from "@/components/orders/myOrder";
 import { DropDown, NativeSelectOption } from "@/components/ui/native-select";
 import { useMyOrders } from "@/hooks/useMyOrders";
 import { useMemo, useState } from "react";
+import { BsBoxSeam } from "react-icons/bs";
 
 export function Orders() {
   const { data: myOrders, isLoading: isLoadingMyOrders } = useMyOrders();
@@ -45,8 +46,15 @@ export function Orders() {
             <div className="flex justify-center items-center h-80 w-full">
               <Loading />
             </div>
+          ) : sortedOrders && sortedOrders.length > 0 ? (
+            sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} numberOrder={order.numberOrder} dateOrder={order.created_at} totalOrder={order.total} statusOrder={order.status} item={order.items} />)
           ) : (
-            sortedOrders?.map((order: any) => <MyOrder key={order.numberOrder} numberOrder={order.numberOrder} dateOrder={order.created_at} totalOrder={order.total} statusOrder={order.status} item={order.items} />)
+            <p className="text-center text-gray-500 mt-20 flex flex-col items-center gap-4">
+              <span className="text-2xl text-primary-50">
+                <BsBoxSeam size={40}/>
+              </span>
+              Você ainda não realizou nenhum pedido.
+            </p>
           )}
         </section>
       </div>
