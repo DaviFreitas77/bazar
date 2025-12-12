@@ -98,7 +98,10 @@ export function Adress() {
               </div>
             ))}
           </div>
-          <div className="pt-6 text-end">
+          <div className="pt-6 flex justify-between items-center">
+             <button onClick={() => setStep((prev) => prev - 1)} type="button" className={` ${step === 1 ? "hidden" : "block"} bg-gray-200 hover:bg-primary-50 cursor-pointer  text-white font-medium px-8 py-3 rounded-md transition duration-200 shadow-sm `}>
+              Voltar
+            </button>
             <button onClick={() => setNewAdress(true)} className="bg-primary-50 text-white px-4 py-3 rounded-md hover:opacity-85 cursor-pointer">
               Adicionar novo endereço
             </button>
