@@ -10,7 +10,7 @@ import { createOrder } from "@/api/order.api";
 export function PaymentMercadoPago() {
   const { state } = useCart();
 
-  const { setStep, setPreference, preference } = useCheckout();
+  const { setStep, setPreference, preference, idLogradouro } = useCheckout();
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
   initMercadoPago("TEST-c87560f2-2e8e-439c-912f-ee65c7460423", {
@@ -20,7 +20,7 @@ export function PaymentMercadoPago() {
   useEffect(() => {
     const createPreference = async () => {
       if (!preference.id) {
-        const response = await createOrder(state);
+        const response = await createOrder(state, idLogradouro);
         setPreference({
           id: response.preference.id,
           total: response.preference.total,

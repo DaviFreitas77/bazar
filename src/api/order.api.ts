@@ -16,7 +16,8 @@ export const myOrder = async()=>{
 }
 
 
-export const createOrder = async(items:Array<CartItem>)=>{
-  const response = await api.post('order/createOrder',{items});
+export const createOrder = async(items:Array<CartItem>,idLogradouro:number)=>{
+  console.log(idLogradouro)
+  const response = await api.post('order/createOrder',{items:items,idLogradouro:idLogradouro});
   return response.data;
 }

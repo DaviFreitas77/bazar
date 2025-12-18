@@ -11,7 +11,9 @@ export function Adress() {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isLoadingCep, setLoadingCep] = useState<boolean>(false);
   const [newAdress, setNewAdress] = useState<boolean>(false);
+  const {setIdLogradouro} = useCheckout()
   const { data: logradouroUser, isLoading: isLoadingLogradouro } = useLogradouro();
+
   const { step, setStep } = useCheckout();
   const {
     register,
@@ -26,7 +28,8 @@ export function Adress() {
   const onSubmit = async (data: CheckoutProps.InformationsAdressProps) => {
     try {
       setLoading(true);
-      await createLogradouro(data);
+     const response =  await createLogradouro(data);
+      setIdLogradouro(response.id)
       setStep(3);
     } catch (error) {
       console.log(error);
@@ -79,7 +82,9 @@ export function Adress() {
 
           <div onClick={changeAdress} className="space-y-3">
             {logradouroUser.map((item: any, i: any) => (
-              <div key={i} className="border border-dashed border-gray-300 p-4 rounded-md shadow-sm text-sm hover:border-primary-50 cursor-pointer transition-colors duration-300">
+              <div 
+              onClick={()=>setIdLogradouro(item.id)}
+              key={i} className="border border-dashed border-gray-300 p-4 rounded-md shadow-sm text-sm hover:border-primary-50 cursor-pointer transition-colors duration-300">
                 <p>
                   <strong>Rua:</strong> {item.street}
                 </p>
