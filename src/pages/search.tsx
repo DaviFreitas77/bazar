@@ -23,6 +23,8 @@ export function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("q");
   const [currentPage, setCurrentPage] = useState(1);
+  const [filterOrder, setFilterOrder] = useState("relevance");
+
   let productsPerPage = 16;
 
   const { data: allProducts, isLoading: isLoadingAllProducts } = useAllProducts();
@@ -56,8 +58,17 @@ export function Search() {
       result = filterCategory(selectedcategorie, result);
     }
 
+    //order
+    if (filterOrder === "highestPrice") {
+      result = [...result].sort((a, b) => b.price - a.price);
+    }
+
+    if (filterOrder === "lowestPrice") {
+      result = [...result].sort((a, b) => a.price - b.price);
+    }
+
     return result;
-  }, [selectedColor, selectedSize, allProducts, selectedcategorie, productsSearched]);
+  }, [selectedColor, selectedSize, allProducts, selectedcategorie, productsSearched, filterOrder]);
 
   const indexOfLastItem = currentPage * productsPerPage;
   const indexOfFirstItem = indexOfLastItem - productsPerPage;
@@ -88,7 +99,7 @@ export function Search() {
             <>
               {showSidebar && <DrawerDesktop allColors={allColors} allSizes={allSizes} selectedColor={selectedColor} selectedcategorie={selectedcategorie} allCategories={allCategories} selectedSize={selectedSize} applyFilterProducts={applyFilterProducts} />}
 
-              <DrawerFilterMobile open={drawerOpen} onOpenChange={setDrawerOpen} allColors={allColors} allSizes={allSizes} selectedColor={selectedColor} selectedSize={selectedSize} applyFilterProducts={applyFilterProducts} />
+              <DrawerFilterMobile open={drawerOpen} onOpenChange={setDrawerOpen} allColors={allColors} allSizes={allSizes} selectedColor={selectedColor} selectedSize={selectedSize} applyFilterProducts={applyFilterProducts} selectedcategorie={selectedcategorie} allCategories={allCategories} />
             </>
           )}
 
@@ -101,7 +112,7 @@ export function Search() {
               <>
                 <BannerSearch showSidebar={showSidebar} />
 
-                <ActionButtons showSidebar={showSidebar} products={filteredProducts} setShowSidebar={setShowSidebar} setDrawerOpen={setDrawerOpen} />
+                <ActionButtons showSidebar={showSidebar} products={filteredProducts} setShowSidebar={setShowSidebar} setDrawerOpen={setDrawerOpen} filterOrder={filterOrder} setFilterOrder={setFilterOrder} />
 
                 <div className={`grid gap-2 w-full ${showSidebar ? "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-[1920px]"}`}>
                   {currentItems.map((product) => (

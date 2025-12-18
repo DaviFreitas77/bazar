@@ -1,16 +1,15 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { ChevronRight, MoreHorizontal } from "lucide-react";
-
 import { cn } from "@/lib/utils";
-import { useProductsSearched } from "@/context/productsSearchedContext";
+
 
 function Breadcrumb({ ...props }: React.ComponentProps<"nav">) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />;
 }
 
 function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
-  return <ol data-slot="breadcrumb-list" className={cn("text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5", className)} {...props} />;
+  return <ol data-slot="breadcrumb-list" className={cn("text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm wrap-break-word sm:gap-2.5", className)} {...props} />;
 }
 
 function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
@@ -61,22 +60,22 @@ function BreadcrumbPages({ pageName, routePage }: BreadcrumbPagesProps) {
         <BreadcrumbItem>
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        {pageName.length > 1 ? (
-          pageName.map((name, index) => (
+
+        {pageName.map((name, index) => (
+          <React.Fragment key={index}>
+            <BreadcrumbSeparator />
+
             <BreadcrumbItem>
-              <BreadcrumbLink href={routePage}>{name}</BreadcrumbLink>
-              {index < pageName.length - 1 && <BreadcrumbSeparator />}
+              <BreadcrumbLink href={routePage}>
+                {name}
+              </BreadcrumbLink>
             </BreadcrumbItem>
-          ))
-        ) : (
-          <BreadcrumbItem>
-            <BreadcrumbLink href={routePage}>{pageName[0]}</BreadcrumbLink>
-          </BreadcrumbItem>
-        )}
+          </React.Fragment>
+        ))}
       </BreadcrumbList>
     </Breadcrumb>
   );
 }
+
 
 export { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis, BreadcrumbPages };

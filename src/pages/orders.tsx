@@ -9,6 +9,7 @@ import { BsBoxSeam } from "react-icons/bs";
 
 export function Orders() {
   const { data: myOrders, isLoading: isLoadingMyOrders } = useMyOrders();
+  
   const [filterOrder, setFilterOrder] = useState("relevance");
 
   const sortedOrders = useMemo(() => {
@@ -51,7 +52,7 @@ export function Orders() {
           ) : (
             <p className="text-center text-gray-500 mt-20 flex flex-col items-center gap-4">
               <span className="text-2xl text-primary-50">
-                <BsBoxSeam size={40}/>
+                <BsBoxSeam size={40} />
               </span>
               Você ainda não realizou nenhum pedido.
             </p>
