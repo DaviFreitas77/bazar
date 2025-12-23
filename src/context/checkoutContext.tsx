@@ -44,9 +44,13 @@ export function CheckoutProvider({ children }: { children: React.ReactNode }) {
     if (state.length === 0) {
       setDiscount(0);
     }
-    setPreference({ id: "", total: 0, orderId: "" });
-    setStep(1);
-    setDiscount(0);
+
+    if(step === 3){
+      setStep(1);
+      setPreference({ id: "", total: 0, orderId: "" });
+      setDiscount(0);
+
+    }
   }, [state]);
 
   return <CheckoutContext.Provider value={{ step, setStep, total, setTotal, discount, setDiscount, preference, setPreference,idLogradouro,setIdLogradouro }}>{children}</CheckoutContext.Provider>;

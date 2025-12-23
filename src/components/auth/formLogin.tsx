@@ -14,7 +14,7 @@ interface FormLoginProps {
 export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
-  const { setName, setEmail } = useUser();
+  const { setName, setEmail, setLastName, setTel } = useUser();
   const {
     register,
     handleSubmit,
@@ -29,12 +29,14 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       const response = await loginUser(data);
       setEmail(response.user.email);
       setName(response.user.name);
- 
+      setLastName(response.user.lastName);
+      setTel(response.user.tel);
+
       onClose();
       toast.success("Login realizado");
-    } catch (error:any) {
-      if(error.status === 401){
-        setErrorMessage("Credenciais inválidas")
+    } catch (error: any) {
+      if (error.status === 401) {
+        setErrorMessage("Credenciais inválidas");
       }
       console.log(error);
     } finally {
