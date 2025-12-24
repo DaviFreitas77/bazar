@@ -6,7 +6,7 @@ interface ProgressProps {
 export function ProgressStep({ step }: ProgressProps) {
   return (
     <section className="w-full max-w-7xl mb-10">
-      <div className="flex  items-start text-sm">
+      <div className="flex  items-start justify-center lg:justify-start text-xs lg:text-sm">
         {/* step1 */}
         <div className="flex items-center flex-col gap-1">
           <div
@@ -28,7 +28,7 @@ export function ProgressStep({ step }: ProgressProps) {
         </div>
 
         <div
-          className={`w-30 h-1 bg-gray-200 mt-5 ${
+          className={`w-15 lg:w-25 h-1 bg-gray-200 mt-5 ${
             step >= 2 && "bg-primary-100"
           }`}
         ></div>
@@ -54,7 +54,7 @@ export function ProgressStep({ step }: ProgressProps) {
         </div>
 
         <div
-          className={`w-30 h-1 bg-gray-200 mt-5 ${
+          className={`w-15 lg:w-25 h-1 bg-gray-200 mt-5 ${
             step >= 3 && "bg-primary-100"
           }`}
         ></div>
@@ -80,7 +80,7 @@ export function ProgressStep({ step }: ProgressProps) {
         </div>
 
         <div
-          className={`w-30 h-1 bg-gray-200 mt-5  ${
+          className={`w-15 lg:w-25 h-1 bg-gray-200 mt-5  ${
             step >= 4 && "bg-primary-100"
           }`}
         ></div>

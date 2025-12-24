@@ -74,11 +74,11 @@ export function Adress() {
     );
   }
   return (
-    <section className={`${logradouroUser ? "" : "border"} border mt-4 px-4 rounded-md py-5 border-gray-200`}>
+    <section className={`${logradouroUser ? "" : "border"}`}>
       <h4 className={`${logradouroUser.length > 0 ? "hidden" : "block"} text-gray-900 font-semibold `}>Endereço de entrega</h4>
       {logradouroUser?.length > 0 && !newAdress ? (
         <div>
-          <h3 className="text-base mb-4 font-semibold">Seus endereços:</h3>
+          <h3 className="text-base mb-4 font-semibold mt-5 ">Seus endereços:</h3>
 
           <div onClick={changeAdress} className="space-y-3">
             {logradouroUser.map((item: any, i: any) => (
@@ -113,7 +113,7 @@ export function Adress() {
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
           {/* Nome e Sobrenome */}
           <div className="flex flex-col md:flex-row items-center gap-4">
             <div className="flex flex-col w-full gap-1">

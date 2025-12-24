@@ -54,7 +54,7 @@ export function Checkout() {
 
       <ProgressStep step={step} />
 
-      <div className="w-full max-w-7xl flex gap-10">
+      <div className="w-full max-w-7xl flex gap-10 flex-wrap lg:flex-nowrap">
         <div className="w-full h-fit border border-gray-200 rounded-md">{step === 1 ? <PeopleInformation /> : step === 2 ? <ChooseDelivery /> : step === 3 ? <Payment /> : <PaymentConfirmed numberOrder={numberOrder} />}</div>
 
         <Summary products={state} total={total} isConfirmed={orderConfirmed} numberOrder={numberOrder} />

@@ -38,7 +38,7 @@ useEffect(() => {
   return (
     <section className="lg:col-span-2">
       {/* Formulário */}
-      <div className="px-2 py-6 md:p-8 rounded-md">
+      <div className="px-5 py-6 md:p-8 rounded-md">
         {/* Título */}
         <div className="flex items-center gap-3 border-b border-gray-100 pb-4">
           <div className="bg-[#F4EDE7] p-2 rounded-full text-primary-50">

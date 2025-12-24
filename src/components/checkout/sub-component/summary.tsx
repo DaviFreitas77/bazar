@@ -15,7 +15,7 @@ interface SummaryProps {
 export function Summary({ products, isConfirmed, numberOrder,total}: SummaryProps) {
   const { step } = useCheckout();
   return (
-    <section className="border border-gray-200 bg-white md:shadow-sm rounded-md p-2 pt-4 md:p-6 h-fit  max-w-md">
+    <section className="border border-gray-200 bg-white md:shadow-sm rounded-md p-6  md:p-6 h-fit  max-w-md">
       <div className="flex items-center gap-3 mb-6">
         <div className="bg-[#F4EDE7] p-3 rounded-full text-primary-50 shadow-sm">
           <LiaShoppingBagSolid size={22} />
