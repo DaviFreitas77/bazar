@@ -7,16 +7,16 @@ import { useCheckout } from "@/context/checkoutContext";
 import { Loading } from "@/components/loading/loading";
 import { PixQRCode } from "./PixQrCode";
 import { createOrder } from "@/api/order.api";
+
 export function PaymentMercadoPago() {
   const { state } = useCart();
-
   const { setStep, setPreference, preference, idLogradouro } = useCheckout();
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
+  
   initMercadoPago("TEST-c87560f2-2e8e-439c-912f-ee65c7460423", {
-    locale: "pt-BR",
+  locale: "pt-BR",
   });
-
   useEffect(() => {
     const createPreference = async () => {
       if (!preference.id) {
@@ -33,7 +33,7 @@ export function PaymentMercadoPago() {
 
   const initialization = {
     preferenceId: preference.id,
-    amount: preference.total,
+    amount: Number(preference.total.toFixed(2)),
   };
   const customization = {
     paymentMethods: {
@@ -59,8 +59,8 @@ export function PaymentMercadoPago() {
     if (!preference.orderId) return;
     const response = await apiProcessPayment(formData, preference.orderId);
     console.log(response);
+     console.log(response.data)
     if (response.status === "approved") {
-      console.log(response);
       setStep((prev) => prev + 1);
     }
   };
