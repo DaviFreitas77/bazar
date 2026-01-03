@@ -22,7 +22,6 @@ function App() {
             </PrivateRoute>
           }
         />
-
         <Route
           path="/pedidos"
           element={
