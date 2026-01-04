@@ -7,10 +7,12 @@ interface DrawerFilterMobileProps {
   onOpenChange: (open: boolean) => void;
   allColors: string[];
   allSizes: string[];
+  allCategories: string[];
   selectedColor: string;
   selectedSize: string;
+  selectedcategorie: string;
   applyFilterProducts: (
-    filter: "filterColor" | "filterSize",
+    filter: "filterColor" | "filterSize" | "filtercategory",
     value: string
   ) => void;
 }
@@ -22,10 +24,30 @@ export function DrawerFilterMobile({
   allSizes,
   selectedColor,
   selectedSize,
+  allCategories,
+  selectedcategorie,
   applyFilterProducts,
 }: DrawerFilterMobileProps) {
   return (
     <SheetSearch open={open} onOpenChange={onOpenChange} side="left" tittle="Filtros">
+
+      <AccordionFilter name="Categorias">
+          {allCategories.map((category, index) => (
+            <label key={index} className={`flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-100 mt-1 capitalize`}>
+              <input
+                type="checkbox"
+                value={category}
+                checked={selectedcategorie === category}
+                className="accent-primary-100 w-4 h-4"
+                onChange={(e) => {
+                  applyFilterProducts("filtercategory", e.target.value);
+                }}
+              />
+              <span className={`${selectedcategorie === category ? "text-primary-100" : ""}`}>{category}</span>
+            </label>
+          ))}
+        </AccordionFilter>
+
       <AccordionFilter name="Cores">
         {allColors.map((color) => (
           <label

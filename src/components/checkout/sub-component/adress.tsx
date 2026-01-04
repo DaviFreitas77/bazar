@@ -11,7 +11,9 @@ export function Adress() {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isLoadingCep, setLoadingCep] = useState<boolean>(false);
   const [newAdress, setNewAdress] = useState<boolean>(false);
+  const { setIdLogradouro } = useCheckout();
   const { data: logradouroUser, isLoading: isLoadingLogradouro } = useLogradouro();
+
   const { step, setStep } = useCheckout();
   const {
     register,
@@ -26,7 +28,8 @@ export function Adress() {
   const onSubmit = async (data: CheckoutProps.InformationsAdressProps) => {
     try {
       setLoading(true);
-      await createLogradouro(data);
+      const response = await createLogradouro(data);
+      setIdLogradouro(response.id);
       setStep(3);
     } catch (error) {
       console.log(error);
@@ -71,15 +74,15 @@ export function Adress() {
     );
   }
   return (
-    <section className={`${logradouroUser ? "" : "border"} border mt-4 px-4 rounded-md py-5 border-gray-200`}>
+    <section className={`${logradouroUser ? "" : "border"}`}>
       <h4 className={`${logradouroUser.length > 0 ? "hidden" : "block"} text-gray-900 font-semibold `}>Endereço de entrega</h4>
       {logradouroUser?.length > 0 && !newAdress ? (
         <div>
-          <h3 className="text-base mb-4 font-semibold">Seus endereços:</h3>
+          <h3 className="text-base mb-4 font-semibold mt-5 ">Seus endereços:</h3>
 
           <div onClick={changeAdress} className="space-y-3">
             {logradouroUser.map((item: any, i: any) => (
-              <div key={i} className="border border-dashed border-gray-300 p-4 rounded-md shadow-sm text-sm hover:border-primary-50 cursor-pointer transition-colors duration-300">
+              <div onClick={() => setIdLogradouro(item.id)} key={i} className="border border-dashed border-gray-300 p-4 rounded-md shadow-sm text-sm hover:border-primary-50 cursor-pointer transition-colors duration-300">
                 <p>
                   <strong>Rua:</strong> {item.street}
                 </p>
@@ -98,14 +101,17 @@ export function Adress() {
               </div>
             ))}
           </div>
-          <div className="pt-6 text-end">
+          <div className="pt-6 flex justify-between items-center">
+            <button onClick={() => setStep((prev) => prev - 1)} type="button" className={` ${step === 1 ? "hidden" : "block"} bg-gray-200 hover:bg-primary-50 cursor-pointer  text-white font-medium px-8 py-3 rounded-md transition duration-200 shadow-sm `}>
+              Voltar
+            </button>
             <button onClick={() => setNewAdress(true)} className="bg-primary-50 text-white px-4 py-3 rounded-md hover:opacity-85 cursor-pointer">
               Adicionar novo endereço
             </button>
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
           {/* Nome e Sobrenome */}
           <div className="flex flex-col md:flex-row items-center gap-4">
             <div className="flex flex-col w-full gap-1">
@@ -134,7 +140,7 @@ export function Adress() {
               <label className="text-gray-900 font-medium text-sm">Endereço</label>
               <div className="relative">
                 <input {...register("street")} type="text" placeholder="Rua exemplo" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 bg-[#F9FAFB]" />
-                  {isLoadingCep && (
+                {isLoadingCep && (
                   <div className="absolute right-3 top-6 -translate-y-1/2">
                     <Loading />
                   </div>
@@ -147,7 +153,7 @@ export function Adress() {
               <label className="text-gray-900 font-medium text-sm">Número</label>
               <div className="relative">
                 <input {...register("number")} type="number" placeholder="10" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 bg-[#F9FAFB]" />
-                
+
                 <div className="h-2 mt-1">{errors.number && <span className="text-red-500 text-sm">{errors.number.message}</span>}</div>
               </div>
             </div>
@@ -157,7 +163,7 @@ export function Adress() {
               <label className="text-gray-900 font-medium text-sm">Bairro</label>
               <div className="relative">
                 <input {...register("district")} type="text" placeholder="Seu bairro" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 bg-[#F9FAFB]" />
-                  {isLoadingCep && (
+                {isLoadingCep && (
                   <div className="absolute right-3 top-6 -translate-y-1/2">
                     <Loading />
                   </div>
@@ -170,7 +176,7 @@ export function Adress() {
               <label className="text-gray-900 font-medium text-sm">Estado</label>
               <div className="relative">
                 <input {...register("state")} type="text" placeholder="São Paulo" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 bg-[#F9FAFB]" />
-                  {isLoadingCep && (
+                {isLoadingCep && (
                   <div className="absolute right-3 top-6 -translate-y-1/2">
                     <Loading />
                   </div>

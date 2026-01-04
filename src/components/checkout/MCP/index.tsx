@@ -7,32 +7,33 @@ import { useCheckout } from "@/context/checkoutContext";
 import { Loading } from "@/components/loading/loading";
 import { PixQRCode } from "./PixQrCode";
 import { createOrder } from "@/api/order.api";
+
 export function PaymentMercadoPago() {
   const { state } = useCart();
- 
-  const { setStep,setPreference,preference } = useCheckout();
+  const { setStep, setPreference, preference, idLogradouro } = useCheckout();
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
+  
   initMercadoPago("TEST-c87560f2-2e8e-439c-912f-ee65c7460423", {
-    locale: "pt-BR",
+  locale: "pt-BR",
   });
-
   useEffect(() => {
     const createPreference = async () => {
-      const response = await createOrder(state);
-      setPreference({
-        id:response.preference.id,
-        total:response.preference.total,
-        orderId:response.preference.orderId
-      });
-     
+      if (!preference.id) {
+        const response = await createOrder(state, idLogradouro);
+        setPreference({
+          id: response.preference.id,
+          total: response.preference.total,
+          orderId: response.preference.orderId,
+        });
+      }
     };
     createPreference();
-  }, []);
+  }, [state, preference.id]);
 
   const initialization = {
-    preferenceId:preference.id,
-    amount: preference.total,
+    preferenceId: preference.id,
+    amount: Number(preference.total.toFixed(2)),
   };
   const customization = {
     paymentMethods: {
@@ -49,7 +50,6 @@ export function PaymentMercadoPago() {
       setQrCode(response.point_of_interaction.transaction_data.qr_code);
 
       if (response.status === "approved") {
-       
         setStep((prev) => prev + 1);
       }
       return;
@@ -58,9 +58,9 @@ export function PaymentMercadoPago() {
     // Caso seja cartão de crédito
     if (!preference.orderId) return;
     const response = await apiProcessPayment(formData, preference.orderId);
-     console.log(response)
+    console.log(response);
+     console.log(response.data)
     if (response.status === "approved") {
-       console.log(response)
       setStep((prev) => prev + 1);
     }
   };

@@ -1,105 +1,89 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 @theme inline {
   --radius: 0.625rem;
-  --color-background: #FFFFFF;
-  --color-primary-50: #A2785A;
-  --color-primary-100: #9E5330;
+  --color-background: #ffffff;
+  --color-primary-50: #a2785a;
+  --color-primary-100: #9e5330;
   --color-primary: #000;
-
-  
 }
-
-
-
-
 
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
-*{
-font-family: Inter, sans-serif;
+* {
+  font-family: Inter, sans-serif;
 }
-
 
 .swiper-button-prev,
 .swiper-button-next {
   width: 40px !important;
   height: 40px !important;
-  
-  background-color: #ffffff; 
-  border-radius: 100%; 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); 
+
+  background-color: #ffffff;
+  border-radius: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease-in-out;
 }
 
-
 .swiper-button-prev::after {
-  content: '\f053';
-  font-family: 'Font Awesome 5 Free';
+  content: "\f053";
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
-  color: #9E5330; 
+  color: #9e5330;
   font-size: 15px;
 }
-
 
 .swiper-button-next::after {
-  content: '\f054';
-  font-family: 'Font Awesome 5 Free';
+  content: "\f054";
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
-  color: #9E5330;
+  color: #9e5330;
   font-size: 15px;
 }
 
-.swiper-navigation-icon{
+.swiper-navigation-icon {
   display: none;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;  /* espessura */
+  width: 6px; /* espessura */
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #f0f0f0; 
+  background: #f0f0f0;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #9E5330; /* cor da barra */
-  border-radius: 10px;    /* arredondada */
+  background-color: #9e5330; /* cor da barra */
+  border-radius: 10px; /* arredondada */
   border: 2px solid #f0f0f0; /* espaço ao redor */
-
 }
-
-
 
 /* MERCADO PAGO */
-.mp-checkout-bricks__payment-form{
+.mp-checkout-bricks__payment-form {
   padding: 0px !important;
 }
-.mp-checkout-bricks__payment-options-_ANPQa{
- display:flex !important;
- flex-direction:column !important;
- gap:10 !important;
-    width:100% !important;
-}
-.mp-checkout-bricks__selector-NagIaJ{
- padding: 20px !important;
-   width:100% !important;
- 
-}
-.mp-checkout-bricks__selector-NagIaJ:hover{
-  background-color: #fcfcfc!important;
+.mp-checkout-bricks__payment-options-_ANPQa {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10 !important;
+  width: 100% !important;
+  border: none !important;
 }
 
+.mp-checkout-bricks__selector-NagIaJ {
+  padding: 20px !important;
+  width: 100% !important;
+}
+.mp-checkout-bricks__selector-NagIaJ:hover {
+  background-color: #fcfcfc !important;
+}
 
 .svelte-r6lpve {
   display: none !important;
 }
-
-

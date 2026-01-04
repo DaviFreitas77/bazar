@@ -3,7 +3,7 @@ import { ChoosePayment } from "./sub-component/choosePaymento";
 export function Payment() {
   return (
     <section className="lg:col-span-2">
-      <div className="p-2 md:p-8 rounded-md">
+      <div className="p-5 md:p-8 rounded-md">
         {/* Título */}
         <div className="flex items-center gap-3 border-b border-gray-100 pb-4">
           <div className="bg-[#F4EDE7] p-2 rounded-full text-primary-50">

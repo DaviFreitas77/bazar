@@ -5,7 +5,7 @@ import { registerUser } from "@/api/auth.api";
 import { useState } from "react";
 import { Loading } from "../loading/loading";
 import { useUser } from "@/context/userContext";
-import { toast } from "sonner"
+import { toast } from "sonner";
 
 interface FormRegisterProps {
   onChangeForm: () => void;
@@ -15,7 +15,7 @@ interface FormRegisterProps {
 export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const { setName, setEmail } = useUser();
+  const { setName, setEmail,setLastName,setTel } = useUser();
 
   const {
     register,
@@ -30,11 +30,14 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
     setLoading(true);
     try {
       const response = await registerUser(data);
-      console.log(response);
+ 
       onClose();
-      toast.success("Cadastro realizado!")
+      toast.success("Cadastro realizado!");
       setEmail(response.user.email);
       setName(response.user.name);
+      setLastName(response.user.lastName);
+      setTel(response.user.tel)
+
     } catch (error: any) {
       if (error.response?.data?.message) {
         setErrorMessage(error.response.data.message);
@@ -79,8 +82,16 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
             <div className="h-2 mt-1">{errors.name && <span className="text-red-500 text-xs">{errors.name.message}</span>}</div>
           </div>
           <div className="w-full">
+            <input {...register("lastName")} name="lastName" type="text" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Sobrenome" />
+            <div className="h-2 mt-1">{errors.lastName && <span className="text-red-500 text-xs">{errors.lastName.message}</span>}</div>
+          </div>
+          <div className="w-full">
             <input {...register("email")} name="email" type="email" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="E-mail" />
             <div className="h-2 mt-1">{errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}</div>
+          </div>
+          <div className="w-full">
+            <input {...register("tel")} name="tel" type="text" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Telefone" />
+            <div className="h-2 mt-1">{errors.tel && <span className="text-red-500 text-xs">{errors.tel.message}</span>}</div>
           </div>
           <div className="w-full">
             <input {...register("password")} name="password" type="password" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Senha" />

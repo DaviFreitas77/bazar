@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Search } from "./pages/search";
 import { Product } from "./pages/product";
 import { Header } from "./components/ui/header";
@@ -7,9 +7,10 @@ import { Orders } from "./pages/orders";
 import PrivateRoute from "./PrivateRoute";
 
 function App() {
+  const location = useLocation();
   return (
     <>
-      <Header />
+    {location.pathname !== "/checkout" && <Header />}
       <Routes>
         <Route path="/" element={<Search />} />
         <Route path="/product/:id" element={<Product />} />
@@ -21,7 +22,6 @@ function App() {
             </PrivateRoute>
           }
         />
-
         <Route
           path="/pedidos"
           element={

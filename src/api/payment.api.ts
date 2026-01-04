@@ -29,7 +29,6 @@ export const  apiProcessPayment = async(formdata:any,order:string)=>{
 
 
 export const  apiProcessPaymentPix = async(formdata:any)=>{
-  console.log(formdata)
   const response = await api.post("mcp/proccessPaymentPix",formdata);
   return response.data;
 }
