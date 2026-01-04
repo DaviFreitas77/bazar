@@ -53,10 +53,10 @@ createRoot(document.getElementById("root")!).render(
           <CartProvider>
             <ProductsSearchedProvider>
               <CheckoutProvider>
-                {/* <StrictMode> */}
+                <StrictMode>
                   <InitApp />
                   <Toaster />
-                {/* </StrictMode> */}
+                </StrictMode>
               </CheckoutProvider>
             </ProductsSearchedProvider>
           </CartProvider>
