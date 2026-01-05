@@ -2,6 +2,7 @@ import { BreadcrumbPages } from "@/components/ui/breadcrumb";
 import { AccordionFilter } from "@/components/ui/accordion";
 import { SliderProduct } from "@/components/ui/slider";
 import { useProductsSearched } from "@/context/productsSearchedContext";
+
 interface DrawerDesktopProps {
   allColors: string[];
   allSizes: string[];
@@ -9,10 +10,13 @@ interface DrawerDesktopProps {
   selectedColor: string;
   selectedSize: string;
   selectedcategorie: string;
+  maxPrice:number;
+  minPrice:number;
+  valueChange:React.Dispatch<React.SetStateAction<number[]>>
 
   applyFilterProducts: (filter: "filterColor" | "filterSize" | "filtercategory", value: string) => void;
 }
-export function DrawerDesktop({ allColors, allSizes, selectedColor, selectedSize, selectedcategorie, allCategories, applyFilterProducts }: DrawerDesktopProps) {
+export function DrawerDesktop({ allColors, allSizes, selectedColor, selectedSize, selectedcategorie, allCategories, applyFilterProducts,maxPrice,minPrice,valueChange}: DrawerDesktopProps) {
     const { nameProduct } = useProductsSearched();
   return (
     <section className="max-w-xs w-full h-screen rounded-md mt-10 hidden lg:block">
@@ -69,7 +73,7 @@ export function DrawerDesktop({ allColors, allSizes, selectedColor, selectedSize
         </AccordionFilter>
         <AccordionFilter name="Preço">
           <div className="mt-2">
-            <SliderProduct />
+            <SliderProduct maxPrice={maxPrice} minPrice={minPrice} valueChange={valueChange}/>
           </div>
         </AccordionFilter>
       </div>

@@ -3,23 +3,8 @@ import * as SliderPrimitive from "@radix-ui/react-slider";
 
 import { cn } from "@/lib/utils";
 
-function Slider({
-  className,
-  defaultValue,
-  value,
-  min = 0,
-  max = 100,
-  ...props
-}: React.ComponentProps<typeof SliderPrimitive.Root>) {
-  const _values = React.useMemo(
-    () =>
-      Array.isArray(value)
-        ? value
-        : Array.isArray(defaultValue)
-        ? defaultValue
-        : [min, max],
-    [value, defaultValue, min, max]
-  );
+function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }: React.ComponentProps<typeof SliderPrimitive.Root>) {
+  const _values = React.useMemo(() => (Array.isArray(value) ? value : Array.isArray(defaultValue) ? defaultValue : [min, max]), [value, defaultValue, min, max]);
 
   return (
     <SliderPrimitive.Root
@@ -28,24 +13,11 @@ function Slider({
       value={value}
       min={min}
       max={max}
-      className={cn(
-        "relative flex w-full touch-none items-center select-none data-[disabled]:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col",
-        className
-      )}
+      className={cn("relative flex w-full touch-none items-center select-none data-[disabled]:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col", className)}
       {...props}
     >
-      <SliderPrimitive.Track
-        data-slot="slider-track"
-        className={cn(
-          "bg-muted relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5"
-        )}
-      >
-        <SliderPrimitive.Range
-          data-slot="slider-range"
-          className={cn(
-            "bg-primary absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
-          )}
-        />
+      <SliderPrimitive.Track data-slot="slider-track" className={cn("bg-muted relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5")}>
+        <SliderPrimitive.Range data-slot="slider-range" className={cn("bg-primary absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full")} />
       </SliderPrimitive.Track>
       {Array.from({ length: _values.length }, (_, index) => (
         <SliderPrimitive.Thumb
@@ -58,24 +30,32 @@ function Slider({
   );
 }
 
-function SliderProduct() {
-  const [value, setValue] = React.useState([50, 300]); 
-  const maxValue = 400;
+interface SliderPriceProps {
+  maxPrice: number;
+  minPrice: number;
+  valueChange: React.Dispatch<React.SetStateAction<number[]>>;
+}
+function SliderProduct({ maxPrice, minPrice, valueChange }: SliderPriceProps) {
+  const [value, setValue] = React.useState([minPrice, maxPrice]);
 
   return (
     <div className="w-full max-w-sm mt-2">
-      {/* Slider */}
+
       <Slider
         value={value}
-        onValueChange={setValue}
-        max={maxValue}
+        onValueChange={(v) => {
+          setValue(v);
+        }}
+        max={maxPrice}
+        min={minPrice}
         step={1}
       />
 
-      {/* Valores + botão */}
+
       <div className="flex justify-between items-center mt-4 text-sm text-gray-600">
+
         {/* Botão */}
-        <button className="bg-primary-50 text-white px-6 py-1 rounded-xs hover:bg-primary-100 transition cursor-pointer">
+        <button onClick={() => valueChange(value)} className="bg-primary-50 text-white px-6 py-1 rounded-xs hover:bg-primary-100 transition cursor-pointer">
           Filtrar
         </button>
 
@@ -89,6 +69,5 @@ function SliderProduct() {
     </div>
   );
 }
-
 
 export { Slider, SliderProduct };
