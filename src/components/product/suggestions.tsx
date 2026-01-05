@@ -21,7 +21,7 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
           speed={1000}
           breakpoints={{
             320: {
-              slidesPerView: 1.5,
+              slidesPerView: 2,
               spaceBetween: 10,
               slidesPerGroup: 1,
             },
