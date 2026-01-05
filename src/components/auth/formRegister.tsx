@@ -6,6 +6,8 @@ import { useState } from "react";
 import { Loading } from "../loading/loading";
 import { useUser } from "@/context/userContext";
 import { toast } from "sonner";
+import { IoEyeOutline } from "react-icons/io5";
+import { FaRegEyeSlash } from "react-icons/fa";
 
 interface FormRegisterProps {
   onChangeForm: () => void;
@@ -13,9 +15,10 @@ interface FormRegisterProps {
 }
 
 export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
+  const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const { setName, setEmail,setLastName,setTel } = useUser();
+  const { setName, setEmail, setLastName, setTel } = useUser();
 
   const {
     register,
@@ -30,14 +33,13 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
     setLoading(true);
     try {
       const response = await registerUser(data);
- 
+
       onClose();
       toast.success("Cadastro realizado!");
       setEmail(response.user.email);
       setName(response.user.name);
       setLastName(response.user.lastName);
-      setTel(response.user.tel)
-
+      setTel(response.user.tel);
     } catch (error: any) {
       if (error.response?.data?.message) {
         setErrorMessage(error.response.data.message);
@@ -93,8 +95,14 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
             <input {...register("tel")} name="tel" type="text" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Telefone" />
             <div className="h-2 mt-1">{errors.tel && <span className="text-red-500 text-xs">{errors.tel.message}</span>}</div>
           </div>
-          <div className="w-full">
-            <input {...register("password")} name="password" type="password" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Senha" />
+          <div className="w-full relative">
+            <input {...register("password")} name="password" type={visiblePassword ? "text" : "password"} className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Senha" />
+
+            <span className="absolute top-3.5 right-6">
+              <button onClick={() => setVisiblePassword(!visiblePassword)} className="cursor-pointer hover:opacity-85">
+                {visiblePassword ? <IoEyeOutline size={17} /> : <FaRegEyeSlash size={17} />}
+              </button>
+            </span>
 
             <div className="h-2 mt-1">{errors.password ? <span className="text-red-500 text-xs">{errors.password.message}</span> : <span className="text-red-500 text-xs">{errorMessage}</span>}</div>
           </div>

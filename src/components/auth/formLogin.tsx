@@ -6,12 +6,15 @@ import { useState } from "react";
 import { Loading } from "../loading/loading";
 import { useUser } from "@/context/userContext";
 import { toast } from "sonner";
+import { IoEyeOutline } from "react-icons/io5";
+import { FaRegEyeSlash } from "react-icons/fa";
 
 interface FormLoginProps {
   onChangeForm: () => void;
   onClose: () => void;
 }
 export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
+  const [visiblePassword,setVisiblePassword] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const { setName, setEmail, setLastName, setTel } = useUser();
@@ -77,8 +80,17 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
             <input {...register("email")} name="email" type="email" className="px-3 py-4 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="E-mail" />
             <div className="h-2 my-1">{errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}</div>
           </div>
-          <div className="w-full">
-            <input {...register("password")} name="password" type="password" className="px-3 py-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Senha" />
+          <div className="w-full relative">
+            <input {...register("password")}   type={visiblePassword ? "text" : "password"}  className="px-3 py-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full " placeholder="Senha" />
+
+            <span className="absolute top-3.5 right-6">
+              <button
+              onClick={()=>setVisiblePassword(!visiblePassword)}
+              className="cursor-pointer hover:opacity-85">
+                {visiblePassword ? <IoEyeOutline size={17} /> : <FaRegEyeSlash size={17} />}
+                
+              </button>
+            </span>
             <div className="h-2 mt-1 mb-4">{errors.password ? <span className="text-red-500 text-xs">{errors.password.message}</span> : <span className="text-red-500 text-xs">{errorMessage}</span>}</div>
           </div>
         </div>
