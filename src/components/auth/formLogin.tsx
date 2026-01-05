@@ -85,6 +85,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
 
             <span className="absolute top-3.5 right-6">
               <button
+              type="button"
               onClick={()=>setVisiblePassword(!visiblePassword)}
               className="cursor-pointer hover:opacity-85">
                 {visiblePassword ? <IoEyeOutline size={17} /> : <FaRegEyeSlash size={17} />}

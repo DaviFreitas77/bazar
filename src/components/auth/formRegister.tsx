@@ -99,7 +99,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
             <input {...register("password")} name="password" type={visiblePassword ? "text" : "password"} className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Senha" />
 
             <span className="absolute top-3.5 right-6">
-              <button onClick={() => setVisiblePassword(!visiblePassword)} className="cursor-pointer hover:opacity-85">
+              <button type="button" onClick={() => setVisiblePassword(!visiblePassword)} className="cursor-pointer hover:opacity-85">
                 {visiblePassword ? <IoEyeOutline size={17} /> : <FaRegEyeSlash size={17} />}
               </button>
             </span>

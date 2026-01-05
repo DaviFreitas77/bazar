@@ -13,6 +13,7 @@ import { useUser } from "@/context/userContext";
 import { useCart } from "@/context/cartContext";
 import { useUI } from "@/context/UIContext";
 import { Link } from "react-router-dom";
+import { DropdownUser } from "./dropdown-menu";
 export function Header() { 
   const [showModal, setShowModal] = useState<boolean>(false);
  const { name } = useUser();
@@ -49,8 +50,9 @@ export function Header() {
               <AiOutlineUser size={22} />
               {name ? (
                 <div className="mt-1">
-                  <p className="capitalize font-bold text-sm leading-3">Olá, {name}</p>
-                  <Link to={"/pedidos"} className="capitalize text-sm">Meus pedidos</Link>
+                  <DropdownUser name={name}/>
+                 
+                  {/* <Link to={"/pedidos"} className="capitalize text-sm">Meus pedidos</Link> */}
                 </div>
               ) : (
                 <div className="leading-4 flex flex-col items-start">

@@ -3,7 +3,7 @@ import type { AxiosResponse } from "axios";
 import axios from "axios";
 
 export const ensureCsrf = async () => {
-  await axios.get("https://web-production-edc6.up.railway.app/sanctum/csrf-cookie", {
+  await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
     withCredentials: true,
     withXSRFToken: true,
   });
@@ -14,7 +14,7 @@ export const getMe = async () => {
   return response.data;
 };
 export const registerUser = async (data: Auth.register) => {
-  const response: AxiosResponse = await axios.post("https://web-production-edc6.up.railway.app/auth/register", data,{
+  const response: AxiosResponse = await axios.post("http://localhost:8000/auth/register", data, {
     withCredentials: true,
     withXSRFToken: true,
   });
@@ -22,9 +22,22 @@ export const registerUser = async (data: Auth.register) => {
 };
 
 export const loginUser = async (data: Auth.login) => {
-  const response: AxiosResponse = await axios.post("https://web-production-edc6.up.railway.app/auth/login", data,{
+  const response: AxiosResponse = await axios.post("http://localhost:8000/auth/login", data, {
     withCredentials: true,
     withXSRFToken: true,
   });
   return response.data;
+};
+
+export const logout = async () => {
+  const response: AxiosResponse = await axios.post(
+    "http://localhost:8000/auth/logout",
+    {},
+    {
+      withCredentials: true,
+      withXSRFToken: true,
+    }
+  );
+
+  return response;
 };
