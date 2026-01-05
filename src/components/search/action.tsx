@@ -11,7 +11,7 @@ interface ActionButtonsProps {
 }
 export function ActionButtons({ showSidebar, setShowSidebar, setDrawerOpen, filterOrder, setFilterOrder }: ActionButtonsProps) {
   return (
-    <section className={`flex justify-between items-center mt-4 mb-2    ${showSidebar ? "w-full max-w-7xl xl:pr-5 pr-0" : "w-full xl:pr-8 pr-0"}`}>
+    <section className={`flex justify-between items-center mt-4 mb-3    ${showSidebar ? "w-full max-w-7xl xl:pr-5 pr-0" : "w-full xl:pr-8 pr-0"}`}>
       <div className="flex gap-2">
         <button onClick={() => setShowSidebar(false)} className={`hidden lg:block p-2 rounded-md hover:bg-gray-200 transition ${showSidebar ? "bg-gray-100" : "bg-gray-200"} cursor-pointer`}>
           <BsGrid />
