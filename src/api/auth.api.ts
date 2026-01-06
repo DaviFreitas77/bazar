@@ -29,6 +29,9 @@ export const loginUser = async (data: Auth.login) => {
   return response.data;
 };
 
+
+
+
 export const logout = async () => {
   const response: AxiosResponse = await axios.post(
     "http://localhost:8000/auth/logout",

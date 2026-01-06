@@ -2,20 +2,24 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@/schemas/schemaAuth";
 import { loginUser } from "@/api/auth.api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loading } from "../loading/loading";
 import { useUser } from "@/context/userContext";
 import { toast } from "sonner";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
+import { useSearchParams } from "react-router-dom";
+import { useUI } from "@/context/UIContext";
 
 interface FormLoginProps {
   onChangeForm: () => void;
   onClose: () => void;
 }
 export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
-  const [visiblePassword,setVisiblePassword] = useState<boolean>(false)
+  const { setModalAuth } = useUI();
+  const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [errorGoogle, setErrorGoogle] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const { setName, setEmail, setLastName, setTel } = useUser();
   const {
@@ -28,6 +32,8 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
 
   const login = async (data: Auth.login) => {
     setLoading(true);
+    setErrorGoogle(false);
+    setErrorMessage("");
     try {
       const response = await loginUser(data);
       setEmail(response.user.email);
@@ -46,6 +52,23 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       setLoading(false);
     }
   };
+
+  const authGoogle = () => {
+    setErrorGoogle(false);
+    setErrorMessage("");
+    window.location.href = "http://localhost:8000/auth/google/redirect";
+  };
+
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    const openModal = params.get("loginModal");
+    if (openModal === "true") {
+      setModalAuth(true);
+      setErrorGoogle(true);
+    }
+  }, []);
+
   return (
     <main>
       <div className="flex flex-col mb-2">
@@ -53,7 +76,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
         <p className="text-sm text-gray-600 mt-2">Faça login com seus dados para acessar sua conta.</p>
 
         <div className="flex flex-col sm:flex-row gap-3 mt-4">
-          <button className="bg-white border border-gray-200 w-full flex items-center justify-center gap-2 px-4 py-3  rounded-sm  transition font-medium mt-4 cursor-pointer">
+          <button onClick={authGoogle} className="bg-white border border-gray-200 w-full flex items-center justify-center gap-2 px-4 py-3  rounded-sm  transition font-medium mt-4 cursor-pointer">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-5 h-5">
               <g>
                 <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
@@ -81,18 +104,16 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
             <div className="h-2 my-1">{errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}</div>
           </div>
           <div className="w-full relative">
-            <input {...register("password")}   type={visiblePassword ? "text" : "password"}  className="px-3 py-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full " placeholder="Senha" />
+            <input {...register("password")} type={visiblePassword ? "text" : "password"} className="px-3 py-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full " placeholder="Senha" />
 
             <span className="absolute top-3.5 right-6">
-              <button
-              type="button"
-              onClick={()=>setVisiblePassword(!visiblePassword)}
-              className="cursor-pointer hover:opacity-85">
+              <button type="button" onClick={() => setVisiblePassword(!visiblePassword)} className="cursor-pointer hover:opacity-85">
                 {visiblePassword ? <IoEyeOutline size={17} /> : <FaRegEyeSlash size={17} />}
-                
               </button>
             </span>
-            <div className="h-2 mt-1 mb-4">{errors.password ? <span className="text-red-500 text-xs">{errors.password.message}</span> : <span className="text-red-500 text-xs">{errorMessage}</span>}</div>
+            <div className="h-2 mt-1 mb-4">
+              {errors.password ? <span className="text-red-500 text-xs">{errors.password.message}</span> : <span className="text-red-500 text-xs">{errorMessage}</span>} {errorGoogle && <span className="text-red-500 text-xs">Conta não vinculada ao google</span>}
+            </div>
           </div>
         </div>
         <div className="flex justify-between items-center mb-4">

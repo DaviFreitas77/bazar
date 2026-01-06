@@ -13,7 +13,9 @@ import { LoadingPage } from "@/components/loading/loadingPage";
 import type { Product } from "@/@types/product";
 import { hookSearchParams } from "@/hooks/useSearchParams";
 
+
 export function Search() {
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
   const [selectedColor, setSelectedColor] = useState("");
@@ -25,10 +27,10 @@ export function Search() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterOrder, setFilterOrder] = useState("relevance");
 
+
+
   const [priceRange, setPriceRange] = useState<number[]>([0, 0]);
-
   let productsPerPage = 16;
-
   const { data: allProducts, isLoading: isLoadingAllProducts } = useAllProducts();
   const { data: productsSearched } = hookSearchParams(search);
 
@@ -86,7 +88,6 @@ export function Search() {
       if (filteredByPrice.length > 0) {
         result = filteredByPrice;
       }
-
     }
 
     return result;
@@ -134,9 +135,20 @@ export function Search() {
                 />
               )}
 
-              <DrawerFilterMobile open={drawerOpen} onOpenChange={setDrawerOpen} allColors={allColors} allSizes={allSizes} selectedColor={selectedColor} selectedSize={selectedSize} applyFilterProducts={applyFilterProducts} selectedcategorie={selectedcategorie} allCategories={allCategories}   maxPrice={maxPrice}
-                  minPrice={minPrice}
-                  valueChange={setPriceRange}/>
+              <DrawerFilterMobile
+                open={drawerOpen}
+                onOpenChange={setDrawerOpen}
+                allColors={allColors}
+                allSizes={allSizes}
+                selectedColor={selectedColor}
+                selectedSize={selectedSize}
+                applyFilterProducts={applyFilterProducts}
+                selectedcategorie={selectedcategorie}
+                allCategories={allCategories}
+                maxPrice={maxPrice}
+                minPrice={minPrice}
+                valueChange={setPriceRange}
+              />
             </>
           )}
 
