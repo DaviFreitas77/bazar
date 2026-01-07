@@ -3,9 +3,10 @@ import { useForm } from "react-hook-form";
 import { AdressSchema } from "@/schemas/schemaCheckout";
 import { useCheckout } from "@/context/checkoutContext";
 import { useEffect, useState } from "react";
-import { createLogradouro, getZipCode } from "@/api/user.api";
+
 import { Loading } from "@/components/loading/loading";
 import { useLogradouro } from "@/hooks/useLogradouro";
+import { createLogradouro, getZipCode } from "@/api/logradouro.api";
 
 export function Adress() {
   const [isLoading, setLoading] = useState<boolean>(false);

@@ -1,5 +1,6 @@
 
-import { getMyLogradouro } from "@/api/user.api"
+
+import { getMyLogradouro } from "@/api/logradouro.api"
 import { useQuery } from "@tanstack/react-query"
 
 export const useMyLogradouro = () =>{

@@ -1,4 +1,5 @@
-import { deleteLogradouro } from "@/api/user.api";
+
+import { deleteLogradouro } from "@/api/logradouro.api";
 import { AsideUser } from "@/components/aside/userAccount";
 import { useMyLogradouro } from "@/hooks/useMyLogradouro";
 import { Trash2Icon } from "lucide-react";
