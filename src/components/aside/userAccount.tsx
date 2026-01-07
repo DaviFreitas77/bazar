@@ -1,5 +1,5 @@
 import { FaChevronRight } from "react-icons/fa";
-import { BreadcrumbPages } from "../ui/breadcrumb";
+import { Link } from "react-router-dom";
 
 interface AsideUserProps {
   namePage: string;
@@ -8,11 +8,12 @@ interface AsideUserProps {
 export function AsideUser({ namePage }: AsideUserProps) {
   return (
     <section className="flex flex-col gap-8 max-w-[180px] w-full">
-      <BreadcrumbPages pageName={['Pedidos']} routePage="/pedidos"/>
       <div className="flex flex-col gap-4">
         <h2 className="font-bold text-gray-700 text-lg">Minha conta</h2>
         <div className="flex items-center justify-between hover:opacity-80 cursor-pointer">
-          <p className={`text-sm ${namePage === "Meus pedidos" ? "text-primary-100" : "text-gray-700"}`}>Meus pedidos</p>
+          <Link to="/pedidos" className={`text-sm ${namePage === "Meus pedidos" ? "text-primary-100" : "text-gray-700"}`}>
+            Meus pedidos
+          </Link>
           <FaChevronRight size={13} className="text-primary-100" />
         </div>
         <div className="flex items-center justify-between hover:opacity-80 cursor-pointer">
@@ -23,7 +24,9 @@ export function AsideUser({ namePage }: AsideUserProps) {
       <div className="flex flex-col gap-4">
         <h2 className="font-bold text-gray-700 text-lg">Meu cadastro</h2>
         <div className="flex items-center justify-between hover:opacity-80 cursor-pointer">
-          <p className="text-sm">Meus endereços</p>
+          <Link to="/meus-enderecos" className={`text-sm ${namePage === "Meus endereços" ? "text-primary-100" : "text-gray-700"}`}>
+            Meus endereços
+          </Link>
           <FaChevronRight size={13} className="text-primary-100" />
         </div>
         <div className="flex items-center justify-between hover:opacity-80 cursor-pointer">

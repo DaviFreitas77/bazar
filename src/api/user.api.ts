@@ -23,12 +23,11 @@ export const getLogradouro = async () => {
   }
 };
 
-
- interface UpdateUserResponse {
-  name?:string;
-  lastName?:string;
-  tel?:string;
-  email?:string;
+interface UpdateUserResponse {
+  name?: string;
+  lastName?: string;
+  tel?: string;
+  email?: string;
 }
 export const updateUser = async (data: UpdateUserResponse) => {
   try {
@@ -37,4 +36,31 @@ export const updateUser = async (data: UpdateUserResponse) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+
+interface MyAdressProps {
+  id: number;
+  type: string;
+  zip_code: string;
+  street: string;
+  number: string;
+  district: string;
+  city: string;
+  state: string;
+}
+export const getMyLogradouro = async () => {
+  try {
+    const response = await api.get<MyAdressProps[]>("user/myLogradouro");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteLogradouro = async (id: number) => {
+  try {
+    const response = await api.delete(`user/deleteLogradouro/${id}`);
+    return response.data;
+  } catch (error) {}
 };

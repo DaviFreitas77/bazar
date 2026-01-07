@@ -9,7 +9,7 @@ import { BsBoxSeam } from "react-icons/bs";
 
 export function Orders() {
   const { data: myOrders, isLoading: isLoadingMyOrders } = useMyOrders();
-  
+
   const [filterOrder, setFilterOrder] = useState("relevance");
 
   const sortedOrders = useMemo(() => {

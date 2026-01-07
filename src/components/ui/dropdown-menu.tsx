@@ -2,12 +2,13 @@ import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { IoIosLogOut } from "react-icons/io";
+import { IoIosHeartEmpty } from "react-icons/io";
 
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { getMe, logout } from "@/api/auth.api";
+import { logout } from "@/api/auth.api";
 import { useUser } from "@/context/userContext";
+import { CiLogout } from "react-icons/ci";
 
 function DropdownMenu({ ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
   return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
@@ -189,10 +190,15 @@ function DropdownUser({ name }: DropdownUserPros) {
       <DropdownMenuContent>
         <Link to={"/pedidos"} className="flex items-center cursor-pointer hover:text-primary-50">
           <HiOutlineShoppingBag />
-          <DropdownMenuLabel>Meus pedidos</DropdownMenuLabel>
+          <DropdownMenuLabel>Pedidos</DropdownMenuLabel>
+        </Link>
+
+        <Link to={"/favoritos"} className="flex items-center cursor-pointer hover:text-primary-50">
+          <IoIosHeartEmpty />
+          <DropdownMenuLabel>Favoritos</DropdownMenuLabel>
         </Link>
         <button onClick={logOut} className="flex items-center cursor-pointer hover:text-primary-50">
-          <IoIosLogOut />
+          <CiLogout />
           <DropdownMenuLabel>Sair</DropdownMenuLabel>
         </button>
       </DropdownMenuContent>

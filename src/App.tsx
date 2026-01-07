@@ -5,12 +5,13 @@ import { Header } from "./components/ui/header";
 import { Checkout } from "./pages/checkout";
 import { Orders } from "./pages/orders";
 import PrivateRoute from "./PrivateRoute";
+import { MyAdress } from "./pages/myAdress";
 
 function App() {
   const location = useLocation();
   return (
     <>
-    {location.pathname !== "/checkout" && <Header />}
+      {location.pathname !== "/checkout" && <Header />}
       <Routes>
         <Route path="/" element={<Search />} />
         <Route path="/product/:id" element={<Product />} />
@@ -27,6 +28,15 @@ function App() {
           element={
             <PrivateRoute>
               <Orders />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/meus-enderecos"
+          element={
+            <PrivateRoute>
+              <MyAdress />
             </PrivateRoute>
           }
         />
