@@ -75,7 +75,7 @@ export function Adress() {
   }
   return (
     <section className={`${logradouroUser ? "" : "border"}`}>
-      <h4 className={`${logradouroUser.length > 0 ? "hidden" : "block"} text-gray-900 font-semibold `}>Endereço de entrega</h4>
+      <h4 className={`${logradouroUser.length > 0 ? "hidden" : "block"} text-gray-900 font-semibold mt-5`}>Endereço de entrega</h4>
       {logradouroUser?.length > 0 && !newAdress ? (
         <div>
           <h3 className="text-base mb-4 font-semibold mt-5 ">Seus endereços:</h3>

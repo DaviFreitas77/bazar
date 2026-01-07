@@ -22,3 +22,19 @@ export const getLogradouro = async () => {
     console.log(error);
   }
 };
+
+
+ interface UpdateUserResponse {
+  name?:string;
+  lastName?:string;
+  tel?:string;
+  email?:string;
+}
+export const updateUser = async (data: UpdateUserResponse) => {
+  try {
+    const response = await api.patch("user/update", data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
