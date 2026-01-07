@@ -10,11 +10,8 @@ import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useSearchParams } from "react-router-dom";
 import { useUI } from "@/context/UIContext";
+import type { FormLoginProps, login } from "./types/login";
 
-interface FormLoginProps {
-  onChangeForm: () => void;
-  onClose: () => void;
-}
 export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
   const { setModalAuth } = useUI();
   const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
@@ -26,11 +23,11 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Auth.login>({
+  } = useForm<login>({
     resolver: yupResolver(loginSchema),
   });
 
-  const login = async (data: Auth.login) => {
+  const login = async (data: login) => {
     setLoading(true);
     setErrorGoogle(false);
     setErrorMessage("");

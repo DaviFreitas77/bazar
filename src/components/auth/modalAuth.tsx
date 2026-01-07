@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { FormLogin } from "./formLogin";
 import { FormRegister } from "./formRegister";
+import type { ModalAuthProps } from "./types/modalAuth";
 
 type ChooseForm = "login" | "register";
-
-interface ModalAuthProps {
-  open: boolean;
-  onClose: () => void;
-}
 
 export function ModalAuth({ open, onClose }: ModalAuthProps) {
   const [chooseForm, setChooseForm] = useState<ChooseForm>("login");

@@ -1,4 +1,6 @@
 import { api } from "@/lib/api";
+import type { MyAdressProps } from "./@types/adress";
+import type { UpdateUserResponse } from "./@types/user";
 
 export const getZipCode = async (zipCode: string) => {
   const response = await api.post("checkout/checkZipCode", { zipCode });
@@ -23,12 +25,6 @@ export const getLogradouro = async () => {
   }
 };
 
-interface UpdateUserResponse {
-  name?: string;
-  lastName?: string;
-  tel?: string;
-  email?: string;
-}
 export const updateUser = async (data: UpdateUserResponse) => {
   try {
     const response = await api.patch("user/update", data);
@@ -38,17 +34,6 @@ export const updateUser = async (data: UpdateUserResponse) => {
   }
 };
 
-
-interface MyAdressProps {
-  id: number;
-  type: string;
-  zip_code: string;
-  street: string;
-  number: string;
-  district: string;
-  city: string;
-  state: string;
-}
 export const getMyLogradouro = async () => {
   try {
     const response = await api.get<MyAdressProps[]>("user/myLogradouro");

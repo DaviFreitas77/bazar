@@ -8,6 +8,7 @@ import { useUser } from "@/context/userContext";
 import { toast } from "sonner";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
+import type { Register } from "./types/register";
 
 interface FormRegisterProps {
   onChangeForm: () => void;
@@ -24,11 +25,11 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Auth.register>({
+  } = useForm<Register>({
     resolver: yupResolver(registerSchema),
   });
 
-  const handleRegister = async (data: Auth.register) => {
+  const handleRegister = async (data: Register) => {
     setErrorMessage("");
     setLoading(true);
     try {
