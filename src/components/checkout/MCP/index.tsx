@@ -9,14 +9,14 @@ import { PixQRCode } from "./PixQrCode";
 import { createOrder } from "@/api/order.api";
 
 initMercadoPago("TEST-c87560f2-2e8e-439c-912f-ee65c7460423", {
-locale: "pt-BR",
+  locale: "pt-BR",
 });
 export function PaymentMercadoPago() {
   const { state } = useCart();
   const { setStep, setPreference, preference, idLogradouro } = useCheckout();
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const createPreference = async () => {
       if (!preference.id) {
@@ -59,7 +59,7 @@ export function PaymentMercadoPago() {
     if (!preference.orderId) return;
     const response = await apiProcessPayment(formData, preference.orderId);
     console.log(response);
-     console.log(response.data)
+    console.log(response.data);
     if (response.status === "approved") {
       setStep((prev) => prev + 1);
     }

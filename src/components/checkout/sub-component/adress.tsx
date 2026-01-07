@@ -3,19 +3,18 @@ import { useForm } from "react-hook-form";
 import { AdressSchema } from "@/schemas/schemaCheckout";
 import { useCheckout } from "@/context/checkoutContext";
 import { useEffect, useState } from "react";
-
 import { Loading } from "@/components/loading/loading";
-import { useLogradouro } from "@/hooks/useLogradouro";
 import { createLogradouro, getZipCode } from "@/api/logradouro.api";
+import { useMyLogradouro } from "@/hooks/useMyLogradouro";
 
 export function Adress() {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isLoadingCep, setLoadingCep] = useState<boolean>(false);
   const [newAdress, setNewAdress] = useState<boolean>(false);
   const { setIdLogradouro } = useCheckout();
-  const { data: logradouroUser, isLoading: isLoadingLogradouro } = useLogradouro();
-
+  const { data: myLogradouro, isLoading: isLoadingLogradouro } = useMyLogradouro();
   const { step, setStep } = useCheckout();
+
   const {
     register,
     handleSubmit,
@@ -75,17 +74,17 @@ export function Adress() {
     );
   }
   return (
-    <section className={`${logradouroUser ? "" : "border"}`}>
-      <h4 className={`${logradouroUser.length > 0 ? "hidden" : "block"} text-gray-900 font-semibold mt-5`}>Endereço de entrega</h4>
-      {logradouroUser?.length > 0 && !newAdress ? (
+    <section className={`${myLogradouro ? "" : "border"}`}>
+      <h4 className={`${myLogradouro && myLogradouro.length > 0 ? "hidden" : "block"} text-gray-900 font-semibold mt-5`}>Endereço de entrega</h4>
+      {myLogradouro && myLogradouro?.length > 0 && !newAdress ? (
         <div>
           <h3 className="text-base mb-4 font-semibold mt-5 ">Seus endereços:</h3>
 
           <div onClick={changeAdress} className="space-y-3">
-            {logradouroUser.map((item: any, i: any) => (
-              <div onClick={() => setIdLogradouro(item.id)} key={i} className="border border-dashed border-gray-300 p-4 rounded-md shadow-sm text-sm hover:border-primary-50 cursor-pointer transition-colors duration-300">
+            {myLogradouro.map((item) => (
+              <div onClick={() => setIdLogradouro(item.id)} key={item.id} className="border border-dashed border-gray-300 p-4 rounded-md shadow-sm text-sm hover:border-primary-50 cursor-pointer transition-colors duration-300">
                 <p>
-                  <strong>Rua:</strong> {item.street}
+                  <strong>Rua:</strong> {item.type}
                 </p>
                 <p>
                   <strong>Número:</strong> {item.number}
