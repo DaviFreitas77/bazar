@@ -59,7 +59,7 @@ export function ApplyCupom({ step }: { step: number }) {
 
         {step === 3 ? (
           <p className="text-sm text-gray-500 mt-6">
-            Utilize o cupom <span className="font-semibold text-primary-50">1COMPRA</span> para ganhar <strong>10% de desconto</strong>.
+            Utilize o cupom <span className="font-semibold text-primary-50">PRIMEIRA10</span> para ganhar <strong>10% de desconto</strong>.
           </p>
         ) : (
           <p className="text-sm text-primary-50 mt-2">Utilize seu cupom nas próximas etapas.</p>
