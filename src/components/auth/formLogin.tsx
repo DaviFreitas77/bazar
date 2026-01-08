@@ -69,7 +69,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
   return (
     <main>
       <div className="flex flex-col mb-2">
-        <h2 className="mt-4 text-xl font-bold">Bem-vindo de volta</h2>
+        <h2 className="mt-4 text-xl font-bold">Entrar</h2>
         <p className="text-sm text-gray-600 mt-2">Faça login com seus dados para acessar sua conta.</p>
 
         <div className="flex flex-col sm:flex-row gap-3 mt-4">
@@ -97,13 +97,15 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       <form onSubmit={handleSubmit(login)} className="w-full text-sm" method="POST">
         <div className="flex flex-col gap-4 mb-2">
           <div className="w-full">
-            <input {...register("email")} name="email" type="email" className="px-3 py-4 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="E-mail" />
+            <label className="text-sm font-medium text-gray-700">Email</label>
+            <input {...register("email")} name="email" type="email" className="px-3 py-4 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" placeholder="seu@email.com" />
             <div className="h-2 my-1">{errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}</div>
           </div>
           <div className="w-full relative">
-            <input {...register("password")} type={visiblePassword ? "text" : "password"} className="px-3 py-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full " placeholder="Senha" />
+            <label className="text-sm font-medium text-gray-700">Senha</label>
+            <input {...register("password")} type={visiblePassword ? "text" : "password"} className="px-3 py-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" />
 
-            <span className="absolute top-3.5 right-6">
+            <span className="absolute top-11 right-6">
               <button type="button" onClick={() => setVisiblePassword(!visiblePassword)} className="cursor-pointer hover:opacity-85">
                 {visiblePassword ? <IoEyeOutline size={17} /> : <FaRegEyeSlash size={17} />}
               </button>
@@ -117,7 +119,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
           <label className="flex items-center text-sm text-gray-600">
             <input type="checkbox" name="remember" className="mr-2" /> Lembrar-me
           </label>
-          <a id="show-form-password" className="text-primary text-sm hover:underline">
+          <a id="show-form-password" className="text-sm hover:underline text-primary-50 cursor-pointer  font-medium">
             Esqueceu a senha?
           </a>
         </div>
@@ -128,7 +130,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
         </div>
         <p className="mt-4 text-center text-sm">
           Não tem conta?
-          <button onClick={onChangeForm} type="button" className="text-primary  cursor-pointer ml-1">
+          <button onClick={onChangeForm} type="button" className=" ml-1 text-primary-50 cursor-pointer  font-medium">
             Registrar
           </button>
         </p>

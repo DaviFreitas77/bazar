@@ -51,7 +51,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px; /* espessura */
+  width: 10px; /* espessura */
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {

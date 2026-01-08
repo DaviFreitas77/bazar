@@ -9,8 +9,9 @@ export function ModalAuth({ open, onClose }: ModalAuthProps) {
   const [chooseForm, setChooseForm] = useState<ChooseForm>("login");
 
   return (
-    <main className={`${open ? "block" : "hidden"} fixed inset-0 flex items-center justify-center bg-black/50 z-999`}>
-      <section className="relative bg-white p-6 rounded-sm shadow-lg w-full max-w-xl">
+    <main className={`${open ? "block" : "hidden"} fixed inset-0 flex 
+     justify-center items-center bg-black/50 z-999 `}>
+      <section className="relative bg-white p-6 rounded-sm shadow-lg w-full max-w-xl   overflow-y-auto max-h-[500px] custom-scrollbar 2xl:max-h-[700px]">
         <button className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 transition" onClick={onClose}>
           ✕
         </button>

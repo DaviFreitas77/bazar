@@ -6,6 +6,7 @@ import { Checkout } from "./pages/checkout";
 import { Orders } from "./pages/orders";
 import PrivateRoute from "./PrivateRoute";
 import { MyAdress } from "./pages/myAdress";
+import { Terms } from "./pages/terms";
 
 function App() {
   const location = useLocation();
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Search />} />
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/termos" element={<Terms />} />
         <Route
           path="/checkout"
           element={

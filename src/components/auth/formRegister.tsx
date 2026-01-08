@@ -53,8 +53,8 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
   };
 
   return (
-    <main>
-      <div className="flex flex-col mb-2">
+    <main >
+      <div className="flex flex-col mb-2 ">
         <h2 className="mt-4 text-xl font-bold">Crie sua conta</h2>
         <p className="text-sm text-gray-600 mt-2">Preencha os campos abaixo para começar a usar a plataforma.</p>
         <div className="flex flex-col sm:flex-row gap-3 mt-4 text-sm">
@@ -78,30 +78,35 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(handleRegister)} className="w-full text-sm" method="POST">
-        <div className="flex flex-col gap-4 mb-2">
+      <form onSubmit={handleSubmit(handleRegister)} className="w-full text-sm " method="POST">
+        <div className="flex flex-col gap-4 mb-2 ">
           <div className="w-full">
-            <input {...register("name")} name="name" type="text" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Nome" />
+            <label className="text-sm font-medium text-gray-700">Nome</label>
+            <input {...register("name")} name="name" type="text" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" placeholder="ex: Davi" />
             <div className="h-2 mt-1">{errors.name && <span className="text-red-500 text-xs">{errors.name.message}</span>}</div>
           </div>
           <div className="w-full">
-            <input {...register("lastName")} name="lastName" type="text" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Sobrenome" />
+            <label className="text-sm font-medium text-gray-700">Sobrenome</label>
+            <input {...register("lastName")} name="lastName" type="text" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" placeholder="ex: Freitas" />
             <div className="h-2 mt-1">{errors.lastName && <span className="text-red-500 text-xs">{errors.lastName.message}</span>}</div>
           </div>
           <div className="w-full">
-            <input {...register("email")} name="email" type="email" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="E-mail" />
+            <label className="text-sm font-medium text-gray-700">Email</label>
+            <input {...register("email")} name="email" type="email" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" placeholder="seu@email.com" />
             <div className="h-2 mt-1">{errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}</div>
           </div>
           <div className="w-full">
-            <input {...register("tel")} name="tel" type="text" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Telefone" />
+            <label className="text-sm font-medium text-gray-700">Numero</label>
+            <input {...register("tel")} name="tel" type="text" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" placeholder="(99) 99 999999-9999" />
             <div className="h-2 mt-1">{errors.tel && <span className="text-red-500 text-xs">{errors.tel.message}</span>}</div>
           </div>
           <div className="w-full relative">
-            <input {...register("password")} name="password" type={visiblePassword ? "text" : "password"} className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full" placeholder="Senha" />
+            <label className="text-sm font-medium text-gray-700">Senha</label>
+            <input {...register("password")} name="password" type={visiblePassword ? "text" : "password"} className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" placeholder="Senha" />
 
-            <span className="absolute top-3.5 right-6">
+            <span className="absolute top-10.5 right-6">
               <button type="button" onClick={() => setVisiblePassword(!visiblePassword)} className="cursor-pointer hover:opacity-85">
-                {visiblePassword ? <IoEyeOutline size={17} /> : <FaRegEyeSlash size={17} />}
+                {visiblePassword ? <FaRegEyeSlash size={17} /> : <IoEyeOutline size={17} /> }
               </button>
             </span>
 
