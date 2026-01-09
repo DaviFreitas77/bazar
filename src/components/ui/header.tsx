@@ -80,7 +80,7 @@ export function Header() {
 
       <SheetSearch open={openFavorite} onOpenChange={setOpenFavorite} side="right" tittle="Favoritos" />
 
-      <SheetSearch open={openSearch} onOpenChange={setOpenSearch} side="right" tittle="">
+      <SheetSearch open={openSearch} onOpenChange={setOpenSearch} side="right" tittle="Buscar Produtos">
         <InputSearch />
 
         <PopularSearches />

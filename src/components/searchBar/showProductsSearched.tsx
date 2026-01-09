@@ -45,7 +45,7 @@ export function ShowProductsSearched() {
       </div>
 
       {limitedProducts.length > 0 && nameProduct && (
-        <Link to={`/?q=${nameProduct}`} onClick={() => setOpenSearch(false)} className="text-center border border-primary-50 hover:bg-primary-50 hover:text-white py-2 rounded-md transition-all duration-300 cursor-pointer font-medium  ">
+        <Link to={`/pesquisa?q=${nameProduct}`} onClick={() => setOpenSearch(false)} className="text-center border border-primary-50 hover:bg-primary-50 hover:text-white py-2 rounded-md transition-all duration-300 cursor-pointer font-medium  ">
           Mostrar todos os produtos
         </Link>
       )}

@@ -179,7 +179,7 @@ export function Product() {
               </AccordionFilter>
             </div>
           </section>
-          <section className="mt-10 w-full flex items-center justify-center">{recomendation && <SuggestionProduct suggestionProducts={recomendation} />}</section>
+          <section className="mt-10 w-full flex items-center justify-center">{recomendation && <SuggestionProduct tittle="Talvez você possa gostar" suggestionProducts={recomendation} />}</section>
         </>
       )}
 

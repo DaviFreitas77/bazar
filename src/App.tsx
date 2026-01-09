@@ -7,6 +7,8 @@ import { Orders } from "./pages/orders";
 import PrivateRoute from "./PrivateRoute";
 import { MyAdress } from "./pages/myAdress";
 import { Terms } from "./pages/terms";
+import { Footer } from "./components/footer";
+import { Home } from "./pages/home";
 
 function App() {
   const location = useLocation();
@@ -14,7 +16,8 @@ function App() {
     <>
       {location.pathname !== "/checkout" && <Header />}
       <Routes>
-        <Route path="/" element={<Search />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/pesquisa" element={<Search />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/termos" element={<Terms />} />
         <Route
@@ -43,6 +46,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer/>
     </>
   );
 }

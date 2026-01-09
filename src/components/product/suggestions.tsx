@@ -9,13 +9,14 @@ import type { Product } from "@/@types/product";
 
 interface SuggestionProductProps {
   suggestionProducts: Product[];
+  tittle:string
 }
 
-export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps) {
+export function SuggestionProduct({ suggestionProducts,tittle }: SuggestionProductProps) {
   return (
     <section className="w-full px-4 md:px-8">
       <div className="mx-auto max-w-[1450px] w-full">
-        <h2 className="text-xl font-semibold mb-3 text-gray-900">Talvez você possa gostar</h2>
+        <h2 className="text-xl font-semibold mb-3 text-gray-800">{tittle}</h2>
         <Swiper
           modules={[Navigation, Pagination]}
           speed={1000}
@@ -46,7 +47,7 @@ export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps
               slidesPerGroup: 5,
             },
             1536: {
-              slidesPerView: 5.5,
+              slidesPerView: 5,
               spaceBetween: 25,
               slidesPerGroup: 5,
             },
