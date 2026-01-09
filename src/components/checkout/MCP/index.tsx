@@ -58,9 +58,7 @@ export function PaymentMercadoPago() {
     // Caso seja cartão de crédito
     if (!preference.orderId) return;
     const response = await apiProcessPayment(formData, preference.orderId);
-    console.log(response);
-    console.log(response.data);
-    if (response.status === "approved") {
+    if (response.payment.status === "approved") {
       setStep((prev) => prev + 1);
     }
   };

@@ -4,7 +4,6 @@ const instance = axios.create({
   baseURL: "http://localhost:8000/api",
   withCredentials: true,
   withXSRFToken: true,
-
 });
 
 export const api = instance;

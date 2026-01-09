@@ -183,7 +183,6 @@ export function Product() {
         </>
       )}
 
-      {/* Sugestão */}
     </main>
   );
 }

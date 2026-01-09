@@ -8,11 +8,11 @@ import { ApplyCupom } from "../applyCupom";
 
 interface SummaryProps {
   products: CartItem[];
-  total:string
+  total: string;
   isConfirmed?: boolean;
   numberOrder: string;
 }
-export function Summary({ products, isConfirmed, numberOrder,total}: SummaryProps) {
+export function Summary({ products, isConfirmed, numberOrder, total }: SummaryProps) {
   const { step } = useCheckout();
   return (
     <section className="border border-gray-200 bg-white md:shadow-sm rounded-md p-6  md:p-6 h-fit  lg:max-w-md">
@@ -58,9 +58,7 @@ export function Summary({ products, isConfirmed, numberOrder,total}: SummaryProp
           <SkeletonSummary />
         )}
 
-        {step === 4 ? null : (
-         <ApplyCupom step={step} />
-        )}
+        {step === 4 ? null : <ApplyCupom step={step} />}
 
         <div className="flex items-center justify-between border-t border-gray-100 pt-4">
           <p className="text-gray-600">Frete</p>

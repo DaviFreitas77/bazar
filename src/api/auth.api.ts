@@ -1,6 +1,5 @@
 import type { login } from "@/components/auth/types/login";
 import type { Register } from "@/components/auth/types/register";
-import { api } from "@/lib/api";
 import type { AxiosResponse } from "axios";
 import axios from "axios";
 
@@ -12,7 +11,10 @@ export const ensureCsrf = async () => {
 };
 
 export const getMe = async () => {
-  const response = await api.get("/auth/me");
+  const response = await axios.get("http://localhost:8000/auth/profile", {
+    withCredentials: true,
+    withXSRFToken: true,
+  });
   return response.data;
 };
 export const registerUser = async (data: Register) => {
