@@ -13,7 +13,7 @@ export function ApplyCupom({ step }: { step: number }) {
     setLoading(true);
     setErrorCupom("");
     try {
-      const response = await api.post("checkout/useCupom", { nameCupom, order: preference.orderId });
+      const response = await api.post("cupom/useCupom", { nameCupom, order: preference.orderId });
       if (response.status === 200) {
         setNameCupom("");
         setDiscount(Number(response.data.discount));

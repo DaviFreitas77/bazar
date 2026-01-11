@@ -23,7 +23,7 @@ export const  apiCreatePreference = async(items:Array<CartItem>)=>{
 }
 
 export const  apiProcessPayment = async(formdata:any,order:string)=>{
-  const response = await api.post("mcp/proccessPayment",{formdata,order});
+  const response = await api.post("mcp/proccessPaymentCard",{formdata,order});
   return response.data;
 }
 

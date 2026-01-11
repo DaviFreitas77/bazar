@@ -8,7 +8,7 @@ export const getZipCode = async (zipCode: string) => {
 
 export const createLogradouro = async (logradouro: CheckoutProps.InformationsAdressProps) => {
   try {
-    const response = await api.post("logradouro/logradouro", logradouro);
+    const response = await api.post("logradouro/create", logradouro);
     return response.data;
   } catch (error: any) {
     console.error("Erro ao criar logradouro:", error);
@@ -19,7 +19,7 @@ export const createLogradouro = async (logradouro: CheckoutProps.InformationsAdr
 
 export const getMyLogradouro = async () => {
   try {
-    const response = await api.get<MyAdressProps[]>("logradouro/myLogradouro");
+    const response = await api.get<MyAdressProps[]>("logradouro/logradouroByUser");
     return response.data;
   } catch (error) {
     console.log(error);
