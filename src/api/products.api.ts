@@ -11,6 +11,7 @@ export const getProductsByCategory = async (id: number): Promise<Product[]> => {
 
 
 
+
  export const apiGetProductById = async (id: number): Promise<ApiProduct> => {
   try {
     const { data } = await api.get<ApiProduct>(`prod/product/${id}`);

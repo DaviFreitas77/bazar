@@ -9,14 +9,33 @@ import type { Product } from "@/@types/product";
 
 interface SuggestionProductProps {
   suggestionProducts: Product[];
-  tittle:string
+  tittle?: string;
+  showAll?: boolean;
+  queryButtonShowAll?: string;
 }
 
-export function SuggestionProduct({ suggestionProducts,tittle }: SuggestionProductProps) {
+export function SuggestionProduct({ suggestionProducts, tittle, showAll,queryButtonShowAll}: SuggestionProductProps) {
+
+  const limitedProduct = suggestionProducts.slice(0,8);
+
   return (
     <section className="w-full px-4 md:px-8">
       <div className="mx-auto max-w-[1450px] w-full">
-        <h2 className="text-xl font-semibold mb-3 text-gray-800">{tittle}</h2>
+        <div className="flex w-full justify-between">
+          <h2 className="text-2xl font-semibold mb-3 text-gray-800">{tittle}</h2>
+          {showAll && (
+            <button
+            onClick={()=> window.location.href = `/pesquisa?q=${queryButtonShowAll}` }
+              className="relative font-medium
+  after:content-[''] after:absolute after:left-1/2 after:bottom-1
+  after:h-0.5 after:w-0 after:bg-primary-50
+  after:transition-all after:duration-300
+  hover:after:w-full hover:after:left-0 cursor-pointer"
+            >
+              Ver todos
+            </button>
+          )}
+        </div>
         <Swiper
           modules={[Navigation, Pagination]}
           speed={1000}
@@ -47,7 +66,7 @@ export function SuggestionProduct({ suggestionProducts,tittle }: SuggestionProdu
               slidesPerGroup: 5,
             },
             1536: {
-              slidesPerView: 5,
+              slidesPerView: 5.5,
               spaceBetween: 25,
               slidesPerGroup: 5,
             },
@@ -56,8 +75,8 @@ export function SuggestionProduct({ suggestionProducts,tittle }: SuggestionProdu
           pagination={{ clickable: true }}
           className="w-full"
         >
-          {suggestionProducts.length > 0 &&
-            suggestionProducts.map((item) => (
+          {limitedProduct.length > 0 &&
+            limitedProduct.map((item) => (
               <SwiperSlide key={item.id}>
                 <CardProduct price={item.price} image={item.image[0]} name={item.name} id={item.id} sizes={item.sizes} lastPrice={item.lastPrice} />
               </SwiperSlide>
