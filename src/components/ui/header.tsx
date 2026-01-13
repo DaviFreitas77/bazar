@@ -36,7 +36,7 @@ export function Header() {
             <div className="flex items-center gap-4 text-gray-800">
 
               {/* Pesquisa */}
-              <button onClick={() => setOpenSearch(true)} className="hover:text-primary-50 transition-colors" title="Pesquisar">
+              <button onClick={() => setOpenSearch(true)} className="hover:text-primary-50 transition-colors cursor-pointer" title="Pesquisar">
                 <CiSearch size={22} />
               </button>
 
@@ -45,7 +45,7 @@ export function Header() {
                 <AiOutlineUser size={22} className="hidden lg:block" />
                 {name ? (
                   <div
-                    className="mt-1 hidden lg:block"
+                    className="mt-1 hidden lg:block "
                   >
                     <DropdownUser name={name} />
                   </div>
@@ -66,11 +66,11 @@ export function Header() {
               </div>
 
               {/* Favoritos */}
-              <button onClick={() => setOpenFavorite(true)} className="hover:text-primary-50 transition-colors hidden lg:block" title="Favoritos">
+              <button onClick={() => setOpenFavorite(true)} className="hover:text-primary-50 transition-colors hidden lg:block cursor-pointer" title="Favoritos">
                 <IoMdHeartEmpty size={22} />
               </button>
               {/* Sacola */}
-              <button onClick={() => setOpenCart(true)} className="hover:text-primary-50 transition-colors relative" title="Sacola">
+              <button onClick={() => setOpenCart(true)} className="hover:text-primary-50 transition-colors relative cursor-pointer" title="Sacola">
                 <LiaShoppingBagSolid size={22} />
                 {/* Badge da sacola */}
                 <span className="absolute -top-2 -right-2 bg-primary-50 text-white text-[10px] font-semibold rounded-full px-[5px]">{state.length}</span>

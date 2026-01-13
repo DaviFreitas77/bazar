@@ -4,7 +4,7 @@ import { SearchIcon } from "lucide-react";
 export function InputSearch() {
   const { nameProduct, setNameProduct } = useProductsSearched();
   return (
-    <div className="relative mt-5 w-[90%]">
+    <div className="relative mt-5 w-full">
       <SearchIcon size={18} className="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
 
       <input

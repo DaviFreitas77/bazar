@@ -186,7 +186,7 @@ function DropdownUser({ name }: DropdownUserPros) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>Olá {name}</DropdownMenuTrigger>
+      <DropdownMenuTrigger className="cursor-pointer hover:text-primary-50">Olá {name}</DropdownMenuTrigger>
       <DropdownMenuContent>
         <Link to={"/pedidos"} className="flex items-center cursor-pointer hover:text-primary-50">
           <HiOutlineShoppingBag />
@@ -196,6 +196,10 @@ function DropdownUser({ name }: DropdownUserPros) {
         <Link to={"/favoritos"} className="flex items-center cursor-pointer hover:text-primary-50">
           <IoIosHeartEmpty />
           <DropdownMenuLabel>Favoritos</DropdownMenuLabel>
+        </Link>
+        <Link to={"/meus-enderecos"} className="flex items-center cursor-pointer hover:text-primary-50">
+          <IoIosHeartEmpty />
+          <DropdownMenuLabel>Endereços</DropdownMenuLabel>
         </Link>
         <button onClick={logOut} className="flex items-center cursor-pointer hover:text-primary-50">
           <CiLogout />

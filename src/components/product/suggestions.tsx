@@ -46,7 +46,7 @@ export function SuggestionProduct({ suggestionProducts, tittle, showAll, queryBu
           loop={true}
           speed={500}
           breakpoints={{
-            320: { slidesPerView: 1.5, spaceBetween: 10, slidesPerGroup: 1 },
+            320: { slidesPerView: 1.8, spaceBetween: 10, slidesPerGroup: 1 },
             420: { slidesPerView: 2, spaceBetween: 15, slidesPerGroup: 1 },
             530: { slidesPerView: 2.5, spaceBetween: 15, slidesPerGroup: 1 },
             800: { slidesPerView: 3.5, spaceBetween: 10, slidesPerGroup: 1},

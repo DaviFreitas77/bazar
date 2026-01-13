@@ -7,7 +7,7 @@ interface AsideUserProps {
 
 export function AsideUser({ namePage }: AsideUserProps) {
   return (
-    <section className="flex flex-col gap-8 max-w-[180px] w-full">
+    <section className=" flex-col gap-8 max-w-[180px] w-full hidden lg:flex">
       <div className="flex flex-col gap-4">
         <h2 className="font-bold text-gray-700 text-lg">Minha conta</h2>
         <div className="flex items-center justify-between hover:opacity-80 cursor-pointer">

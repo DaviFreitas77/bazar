@@ -18,35 +18,27 @@ interface itemsProps {
 export function MyOrder({ numberOrder, dateOrder, totalOrder, statusOrder, item }: myOrderProps) {
   return (
     <div className="mt-10 border  rounded-sm border-gray-200">
-      <div className="flex items-center justify-between border-b p-4 border-gray-200/50 bg-gray-100/50">
-        <div className="flex items-center gap-2">
+      <div className=" flex flex-col md:flex-row  gap-5 md:items-center justify-between border-b p-4 border-gray-200/50 bg-gray-100/50">
+        <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-2">
           <p className="font-bold">
-            Numero do pedido: <span className="text-primary-100">{numberOrder}</span>
+            Numero do pedido: <span className="text-primary-100">{numberOrder} </span>
+            |
           </p>
-          |
+
           <p className="font-bold">
-            Data do pedido: <span className="font-normal">{new Date(dateOrder).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })}</span>
+            Data do pedido: <span className="font-normal">{new Date(dateOrder).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })} </span>
+            |
           </p>
-          |
-          <p className="font-bold">
-            Valor total: <span className="font-normal">{Number(totalOrder).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
+      
+          <p className="font-bold lg:-ml-6">
+            Valor total: <span className="font-normal">{Number(totalOrder).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} </span>
           </p>
         </div>
 
-        {statusOrder == "pending" ? (
-          <div className="flex items-center gap-2">
-            <button className="bg-green-100 hover:bg-green-200 transition-all duration-300 text-center px-4 rounded-xs py-3 flex items-center gap-1 cursor-pointer shadow-sm">Pagamento pendente</button>
-            <div className="bg-orange-300  text-center px-4 rounded-xs py-3 flex items-center gap-1">
-              <CiTimer size={15} />
-              <p className="text-sm">Pendente</p>
-            </div>
-          </div>
-        ) : (
-          <div className="bg-orange-300  text-center px-4 rounded-xs py-3 flex items-center gap-1">
-            <CiTimer size={15} />
-            <p className="text-sm">{statusOrder}</p>
-          </div>
-        )}
+        <div className="bg-orange-300  text-center px-4 rounded-xs py-3 flex items-center gap-1">
+          <CiTimer size={15} />
+          <p className="text-sm">{statusOrder}</p>
+        </div>
       </div>
 
       {item &&

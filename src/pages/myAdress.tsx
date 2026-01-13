@@ -23,7 +23,7 @@ export function MyAdress() {
       <div className="w-full flex max-w-[1450px]">
         <AsideUser namePage="Meus endereços" />
 
-        <section className="w-full ml-15 ">
+        <section className="w-full lg:ml-15  ">
           <div className="flex justify-between items-center w-full">
             <h1 className="text-xl text-gray-700 font-bold">Meus endereços</h1>
           </div>
@@ -67,7 +67,7 @@ export function MyAdress() {
               </div>
             )}
           </div>
-          <button className="mt-10 bg-primary-50 px-8 py-3 rounded-sm text-white cursor-pointer hover:bg-primary-100 transition-colors ease-in-out duration-300">Adicionar endereço</button>
+          <button className="w-full lg:w-60 mt-10 bg-primary-50 px-8 py-3 rounded-sm text-white cursor-pointer hover:bg-primary-100 transition-colors ease-in-out duration-300 text-sm">Adicionar endereço</button>
         </section>
       </div>
     </main>

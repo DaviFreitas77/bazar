@@ -96,7 +96,7 @@ export function Product() {
                   </div>
                   <div className="flex md:flex-col gap-3 justify-center md:center">
                     {images.map((img, index) => (
-                      <img onClick={() => setNumberImage(index)} key={img.id} src={img.image} alt={`Miniatura ${img.id + 1}`} className={`w-20 h-30 object-cover rounded-xs border border-gray-200 cursor-pointer hover:opacity-75 transition ${numberImage === index ? "opacity-25" : ""}`} />
+                      <img onClick={() => setNumberImage(index)} key={img.id} src={img.image} alt={`Miniatura ${img.id + 1}`} className={`w-20 h-30 object-cover rounded-xs border border-gray-200 cursor-pointer hover:opacity-75 transition ${numberImage !== index ? "opacity-25" : ""}`} />
                     ))}
                   </div>
                 </>

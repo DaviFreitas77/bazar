@@ -15,7 +15,7 @@ export function Home() {
       </section>
       <Stamps />
 
-      <section className="mt-15 ">
+      <section className="mt-5 ">
         <SuggestionProduct suggestionProducts={vestidos} tittle="Melhores preços" />
       </section>
 
