@@ -11,7 +11,7 @@ export function Home() {
   return (
     <main>
       <section>
-        <img src="images/bannerHome.webp" alt="" className="h-180 w-full object-cover" />
+        <img src="images/bannerHome.webp" alt="" className="w-full object-cover" />
       </section>
       <Stamps />
 

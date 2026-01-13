@@ -19,16 +19,15 @@ interface SuggestionProductProps {
 export function SuggestionProduct({ suggestionProducts, tittle, showAll, queryButtonShowAll }: SuggestionProductProps) {
   const limitedProduct = suggestionProducts.slice(0, 8);
 
-  while(limitedProduct.length == 0){
-    return <SkeletoSliderProducts/>
+  while (limitedProduct.length == 0) {
+    return <SkeletoSliderProducts />;
   }
 
-  
   return (
     <section className="w-full px-4 md:px-8">
       <div className="mx-auto max-w-[1450px] w-full">
         <div className="flex w-full justify-between">
-          <h2 className="text-2xl font-semibold mb-3 text-gray-800">{tittle}</h2>
+          <h2 className="text-lg 2xl:text-2xl font-semibold mb-3 text-gray-800">{tittle}</h2>
           {showAll && (
             <Link
               to={`/pesquisa?q=${queryButtonShowAll}`}
@@ -36,7 +35,7 @@ export function SuggestionProduct({ suggestionProducts, tittle, showAll, queryBu
   after:content-[''] after:absolute after:left-1/2 after:bottom-1
   after:h-0.5 after:w-0 after:bg-primary-50
   after:transition-all after:duration-300
-  hover:after:w-full hover:after:left-0 cursor-pointer"
+  hover:after:w-full hover:after:left-0 cursor-pointer hidden lg:block"
             >
               Ver todos
             </Link>
@@ -44,38 +43,16 @@ export function SuggestionProduct({ suggestionProducts, tittle, showAll, queryBu
         </div>
         <Swiper
           modules={[Navigation, Pagination]}
-          speed={1000}
+          loop={true}
+          speed={500}
           breakpoints={{
-            320: {
-              slidesPerView: 2,
-              spaceBetween: 10,
-              slidesPerGroup: 1,
-            },
-            540: {
-              slidesPerView: 2.5,
-              spaceBetween: 15,
-              slidesPerGroup: 2.5,
-            },
-            800: {
-              slidesPerView: 3,
-              spaceBetween: 10,
-              slidesPerGroup: 3,
-            },
-            1024: {
-              slidesPerView: 4.5,
-              spaceBetween: 10,
-              slidesPerGroup: 4,
-            },
-            1366: {
-              slidesPerView: 5,
-              spaceBetween: 10,
-              slidesPerGroup: 5,
-            },
-            1536: {
-              slidesPerView: 5.5,
-              spaceBetween: 25,
-              slidesPerGroup: 5,
-            },
+            320: { slidesPerView: 1.5, spaceBetween: 10, slidesPerGroup: 1 },
+            420: { slidesPerView: 2, spaceBetween: 15, slidesPerGroup: 1 },
+            530: { slidesPerView: 2.5, spaceBetween: 15, slidesPerGroup: 1 },
+            800: { slidesPerView: 3.5, spaceBetween: 10, slidesPerGroup: 1},
+            1024: { slidesPerView: 4.5, spaceBetween: 10, slidesPerGroup: 1 },
+            1366: { slidesPerView: 5.5, spaceBetween: 10, slidesPerGroup: 1 },
+            1536: { slidesPerView: 5.5, spaceBetween: 25, slidesPerGroup: 1 },
           }}
           navigation
           pagination={{ clickable: true }}

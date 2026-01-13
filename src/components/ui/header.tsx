@@ -13,32 +13,41 @@ import { useCart } from "@/context/cartContext";
 import { useUI } from "@/context/UIContext";
 import { DropdownUser } from "./dropdown-menu";
 import { Categories } from "../header/categories";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { DrawerResponsive } from "../header/drawerResponsive";
 export function Header() {
   const { name } = useUser();
   const { state } = useCart();
-  const { setOpenSearch, setOpenCart, setOpenFavorite, openSearch, openCart, openFavorite, modalAuth, setModalAuth } = useUI();
+  const { setOpenSearch, setOpenCart, setOpenFavorite, openSearch, openCart, openFavorite, modalAuth, setModalAuth, setOpenDrawer } = useUI();
 
   return (
     <div>
-      <header className="w-full ">
+      <header className="w-full border-b border-gray-200 ">
         <section className="bg-primary-50 text-white text-center py-2 text-sm tracking-wide">Frete grátis em pedidos acima de R$299</section>
         {/* Header principal */}
         <section className="flex justify-center items-center h-20 bg-white">
           <div className="flex items-center justify-between max-w-[1500px] w-full px-7">
+            <button onClick={() => setOpenDrawer(true)} className="lg:hidden">
+              <RxHamburgerMenu size={22} />
+            </button>
+
             {/* LOGO */}
-            <img src="/images/logo.png" alt="" className="w-30" />
+            <img src="/images/logo.png" alt="" className="w-20" />
             <div className="flex items-center gap-4 text-gray-800">
+
               {/* Pesquisa */}
               <button onClick={() => setOpenSearch(true)} className="hover:text-primary-50 transition-colors" title="Pesquisar">
                 <CiSearch size={22} />
               </button>
+
               {/* Conta */}
-              <div className="flex items-center gap-2  transition-colors cursor-pointer">
-                <AiOutlineUser size={22} />
+              <div className=" items-center gap-2  transition-colors cursor-pointer hidden lg:flex">
+                <AiOutlineUser size={22} className="hidden lg:block" />
                 {name ? (
-                  <div className="mt-1">
+                  <div
+                    className="mt-1 hidden lg:block"
+                  >
                     <DropdownUser name={name} />
-                    {/* <Link to={"/pedidos"} className="capitalize text-sm">Meus pedidos</Link> */}
                   </div>
                 ) : (
                   <div className="leading-4 flex flex-col items-start">
@@ -55,8 +64,9 @@ export function Header() {
                   </div>
                 )}
               </div>
+
               {/* Favoritos */}
-              <button onClick={() => setOpenFavorite(true)} className="hover:text-primary-50 transition-colors" title="Favoritos">
+              <button onClick={() => setOpenFavorite(true)} className="hover:text-primary-50 transition-colors hidden lg:block" title="Favoritos">
                 <IoMdHeartEmpty size={22} />
               </button>
               {/* Sacola */}
@@ -78,8 +88,9 @@ export function Header() {
           <ShowProductsSearched />
         </SheetSearch>
         <ModalAuth open={modalAuth} onClose={() => setModalAuth(false)} />
+        <DrawerResponsive />
       </header>
-        <Categories/>
+      <Categories />
     </div>
   );
 }

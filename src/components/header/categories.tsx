@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export function Categories(){
     const {data:allCategories} = useListCategories();
   return(
-      <section className="bg-primary-50 w-full flex justify-center items-center  shadow-sm">
+      <section className="bg-primary-50 w-full  justify-center items-center  shadow-sm hidden lg:flex">
         <div className="max-w-[1300px] flex justify-evenly w-full py-3">
           {allCategories && allCategories.map((category)=>(
             <Link 
