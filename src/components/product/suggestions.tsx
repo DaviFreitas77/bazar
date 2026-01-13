@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { CardProduct } from "../ui/card";
 import type { Product } from "@/@types/product";
+import { Link } from "react-router-dom";
 
 interface SuggestionProductProps {
   suggestionProducts: Product[];
@@ -14,9 +15,8 @@ interface SuggestionProductProps {
   queryButtonShowAll?: string;
 }
 
-export function SuggestionProduct({ suggestionProducts, tittle, showAll,queryButtonShowAll}: SuggestionProductProps) {
-
-  const limitedProduct = suggestionProducts.slice(0,8);
+export function SuggestionProduct({ suggestionProducts, tittle, showAll, queryButtonShowAll }: SuggestionProductProps) {
+  const limitedProduct = suggestionProducts.slice(0, 8);
 
   return (
     <section className="w-full px-4 md:px-8">
@@ -24,8 +24,8 @@ export function SuggestionProduct({ suggestionProducts, tittle, showAll,queryBut
         <div className="flex w-full justify-between">
           <h2 className="text-2xl font-semibold mb-3 text-gray-800">{tittle}</h2>
           {showAll && (
-            <button
-            onClick={()=> window.location.href = `/pesquisa?q=${queryButtonShowAll}` }
+            <Link
+              to={`/pesquisa?q=${queryButtonShowAll}`}
               className="relative font-medium
   after:content-[''] after:absolute after:left-1/2 after:bottom-1
   after:h-0.5 after:w-0 after:bg-primary-50
@@ -33,7 +33,7 @@ export function SuggestionProduct({ suggestionProducts, tittle, showAll,queryBut
   hover:after:w-full hover:after:left-0 cursor-pointer"
             >
               Ver todos
-            </button>
+            </Link>
           )}
         </div>
         <Swiper

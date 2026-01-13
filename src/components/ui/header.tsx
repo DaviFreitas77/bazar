@@ -12,6 +12,7 @@ import { useUser } from "@/context/userContext";
 import { useCart } from "@/context/cartContext";
 import { useUI } from "@/context/UIContext";
 import { DropdownUser } from "./dropdown-menu";
+import { Categories } from "../header/categories";
 export function Header() {
   const { name } = useUser();
   const { state } = useCart();
@@ -19,7 +20,7 @@ export function Header() {
 
   return (
     <div>
-      <header className="w-full border-b border-gray-200 shadow-sm">
+      <header className="w-full ">
         <section className="bg-primary-50 text-white text-center py-2 text-sm tracking-wide">Frete grátis em pedidos acima de R$299</section>
         {/* Header principal */}
         <section className="flex justify-center items-center h-20 bg-white">
@@ -78,7 +79,7 @@ export function Header() {
         </SheetSearch>
         <ModalAuth open={modalAuth} onClose={() => setModalAuth(false)} />
       </header>
-
+        <Categories/>
     </div>
   );
 }
