@@ -8,7 +8,7 @@ export function Categories(){
           {allCategories && allCategories.map((category)=>(
             <Link 
               to={`/pesquisa?q=${category.name}`}
-            key={category.id} className="text-white cursor-pointer hover:opacity-85">
+            key={category.id} className="text-white cursor-pointer hover:opacity-85 text-sm">
                 {category.name}
             </Link>
           ))}

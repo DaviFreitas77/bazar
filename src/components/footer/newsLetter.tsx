@@ -10,9 +10,9 @@ export function NewsLetter() {
             <p className="text-gray-400 text-sm">Cadastre-se e receba promoções exclusivas e saiba tudo antes de todo mundo!</p>
           </div>
 
-          <div className="w-full lg:w-auto">
-            <form className="flex flex-col sm:flex-row gap-3 min-w-[320px] md:min-w-[450px]" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="seu@email.com" className="flex-1 px-5  rounded-sm bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-50 focus:border-transparent transition-all w-90"  />
+          <div className="w-full  lg:w-auto">
+            <form className="flex flex-col lg:flex-row gap-3 min-w-[320px] md:min-w-[450px]" onSubmit={(e) => e.preventDefault()}>
+              <input type="email" placeholder="seu@email.com" className="flex-1 px-5  rounded-sm bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-50 focus:border-transparent transition-all lg:w-90 py-3"  />
               <button className="bg-primary-50 hover:bg-opacity-90 text-white px-8 py-3 rounded-sm font-bold cursor-pointer">Cadastre-se</button>
             </form>
             <p className="text-xs text-gray-500 mt-3 text-center lg:text-left">Respeitamos sua privacidade. Cancele a qualquer momento.</p>
