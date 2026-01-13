@@ -33,11 +33,8 @@ export function Home() {
         <SuggestionProduct suggestionProducts={vestidos} />
       </section>
 
-      <section className="mt-32 flex justify-center items-center">
-        <div className="mx-auto max-w-[1450px] w-full">
-          <p className="text-2xl font-semibold mb-3 text-gray-800 px-4 2xl:px-0">Vestidos que falam por você</p>
-          <SuggestionProduct suggestionProducts={vestidos} />
-        </div>
+      <section className="mt-32">
+        <SuggestionProduct suggestionProducts={vestidos} showAll={true} queryButtonShowAll="vestido" tittle="Vestidos que falam por você" />
       </section>
       {/* <Questions /> */}
     </main>
