@@ -7,6 +7,7 @@ import "swiper/css/pagination";
 import { CardProduct } from "../ui/card";
 import type { Product } from "@/@types/product";
 import { Link } from "react-router-dom";
+import { SkeletoSliderProducts } from "./skeleton";
 
 interface SuggestionProductProps {
   suggestionProducts: Product[];
@@ -18,6 +19,11 @@ interface SuggestionProductProps {
 export function SuggestionProduct({ suggestionProducts, tittle, showAll, queryButtonShowAll }: SuggestionProductProps) {
   const limitedProduct = suggestionProducts.slice(0, 8);
 
+  while(limitedProduct.length == 0){
+    return <SkeletoSliderProducts/>
+  }
+
+  
   return (
     <section className="w-full px-4 md:px-8">
       <div className="mx-auto max-w-[1450px] w-full">
