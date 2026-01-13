@@ -8,7 +8,9 @@ import { Loading } from "@/components/loading/loading";
 import { PixQRCode } from "./PixQrCode";
 import { createOrder } from "@/api/order.api";
 
-initMercadoPago("TEST-c87560f2-2e8e-439c-912f-ee65c7460423", {
+const publicKey = import.meta.env.VITE_MP_PUBLIC_KEY as string;
+
+initMercadoPago(publicKey, {
   locale: "pt-BR",
 });
 export function PaymentMercadoPago() {
