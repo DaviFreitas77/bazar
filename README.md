@@ -2,7 +2,7 @@
 
 Uma plataforma de e-commerce moderna e responsiva desenvolvida com React e TypeScript. O projeto oferece uma experiência completa de compra, desde a navegação e filtragem de produtos até um checkout seguro do mercado pago.
 
-## 🚀 Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 O projeto foi construído utilizando uma stack moderna para garantir performance e manutenibilidade:
 
@@ -17,9 +17,9 @@ O projeto foi construído utilizando uma stack moderna para garantir performance
 - **[Sonner](https://sonner.emilkowal.ski/)**: Para notificações (toasts) elegantes.
 - **[Lucide React](https://lucide.dev/)**: Para ícones consistentes.
 
-## ✨ Funcionalidades
+##  Funcionalidades
 
-### 🛒 Experiência de Compra
+### Experiência de Compra
 
 - **Catálogo de Produtos**: Listagem com filtros avançados por categoria, cor, tamanho e ordenação por preço.
 - **Busca**: Barra de pesquisa para encontrar produtos rapidamente.
@@ -27,7 +27,7 @@ O projeto foi construído utilizando uma stack moderna para garantir performance
 - **Carrinho de Compras**: Gerenciamento de itens, ajuste de quantidades e cálculo de subtotal.
 - **Favoritos**: Lista de desejos para salvar produtos.
 
-### 💳 Checkout e Pagamento
+###  Checkout e Pagamento
 
 - **Fluxo de Checkout**: Processo passo a passo (Dados Pessoais -> Entrega -> Pagamento).
 - **Endereço**: Busca automática de endereço via CEP e gerenciamento de múltiplos endereços.
@@ -35,14 +35,14 @@ O projeto foi construído utilizando uma stack moderna para garantir performance
 - **Pagamento**: Integração completa com Mercado Pago para pagamentos via Pix e Cartão de Crédito.
 - **Cupons**: Sistema para aplicação de cupons de desconto.
 
-### 👤 Área do Usuário
+###  Área do Usuário
 
 - **Autenticação**: Login e Cadastro de usuários.
 - **Meus Pedidos**: Histórico completo de compras com status atualizado.
 - **Meus Endereços**: Histórico completo de endereços salvos.
 
 
-## 📂 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 front-end/
@@ -62,7 +62,7 @@ front-end/
 
 ```
 
-## �� Como Rodar o Projeto
+##  Como Rodar o Projeto
 
 1.  **Clone o repositório**
 
