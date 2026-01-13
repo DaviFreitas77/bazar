@@ -11,7 +11,7 @@ import { useCart } from "@/context/cartContext";
 import { useUser } from "@/context/userContext";
 import { apiAddProduct } from "@/api/shoppingCart.api";
 import { toast } from "sonner";
-
+import { GoHeart } from "react-icons/go";
 export function Product() {
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
@@ -92,10 +92,11 @@ export function Product() {
                 </div>
               ) : (
                 <>
-                  <div className="w-full flex  max-w-2xl">{chooseImage && <img src={chooseImage} className="w-full max-w-2xl h-auto object-cover rounded-xs border border-gray-200 shadow-sm" alt={product?.name ?? "Produto"} />}</div>
+                  <div className="w-full flex  max-w-2xl">{chooseImage && <img src={chooseImage} className="w-full max-w-2xl h-auto object-cover rounded-xs border border-gray-200 shadow-sm" alt={product?.name ?? "Produto"} />}
+                  </div>
                   <div className="flex md:flex-col gap-3 justify-center md:center">
                     {images.map((img, index) => (
-                      <img onClick={() => setNumberImage(index)} key={img.id} src={img.image} alt={`Miniatura ${img.id + 1}`} className={`w-20 h-30 object-cover rounded-xs border border-gray-200 cursor-pointer hover:opacity-75 transition ${numberImage === index ? "opacity-25" : ""}`} />
+                      <img onClick={() => setNumberImage(index)} key={img.id} src={img.image} alt={`Miniatura ${img.id + 1}`} className={`w-20 h-30 object-cover rounded-xs border border-gray-200 cursor-pointer hover:opacity-75 transition ${numberImage !== index ? "opacity-25" : ""}`} />
                     ))}
                   </div>
                 </>
@@ -104,8 +105,12 @@ export function Product() {
 
             <div className="flex flex-col gap-4 md:px-4 w-full lg:px-8 lg:max-w-xl">
               <div>
-                <h1 className="text-2xl font-semibold text-gray-900 mb-2">{product?.name}</h1>
-                <p className="text-gray-700 leading-relaxed">{product?.description}</p>
+                <div className="flex  items-center justify-between">
+                  <h1 className="text-2xl font-semibold text-gray-900 mb-2">{product?.name}</h1>
+
+                  <button className="cursor-pointer text-primary-50 hover:text-red-500"><GoHeart size={30} /></button>
+                </div>
+                <p className="text-gray-700 leading-relaxed mt-5">{product?.description}</p>
                 <div className="flex flex-col mt-4">
                   {product?.lastPrice && (
                     <p className="text-gray-600 text-sm line-through">
@@ -174,11 +179,10 @@ export function Product() {
               </AccordionFilter>
             </div>
           </section>
-          <section className="mt-10 w-full flex items-center justify-center">{recomendation && <SuggestionProduct suggestionProducts={recomendation} />}</section>
+          <section className="mt-10 w-full flex items-center justify-center">{recomendation && <SuggestionProduct tittle="Talvez você possa gostar" suggestionProducts={recomendation} />}</section>
         </>
       )}
 
-      {/* Sugestão */}
     </main>
   );
 }

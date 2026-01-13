@@ -11,6 +11,9 @@ interface DrawerFilterMobileProps {
   selectedColor: string;
   selectedSize: string;
   selectedcategorie: string;
+    maxPrice:number;
+  minPrice:number;
+  valueChange:React.Dispatch<React.SetStateAction<number[]>>
   applyFilterProducts: (
     filter: "filterColor" | "filterSize" | "filtercategory",
     value: string
@@ -27,6 +30,7 @@ export function DrawerFilterMobile({
   allCategories,
   selectedcategorie,
   applyFilterProducts,
+  maxPrice,minPrice,valueChange
 }: DrawerFilterMobileProps) {
   return (
     <SheetSearch open={open} onOpenChange={onOpenChange} side="left" tittle="Filtros">
@@ -94,7 +98,7 @@ export function DrawerFilterMobile({
 
       <AccordionFilter name="Preço">
         <div className="mt-2">
-          <SliderProduct />
+          <SliderProduct maxPrice={maxPrice} minPrice={minPrice} valueChange={valueChange}/>
         </div>
       </AccordionFilter>
     </SheetSearch>

@@ -18,8 +18,8 @@
 
 .swiper-button-prev,
 .swiper-button-next {
-  width: 40px !important;
-  height: 40px !important;
+  width: 30px !important;
+  height: 30px !important;
 
   background-color: #ffffff;
   border-radius: 100%;
@@ -51,7 +51,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px; /* espessura */
+  width: 10px; /* espessura */
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -87,3 +87,9 @@
 .svelte-r6lpve {
   display: none !important;
 }
+
+
+/* .lucide-x{
+  margin-top: 22px;
+  cursor: pointer;
+} */

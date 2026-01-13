@@ -1,35 +1,14 @@
 import { api } from "@/lib/api";
 import type { Product } from "@/@types/product";
+import type { ApiProduct } from "./@types/product";
 
-export interface ApiProduct {
-  id: number;
-  name: string;
-  price: string;
-  lastPrice: string;
-  category: number;
 
-  sizes: {
-    id: number;
-    name: string;
-  }[];
-
-  color: {
-    id: number;
-    name: string;
-  }[];
-
-  description: string;
-
-  image: {
-    id: number;
-    image: string;
-  }[];
-}
 
 export const getProductsByCategory = async (id: number): Promise<Product[]> => {
   const { data } = await api.get<Product[]>(`prod/productsByCategory/${id}`);
   return data;
 };
+
 
 
 

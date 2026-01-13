@@ -29,11 +29,11 @@ export function TotalShoppingCart() {
   };
 
   return (
-    <section className="flex flex-col gap-2 absolute bottom-0 w-[90%]">
+    <section className="flex flex-col gap-2 absolute bottom-0 w-[94%]">
       <p className="text-sm text-gray-400 flex items-center gap-2">
         <CiCircleAlert size={30} />O valor final, incluindo os descontos e fretes, será calculado na próxima etapa.
       </p>
-      <div className="flex flex-col gap-2   border-t py-4 border-gray-200">
+      <div className="flex flex-col gap-2 border-t py-4 border-gray-200">
         <div className="flex justify-between">
           <p
             className="font-semibold text-base

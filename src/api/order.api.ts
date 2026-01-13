@@ -10,13 +10,13 @@ export const apiLatestOrder = async () => {
 
 
 export const myOrder = async()=>{
-  const response = await api.get<myOrderProps[]>('order/myOrder');
+  const response = await api.get<myOrderProps[]>('order/listOrderUser');
   return response.data;
 
 }
 
 
 export const createOrder = async(items:Array<CartItem>,idLogradouro:number)=>{
-  const response = await api.post('order/createOrder',{items:items,idLogradouro:idLogradouro});
+  const response = await api.post('order/create',{items:items,idLogradouro:idLogradouro});
   return response.data;
 }

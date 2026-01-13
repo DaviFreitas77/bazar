@@ -9,7 +9,7 @@ import { BsBoxSeam } from "react-icons/bs";
 
 export function Orders() {
   const { data: myOrders, isLoading: isLoadingMyOrders } = useMyOrders();
-  
+
   const [filterOrder, setFilterOrder] = useState("relevance");
 
   const sortedOrders = useMemo(() => {
@@ -33,7 +33,7 @@ export function Orders() {
       <div className="w-full flex max-w-[1450px]">
         <AsideUser namePage="Meus pedidos" />
 
-        <section className="w-full ml-15 ">
+        <section className="w-full lg:ml-15 ">
           <div className="flex justify-between items-center w-full">
             <h1 className="text-xl text-gray-700 font-bold">Meus pedidos</h1>
             <DropDown title="Ordenar por" value={filterOrder} onChange={setFilterOrder}>

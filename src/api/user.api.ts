@@ -1,24 +1,13 @@
 import { api } from "@/lib/api";
+import type { UpdateUserResponse } from "./@types/user";
 
-export const getZipCode = async (zipCode: string) => {
-  const response = await api.post("checkout/checkZipCode", { zipCode });
-  return response.data;
-};
 
-export const createLogradouro = async (logradouro: CheckoutProps.InformationsAdressProps) => {
+export const updateUser = async (data: UpdateUserResponse) => {
   try {
-    const response = await api.post("checkout/logradouro", logradouro);
-    return response.data;
-  } catch (error: any) {
-    console.error("Erro ao criar logradouro:", error);
-  }
-};
-
-export const getLogradouro = async () => {
-  try {
-    const response = await api.get("checkout/logradouroUser");
+    const response = await api.patch("user/update", data);
     return response.data;
   } catch (error) {
     console.log(error);
   }
 };
+

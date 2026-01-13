@@ -6,57 +6,60 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { CardProduct } from "../ui/card";
 import type { Product } from "@/@types/product";
+import { Link } from "react-router-dom";
+import { SkeletoSliderProducts } from "./skeleton";
 
 interface SuggestionProductProps {
   suggestionProducts: Product[];
+  tittle?: string;
+  showAll?: boolean;
+  queryButtonShowAll?: string;
 }
 
-export function SuggestionProduct({ suggestionProducts }: SuggestionProductProps) {
+export function SuggestionProduct({ suggestionProducts, tittle, showAll, queryButtonShowAll }: SuggestionProductProps) {
+  const limitedProduct = suggestionProducts.slice(0, 8);
+
+  while (limitedProduct.length == 0) {
+    return <SkeletoSliderProducts />;
+  }
+
   return (
     <section className="w-full px-4 md:px-8">
       <div className="mx-auto max-w-[1450px] w-full">
-        <h2 className="text-xl font-semibold mb-3 text-gray-900">Talvez você possa gostar</h2>
+        <div className="flex w-full justify-between">
+          <h2 className="text-lg 2xl:text-2xl font-semibold mb-3 text-gray-800">{tittle}</h2>
+          {showAll && (
+            <Link
+              to={`/pesquisa?q=${queryButtonShowAll}`}
+              className="relative font-medium
+  after:content-[''] after:absolute after:left-1/2 after:bottom-1
+  after:h-0.5 after:w-0 after:bg-primary-50
+  after:transition-all after:duration-300
+  hover:after:w-full hover:after:left-0 cursor-pointer hidden lg:block"
+            >
+              Ver todos
+            </Link>
+          )}
+        </div>
         <Swiper
           modules={[Navigation, Pagination]}
-          speed={1000}
+          loop={true}
+          speed={500}
           breakpoints={{
-            320: {
-              slidesPerView: 1.5,
-              spaceBetween: 10,
-              slidesPerGroup: 1,
-            },
-            540: {
-              slidesPerView: 2.5,
-              spaceBetween: 15,
-              slidesPerGroup: 2.5,
-            },
-            800: {
-              slidesPerView: 3,
-              spaceBetween: 10,
-              slidesPerGroup: 3,
-            },
-            1024: {
-              slidesPerView: 4.5,
-              spaceBetween: 10,
-              slidesPerGroup: 4,
-            },
-            1366: {
-              slidesPerView: 5,
-              spaceBetween: 10,
-              slidesPerGroup: 5,
-            },
-            1536: {
-              slidesPerView: 5.5,
-              spaceBetween: 25,
-              slidesPerGroup: 5,
-            },
+            320: { slidesPerView: 1.8, spaceBetween: 10, slidesPerGroup: 1 },
+            420: { slidesPerView: 2, spaceBetween: 15, slidesPerGroup: 1 },
+            530: { slidesPerView: 2.5, spaceBetween: 15, slidesPerGroup: 1 },
+            800: { slidesPerView: 3.5, spaceBetween: 10, slidesPerGroup: 1},
+            1024: { slidesPerView: 4.5, spaceBetween: 10, slidesPerGroup: 1 },
+            1366: { slidesPerView: 5.5, spaceBetween: 10, slidesPerGroup: 1 },
+            1536: { slidesPerView: 5.5, spaceBetween: 25, slidesPerGroup: 1 },
           }}
           navigation
           pagination={{ clickable: true }}
           className="w-full"
         >
-          {suggestionProducts.length > 0 &&
-            suggestionProducts.map((item) => (
+          {limitedProduct.length > 0 &&
+            limitedProduct.map((item) => (
               <SwiperSlide key={item.id}>
                 <CardProduct price={item.price} image={item.image[0]} name={item.name} id={item.id} sizes={item.sizes} lastPrice={item.lastPrice} />
               </SwiperSlide>

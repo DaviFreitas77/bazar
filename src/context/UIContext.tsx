@@ -9,6 +9,15 @@ export interface UIContextProps {
 
   openFavorite: boolean;
   setOpenFavorite: React.Dispatch<React.SetStateAction<boolean>>;
+
+  modalAuth: boolean;
+  setModalAuth: React.Dispatch<React.SetStateAction<boolean>>;
+
+  openDrawer:boolean;
+  setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
+
+
+
 }
 
 const UIContext = createContext<UIContextProps | undefined>(undefined);
@@ -17,6 +26,10 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
   const [openSearch, setOpenSearch] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [openFavorite, setOpenFavorite] = useState(false);
+  const [modalAuth,setModalAuth] = useState(false)
+  const [openDrawer,setOpenDrawer] = useState(false)
+
+
 
   return (
     <UIContext.Provider
@@ -27,6 +40,10 @@ export function UIProvider({ children }: { children: React.ReactNode }) {
         setOpenCart,
         openFavorite,
         setOpenFavorite,
+        modalAuth,
+        setModalAuth,
+        openDrawer,
+        setOpenDrawer
       }}
     >
       {children}

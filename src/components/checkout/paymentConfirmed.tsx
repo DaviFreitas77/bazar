@@ -10,7 +10,7 @@ export function PaymentConfirmed({numberOrder}:PaymentConfirmedProps) {
   const navigate = useNavigate();
   const {dispatch} =  useCart()
   const {setStep} = useCheckout()
-
+  
     const handleConfirm = () => {
     dispatch({ type: "clear" }); 
     setStep(1);

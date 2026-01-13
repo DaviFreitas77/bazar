@@ -13,7 +13,9 @@ import { LoadingPage } from "@/components/loading/loadingPage";
 import type { Product } from "@/@types/product";
 import { hookSearchParams } from "@/hooks/useSearchParams";
 
+
 export function Search() {
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
   const [selectedColor, setSelectedColor] = useState("");
@@ -25,11 +27,24 @@ export function Search() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterOrder, setFilterOrder] = useState("relevance");
 
+
+
+  const [priceRange, setPriceRange] = useState<number[]>([0, 0]);
   let productsPerPage = 16;
-
   const { data: allProducts, isLoading: isLoadingAllProducts } = useAllProducts();
-
   const { data: productsSearched } = hookSearchParams(search);
+
+  const baseProducts = allProducts ?? productsSearched ?? [];
+
+  const [minPrice, maxPrice] = useMemo(() => {
+    if (!baseProducts.length) return [0, 0];
+
+    return [Math.min(...baseProducts.map((p) => p.price)), Math.max(...baseProducts.map((p) => p.price))];
+  }, [baseProducts]);
+
+  if (baseProducts.length && priceRange[0] === 0 && priceRange[1] === 0) {
+    setPriceRange([minPrice, maxPrice]);
+  }
 
   const applyFilterProducts = (filter: string, value: string) => {
     if (filter === "filterColor") {
@@ -67,8 +82,16 @@ export function Search() {
       result = [...result].sort((a, b) => a.price - b.price);
     }
 
+    if (priceRange) {
+      const filteredByPrice = result.filter((p) => p.price >= priceRange[0] && p.price <= priceRange[1]);
+
+      if (filteredByPrice.length > 0) {
+        result = filteredByPrice;
+      }
+    }
+
     return result;
-  }, [selectedColor, selectedSize, allProducts, selectedcategorie, productsSearched, filterOrder]);
+  }, [selectedColor, selectedSize, allProducts, selectedcategorie, productsSearched, filterOrder, priceRange]);
 
   const indexOfLastItem = currentPage * productsPerPage;
   const indexOfFirstItem = indexOfLastItem - productsPerPage;
@@ -97,9 +120,35 @@ export function Search() {
         <section className="flex gap-6 justify-center">
           {currentItems.length === 0 ? null : (
             <>
-              {showSidebar && <DrawerDesktop allColors={allColors} allSizes={allSizes} selectedColor={selectedColor} selectedcategorie={selectedcategorie} allCategories={allCategories} selectedSize={selectedSize} applyFilterProducts={applyFilterProducts} />}
+              {showSidebar && (
+                <DrawerDesktop
+                  allColors={allColors}
+                  allSizes={allSizes}
+                  selectedColor={selectedColor}
+                  selectedcategorie={selectedcategorie}
+                  allCategories={allCategories}
+                  selectedSize={selectedSize}
+                  applyFilterProducts={applyFilterProducts}
+                  maxPrice={maxPrice}
+                  minPrice={minPrice}
+                  valueChange={setPriceRange}
+                />
+              )}
 
-              <DrawerFilterMobile open={drawerOpen} onOpenChange={setDrawerOpen} allColors={allColors} allSizes={allSizes} selectedColor={selectedColor} selectedSize={selectedSize} applyFilterProducts={applyFilterProducts} selectedcategorie={selectedcategorie} allCategories={allCategories} />
+              <DrawerFilterMobile
+                open={drawerOpen}
+                onOpenChange={setDrawerOpen}
+                allColors={allColors}
+                allSizes={allSizes}
+                selectedColor={selectedColor}
+                selectedSize={selectedSize}
+                applyFilterProducts={applyFilterProducts}
+                selectedcategorie={selectedcategorie}
+                allCategories={allCategories}
+                maxPrice={maxPrice}
+                minPrice={minPrice}
+                valueChange={setPriceRange}
+              />
             </>
           )}
 
