@@ -4,21 +4,21 @@ import type { AxiosResponse } from "axios";
 import axios from "axios";
 
 export const ensureCsrf = async () => {
-  await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
+  await axios.get("https://web-production-edc6.up.railway.app/sanctum/csrf-cookie", {
     withCredentials: true,
     withXSRFToken: true,                                                                                                                                                                                                                                                                                                                                        
   });
 };
 
 export const getMe = async () => {
-  const response = await axios.get("http://localhost:8000/auth/profile", {
+  const response = await axios.get("https://web-production-edc6.up.railway.app/auth/profile", {
     withCredentials: true,
     withXSRFToken: true,
   });
   return response.data;
 };
 export const registerUser = async (data: Register) => {
-  const response: AxiosResponse = await axios.post("http://localhost:8000/auth/register", data, {
+  const response: AxiosResponse = await axios.post("https://web-production-edc6.up.railway.app/auth/register", data, {
     withCredentials: true,
     withXSRFToken: true,
   });
@@ -26,7 +26,7 @@ export const registerUser = async (data: Register) => {
 };
 
 export const loginUser = async (data: login) => {
-  const response: AxiosResponse = await axios.post("http://localhost:8000/auth/login", data, {
+  const response: AxiosResponse = await axios.post("https://web-production-edc6.up.railway.app/auth/login", data, {
     withCredentials: true,
     withXSRFToken: true,
   });
@@ -35,7 +35,7 @@ export const loginUser = async (data: login) => {
 
 export const logout = async () => {
   const response: AxiosResponse = await axios.post(
-    "http://localhost:8000/auth/logout",
+    "https://web-production-edc6.up.railway.app/auth/logout",
     {},
     {
       withCredentials: true,
