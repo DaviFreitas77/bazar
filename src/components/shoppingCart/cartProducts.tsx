@@ -6,7 +6,7 @@ import { useAllProducts } from "@/hooks/useAllProducts";
 import { GoArrowLeft } from "react-icons/go";
 import { useUI } from "@/context/UIContext";
 import { Link } from "react-router-dom";
-import { Skeleton } from "../ui/skeleton";
+
 import { SkeletonRecomendedProducts } from "./skeletonRecomendedProduct";
 
 export function CartProducts() {
