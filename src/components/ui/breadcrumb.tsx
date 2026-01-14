@@ -56,7 +56,7 @@ interface BreadcrumbPagesProps {
 function BreadcrumbPages({ pageName, routePage }: BreadcrumbPagesProps) {
   return (
     <Breadcrumb>
-      <BreadcrumbList>
+      <BreadcrumbList className="text-gray-400 ">
         <BreadcrumbItem>
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>

@@ -1,4 +1,4 @@
-import { Stamps } from "@/components/home/stamps";
+import { Stamps } from "@/components/ui/stamps";
 import { SuggestionProduct } from "@/components/product/suggestions";
 import { useAllProducts } from "@/hooks/useAllProducts";
 import { filterProductByCategory } from "@/utils/productsUtild";
@@ -19,7 +19,7 @@ export function Home() {
         <SuggestionProduct suggestionProducts={vestidos} tittle="Melhores preços" />
       </section>
 
-      <section className="mt-32">
+      <section className="mt-20">
         <SuggestionProduct suggestionProducts={vestidos} showAll={true} queryButtonShowAll="vestido" tittle="Vestidos que falam por você" />
       </section>
       {/* <Questions /> */}

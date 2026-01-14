@@ -6,12 +6,17 @@ import { useProductsByCategory } from "@/hooks/useProductsByCategory";
 import type { Product } from "@/@types/product";
 import { LoadingPage } from "@/components/loading/loadingPage";
 import { useEffect, useMemo, useState } from "react";
-import { FaCircle } from "react-icons/fa";
+import { FaCircle, FaWhatsapp } from "react-icons/fa";
 import { useCart } from "@/context/cartContext";
 import { useUser } from "@/context/userContext";
 import { apiAddProduct } from "@/api/shoppingCart.api";
 import { toast } from "sonner";
 import { GoHeart } from "react-icons/go";
+import { BreadcrumbPages } from "@/components/ui/breadcrumb";
+import { LiaShoppingBagSolid } from "react-icons/lia";
+import { Stamps } from "@/components/ui/stamps";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
 export function Product() {
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
@@ -77,51 +82,68 @@ export function Product() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center py-10 min-h-screen ">
+    <main className="flex flex-col items-center justify-center md:py-10 min-h-screen ">
       {isLoadingProduct ? (
         <LoadingPage />
       ) : (
-        <>
-          <section className="w-full  flex flex-col lg:flex-row justify-evenly gap-10 p-3 max-w-[1700px] px-4 md:px-8">
-            <div className="flex flex-col justify-center  md:flex-row gap-2 w-full max-w-3xl  ">
-              {images.length > 2 ? (
-                <div className="grid grid-cols-2 gap-1">
-                  {images.map((img) => (
-                    <img key={img.id} src={img.image} alt={img.image} className="w-full max-w-xl h-auto  object-cover rounded-xs border border-gray-200 shadow-sm" />
-                  ))}
-                </div>
-              ) : (
+        <section className="flex flex-wrap w-full max-w-[1700px]">
+          <div className="flex flex-wrap lg:flex-nowrap w-full justify-evenly ">
+            <div className="flex flex-col justify-center  md:flex-row gap-2 w-full max-w-2xl 2xl:max-w-3xl ">
+              {images && (
                 <>
-                  <div className="w-full flex  max-w-2xl">{chooseImage && <img src={chooseImage} className="w-full max-w-2xl h-auto object-cover rounded-xs border border-gray-200 shadow-sm" alt={product?.name ?? "Produto"} />}
-                  </div>
-                  <div className="flex md:flex-col gap-3 justify-center md:center">
+                  <div className="hidden md:flex md:flex-col xl:gap-2">
                     {images.map((img, index) => (
-                      <img onClick={() => setNumberImage(index)} key={img.id} src={img.image} alt={`Miniatura ${img.id + 1}`} className={`w-20 h-30 object-cover rounded-xs border border-gray-200 cursor-pointer hover:opacity-75 transition ${numberImage !== index ? "opacity-25" : ""}`} />
+                      <img onClick={() => setNumberImage(index)} key={img.id} src={img.image} alt={`Miniatura ${img.id + 1}`} className={`w-35 h-50 object-cover rounded-xs border border-gray-200 cursor-pointer hover:opacity-75 transition ${numberImage !== index ? "opacity-25" : ""}`} />
                     ))}
+                  </div>
+
+                  {/* Imagem desktop */}
+                  <div className="w-full md:flex hidden">{chooseImage && <img src={chooseImage} className="w-full  h-auto object-cover  " alt={product?.name ?? "Produto"} />}</div>
+
+                  {/* imagem mobile/tablet */}
+                  <div className="md:hidden w-full max-w-xl">
+                    <Swiper
+                      modules={[Navigation, Pagination]}
+                      loop={true}
+                      speed={500}
+                      breakpoints={{
+                        320: { slidesPerView: 1, spaceBetween: 10, slidesPerGroup: 1 },
+                      }}
+                      navigation
+                      pagination={{ clickable: true }}
+                      className="w-full"
+                    >
+                      {images &&
+                        images.map((image) => (
+                          <SwiperSlide key={image.id}>
+                            <img src={image.image} alt="" className="w-full " />
+                          </SwiperSlide>
+                        ))}
+                    </Swiper>
                   </div>
                 </>
               )}
             </div>
 
-            <div className="flex flex-col gap-4 md:px-4 w-full lg:px-8 lg:max-w-xl">
+            <div className="flex flex-col gap-4 md:px-4 w-full px-3 lg:max-w-xl mt-5 lg:mt-0">
+              <BreadcrumbPages pageName={["Produto", `${product?.name}`]} />
               <div>
                 <div className="flex  items-center justify-between">
-                  <h1 className="text-2xl font-semibold text-gray-900 mb-2">{product?.name}</h1>
-
-                  <button className="cursor-pointer text-primary-50 hover:text-red-500"><GoHeart size={30} /></button>
+                  <h1 className="text-3xl font-semibold text-gray-700 mb-2">{product?.name}</h1>
+                  <button className="cursor-pointer text-primary-50 hover:text-red-500">
+                    <GoHeart size={30} />
+                  </button>
                 </div>
-                <p className="text-gray-700 leading-relaxed mt-5">{product?.description}</p>
                 <div className="flex flex-col mt-4">
                   {product?.lastPrice && (
-                    <p className="text-gray-600 text-sm line-through">
+                    <p className="text-gray-600 text-base line-through">
                       {Number(product?.lastPrice).toLocaleString("pt-BR", {
                         style: "currency",
                         currency: "BRL",
                       })}
                     </p>
                   )}
-
-                  <p className="text-xl font-bold text-primary-100">
+                  <p className="text-2xl font-bold text-primary-50">
                     {Number(product?.price).toLocaleString("pt-BR", {
                       style: "currency",
                       currency: "BRL",
@@ -129,7 +151,6 @@ export function Product() {
                   </p>
                 </div>
               </div>
-
               {/* Cores */}
               <AccordionFilter name="Cores">
                 <div className="flex gap-3 mt-2 flex-wrap ">
@@ -147,7 +168,6 @@ export function Product() {
                   ))}
                 </div>
               </AccordionFilter>
-
               {/* Tamanhos */}
               <AccordionFilter name="Tamanhos">
                 <div className="flex gap-3 mt-2 flex-wrap">
@@ -165,11 +185,14 @@ export function Product() {
                   ))}
                 </div>
               </AccordionFilter>
-
-              <button onClick={handleAddCart} className="bg-primary-50 hover:bg-primary-100 text-white py-3 w-full rounded-xs font-medium text-base hover:opacity-85 cursor-pointer ">
+              <button onClick={handleAddCart} className="bg-primary-50 hover:bg-primary-100 text-white py-3 w-full rounded-xs font-medium text-base hover:opacity-85 cursor-pointer flex itmes-center justify-center gap-2">
+                <LiaShoppingBagSolid size={22} />
                 Adicionar à sacola
               </button>
-
+              <button className="flex items-center justify-center gap-2 text-gray-700 cursor-pointer text-sm">
+                <FaWhatsapp size={22} />
+                Comprar pelo whatsApp
+              </button>
               {/* Entrega */}
               <AccordionFilter name="Entrega">
                 <div className="flex gap-1 mt-2 pl-1">
@@ -177,12 +200,18 @@ export function Product() {
                   <button className="bg-primary-50 text-white px-6 rounded-xs hover:bg-primary-100 transition cursor-pointer">Consultar</button>
                 </div>
               </AccordionFilter>
+              <AccordionFilter name="Descrição">
+                <p>{product?.description}</p>
+              </AccordionFilter>
             </div>
-          </section>
-          <section className="mt-10 w-full flex items-center justify-center">{recomendation && <SuggestionProduct tittle="Talvez você possa gostar" suggestionProducts={recomendation} />}</section>
-        </>
-      )}
+          </div>
 
+          <div className="w-full">
+            <Stamps />
+          </div>
+          <section className="mt-10 w-full flex items-center justify-center">{recomendation && <SuggestionProduct tittle="Talvez você possa gostar" suggestionProducts={recomendation} />}</section>
+        </section>
+      )}
     </main>
   );
 }

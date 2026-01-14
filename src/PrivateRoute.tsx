@@ -1,7 +1,8 @@
 import { Navigate } from "react-router-dom";
 import { useUser } from "./context/userContext";
-import { type ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 import { LoadingPage } from "./components/loading/loadingPage";
+import { useUI } from "./context/UIContext";
 
 interface PrivateRouteProps {
   children: ReactNode;
@@ -9,6 +10,11 @@ interface PrivateRouteProps {
 
 export default function PrivateRoute({ children }: PrivateRouteProps) {
   const { name, loading } = useUser();
+  const { setModalAuth } = useUI();
+
+  useEffect(() => {
+    setModalAuth(name === null);
+  }, [name, setModalAuth]);
 
   if (loading) {
     return (
@@ -17,5 +23,6 @@ export default function PrivateRoute({ children }: PrivateRouteProps) {
       </div>
     );
   }
-  return name ? children : <Navigate to="/" />;
+
+  return name === null ? <Navigate to="/" /> : children;
 }

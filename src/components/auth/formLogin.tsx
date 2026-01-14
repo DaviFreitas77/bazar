@@ -44,6 +44,9 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       if (error.status === 401) {
         setErrorMessage("Credenciais inválidas");
       }
+      if (error.status === 403) {
+        setErrorMessage("conta vinculada com outro provedor");
+      }
       console.log(error);
     } finally {
       setLoading(false);
