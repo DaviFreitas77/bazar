@@ -1,19 +1,19 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @theme inline {
   --radius: 0.625rem;
   --color-background: #ffffff;
   --color-primary-50: #a2785a;
-  --color-primary-100: #9e5330;
+  --color-primary-100: #EBE3D0;
   --color-primary: #000;
 }
 
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
 * {
-  font-family: Inter, sans-serif;
+   font-family: "Poppins", sans-serif;
 }
 
 .swiper-button-prev,

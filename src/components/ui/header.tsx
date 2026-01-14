@@ -23,7 +23,7 @@ export function Header() {
   return (
     <div>
       <header className="w-full border-b border-gray-200 ">
-        <section className="bg-primary-50 text-white text-center py-2 text-sm tracking-wide">Frete grátis em pedidos acima de R$299</section>
+        <section className="bg-primary-50 text-white text-center py-2 text-xs tracking-wide">RETIRE EM NOSSO BAZAR FÍSICO</section>
         {/* Header principal */}
         <section className="flex justify-center items-center h-20 bg-white">
           <div className="flex items-center justify-between max-w-[1500px] w-full px-7">
@@ -78,7 +78,7 @@ export function Header() {
             </div>
           </div>
         </section>
-        <SheetSearch open={openCart} onOpenChange={setOpenCart} side="right" tittle="Carrinho">
+        <SheetSearch open={openCart} onOpenChange={setOpenCart} side="right" tittle="Sacola">
           <CartProducts />
         </SheetSearch>
         <SheetSearch open={openFavorite} onOpenChange={setOpenFavorite} side="right" tittle="Favoritos" />
