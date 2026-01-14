@@ -6,11 +6,13 @@ import { useAllProducts } from "@/hooks/useAllProducts";
 import { GoArrowLeft } from "react-icons/go";
 import { useUI } from "@/context/UIContext";
 import { Link } from "react-router-dom";
+import { Skeleton } from "../ui/skeleton";
+import { SkeletonRecomendedProducts } from "./skeletonRecomendedProduct";
 
 export function CartProducts() {
   const { state, dispatch } = useCart();
   const { data: products } = useAllProducts();
-  const {setOpenCart} = useUI();
+  const { setOpenCart } = useUI();
 
   const limited = products?.slice(0, 3);
 
@@ -60,7 +62,7 @@ export function CartProducts() {
           </div>
 
           {limited &&
-            limited.length > 0 &&
+            limited.length > 0 ?
             limited?.map((product) => (
               <div className="flex gap-2 w-full mt-5">
                 <div className="flex gap-2 w-full">
@@ -82,17 +84,16 @@ export function CartProducts() {
                         })}
                       </p>
                     </div>
-                    <button
-                    onClick={()=>setOpenCart(false)}
-                    className="bg-primary-50 text-white text-sm w-full cursor-pointer mt-12 py-1"><Link to={`/product/${product.id}`}>
-                    VER PRODUTO</Link></button>
+                    <button onClick={() => setOpenCart(false)} className="bg-primary-50 text-white text-sm w-full cursor-pointer mt-12 py-1">
+                      <Link to={`/product/${product.id}`}>VER PRODUTO</Link>
+                    </button>
                   </div>
                 </div>
               </div>
-            ))}
-          <button
-          onClick={()=>setOpenCart(false)}
-          className="bg-primary-100  w-full py-2 mt-10 text-gray-700 flex items-center gap-4 justify-center cursor-pointer">
+            )):(
+             <SkeletonRecomendedProducts/>
+            )}
+          <button onClick={() => setOpenCart(false)} className="bg-primary-100  w-full py-2 mt-10 text-gray-700 flex items-center gap-4 justify-center cursor-pointe text-sm">
             <GoArrowLeft size={20} />
             CONTINUAR COMPRANDO
           </button>
