@@ -6,11 +6,10 @@ import { Link } from "react-router-dom";
 import { useUser } from "@/context/userContext";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { BsBoxSeam } from "react-icons/bs";
-import { User2 } from "lucide-react";
 import { CiLocationOn } from "react-icons/ci";
 export function DrawerResponsive() {
   const { data: categories } = useListCategories();
-  const { openDrawer, setOpenDrawer, setModalAuth, setOpenFavorite } = useUI();
+  const { openDrawer, setOpenDrawer, setOpenFavorite } = useUI();
   const { name } = useUser();
   return (
     <SheetSearch open={openDrawer} onOpenChange={setOpenDrawer} side="left" tittle={name ? `Olá ${name}` : "Menu"}>
