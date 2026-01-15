@@ -5,7 +5,7 @@ import type { AxiosResponse } from "axios";
 import axios from "axios";
 
 export const ensureCsrf = async () => {
-  await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
+  await axios.get("https://web-production-edc6.up.railway.app/sanctum/csrf-cookie", {
     withCredentials: true,
     withXSRFToken: true,                                                                                                                                                                                                                                                                                                                                     
   });
