@@ -1,13 +1,13 @@
-import type { login } from "@/components/auth/types/login";
-import type { Register } from "@/components/auth/types/register";
+import type { login } from "@/components/site/auth/types/login";
+import type { Register } from "@/components/site/auth/types/register";
 import { api } from "@/lib/api";
 import type { AxiosResponse } from "axios";
 import axios from "axios";
 
 export const ensureCsrf = async () => {
-  await axios.get("https://web-production-edc6.up.railway.app/sanctum/csrf-cookie", {
+  await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
     withCredentials: true,
-    withXSRFToken: true,                                                                                                                                                                                                                                                                                                                                     
+    withXSRFToken: true,                                                                                                                                                                                                                                                                                                                                
   });
 };
 

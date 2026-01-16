@@ -43,12 +43,13 @@ interface AccordionProps {
   children?: React.ReactNode;
   backgroundColor?:string;
   padding?:string;
+  value:string;
 }
 
-function AccordionFilter({ name, children,backgroundColor,padding}: AccordionProps) {
+function AccordionFilter({ name, children,backgroundColor,padding,value}: AccordionProps) {
   return (
     <Accordion type="single" collapsible defaultValue="item-1">
-      <AccordionItem value="item-1">
+      <AccordionItem value={value}>
         <AccordionTrigger  style={{ backgroundColor: backgroundColor,padding:padding}} className="text-base font-semibold text-gray-800  ">{name}</AccordionTrigger>
         <div className="border border-gray-100/70 mb-2"></div>
         <AccordionContent>{children}</AccordionContent>

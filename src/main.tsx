@@ -11,10 +11,11 @@ import { ensureCsrf, getMe } from "./api/auth.api.ts";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "./context/cartContext.tsx";
 import { UIProvider } from "./context/UIContext.tsx";
+import { set } from "react-hook-form";
 const queryClient = new QueryClient();
 
 function InitApp() {
-  const { setName, setEmail, setLoading,setLastName,setTel } = useUser();
+  const { setName, setEmail, setLoading,setLastName,setTel,setRole } = useUser();
 
   useEffect(() => {
     async function fetchCsrfAndUser() {
@@ -31,6 +32,7 @@ function InitApp() {
           setEmail(user.email);
           setTel(user.tel);
           setLastName(user.lastName);
+          setRole(user.role)
         }
       } catch (err) {
         console.error("Erro ao pegar CSRF token:", err);

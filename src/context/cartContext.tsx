@@ -95,7 +95,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     
       try {
         const itemsFromDb = await apiGetCart();
-        console.log(itemsFromDb)
+       
         // Joga o carrinho do banco para dentro do state local
         dispatch({ type: "setState", payload: itemsFromDb.productsCart});
       } catch (err) {

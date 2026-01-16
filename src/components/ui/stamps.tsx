@@ -7,7 +7,7 @@ import { HiOutlineCheckBadge } from "react-icons/hi2";
 export function Stamps() {
   return (
     <section className="flex justify-center items-center px-4 ">
-      <div className="justify-between max-w-[1100px] xl:max-w-[1400px] py-15 w-full hidden lg:flex">
+      <div className="justify-between max-w-[1100px] 2xl:max-w-[1300px] py-15 w-full hidden lg:flex">
         <div className="flex items-center gap-2">
           <PiPixLogoLight size={50} className="text-gray-700" />
           <div className="leading-5">
@@ -23,13 +23,7 @@ export function Stamps() {
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <img src="images/iconSuporte.png" alt="" className="w-10" />
-          <div className="leading-5">
-            <p className="text-gray-800 font-semibold text-sm">SUPORTE</p>
-            <p className="text-gray-400 mt-1">24 horas</p>
-          </div>
-        </div>
+   
 
         <div className="flex items-center gap-2">
           <HiOutlineCheckBadge size={50} className="text-gray-700" />
@@ -88,15 +82,6 @@ export function Stamps() {
             </div>
           </SwiperSlide>
 
-          <SwiperSlide>
-            <div className="flex items-center gap-2 justify-center">
-              <img src="images/iconSuporte.png" alt="" className="w-7" />
-              <div className="leading-5">
-                <p className="text-gray-800 font-semibold text-sm">SUPORTE</p>
-                <p className="text-gray-400 mt-1 text-xs">24 horas</p>
-              </div>
-            </div>
-          </SwiperSlide>
 
           <SwiperSlide>
             <div className="flex items-center gap-2 justify-center">

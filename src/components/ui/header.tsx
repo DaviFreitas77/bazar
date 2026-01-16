@@ -1,24 +1,26 @@
 import { AiOutlineUser } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
 import { LiaShoppingBagSolid } from "react-icons/lia";
-import { IoMdHeartEmpty } from "react-icons/io";
+// import { IoMdHeartEmpty } from "react-icons/io";
 import { SheetSearch } from "./sheet";
-import { PopularSearches } from "../searchBar/PopularSearches";
-import { InputSearch } from "../searchBar/inputSearch";
-import { ShowProductsSearched } from "../searchBar/showProductsSearched";
-import { CartProducts } from "../shoppingCart/cartProducts";
-import { ModalAuth } from "../auth/modalAuth";
+import { PopularSearches } from "../site/searchBar/PopularSearches";
+import { InputSearch } from "../site/searchBar/inputSearch";
+import { ShowProductsSearched } from "../site/searchBar/showProductsSearched";
+import { CartProducts } from "../site/shoppingCart/cartProducts";
+import { ModalAuth } from "../site/auth/modalAuth";
 import { useUser } from "@/context/userContext";
 import { useCart } from "@/context/cartContext";
 import { useUI } from "@/context/UIContext";
 import { DropdownUser } from "./dropdown-menu";
-import { Categories } from "../header/categories";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { DrawerResponsive } from "../header/drawerResponsive";
+import { DrawerResponsive } from "../site/header/drawerResponsive";
+import { useListCategories } from "@/hooks/useListCategories";
+import { Link } from "react-router-dom";
 export function Header() {
   const { name } = useUser();
   const { state } = useCart();
   const { setOpenSearch, setOpenCart, setOpenFavorite, openSearch, openCart, openFavorite, modalAuth, setModalAuth, setOpenDrawer } = useUI();
+  const { data: allCategories } = useListCategories();
 
   return (
     <div>
@@ -32,9 +34,18 @@ export function Header() {
             </button>
 
             {/* LOGO */}
-            <img src="/images/logo.png" alt="" className="w-20" />
-            <div className="flex items-center gap-4 text-gray-800">
 
+            <img src="/images/logo.png" alt="" className="w-20" />
+
+            <div className="gap-8 text-sm hidden lg:flex">
+              {allCategories?.map((category) => (
+                <Link className="hover:text-primary-50 text-gray-700" to={`/pesquisa?q=${category.name}`}>
+                  {category.name}
+                </Link>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-4 text-gray-800">
               {/* Pesquisa */}
               <button onClick={() => setOpenSearch(true)} className="hover:text-primary-50 transition-colors cursor-pointer" title="Pesquisar">
                 <CiSearch size={22} />
@@ -44,9 +55,7 @@ export function Header() {
               <div className=" items-center gap-2  transition-colors cursor-pointer hidden lg:flex">
                 <AiOutlineUser size={22} className="hidden lg:block" />
                 {name ? (
-                  <div
-                    className="mt-1 hidden lg:block "
-                  >
+                  <div className="mt-1 hidden lg:block ">
                     <DropdownUser name={name} />
                   </div>
                 ) : (
@@ -66,9 +75,9 @@ export function Header() {
               </div>
 
               {/* Favoritos */}
-              <button onClick={() => setOpenFavorite(true)} className="hover:text-primary-50 transition-colors hidden lg:block cursor-pointer" title="Favoritos">
+              {/* <button onClick={() => setOpenFavorite(true)} className="hover:text-primary-50 transition-colors hidden lg:block cursor-pointer" title="Favoritos">
                 <IoMdHeartEmpty size={22} />
-              </button>
+              </button> */}
               {/* Sacola */}
               <button onClick={() => setOpenCart(true)} className="hover:text-primary-50 transition-colors relative cursor-pointer" title="Sacola">
                 <LiaShoppingBagSolid size={22} />
@@ -90,7 +99,6 @@ export function Header() {
         <ModalAuth open={modalAuth} onClose={() => setModalAuth(false)} />
         <DrawerResponsive />
       </header>
-      <Categories />
     </div>
   );
 }
