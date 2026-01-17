@@ -38,7 +38,7 @@ interface DropDownProps {
 function DropDown({ title, value, onChange, children }: DropDownProps) {
   return (
     <NativeSelect 
-      className=""
+      className="border-none"
       value={value} 
       onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(e.target.value)}
     >

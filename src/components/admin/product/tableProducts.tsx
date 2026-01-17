@@ -1,6 +1,6 @@
 import { Pagination } from "@/components/site/search/pagination";
 import { useState } from "react";
-import { FaTrash, FaEdit } from "react-icons/fa";
+
 
 interface Product {
   id: number;
@@ -96,9 +96,9 @@ const products: Product[] = [
   },
 ];
 
-export function TableProduct() {
 
-   let productsPerPage = 7;
+export function TableProduct() {
+  let productsPerPage = 7;
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastItem = currentPage * productsPerPage;
@@ -117,6 +117,7 @@ export function TableProduct() {
 
 
   
+
   return (
     <div className="mt-4 px-4 w-full pb-20">
       <table className="min-w-full border border-gray-200 divide-y divide-gray-200 ">

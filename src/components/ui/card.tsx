@@ -1,54 +1,92 @@
-import { useNavigate } from "react-router-dom";
-import type { Card } from "@/@types/product";
-import { useUI } from "@/context/UIContext";
-export function CardProduct({ id, name, sizes, price, image, lastPrice }: Card) {
-  const navigate = useNavigate();
-  const { setOpenSearch } = useUI();
-  function handleClick() {
-    navigate(`/product/${id}`);
-    if (setOpenSearch) {
-      setOpenSearch(false);
-    }
-  }
+import * as React from "react"
 
+import { cn } from "@/lib/utils"
+
+function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div onClick={handleClick} className="max-w-[250px] w-full bg-white rounded-sm shadow-sm max-h-130  ">
-      <div>
-        <img className="w-full aspect-3/3 object-cover object-top hover:opacity-85 cursor-pointer" src={image} alt="Vestido um ombro Aura" />
-      </div>
+    <div
+      data-slot="card"
+      className={cn(
+        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
+        className
+      )}
+      {...props}
+    />
+  )
+}
 
-      <div className="px-2 py-4 space-y-3">
-        <h3 className="text-base lg:text-base  text-gray-700 font-semibold">{name}</h3>
+function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-header"
+      className={cn(
+        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
+        className
+      )}
+      {...props}
+    />
+  )
+}
 
-        <div className="flex items-center gap-2">
-          <span className="text-xs lg:text-base font-medium text-gray-500">Tam:</span>
-          {sizes?.map((tamanho) => (
-            <span key={tamanho} className="flex items-center justify-center w-5 h-5  rounded-full bg-gray-100 text-xs font-semibold text-gray-700 ring-1 ring-gray-300">
-              {tamanho}
-            </span>
-          ))}
-        </div>
+function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-title"
+      className={cn("leading-none font-semibold", className)}
+      {...props}
+    />
+  )
+}
 
-        <div>
-          {lastPrice && (
-            <p className="text-gray-600 text-xs line-through">
-              {(Number(lastPrice) || 0).toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-              })}
-            </p>
-          )}
+function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-description"
+      className={cn("text-muted-foreground text-sm", className)}
+      {...props}
+    />
+  )
+}
 
-          <p className="text-base font-semibold text-gray-700">
-            {(Number(price) || 0).toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}
-          </p>
-        </div>
+function CardAction({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-action"
+      className={cn(
+        "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+        className
+      )}
+      {...props}
+    />
+  )
+}
 
-        <button className="text-sm  w-full bg-primary-50 text-white py-2 px-2 rounded-xs font-semibold hover:bg-primary-100 cursor-pointer transition-colors">Adicionar ao carrinho</button>
-      </div>
-    </div>
-  );
+function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-content"
+      className={cn("px-6", className)}
+      {...props}
+    />
+  )
+}
+
+function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-footer"
+      className={cn("flex items-center px-6 [.border-t]:pt-6", className)}
+      {...props}
+    />
+  )
+}
+
+export {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardAction,
+  CardDescription,
+  CardContent,
 }

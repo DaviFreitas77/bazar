@@ -1,5 +1,5 @@
 import { filterCategory, filterColorsProducts, filterSizesProducts } from "@/utils/productsUtild";
-import { CardProduct } from "@/components/ui/card";
+import { CardProduct } from "@/components/ui/cardProduct";
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { DrawerFilterMobile } from "@/components/site/search/drawer";

@@ -4,7 +4,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { CardProduct } from "../../ui/card";
+import { CardProduct } from "../../ui/cardProduct";
 import type { Product } from "@/@types/product";
 import { Link } from "react-router-dom";
 import { SkeletoSliderProducts } from "./skeleton";

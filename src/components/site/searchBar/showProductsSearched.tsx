@@ -1,5 +1,5 @@
 import { useProductsSearched } from "@/context/productsSearchedContext";
-import { CardProduct } from "../../ui/card";
+import { CardProduct } from "../../ui/cardProduct";
 import { PackageX } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Loading } from "../loading/loading";

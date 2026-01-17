@@ -18,7 +18,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorGoogle, setErrorGoogle] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const { setName, setEmail, setLastName, setTel } = useUser();
+  const { setName, setEmail, setLastName, setTel,setRole } = useUser();
   const {
     register,
     handleSubmit,
@@ -37,6 +37,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       setName(response.user.name);
       setLastName(response.user.lastName);
       setTel(response.user.tel);
+      setRole(response.user.role)
 
       onClose();
       toast.success("Login realizado");

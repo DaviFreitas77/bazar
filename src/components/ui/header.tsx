@@ -39,7 +39,7 @@ export function Header() {
 
             <div className="gap-8 text-sm hidden lg:flex">
               {allCategories?.map((category) => (
-                <Link className="hover:text-primary-50 text-gray-700" to={`/pesquisa?q=${category.name}`}>
+                <Link key={category.id} className="hover:text-primary-50 text-gray-700" to={`/pesquisa?q=${category.name}`}>
                   {category.name}
                 </Link>
               ))}

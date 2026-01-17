@@ -9,8 +9,8 @@ export function Dashboard() {
     <LayoutSidebar>
       <div className="w-full">
         <HeaderAdmin/>
-        <ActionProduct/>
         <MetricsProduct/>
+        <ActionProduct/>
         <TableProduct/>
 
       </div>
