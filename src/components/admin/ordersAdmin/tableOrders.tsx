@@ -3,6 +3,14 @@ import { useMemo, useState } from "react";
 import { ActionOrder } from "./actionsOrders";
 import { Graphic } from "@/components/ui/chart";
 
+const THEMES = { light: "", dark: ".dark" } as const;
+export type ChartConfig = {
+  [k in string]: {
+    label?: React.ReactNode;
+    icon?: React.ComponentType;
+  } & ({ color?: string; theme?: never } | { color?: never; theme: Record<keyof typeof THEMES, string> });
+};
+
 interface Order {
   id: number;
   orderNumber: string;
@@ -100,6 +108,30 @@ const orders: Order[] = [
   },
 ];
 
+const chartConfig = {
+  payment: {
+    label: "Pagamentos",
+  },
+  CARTAO: {
+    label: "CARTAO",
+    color: "var(--chart-1)",
+  },
+  PIX: {
+    label: "PIX",
+    color: "var(--chart-2)",
+  },
+  BOLETO: {
+    label: "BOLETO",
+    color: "var(--chart-3)",
+  },
+} satisfies ChartConfig;
+
+const chartData = [
+  { method: "CARTÃO", payment: 275, fill: "#830AD2" },
+  { method: "PIX", payment: 200, fill: "#3D9386" },
+  { method: "BOLETO", payment: 187, fill: "#EF7296" },
+];
+
 export function TableOrders() {
   const [filterOrder, setFilterOrder] = useState("relevance");
   const ordersPerPage = 10;
@@ -157,8 +189,8 @@ export function TableOrders() {
   return (
     <div className="mt-4 px-4 w-full pb-20">
       <section className="flex w-full gap-2">
-        <Graphic title="Métodos de pagamento" />
-        <Graphic title="Métodos de pagamento" />
+        <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} />
+        <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} />
       </section>
       <section className="my-3">
         <ActionOrder filterOrder={filterOrder} setFilterOrder={setFilterOrder} />

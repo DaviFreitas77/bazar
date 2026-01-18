@@ -267,42 +267,15 @@ function getPayloadConfigFromPayload(config: ChartConfig, payload: unknown, key:
   return configLabelKey in config ? config[configLabelKey] : config[key as keyof typeof config];
 }
 
-const chartData = [
-  { browser: "CARTÃO", visitors: 275, fill: "#830AD2" },
-  { browser: "PIX", visitors: 200, fill: "#3D9386" },
-  { browser: "BOLETO", visitors: 187, fill: "#EF7296" },
-];
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "var(--chart-1)",
-  },
-  safari: {
-    label: "Safari",
-    color: "var(--chart-2)",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "var(--chart-3)",
-  },
-  edge: {
-    label: "Edge",
-    color: "var(--chart-4)",
-  },
-  other: {
-    label: "Other",
-    color: "var(--chart-5)",
-  },
-} satisfies ChartConfig;
+
 
 interface GraphicProps {
   title: string;
   description?: string;
+  config: ChartConfig;
+  data: any[];
 }
-function Graphic({ title, description }: GraphicProps) {
+function Graphic({ title, description,config,data}: GraphicProps) {
   return (
     <Card className="flex flex-col w-full border-gray-200 shadow-none">
       <CardHeader className="items-center pb-0">
@@ -310,10 +283,10 @@ function Graphic({ title, description }: GraphicProps) {
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
-        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
+        <ChartContainer config={config} className="mx-auto aspect-square max-h-[250px]">
           <PieChart>
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Pie data={chartData} dataKey="visitors" nameKey="browser" />
+            <Pie data={data} dataKey="payment" nameKey="method" />
           </PieChart>
         </ChartContainer>
       </CardContent>
