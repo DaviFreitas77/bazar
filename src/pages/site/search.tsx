@@ -8,10 +8,10 @@ import { Pagination } from "@/components/site/search/pagination";
 import { EmptyProduct } from "@/components/site/search/emptyProduct";
 import { ActionButtons } from "@/components/site/search/action";
 import { DrawerDesktop } from "@/components/site/search/drawerDesktop";
-import { useAllProducts } from "@/hooks/useAllProducts";
+import { useAllProducts } from "@/hooks/site/useAllProducts";
 import { LoadingPage } from "@/components/site/loading/loadingPage";
 import type { Product } from "@/@types/product";
-import { hookSearchParams } from "@/hooks/useSearchParams";
+import { hookSearchParams } from "@/hooks/site/useSearchParams";
 
 
 export function Search() {

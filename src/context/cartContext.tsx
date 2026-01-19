@@ -1,4 +1,4 @@
-import { apiGetCart, apiSyncCart } from "@/api/shoppingCart.api";
+import { apiGetCart, apiSyncCart } from "@/api/site/shoppingCart.api";
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { useUser } from "./userContext";
 

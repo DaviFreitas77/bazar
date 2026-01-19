@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import type { MyAdressProps } from "./@types/adress";
+import type { MyAdressProps } from "../@types/adress";
 
 export const getZipCode = async (zipCode: string) => {
   const response = await api.post("logradouro/checkZipCode", { zipCode });

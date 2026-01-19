@@ -7,7 +7,7 @@ import "./index.css";
 import App from "./App.tsx";
 import { ProductsSearchedProvider } from "./context/productsSearchedContext.tsx";
 import { UserProvider, useUser } from "./context/userContext.tsx";
-import { ensureCsrf, getMe } from "./api/auth.api.ts";
+import { ensureCsrf, getMe } from "./api/site/auth.api.ts";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "./context/cartContext.tsx";
 import { UIProvider } from "./context/UIContext.tsx";

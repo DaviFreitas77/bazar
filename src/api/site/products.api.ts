@@ -1,6 +1,6 @@
 import { api } from "@/lib/api";
 import type { Product } from "@/@types/product";
-import type { ApiProduct } from "./@types/product";
+import type { ApiProduct } from "../@types/product";
 
 
 

@@ -1,7 +1,7 @@
 
-import { deleteLogradouro } from "@/api/logradouro.api";
+import { deleteLogradouro } from "@/api/site/logradouro.api";
 import { AsideUser } from "@/components/site/aside/userAccount";
-import { useMyLogradouro } from "@/hooks/useMyLogradouro";
+import { useMyLogradouro } from "@/hooks/site/useMyLogradouro";
 import { Trash2Icon } from "lucide-react";
 import { HiOutlineHome } from "react-icons/hi2";
 

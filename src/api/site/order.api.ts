@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import type { myOrderProps } from "./@types/order";
+import type { myOrderProps } from "../@types/order";
 import type { CartItem } from "@/context/cartContext";
 
 export const apiLatestOrder = async () => {

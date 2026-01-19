@@ -2,7 +2,7 @@ import { Plus, Minus } from "lucide-react";
 import { TotalShoppingCart } from "./totalShoppingCart";
 import { useCart, type CartItem } from "@/context/cartContext";
 import { TbMoodConfuzed } from "react-icons/tb";
-import { useAllProducts } from "@/hooks/useAllProducts";
+import { useAllProducts } from "@/hooks/site/useAllProducts";
 import { GoArrowLeft } from "react-icons/go";
 import { useUI } from "@/context/UIContext";
 import { useNavigate } from "react-router-dom";

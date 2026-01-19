@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import type { UpdateUserResponse } from "./@types/user";
+import type { UpdateUserResponse } from "../@types/user";
 
 
 export const updateUser = async (data: UpdateUserResponse) => {

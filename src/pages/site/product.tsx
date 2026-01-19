@@ -1,15 +1,15 @@
 import { useLocation, useParams } from "react-router-dom";
 import { AccordionFilter } from "@/components/ui/accordion";
 import { SuggestionProduct } from "@/components/site/product/suggestions";
-import { useProductById } from "@/hooks/useProductById";
-import { useProductsByCategory } from "@/hooks/useProductsByCategory";
+import { useProductById } from "@/hooks/site/useProductById";
+import { useProductsByCategory } from "@/hooks/site/useProductsByCategory";
 import type { Product } from "@/@types/product";
 import { LoadingPage } from "@/components/site/loading/loadingPage";
 import { useEffect, useMemo, useState } from "react";
 import { FaCircle, FaWhatsapp } from "react-icons/fa";
 import { useCart } from "@/context/cartContext";
 import { useUser } from "@/context/userContext";
-import { apiAddProduct } from "@/api/shoppingCart.api";
+import { apiAddProduct } from "@/api/site/shoppingCart.api";
 import { toast } from "sonner";
 // import { GoHeart } from "react-icons/go";
 import { BreadcrumbPages } from "@/components/ui/breadcrumb";

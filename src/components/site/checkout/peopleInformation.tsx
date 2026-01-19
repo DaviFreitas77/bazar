@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useCheckout } from "@/context/checkoutContext";
 import { useUser } from "@/context/userContext";
 import { useEffect } from "react";
-import { updateUser } from "@/api/user.api";
+import { updateUser } from "@/api/site/user.api";
 
 export function PeopleInformation() {
   const { setStep } = useCheckout();

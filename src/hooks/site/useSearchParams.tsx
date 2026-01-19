@@ -1,4 +1,4 @@
-import { searchProducts } from "@/api/products.api";
+import { searchProducts } from "@/api/site/products.api";
 import { useQuery } from "@tanstack/react-query";
 
 export const hookSearchParams = (query: string | null) => {

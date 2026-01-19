@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@/schemas/schemaAuth";
-import { loginUser } from "@/api/auth.api";
+import { loginUser } from "@/api/site/auth.api";
 import { useEffect, useState } from "react";
 import { Loading } from "../loading/loading";
 import { useUser } from "@/context/userContext";

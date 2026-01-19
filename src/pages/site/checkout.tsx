@@ -10,7 +10,7 @@ import { useCheckout } from "@/context/checkoutContext";
 import { useEffect, useMemo, useState } from "react";
 
 import { useCart } from "@/context/cartContext";
-import { apiLatestOrder } from "@/api/order.api";
+import { apiLatestOrder } from "@/api/site/order.api";
 import { useNavigate } from "react-router-dom";
 
 export function Checkout() {

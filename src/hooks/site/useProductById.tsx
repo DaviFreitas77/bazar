@@ -1,4 +1,4 @@
-import { apiGetProductById } from "@/api/products.api";
+import { apiGetProductById } from "@/api/site/products.api";
 import { useQuery } from "@tanstack/react-query";
 
 export const useProductById = (id: number) => {

@@ -3,7 +3,7 @@ import { AsideUser } from "@/components/site/aside/userAccount";
 import { Loading } from "@/components/site/loading/loading";
 import { MyOrder } from "@/components/site/orders/myOrder";
 import { DropDown, NativeSelectOption } from "@/components/ui/native-select";
-import { useMyOrders } from "@/hooks/useMyOrders";
+import { useMyOrders } from "@/hooks/site/useMyOrders";
 import { useMemo, useState } from "react";
 import { BsBoxSeam } from "react-icons/bs";
 

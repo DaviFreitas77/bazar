@@ -4,8 +4,8 @@ import { AdressSchema } from "@/schemas/schemaCheckout";
 import { useCheckout } from "@/context/checkoutContext";
 import { useEffect, useState } from "react";
 import { Loading } from "@/components/site/loading/loading";
-import { createLogradouro, getZipCode } from "@/api/logradouro.api";
-import { useMyLogradouro } from "@/hooks/useMyLogradouro";
+import { createLogradouro, getZipCode } from "@/api/site/logradouro.api";
+import { useMyLogradouro } from "@/hooks/site/useMyLogradouro";
 
 export function Adress() {
   const [isLoading, setLoading] = useState<boolean>(false);

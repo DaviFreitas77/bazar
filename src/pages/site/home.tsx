@@ -1,6 +1,6 @@
 import { Stamps } from "@/components/ui/stamps";
 import { SuggestionProduct } from "@/components/site/product/suggestions";
-import { useAllProducts } from "@/hooks/useAllProducts";
+import { useAllProducts } from "@/hooks/site/useAllProducts";
 import { filterProductByCategory } from "@/utils/productsUtild";
 
 export function Home() {

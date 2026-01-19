@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Loading } from "../loading/loading";
 import { CiSearch } from "react-icons/ci";
 import { useUI } from "@/context/UIContext";
-import { hookSearchParams } from "@/hooks/useSearchParams";
+import { hookSearchParams } from "@/hooks/site/useSearchParams";
 
 export function ShowProductsSearched() {
   const { nameProduct } = useProductsSearched();

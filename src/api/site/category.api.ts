@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import type { apiCategorie } from "./@types/categorie";
+import type { apiCategorie } from "../@types/categorie";
 
 
 

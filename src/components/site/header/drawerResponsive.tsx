@@ -1,6 +1,6 @@
 import { useUI } from "@/context/UIContext";
 import { SheetSearch } from "../../ui/sheet"
-import { useListCategories } from "@/hooks/useListCategories";
+import { useListCategories } from "@/hooks/site/useListCategories";
 import { AccordionFilter } from "../../ui/accordion";
 import { Link } from "react-router-dom";
 import { useUser } from "@/context/userContext";
@@ -8,7 +8,7 @@ import { useUser } from "@/context/userContext";
 import { BsBoxSeam } from "react-icons/bs";
 // import { CiLocationOn } from "react-icons/ci";
 import { LogOutIcon } from "lucide-react";
-import { logout } from "@/api/auth.api";
+import { logout } from "@/api/site/auth.api";
 export function DrawerResponsive() {
   const { data: categories } = useListCategories();
   const { openDrawer, setOpenDrawer, } = useUI();

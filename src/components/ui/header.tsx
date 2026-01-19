@@ -14,7 +14,7 @@ import { useUI } from "@/context/UIContext";
 import { DropdownUser } from "./dropdown-menu";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { DrawerResponsive } from "../site/header/drawerResponsive";
-import { useListCategories } from "@/hooks/useListCategories";
+import { useListCategories } from "@/hooks/site/useListCategories";
 import { Link } from "react-router-dom";
 export function Header() {
   const { name } = useUser();

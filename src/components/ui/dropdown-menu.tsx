@@ -6,7 +6,7 @@ import { IoIosHeartEmpty } from "react-icons/io";
 
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { logout } from "@/api/auth.api";
+import { logout } from "@/api/site/auth.api";
 import { useUser } from "@/context/userContext";
 import { CiLogout } from "react-icons/ci";
 
@@ -181,6 +181,7 @@ function DropdownUser({ name }: DropdownUserPros) {
       setEmail(null);
       setLastName(null);
       setTel(null);
+      localStorage.removeItem("token");
     }
   };
 

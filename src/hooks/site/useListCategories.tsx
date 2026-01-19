@@ -1,6 +1,6 @@
 
 
-import { apiGetCategories } from "@/api/category.api"
+import { apiGetCategories } from "@/api/site/category.api"
 import { useQuery } from "@tanstack/react-query"
 
 export const useListCategories = () =>{

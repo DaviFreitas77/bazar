@@ -1,12 +1,12 @@
 import { initMercadoPago } from "@mercadopago/sdk-react";
 import { useEffect, useState } from "react";
 import { Payment } from "@mercadopago/sdk-react";
-import { apiProcessPayment, apiProcessPaymentPix } from "@/api/payment.api";
+import { apiProcessPayment, apiProcessPaymentPix } from "@/api/site/payment.api";
 import { useCart } from "@/context/cartContext";
 import { useCheckout } from "@/context/checkoutContext";
 import { Loading } from "@/components/site/loading/loading";
 import { PixQRCode } from "./PixQrCode";
-import { createOrder } from "@/api/order.api";
+import { createOrder } from "@/api/site/order.api";
 
 const publicKey = import.meta.env.VITE_MP_PUBLIC_KEY as string;
 
