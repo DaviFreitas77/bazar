@@ -11,7 +11,7 @@ import { ensureCsrf, getMe } from "./api/site/auth.api.ts";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "./context/cartContext.tsx";
 import { UIProvider } from "./context/UIContext.tsx";
-import { set } from "react-hook-form";
+
 const queryClient = new QueryClient();
 
 function InitApp() {

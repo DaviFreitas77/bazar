@@ -1,17 +1,16 @@
 import { api } from "@/lib/api";
 
 
+
+interface ColorsAdminProps {
+  id: number;
+  name: string;
+}
+
 export const getColors = async () => {
-  const response = await api.get("/admin/colors");
+  const response = await api.get<ColorsAdminProps[]>("color/list");
   return response.data;
 };
 
-export const getCategories = async () => {
-  const response = await api.get("/admin/categories");
-  return response.data;
-};
 
-export const getSizes = async () => {
-  const response = await api.get("/admin/sizes");
-  return response.data;
-};
+

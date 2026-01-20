@@ -1,34 +1,49 @@
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
 import { Home, Settings, Mail } from "lucide-react";
+import { GiClothes } from "react-icons/gi";
 import { Link } from "react-router-dom";
 
-// Menu items.
-const items = [
+const menuGroups = [
   {
-    title: "Produto",
-    url: "/",
-    icon: Home,
+    label: "Gerenciamento",
+    items: [
+      {
+        title: "Produtos",
+        url: "/",
+        icon: Home,
+      },
+      {
+        title: "Pedidos",
+        url: "/lista-pedidos",
+        icon: GiClothes ,
+      },
+      {
+        title: "Estatísticas",
+        url: "/dashboard",
+        icon: Home,
+      },
+    ],
   },
   {
-    title: "Pedidos",
-    url: "/lista-pedidos",
-    icon: Home,
+    label: "Comunicação",
+    items: [
+      {
+        title: "Email",
+        url: "/broadcast",
+        icon: Mail,
+      },
+    ],
   },
   {
-    title: "Email",
-    url: "/broadcast",
-    icon: Mail,
-  },
-  {
-    title: "Estatiscas",
-    url: "/dashboard",
-    icon: Home,
-  },
-  {
-    title: "Configurações",
-    url: "#",
-    icon: Settings,
+    label: "Configurações",
+    items: [
+      {
+        title: "Configurações",
+        url: "/config",
+        icon: Settings,
+      },
+    ],
   },
 ];
 
@@ -36,23 +51,26 @@ export function AppSidebar() {
   return (
     <Sidebar className="border-gray-200 bg-white">
       <SidebarContent className="bg-white">
-        <SidebarGroup>
-          <SidebarGroupLabel>BAZAR</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link to={item.url}>
-                      <item.icon />
-                      <span className="text-base">{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {menuGroups.map((group) => (
+          <SidebarGroup key={group.label}>
+            <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {group.items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link to={item.url}>
+                        <item.icon className="mr-2 h-4 w-4" />
+                        <span className="text-base">{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
     </Sidebar>
   );
