@@ -16,7 +16,7 @@ const menuGroups = [
       {
         title: "Pedidos",
         url: "/lista-pedidos",
-        icon: GiClothes ,
+        icon: GiClothes,
       },
       {
         title: "Estatísticas",
@@ -46,12 +46,12 @@ const menuGroups = [
     ],
   },
 ];
-
 export function AppSidebar() {
   return (
     <Sidebar className="border-gray-200 bg-white">
-      <SidebarContent className="bg-white">
-        {menuGroups.map((group) => (
+      <SidebarContent className="bg-white flex flex-col h-full">
+        {/* Grupos normais */}
+        {menuGroups.slice(0, 3).map((group) => (
           <SidebarGroup key={group.label}>
             <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
 
@@ -71,6 +71,21 @@ export function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
+
+        <SidebarGroup className="mt-auto">
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link to="/logout">
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span className="text-base">Sair</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
     </Sidebar>
   );

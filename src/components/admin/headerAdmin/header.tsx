@@ -1,13 +1,14 @@
+import { useUser } from "@/context/userContext";
 import { Search } from "lucide-react";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { useLocation } from "react-router-dom";
+
 
 export function HeaderAdmin() {
-   const location = useLocation();
+   const {name} = useUser();
   return (
     <header className="border-b border-b-gray-200">
       <div className="px-5 flex justify-between items-center py-4">
-        <h1 className="text-2xl text-gray-800">{location.pathname == '/lista-pedidos' ? 'Pedidos'  : location.pathname == '/broadcast' ? 'Email' : 'Dashboard'}</h1>
+        <h1 className="text-2xl text-gray-800 capitalize">Olá {name}</h1>
         <div className="relative flex items-center gap-4">
           {/* Input de pesquisa com ícone */}
           <div className="relative">

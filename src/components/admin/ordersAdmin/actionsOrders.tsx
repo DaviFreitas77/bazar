@@ -10,7 +10,7 @@ export function ActionOrder({ filterOrder, setFilterOrder }:OrderPros) {
   return (
     <section className="w-full pt-4 mt-4">
       <div className="text-end w-full flex  text-sm gap-4">
-        <DropDown title="Ordenar por" value={filterOrder} onChange={setFilterOrder}>
+        <DropDown title="Ordenar por" value={filterOrder} onChange={setFilterOrder} >
           <NativeSelectOption value="relevance">Relevância</NativeSelectOption>
           <NativeSelectOption value="recents">Mais recentes</NativeSelectOption>
           <NativeSelectOption value="oldest">Mais antigos</NativeSelectOption>
