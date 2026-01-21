@@ -188,54 +188,56 @@ export function TableOrders() {
   };
   return (
     <div className="mt-4 px-4 w-full pb-20">
-      <section className="flex w-full gap-2">
+      <section className="flex w-full gap-2 bg-white p-5 rounded-md border border-gray-200">
         <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} />
         <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} />
       </section>
-      <section className="my-3">
-        <ActionOrder filterOrder={filterOrder} setFilterOrder={setFilterOrder} />
-      </section>
 
-      <table className="min-w-full border border-gray-200 divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Pedido</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Produto ID</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Cliente</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Cupom</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Status</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Pagamento</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Total</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Data</th>
-          </tr>
-        </thead>
-
-        <tbody className="bg-white divide-y divide-gray-200">
-          {currentItems.map((order) => (
-            <tr key={order.id} className="hover:bg-gray-50 transition">
-              <td className="px-4 py-2 font-semibold text-primary-50">{order.orderNumber}</td>
-              <td className="px-4 py-2">{order.productId}</td>
-              <td className="px-4 py-2">{order.customerName}</td>
-              <td className="px-4 py-2">{order.coupon ?? "-"}</td>
-              <td className="px-4 py-2">
-                <span
-                  className={`px-2 py-1 rounded text-xs font-semibold
-                    ${order.status === "Pago" ? "bg-green-100 text-green-700" : order.status === "Pendente" ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}`}
-                >
-                  {order.status}
-                </span>
-              </td>
-              <td className="px-4 py-2">{order.paymentMethod}</td>
-              <td className="px-4 py-2 font-semibold">R$ {order.total.toFixed(2)}</td>
-              <td className="px-4 py-2">{order.createdAt}</td>
+      <section className="bg-white  px-5 pb-5 mt-10 rounded-md border border-gray-200">
+        <section className="my-3">
+          <ActionOrder filterOrder={filterOrder} setFilterOrder={setFilterOrder} />
+        </section>
+        <table className="min-w-full border border-gray-200 divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Pedido</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Produto ID</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Cliente</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Cupom</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Status</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Pagamento</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Total</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Data</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {currentItems.map((order) => (
+              <tr key={order.id} className="hover:bg-gray-50 transition">
+                <td className="px-4 py-2 font-semibold text-primary-50">{order.orderNumber}</td>
+                <td className="px-4 py-2">{order.productId}</td>
+                <td className="px-4 py-2">{order.customerName}</td>
+                <td className="px-4 py-2">{order.coupon ?? "-"}</td>
+                <td className="px-4 py-2">
+                  <span
+                    className={`px-2 py-1 rounded text-xs font-semibold
+                      ${order.status === "Pago" ? "bg-green-100 text-green-700" : order.status === "Pendente" ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}`}
+                  >
+                    {order.status}
+                  </span>
+                </td>
+                <td className="px-4 py-2">{order.paymentMethod}</td>
+                <td className="px-4 py-2 font-semibold">R$ {order.total.toFixed(2)}</td>
+                <td className="px-4 py-2">{order.createdAt}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+         <div className=" flex justify-center">
         <Pagination currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />
       </div>
+      </section>
+
+     
     </div>
   );
 }

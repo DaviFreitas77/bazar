@@ -1,7 +1,8 @@
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
 import { Home, Settings, Mail } from "lucide-react";
-import { GiClothes } from "react-icons/gi";
+import { GiClothes} from "react-icons/gi";
+import { FaBox } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const menuGroups = [
@@ -11,12 +12,12 @@ const menuGroups = [
       {
         title: "Produtos",
         url: "/",
-        icon: Home,
+        icon: GiClothes,
       },
       {
         title: "Pedidos",
         url: "/lista-pedidos",
-        icon: GiClothes,
+        icon: FaBox,
       },
       {
         title: "Estatísticas",

@@ -6,7 +6,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 export function HeaderAdmin() {
    const {name} = useUser();
   return (
-    <header className="border-b border-b-gray-200">
+    <header className="border-b border-b-gray-200 ">
       <div className="px-5 flex justify-between items-center py-4">
         <h1 className="text-2xl text-gray-800 capitalize">Olá {name}</h1>
         <div className="relative flex items-center gap-4">
