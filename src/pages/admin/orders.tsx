@@ -5,7 +5,7 @@ import { TableOrders } from "@/components/admin/ordersAdmin/tableOrders";
 
 import LayoutSidebar from "@/components/admin/sidebar";
 
-import { useMetricOrders } from "@/hooks/admin/useMetricOrders";
+import { useMetricOrders } from "@/hooks/admin/useMetrics";
 import { Loading } from "@/components/site/loading/loading";
 
 

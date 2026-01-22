@@ -11,7 +11,7 @@ const menuGroups = [
     items: [
       {
         title: "Estatísticas",
-        url: "/",
+        url: "/admin-dashboard",
         icon: Home,
       },
       {

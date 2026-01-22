@@ -113,7 +113,6 @@ export function TableOrders() {
   const ordersPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log(allOrders);
   const parseDate = (date: string) => {
     const [day, month, year] = date.split("/");
     return new Date(`${year}-${month}-${day}`).getTime();

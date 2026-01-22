@@ -6,8 +6,11 @@ export function LastLeads() {
           <h1 className="text-gray-800 font-semibold mb-2">Utimos leads</h1>
           <table className=" w-full border border-gray-200 divide-y divide-gray-200">
             <thead>
+              <tr>
+
               <th className=" py-2 text-left text-sm font-semibold text-gray-700 px-4">Nome</th>
               <th className=" py-2 text-left text-sm font-semibold text-gray-700 px-4">email</th>
+              </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               <tr>

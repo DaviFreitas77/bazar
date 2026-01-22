@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom";
 import { CheckoutProvider } from "@/context/checkoutContext";
 import "./index.css";
 import App from "./App.tsx";
@@ -15,7 +15,8 @@ import { UIProvider } from "./context/UIContext.tsx";
 const queryClient = new QueryClient();
 
 function InitApp() {
-  const { setName, setEmail, setLoading,setLastName,setTel,setRole } = useUser();
+  const navigate = useNavigate();
+  const { setName, setEmail, setLoading, setLastName, setTel, setRole } = useUser();
 
   useEffect(() => {
     async function fetchCsrfAndUser() {
@@ -32,7 +33,11 @@ function InitApp() {
           setEmail(user.email);
           setTel(user.tel);
           setLastName(user.lastName);
-          setRole(user.role)
+          setRole(user.role);
+
+          if (user.role === "admin") {
+            navigate("/admin-dashboard");
+          }
         }
       } catch (err) {
         console.error("Erro ao pegar CSRF token:", err);
@@ -65,5 +70,5 @@ createRoot(document.getElementById("root")!).render(
         </UIProvider>
       </UserProvider>
     </BrowserRouter>
-  </QueryClientProvider>
+  </QueryClientProvider>,
 );

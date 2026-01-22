@@ -8,7 +8,7 @@ import { useUser } from "@/context/userContext";
 import { toast } from "sonner";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUI } from "@/context/UIContext";
 import type { FormLoginProps, login } from "@/@types/auth/login";
 
@@ -20,6 +20,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
   const [errorGoogle, setErrorGoogle] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const { setName, setEmail, setLastName, setTel,setRole } = useUser();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -39,7 +40,11 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       setLastName(response.user.lastName);
       setTel(response.user.tel);
       setRole(response.user.role)
-
+      if(response.user.role === "admin"){
+        navigate("/admin-dashboard");
+      }else{
+      navigate("/");
+      }
       onClose();
       toast.success("Login realizado");
     } catch (error: any) {

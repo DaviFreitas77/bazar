@@ -2,16 +2,18 @@
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import { ProductsAdmin } from "@/pages/admin/ProductsAdmin";
-import { OrdersAdmin } from "@/pages/admin/orders";
-import { EmailAdmin } from "@/pages/admin/email";
+
 import { RegisterProduct } from "@/pages/admin/RegisterProduct";
-import { Dashboard } from "@/pages/admin/dashboard";
+import { Dashboard } from "@/pages/admin/Dashboard";
+import { OrdersAdmin } from "@/pages/admin/Orders";
+import { EmailAdmin } from "@/pages/admin/Email";
+
 
 export default function AdminRoutes() {
   return (
     <Routes>
       <Route
-        path="/"
+        path="/admin-dashboard"
         element={
           <PrivateRoute role="admin">
             <Dashboard />

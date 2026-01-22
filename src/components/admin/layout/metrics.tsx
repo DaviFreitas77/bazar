@@ -1,7 +1,9 @@
+import type { ReactNode } from "react";
+
 interface MetricItem {
   title: string;
-  value: string | number;
-  footer: string;
+   value: ReactNode;
+  footer?: ReactNode;
   footerColor?: string;
 }
 

@@ -1,7 +1,7 @@
 import { filterCategory, filterColorsProducts, filterSizesProducts } from "@/utils/productsUtild";
 import { CardProduct } from "@/components/ui/cardProduct";
-import { useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { DrawerFilterMobile } from "@/components/site/search/drawer";
 import { BannerSearch } from "@/components/site/search/banner";
 import { Pagination } from "@/components/site/search/pagination";
@@ -15,6 +15,12 @@ import { hookSearchParams } from "@/hooks/site/useSearchParams";
 
 
 export function Search() {
+    const { pathname } = useLocation();
+    
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
