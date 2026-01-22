@@ -2,9 +2,10 @@ import { useCart } from "@/context/cartContext";
 import { useUser } from "@/context/userContext";
 import { useMemo, useState } from "react";
 import { CiCircleAlert } from "react-icons/ci";
-import { ModalAuth } from "../auth/modalAuth";
+
 import { useNavigate } from "react-router-dom";
 import { useUI } from "@/context/UIContext";
+import { ModalAuth } from "../auth/modalAuth";
 
 export function TotalShoppingCart() {
   const navigation = useNavigate();

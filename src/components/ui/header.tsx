@@ -7,7 +7,7 @@ import { PopularSearches } from "../site/searchBar/PopularSearches";
 import { InputSearch } from "../site/searchBar/inputSearch";
 import { ShowProductsSearched } from "../site/searchBar/showProductsSearched";
 import { CartProducts } from "../site/shoppingCart/cartProducts";
-import { ModalAuth } from "../site/auth/modalAuth";
+
 import { useUser } from "@/context/userContext";
 import { useCart } from "@/context/cartContext";
 import { useUI } from "@/context/UIContext";
@@ -16,6 +16,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { DrawerResponsive } from "../site/header/drawerResponsive";
 import { useListCategories } from "@/hooks/site/useListCategories";
 import { Link } from "react-router-dom";
+import { ModalAuth } from "../site/auth/modalAuth";
 export function Header() {
   const { name } = useUser();
   const { state } = useCart();

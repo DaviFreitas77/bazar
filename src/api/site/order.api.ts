@@ -1,6 +1,7 @@
 import { api } from "@/lib/api";
-import type { myOrderProps } from "../@types/order";
+
 import type { CartItem } from "@/context/cartContext";
+import type { OrderProps } from "../@types/order";
 
 export const apiLatestOrder = async () => {
   const response  = await api.get(`order/latestOrder`);
@@ -10,7 +11,7 @@ export const apiLatestOrder = async () => {
 
 
 export const myOrder = async()=>{
-  const response = await api.get<myOrderProps[]>('order/listOrderUser');
+  const response = await api.get<OrderProps[]>('order/listOrderUser');
   return response.data;
 
 }

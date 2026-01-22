@@ -10,7 +10,8 @@ import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useSearchParams } from "react-router-dom";
 import { useUI } from "@/context/UIContext";
-import type { FormLoginProps, login } from "./types/login";
+import type { FormLoginProps, login } from "@/@types/auth/login";
+
 
 export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
   const { setModalAuth } = useUI();

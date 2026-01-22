@@ -1,43 +1,29 @@
+import type { OrderProps } from "@/api/@types/order";
 import { CiTimer } from "react-icons/ci";
 
-interface myOrderProps {
-  numberOrder: string;
-  dateOrder: string;
-  totalOrder: string;
-  statusOrder: string;
-  item: itemsProps[];
-}
-interface itemsProps {
-  nameProduct: string;
-  quantityProduct: string;
-  imageProduct: string;
-  colorProduct: string;
-  sizeProduct: string;
-}
-
-export function MyOrder({ numberOrder, dateOrder, totalOrder, statusOrder, item }: myOrderProps) {
+export function MyOrder({ number_order, created_at, total, status, item }: OrderProps) {
   return (
     <div className="mt-10 border  rounded-sm border-gray-200">
       <div className=" flex flex-col md:flex-row  gap-5 md:items-center justify-between border-b p-4 border-gray-200/50 bg-gray-100/50">
         <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-2">
           <p className="font-bold">
-            Numero do pedido: <span className="text-primary-100">{numberOrder} </span>
+            Numero do pedido: <span className="text-primary-100">{number_order} </span>
             |
           </p>
 
           <p className="font-bold">
-            Data do pedido: <span className="font-normal">{new Date(dateOrder).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })} </span>
+            Data do pedido: <span className="font-normal">{new Date(created_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })} </span>
             |
           </p>
       
           <p className="font-bold lg:-ml-6">
-            Valor total: <span className="font-normal">{Number(totalOrder).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} </span>
+            Valor total: <span className="font-normal">{Number(total).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} </span>
           </p>
         </div>
 
         <div className="bg-orange-300  text-center px-4 rounded-xs py-3 flex items-center gap-1">
           <CiTimer size={15} />
-          <p className="text-sm">{statusOrder}</p>
+          <p className="text-sm">{status}</p>
         </div>
       </div>
 

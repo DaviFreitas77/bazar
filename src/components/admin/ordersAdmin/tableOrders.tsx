@@ -1,8 +1,7 @@
 import { Pagination } from "@/components/site/search/pagination";
 import { useMemo, useState } from "react";
 import { ActionOrder } from "./actionsOrders";
-import { Graphic } from "@/components/ui/chart";
-
+import { useAllOrders } from "@/hooks/admin/useAllOrders";
 const THEMES = { light: "", dark: ".dark" } as const;
 export type ChartConfig = {
   [k in string]: {
@@ -108,53 +107,31 @@ const orders: Order[] = [
   },
 ];
 
-const chartConfig = {
-  payment: {
-    label: "Pagamentos",
-  },
-  CARTAO: {
-    label: "CARTAO",
-    color: "var(--chart-1)",
-  },
-  PIX: {
-    label: "PIX",
-    color: "var(--chart-2)",
-  },
-  BOLETO: {
-    label: "BOLETO",
-    color: "var(--chart-3)",
-  },
-} satisfies ChartConfig;
-
-const chartData = [
-  { method: "CARTÃO", payment: 275, fill: "#830AD2" },
-  { method: "PIX", payment: 200, fill: "#3D9386" },
-  { method: "BOLETO", payment: 187, fill: "#EF7296" },
-];
-
 export function TableOrders() {
+  const { data: allOrders, isLoading } = useAllOrders();
   const [filterOrder, setFilterOrder] = useState("relevance");
   const ordersPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
+  console.log(allOrders);
   const parseDate = (date: string) => {
     const [day, month, year] = date.split("/");
     return new Date(`${year}-${month}-${day}`).getTime();
   };
 
   const filteredAndSortedOrders = useMemo(() => {
-    let result = [...orders];
+    let result = [...(allOrders ?? [])];
 
-    if (filterOrder === "paid") {
-      result = result.filter((order) => order.status === "Pago");
+    if (filterOrder === "completed") {
+      result = result.filter((order) => order.status === "completed");
     }
 
     if (filterOrder === "pending") {
-      result = result.filter((order) => order.status === "Pendente");
+      result = result.filter((order) => order.status === "pending");
     }
 
     if (filterOrder === "canceled") {
-      result = result.filter((order) => order.status === "Cancelado");
+      result = result.filter((order) => order.status === "canceled");
     }
 
     switch (filterOrder) {
@@ -163,21 +140,21 @@ export function TableOrders() {
         break;
 
       case "recents":
-        result.sort((a, b) => parseDate(b.createdAt) - parseDate(a.createdAt));
+        result.sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
         break;
 
       case "oldest":
-        result.sort((a, b) => parseDate(a.createdAt) - parseDate(b.createdAt));
+        result.sort((a, b) => parseDate(a.created_at) - parseDate(b.created_at));
         break;
     }
 
     return result;
-  }, [filterOrder]);
+  }, [filterOrder, allOrders]);
 
   const indexOfLastItem = currentPage * ordersPerPage;
   const indexOfFirstItem = indexOfLastItem - ordersPerPage;
   const currentItems = filteredAndSortedOrders.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(orders.length / ordersPerPage);
+  const totalPages = Math.ceil(filteredAndSortedOrders.length / ordersPerPage);
 
   const nextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -187,12 +164,7 @@ export function TableOrders() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
   return (
-    <div className="mt-4 px-4 w-full pb-20">
-      <section className="flex w-full gap-2 bg-white p-5 rounded-md border border-gray-200">
-        <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} />
-        <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} />
-      </section>
-
+    <div className="mt-4  w-full pb-20">
       <section className="bg-white  px-5 pb-5 mt-10 rounded-md border border-gray-200">
         <section className="my-3">
           <ActionOrder filterOrder={filterOrder} setFilterOrder={setFilterOrder} />
@@ -201,7 +173,7 @@ export function TableOrders() {
           <thead className="bg-gray-50">
             <tr>
               <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Pedido</th>
-              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Produto ID</th>
+
               <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Cliente</th>
               <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Cupom</th>
               <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Status</th>
@@ -213,31 +185,28 @@ export function TableOrders() {
           <tbody className="bg-white divide-y divide-gray-200">
             {currentItems.map((order) => (
               <tr key={order.id} className="hover:bg-gray-50 transition">
-                <td className="px-4 py-2 font-semibold text-primary-50">{order.orderNumber}</td>
-                <td className="px-4 py-2">{order.productId}</td>
-                <td className="px-4 py-2">{order.customerName}</td>
-                <td className="px-4 py-2">{order.coupon ?? "-"}</td>
+                <td className="px-4 py-2 font-semibold text-primary-50">#{order.number_order}</td>
+                <td className="px-4 py-2 capitalize">{order.user}</td>
+                <td className="px-4 py-2">{order.cupom ?? "-"}</td>
                 <td className="px-4 py-2">
                   <span
-                    className={`px-2 py-1 rounded text-xs font-semibold
-                      ${order.status === "Pago" ? "bg-green-100 text-green-700" : order.status === "Pendente" ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}`}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold tracking-wide
+    ${order.status === "completed" ? "bg-emerald-100 text-emerald-700" : order.status === "preparando" ? "bg-sky-100 text-sky-700" : order.status === "canceled" ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-700"}`}
                   >
                     {order.status}
                   </span>
                 </td>
-                <td className="px-4 py-2">{order.paymentMethod}</td>
-                <td className="px-4 py-2 font-semibold">R$ {order.total.toFixed(2)}</td>
-                <td className="px-4 py-2">{order.createdAt}</td>
+                <td className="px-4 py-2">{order.payment_method === "credit_card" ? "Cartão" : order.payment_method === "bank_transfer" ? "Pix" : order.payment_methos === "ticket" ? "Boleto" : "-"}</td>
+                <td className="px-4 py-2 font-semibold">R$ {Number(order.total).toFixed(2)}</td>
+                <td className="px-4 py-2"> {new Date(order.created_at).toLocaleDateString("pt-BR")}</td>
               </tr>
             ))}
           </tbody>
         </table>
-         <div className=" flex justify-center">
-        <Pagination currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />
-      </div>
+        <div className=" flex justify-center">
+          <Pagination currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />
+        </div>
       </section>
-
-     
     </div>
   );
 }

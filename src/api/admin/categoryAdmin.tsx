@@ -1,13 +1,11 @@
 import { api } from "@/lib/api";
+import type { apiCategorie } from "../@types/categorie";
 
 
 
-interface CategoryAdminProps {
-  id: number;
-  name: string;
-}
+
 
 export const getCategories = async () => {
-  const response = await api.get<CategoryAdminProps[]>("category/list");
+  const response = await api.get<apiCategorie[]>("category/list");
   return response.data;
 };

@@ -1,7 +1,7 @@
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
 import { Home, Settings, Mail } from "lucide-react";
-import { GiClothes} from "react-icons/gi";
+import { GiClothes } from "react-icons/gi";
 import { FaBox } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
@@ -10,19 +10,19 @@ const menuGroups = [
     label: "Gerenciamento",
     items: [
       {
-        title: "Produtos",
+        title: "Estatísticas",
         url: "/",
-        icon: GiClothes,
+        icon: Home,
       },
       {
         title: "Pedidos",
-        url: "/lista-pedidos",
+        url: "/admin-lista-pedidos",
         icon: FaBox,
       },
       {
-        title: "Estatísticas",
-        url: "/dashboard",
-        icon: Home,
+        title: "Produtos",
+        url: "/admin-produtos",
+        icon: GiClothes,
       },
     ],
   },
@@ -31,7 +31,7 @@ const menuGroups = [
     items: [
       {
         title: "Email",
-        url: "/broadcast",
+        url: "/admin-email",
         icon: Mail,
       },
     ],

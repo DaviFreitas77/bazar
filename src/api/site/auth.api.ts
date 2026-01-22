@@ -1,5 +1,5 @@
-import type { login } from "@/components/site/auth/types/login";
-import type { Register } from "@/components/site/auth/types/register";
+import type { login } from "@/@types/login";
+import type { Register } from "@/@types/auth/register";
 import { api } from "@/lib/api";
 import type { AxiosResponse } from "axios";
 import axios from "axios";

@@ -1,4 +1,4 @@
-import { createdProduct } from "@/api/admin/ProductAdmin";
+
 import { uploadImage } from "@/api/admin/uploadImage";
 import { HeaderAdmin } from "@/components/admin/headerAdmin/header";
 import LayoutSidebar from "@/components/admin/sidebar";
@@ -9,6 +9,7 @@ import { useColors } from "@/hooks/admin/useColors";
 import { useSizesAdmin } from "@/hooks/admin/useSizesAdmin";
 import { useState } from "react";
 import { FaCircle, FaCloudUploadAlt, FaSpinner, FaTrash } from "react-icons/fa";
+import { createdProduct } from "@/api/admin/productAdmin";
 
 export function RegisterProduct() {
   const [name, setName] = useState("");

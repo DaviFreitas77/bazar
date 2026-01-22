@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FormLogin } from "./formLogin";
 import { FormRegister } from "./formRegister";
-import type { ModalAuthProps } from "./types/modalAuth";
+import type { ModalAuthProps } from "@/@types/auth/modalAuth";
+
 
 type ChooseForm = "login" | "register";
 

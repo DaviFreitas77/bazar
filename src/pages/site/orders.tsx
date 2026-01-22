@@ -1,4 +1,5 @@
-import type { myOrderProps } from "@/api/@types/order";
+
+import type { OrderProps } from "@/api/@types/order";
 import { AsideUser } from "@/components/site/aside/userAccount";
 import { Loading } from "@/components/site/loading/loading";
 import { MyOrder } from "@/components/site/orders/myOrder";
@@ -15,13 +16,13 @@ export function Orders() {
   const sortedOrders = useMemo(() => {
     switch (filterOrder) {
       case "relevance":
-        return myOrders?.sort((a: myOrderProps, b: myOrderProps) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        return myOrders?.sort((a: OrderProps, b: OrderProps) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
       case "highestTotal":
-        return myOrders?.sort((a: myOrderProps, b: myOrderProps) => b.total - a.total);
+        return myOrders?.sort((a: OrderProps, b: OrderProps) => Number(b.total) - Number(a.total));
 
       case "lowestTotal":
-        return myOrders?.sort((a: myOrderProps, b: myOrderProps) => a.total - b.total);
+        return myOrders?.sort((a: OrderProps, b: OrderProps) => Number(a.total) - Number(b.total));
 
       default:
         return myOrders;
@@ -48,7 +49,7 @@ export function Orders() {
               <Loading />
             </div>
           ) : sortedOrders && sortedOrders.length > 0 ? (
-            sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} numberOrder={order.numberOrder} dateOrder={order.created_at} totalOrder={order.total} statusOrder={order.status} item={order.items} />)
+            sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} number_order={order.number_order} created_at={order.created_at} total={order.total} status={order.status} item={order.items} />)
           ) : (
             <p className="text-center text-gray-500 mt-20 flex flex-col items-center gap-4">
               <span className="text-2xl text-primary-50">

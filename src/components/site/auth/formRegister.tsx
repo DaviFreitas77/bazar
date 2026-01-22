@@ -8,7 +8,8 @@ import { useUser } from "@/context/userContext";
 import { toast } from "sonner";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
-import type { Register } from "./types/register";
+import type { Register } from "@/@types/auth/register";
+
 
 interface FormRegisterProps {
   onChangeForm: () => void;
