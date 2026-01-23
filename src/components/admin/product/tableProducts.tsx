@@ -52,7 +52,7 @@ export function TableProduct() {
   console.log(products);
 
   return (
-    <main className="mt-4 px-4 w-full pb-20">
+    <main className="mt-4  w-full pb-20">
       <section className="w-full  pt-4 my-4">
         <div className="text-end w-full flex justify-between  text-sm gap-4">
            <DropDown title="Ordenar por" value={filterOrder} onChange={setFilterOrder}>
@@ -68,7 +68,7 @@ export function TableProduct() {
         </div>
       </section>
       <table className="min-w-full border border-gray-200 divide-y divide-gray-200 ">
-        <thead className="bg-gray-50">
+        <thead className="bg-primary-200">
           <tr>
             <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">ID</th>
             <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Produto</th>

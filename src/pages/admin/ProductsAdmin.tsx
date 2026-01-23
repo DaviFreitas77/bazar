@@ -4,7 +4,7 @@ import LayoutSidebar from "@/components/admin/sidebar";
 
 export function ProductsAdmin() {
   return (
-    <main className="bg-gray-50">
+    <main className="px-4">
       <LayoutSidebar>
           <HeaderAdmin/>
           <TableProduct/>

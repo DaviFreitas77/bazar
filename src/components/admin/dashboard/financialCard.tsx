@@ -3,7 +3,7 @@ import { Pencil } from "lucide-react";
 export function FinancialCard() {
   return (
       <section className="w-full ">
-        <div className="bg-white w-full rounded-md border border-gray-200 max-w-xl p-5  h-auto">
+        <div className="bg-primary-200 w-full rounded-md border border-gray-200 max-w-xl p-5  h-auto">
           <div>
             <h1 className="text-gray-800 font-semibold">Financeiro</h1>
             <div className="flex items-center justify-between">

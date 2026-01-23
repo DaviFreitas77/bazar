@@ -91,11 +91,11 @@ export function OrdersAdmin() {
   ];
 
   return (
-    <main className="bg-gray-50 px-4">
+    <main className="px-4">
       <LayoutSidebar>
         <HeaderAdmin />
         <Metrics items={metricsData} />
-        <section className="flex w-full gap-2 bg-white p-5 rounded-md border border-gray-200 ">
+        <section className="flex w-full gap-2 bg-primary-200 p-5 rounded-md border border-gray-200 ">
           <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} dataKey="payment" />
 
           <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} dataKey="payment" />

@@ -2,7 +2,7 @@ export function LastLeads() {
   return (
 
       <section className="w-full ">
-        <div className="px-4 bg-white w-full max-w-xl p-5 rounded-md border border-gray-200 h-auto ">
+        <div className="px-4 bg-primary-200 w-full max-w-xl p-5 rounded-md border border-gray-200 h-auto ">
           <h1 className="text-gray-800 font-semibold mb-2">Utimos leads</h1>
           <table className=" w-full border border-gray-200 divide-y divide-gray-200">
             <thead>

@@ -164,7 +164,7 @@ export function TableOrders() {
   };
   return (
     <div className="mt-4  w-full pb-20">
-      <section className="bg-white  px-5 pb-5 mt-10 rounded-md border border-gray-200">
+      <section className="bg-primary-200 px-5 pb-5 mt-10 rounded-md border border-gray-200">
         <section className="my-3">
           <ActionOrder filterOrder={filterOrder} setFilterOrder={setFilterOrder} />
         </section>
@@ -196,7 +196,10 @@ export function TableOrders() {
                   </span>
                 </td>
                 <td className="px-4 py-2">{order.payment_method === "credit_card" ? "Cartão" : order.payment_method === "bank_transfer" ? "Pix" : order.payment_methos === "ticket" ? "Boleto" : "-"}</td>
-                <td className="px-4 py-2 font-semibold">R$ {Number(order.total).toFixed(2)}</td>
+                <td className="px-4 py-2 font-semibold">{Number(order.total).toLocaleString("pt-BR",{
+                  style: "currency",
+                  currency: "BRL",
+                })}</td>
                 <td className="px-4 py-2"> {new Date(order.created_at).toLocaleDateString("pt-BR")}</td>
               </tr>
             ))}

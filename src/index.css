@@ -7,6 +7,8 @@
   --color-background: #ffffff;
   --color-primary-50: #a2785a;
   --color-primary-100: #EBE3D0;
+  --color-primary-200: #F8F8F8;
+
   --color-primary: #000;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -129,4 +131,5 @@
   --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
   --sidebar-border: hsl(240 3.7% 15.9%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
+
 }
