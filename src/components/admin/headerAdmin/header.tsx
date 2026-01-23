@@ -8,7 +8,10 @@ export function HeaderAdmin() {
   return (
     <header className="border-b border-b-gray-200 ">
       <div className=" flex justify-between items-center py-4">
-        <h1 className="text-2xl text-gray-800 capitalize">Olá {name}</h1>
+        <div>
+          <h1 className="text-2xl text-gray-800 font-semibold capitalize">Olá {name}</h1>
+          <p className="text-gray-400">Acompanhe o desempenho do seu negócio</p>
+        </div>
         <div className="relative flex items-center gap-4">
           {/* Input de pesquisa com ícone */}
           <div className="relative">

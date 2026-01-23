@@ -37,7 +37,7 @@ const emailHistory = [
 
 export function EmailAdmin() {
   return (
-    <main className="px-4">
+    <main className="px-4 bg-primary-300 ">
       <LayoutSidebar>
         <div className="flex flex-col min-h-screen ">
           <HeaderAdmin />

@@ -7,7 +7,8 @@
   --color-background: #ffffff;
   --color-primary-50: #a2785a;
   --color-primary-100: #EBE3D0;
-  --color-primary-200: #F8F8F8;
+  --color-primary-200: #Ffff;
+  --color-primary-300: #F9FAFB;
 
   --color-primary: #000;
   --color-sidebar-ring: var(--sidebar-ring);

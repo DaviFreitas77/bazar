@@ -5,7 +5,6 @@ import { ProductsAdmin } from "@/pages/admin/ProductsAdmin";
 
 import { RegisterProduct } from "@/pages/admin/RegisterProduct";
 import { Dashboard } from "@/pages/admin/Dashboard";
-import { OrdersAdmin } from "@/pages/admin/Orders";
 import { EmailAdmin } from "@/pages/admin/Email";
 
 
@@ -20,14 +19,7 @@ export default function AdminRoutes() {
           </PrivateRoute>
         }
       ></Route>
-      <Route
-        path="/admin-lista-pedidos"
-        element={
-          <PrivateRoute role="admin">
-            <OrdersAdmin />
-          </PrivateRoute>
-        }
-      ></Route>
+      
       <Route
         path="/admin-email"
         element={

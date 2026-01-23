@@ -96,7 +96,7 @@ export function RegisterProduct() {
   const inputStyle = "border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary-50/20 focus:border-primary-50 outline-none transition-all bg-gray-50/30 focus:bg-white";
 
   return (
-    <main className="bg-gray-50">
+    <main className="bg-primary-300 ">
       <LayoutSidebar>
         <section className="min-h-screen pb-20">
           <HeaderAdmin />

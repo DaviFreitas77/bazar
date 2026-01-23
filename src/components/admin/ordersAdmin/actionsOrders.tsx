@@ -8,7 +8,7 @@ interface OrderPros{
 }
 export function ActionOrder({ filterOrder, setFilterOrder }:OrderPros) {
   return (
-    <section className="w-full pt-4 mt-4">
+    <section className="w-full  mt-4">
       <div className="text-end w-full flex  text-sm gap-4">
         <DropDown title="Ordenar por" value={filterOrder} onChange={setFilterOrder} >
           <NativeSelectOption value="relevance">Relevância</NativeSelectOption>

@@ -15,11 +15,6 @@ const menuGroups = [
         icon: Home,
       },
       {
-        title: "Pedidos",
-        url: "/admin-lista-pedidos",
-        icon: FaBox,
-      },
-      {
         title: "Produtos",
         url: "/admin-produtos",
         icon: GiClothes,

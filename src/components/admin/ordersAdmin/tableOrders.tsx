@@ -163,8 +163,8 @@ export function TableOrders() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
   return (
-    <div className="mt-4  w-full pb-20">
-      <section className="bg-primary-200 px-5 pb-5 mt-10 rounded-md border border-gray-200">
+    <div className="w-full ">
+      <section className="bg-primary-200 px-5 pb-5  rounded-md border border-gray-200">
         <section className="my-3">
           <ActionOrder filterOrder={filterOrder} setFilterOrder={setFilterOrder} />
         </section>

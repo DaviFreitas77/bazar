@@ -276,7 +276,7 @@ interface GraphicProps {
 }
 function Graphic({ title, description, config, data,dataKey}: GraphicProps) {
   return (
-    <Card className="flex flex-col w-full border-gray-200 shadow-none">
+    <Card className="flex flex-col w-full border-gray-200 shadow-none max-w-sm">
       <CardHeader className="items-center pb-0">
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
@@ -289,42 +289,7 @@ function Graphic({ title, description, config, data,dataKey}: GraphicProps) {
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 leading-none font-medium">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">Showing total visitors for the last 6 months</div>
-      </CardFooter>
-    </Card>
-  );
-}
-
-
-function GraphicArea({title,description,config,data,dataKey,titleColunm}:GraphicProps) {
-  return (
-    <Card className="flex flex-col w-full border-gray-200 shadow-none bg-primary-200">
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={config}>
-          <AreaChart
-            accessibilityLayer
-            data={data}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis dataKey={titleColunm} tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => value.slice(0, 3)} />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
-            <Area dataKey={dataKey} type="natural" fill="var(--color-primary-50)" fillOpacity={0.4} stroke="var(--color-primary-50)" />
-          </AreaChart>
-        </ChartContainer>
-      </CardContent>
-     
+    
     </Card>
   );
 }
@@ -337,4 +302,6 @@ function GraphicArea({title,description,config,data,dataKey,titleColunm}:Graphic
 
 
 
-export { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartStyle, Graphic, GraphicArea };
+
+
+export { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartStyle, Graphic };

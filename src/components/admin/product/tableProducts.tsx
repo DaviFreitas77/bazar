@@ -13,7 +13,7 @@ export function TableProduct() {
   const { data: products } = useAllProducts();
 
   const filteredProducts = useMemo(() => {
-    let result = [...(products ?? [])];
+    let result = [...products ?? []];
 
     switch (filterOrder) {
       case "relevance":

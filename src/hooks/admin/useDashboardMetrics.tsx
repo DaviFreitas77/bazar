@@ -1,15 +1,9 @@
 import { Loading } from "@/components/site/loading/loading";
 import { useMetricsBilling } from "@/hooks/admin/useMetrics";
 
-
-
-
 export function useDashboardMetrics() {
   const { data: metricsBilling, isLoading } = useMetricsBilling();
 
-
-
-  
   const loadingFallback = (
     <div className="py-5">
       <Loading />
@@ -27,6 +21,7 @@ export function useDashboardMetrics() {
         : loadingFallback,
       footer: metricsBilling ? `+${metricsBilling.billingToday.variation}% vs dia anterior` : "",
       footerColor: "text-green-600",
+      styleCard:'shadow-sm'
     },
 
     {
@@ -39,6 +34,7 @@ export function useDashboardMetrics() {
         : loadingFallback,
       footer: metricsBilling ? `+${metricsBilling.billingMonth.variation}% vs mês anterior` : "",
       footerColor: "text-green-600",
+       styleCard:'shadow-sm'
     },
 
     {
@@ -51,6 +47,7 @@ export function useDashboardMetrics() {
         : loadingFallback,
       footer: metricsBilling ? `+${metricsBilling.billingCurrentTrimester.variation}% vs trimestre anterior` : "",
       footerColor: metricsBilling && metricsBilling.billingCurrentTrimester.variation < 0 ? "text-red-500" : "text-green-600",
+       styleCard:'shadow-sm'
     },
 
     {
@@ -61,6 +58,8 @@ export function useDashboardMetrics() {
             currency: "BRL",
           })
         : loadingFallback,
+      valueStyle: "text-green-600 text-3xl font-bold",
+       styleCard:'shadow-sm'
     },
   ];
 

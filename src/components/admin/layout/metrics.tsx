@@ -1,8 +1,11 @@
 import type { ReactNode } from "react";
 
 interface MetricItem {
+  styleCard?:string;
   title: string;
+  titleStyle?: string;
    value: ReactNode;
+   valueStyle?:string;
   footer?: ReactNode;
   footerColor?: string;
 }
@@ -14,24 +17,23 @@ interface MetricsProps {
 export function Metrics({ items }: MetricsProps) {
   return (
     <section className="w-full py-4">
-      <div className="bg-white">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sha">
           {items.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col gap-3 px-4 border border-gray-200 rounded-lg bg-primary-200 py-5"
+              className={`flex flex-col gap-4 px-4 border border-gray-200 rounded-lg bg-primary-200 py-5 ${item.styleCard}`}
             >
-              <span className="text-gray-800 font-semibold text-base">
+              <span   className={`${item.titleStyle ??"text-gray-800 font-semibold text-sm"}`}>
                 {item.title}
               </span>
 
-              <span className="text-2xl font-bold text-gray-700">
+              <span className={`${item.valueStyle ??"text-gray-700 font-semibold text-3xl"}`}>
                 {item.value}
               </span>
 
               {item.footer && (
                 <span
-                  className={`text-base ${
+                  className={`text-sm ${
                     item.footerColor ?? "text-gray-500"
                   }`}
                 >
@@ -41,7 +43,6 @@ export function Metrics({ items }: MetricsProps) {
             </div>
           ))}
         </div>
-      </div>
     </section>
   );
 }
