@@ -10,7 +10,7 @@ export function useDashboardMetrics() {
     {
       title: "Faturamento do dia",
       value: metricsBilling?.billingToday.value  ?? 0,
-      footer: metricsBilling ? `+${metricsBilling.billingToday.variation}% vs dia anterior` : "",
+      footer: metricsBilling ? `${metricsBilling.billingToday.variation}% vs dia anterior` : "",
       footerColor: "text-green-600",
       styleCard:'shadow-sm',
       prefix: "R$",
@@ -21,7 +21,7 @@ export function useDashboardMetrics() {
     {
       title: "Faturamento Mensal",
       value: metricsBilling?.billingMonth.value ?? 0,
-      footer: metricsBilling ? `+${metricsBilling.billingMonth.variation}% vs mês anterior` : "",
+      footer: metricsBilling ? `${metricsBilling.billingMonth.variation}% vs mês anterior` : "",
       footerColor: "text-green-600",
        styleCard:'shadow-sm',
         prefix: "R$"
@@ -30,7 +30,7 @@ export function useDashboardMetrics() {
     {
       title: "Faturamento Trimestral",
       value: metricsBilling?.billingCurrentTrimester.value ?? 0,
-      footer: metricsBilling ? `+${metricsBilling.billingCurrentTrimester.variation}% vs trimestre anterior` : "",
+      footer: metricsBilling ? `${metricsBilling.billingCurrentTrimester.variation}% vs trimestre anterior` : "",
       footerColor: metricsBilling && metricsBilling.billingCurrentTrimester.variation < 0 ? "text-red-500" : "text-green-600",
        styleCard:'shadow-sm',
         prefix: "R$"

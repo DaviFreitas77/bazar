@@ -25,7 +25,7 @@ export function Metrics({ items }: MetricsProps) {
         {items.map((item, index) => (
           <motion.div animate={{ opacity: 1,y:0 }} initial={{ opacity: 0, y: -50 }}transition={{
             duration:0.8,
-            delay:0.3,
+            delay:0.2,
             ease: "anticipate",
           }} key={index} className={`flex flex-col gap-4 px-4 border border-gray-200 rounded-lg bg-primary-200 h-40  justify-center ${item.styleCard && item.styleCard}`}>
             <span className={`${item.titleStyle ?? "text-gray-800 font-semibold text-sm"}`}>{item.title}</span>

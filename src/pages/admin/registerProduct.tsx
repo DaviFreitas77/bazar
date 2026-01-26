@@ -96,11 +96,11 @@ export function RegisterProduct() {
   const inputStyle = "border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary-50/20 focus:border-primary-50 outline-none transition-all bg-gray-50/30 focus:bg-white";
 
   return (
-    <main className="bg-primary-300 ">
+    <main className="bg-primary-300 px-4">
       <LayoutSidebar>
         <section className="min-h-screen pb-20">
           <HeaderAdmin />
-          <div className="w-full mx-auto mt-10 px-6">
+          <div className="w-full mx-auto mt-10">
             <div className="mb-8">
               <h1 className="text-2xl font-bold text-gray-700">Cadastrar Novo Produto</h1>
               <p className="text-gray-500 text-sm">Preencha as informações abaixo para adicionar um item à loja.</p>

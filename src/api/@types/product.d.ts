@@ -3,6 +3,7 @@ export interface ApiProduct {
   name: string;
   price: string;
   lastPrice: string;
+  categoryName:string;
   category: number;
 
   sizes: {

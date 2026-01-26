@@ -1,19 +1,27 @@
+import { deleteProduct } from "@/api/admin/productAdmin";
 import { Pagination } from "@/components/site/search/pagination";
 import { DropDown, NativeSelectOption } from "@/components/ui/native-select";
 import { useAllProducts } from "@/hooks/site/useAllProducts";
+import { Pencil, Trash } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
+import { ModalEditProduct } from "./modalEditProduct";
+import { FaRegClosedCaptioning } from "react-icons/fa";
 
 export function TableProduct() {
   const [filterOrder, setFilterOrder] = useState("relevance");
+  const [productId, setProductId] = useState<number>(0);
+  const [loadingButton, setLoadingButton] = useState(false);
+  const [modeEdit, setModeEdit] = useState<boolean>(false);
 
   let productsPerPage = 15;
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: products } = useAllProducts();
+  const { data: products, refetch } = useAllProducts();
 
   const filteredProducts = useMemo(() => {
-    let result = [...products ?? []];
+    let result = [...(products ?? [])];
 
     switch (filterOrder) {
       case "relevance":
@@ -33,7 +41,7 @@ export function TableProduct() {
     }
 
     return result;
-  }, [filterOrder]);
+  }, [filterOrder, products]);
 
   const indexOfLastItem = currentPage * productsPerPage;
   const indexOfFirstItem = indexOfLastItem - productsPerPage;
@@ -49,50 +57,80 @@ export function TableProduct() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  console.log(products);
+  const delProduct = async (id: number) => {
+    setLoadingButton(true);
+    try {
+      await deleteProduct(id);
+      toast.success("Produto deletado com sucesso!");
+      refetch();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingButton(false);
+    }
+  };
 
   return (
-    <main className="mt-4  w-full pb-20">
-      <section className="w-full  pt-4 my-4">
-        <div className="text-end w-full flex justify-between  text-sm gap-4">
-           <DropDown title="Ordenar por" value={filterOrder} onChange={setFilterOrder}>
-          <NativeSelectOption value="relevance">Relevância</NativeSelectOption>
-          <NativeSelectOption value="highestPrice">Maior preço</NativeSelectOption>
-          <NativeSelectOption value="lowestPrice">Menor Preço</NativeSelectOption>
-        </DropDown>
+    <main className="mt-4  w-full pb-20 ">
+      <section className="bg-white  px-4 rounded-md pb-4 relative">
+        <div className="w-full  pt-4 my-4">
+          <div className="text-end w-full flex justify-between  text-sm gap-4">
+            <div className="flex  gap-10">
+              <DropDown title="Ordenar por" value={filterOrder} onChange={setFilterOrder}>
+                <NativeSelectOption value="relevance">Relevância</NativeSelectOption>
+                <NativeSelectOption value="highestPrice">Maior preço</NativeSelectOption>
+                <NativeSelectOption value="lowestPrice">Menor Preço</NativeSelectOption>
+              </DropDown>
 
-         <Link to="/admin/novo-produto" className="bg-primary-50 text-white px-4 py-2 rounded-md flex items-center gap-2 cursor-pointer">
-            <AiOutlinePlus size={15} />
-            Novo produto
-          </Link>
+              <input type="text" placeholder="Buscar produto" className="border border-gray-300 rounded-lg w-100 px-4 text-sm outline-none focus:ring-1 focus:ring-primary-50" />
+            </div>
+            <Link to="/admin/novo-produto" className="bg-primary-50 text-white px-4 rounded-md flex items-center gap-2 cursor-pointer">
+              <AiOutlinePlus size={15} />
+              Novo produto
+            </Link>
+          </div>
         </div>
-      </section>
-      <table className="min-w-full border border-gray-200 divide-y divide-gray-200 ">
-        <thead className="bg-primary-200">
-          <tr>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">ID</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Produto</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Preço Anterior</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Preço Atual</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Categoria</th>
-          </tr>
-        </thead>
-
-        <tbody className="bg-white divide-y divide-gray-200">
-          {currentItems?.map((product) => (
-            <tr key={product.id} className="hover:bg-gray-50 transition">
-              <td className="px-4 py-2 text-primary-50 font-bold">{product.id}</td>
-
-              <td className="px-4 py-2">{product.name}</td>
-              <td className="px-4 py-2 line-through text-gray-400">R$ {Number(product.lastPrice).toFixed(2)} </td>
-              <td className="px-4 py-2 font-semibold text-[#A2785A]">R$ {Number(product.price).toFixed(2)}</td>
-              <td className="px-4 py-2">{product.category.name}</td>
+        <table className="min-w-full border border-gray-200 divide-y divide-gray-200 ">
+          <thead className="bg-primary-200">
+            <tr>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">ID</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Produto</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Preço Anterior</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Preço Atual</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Categoria</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {currentItems?.map((product) => (
+              <tr key={product.id} className="hover:bg-gray-50 transition">
+                <td className="px-4 py-2 text-primary-50 font-bold">{product.id}</td>
+                <td className="px-4 py-2">{product.name}</td>
+                <td className="px-4 py-2 line-through text-gray-400">R$ {Number(product.lastPrice).toFixed(2)} </td>
+                <td className="px-4 py-2 font-semibold text-[#A2785A]">R$ {Number(product.price).toFixed(2)}</td>
+                <td className="px-4 py-2">{product.category.name}</td>
+                <td className="px-4 py-2 flex gap-3">
+                  <button title="Excluir produto" onClick={() => delProduct(product.id)} disabled={loadingButton} className={`hover:opacity-45 cursor-pointer`}>
+                    <Trash size={18} color="red" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      (setProductId(product.id), setModeEdit(true));
+                    }}
+                    title="Editar produto"
+                    className="hover:opacity-45 cursor-pointer"
+                  >
+                    <Pencil size={18} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div>{totalPages && <Pagination currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />}</div>
+      </section>
 
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">{totalPages && <Pagination currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />}</div>
+      <section>{productId && modeEdit && <ModalEditProduct productId={productId} onClose={() => setModeEdit(false)} />}</section>
     </main>
   );
 }
