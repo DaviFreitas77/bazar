@@ -4,56 +4,43 @@ import { HeaderAdmin } from "@/components/admin/headerAdmin/header";
 import { Metrics } from "@/components/admin/layout/metrics";
 import { TableOrders } from "@/components/admin/ordersAdmin/tableOrders";
 import LayoutSidebar from "@/components/admin/sidebar";
-import { Loading } from "@/components/site/loading/loading";
 import { Graphic, type ChartConfig } from "@/components/ui/chart";
-
+import { motion } from "framer-motion";
 import { useDashboardMetrics } from "@/hooks/admin/useDashboardMetrics";
 import { useMetricOrders } from "@/hooks/admin/useMetrics";
-
-
 
 export function Dashboard() {
   const { metricsData } = useDashboardMetrics();
   const { data: metricOrders } = useMetricOrders();
 
-
-
-
   const metricsDataOrders = [
     {
-      title: "Total de Pedidos",
-      value: metricOrders?.totalOrders ?? <div className="py-5"> <Loading /></div>,
-      footer: "+10% vs mês anterior",
-      footerColor: "text-green-600",
+      title: "Total de pedidos",
+      value: metricOrders?.totalOrders ?? 0,
+      footer: "Quantidade total registrada",
     },
     {
-      title: "Pedidos completos",
-      value: metricOrders?.ordersCompleted ?? <div className="py-5"> <Loading /></div>,
-      footer: "+10% vs mês anterior",
-      footerColor: "text-green-600",
+      title: "Pedidos concluídos",
+      value: metricOrders?.ordersCompleted ?? 0,
+      footer: "Finalizados com sucesso",
     },
     {
       title: "Pedidos em preparo",
-      value: metricOrders?.ordersPreparando ?? <div className="py-5"> <Loading /></div>,
-      footer: "+10% vs mês anterior",
-      footerColor: "text-green-600",
+      value: metricOrders?.ordersPreparando ?? 0,
+      footer: "Atualmente em produção",
     },
     {
       title: "Pedidos cancelados",
-      value: metricOrders?.ordersCanceled ?? <div className="py-5"> <Loading /></div>,
-      footer: "+10% vs mês anterior",
-      footerColor: "text-green-600",
+      value: metricOrders?.ordersCanceled ?? 0,
+      footer: "Cancelados pelos usuários",
     },
   ];
-
-
 
   const chartData = [
     { method: "CARTÃO", payment: metricOrders?.creditCard ?? 0, fill: "#830AD2" },
     { method: "PIX", payment: metricOrders?.pix ?? 0, fill: "#3D9386" },
     { method: "BOLETO", payment: metricOrders?.boleto ?? 0, fill: "#EF7296" },
   ];
-
 
   const chartConfig = {
     payment: {
@@ -84,12 +71,19 @@ export function Dashboard() {
           <Metrics items={metricsDataOrders} />
         </section>
 
-        <section className="mt-10">
+        <motion.div
+        animate={{ opacity: 1,y:0 }} initial={{ opacity: 0, y: -50 }}transition={{
+            duration:0.8,
+            delay:0.5,
+            ease: "anticipate",
+          }}
+        className="mt-10">
           <TableOrders />
-        </section>
+        </motion.div>
+        <section className="mt-10"></section>
 
         <div className="flex  gap-4 mt-10">
-            <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} dataKey="payment" />
+          <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} dataKey="payment" />
           <FinancialCard />
         </div>
       </LayoutSidebar>

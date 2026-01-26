@@ -2,7 +2,7 @@ import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGrou
 
 import { Home, Settings, Mail } from "lucide-react";
 import { GiClothes } from "react-icons/gi";
-import { FaBox } from "react-icons/fa6";
+
 import { Link } from "react-router-dom";
 
 const menuGroups = [

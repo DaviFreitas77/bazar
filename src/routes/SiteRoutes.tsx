@@ -8,6 +8,7 @@ import PrivateRoute from "./PrivateRoute";
 import { Checkout } from "@/pages/site/checkout";
 import { Orders } from "@/pages/site/orders";
 import { Footer } from "@/components/site/footer";
+import { NotFound } from "@/pages/notFound";
 
 
 function SiteRoutes() {
@@ -45,6 +46,7 @@ function SiteRoutes() {
             </PrivateRoute>
           }
         /> */}
+         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer/>
     </>
