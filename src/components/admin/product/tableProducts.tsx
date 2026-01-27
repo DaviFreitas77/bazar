@@ -8,7 +8,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { ModalEditProduct } from "./modalEditProduct";
-import { FaRegClosedCaptioning } from "react-icons/fa";
+
 
 export function TableProduct() {
   const [filterOrder, setFilterOrder] = useState("relevance");

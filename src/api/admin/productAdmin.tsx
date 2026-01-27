@@ -41,3 +41,14 @@ export const apiGetProductById = async (id: number): Promise<ApiProduct> => {
     throw error;
   }
 };
+
+export const apiEditProduct = async (data: any) => {
+  const response = await api.patch("/prod/editProduct", {
+    name: data.name,
+    description: data.description,
+    price: data.price,
+    lastPrice: data.lastPrice,
+    productId: data.productId,
+  });
+  return response.data;
+};
