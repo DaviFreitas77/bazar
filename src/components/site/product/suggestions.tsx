@@ -6,17 +6,16 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { CardProduct } from "../../ui/cardProduct";
 import type { Product } from "@/@types/product";
-import { Link } from "react-router-dom";
+
 import { SkeletoSliderProducts } from "./skeleton";
 
 interface SuggestionProductProps {
   suggestionProducts: Product[];
   tittle?: string;
-  showAll?: boolean;
-  queryButtonShowAll?: string;
+
 }
 
-export function SuggestionProduct({ suggestionProducts, tittle, showAll, queryButtonShowAll }: SuggestionProductProps) {
+export function SuggestionProduct({ suggestionProducts, tittle }: SuggestionProductProps) {
   const limitedProduct = suggestionProducts.slice(0, 8);
 
   while (limitedProduct.length == 0) {
@@ -28,18 +27,7 @@ export function SuggestionProduct({ suggestionProducts, tittle, showAll, queryBu
       <div className="mx-auto max-w-[1450px] w-full">
         <div className="flex w-full justify-between">
           <h2 className="text-lg 2xl:text-2xl font-semibold mb-3 text-gray-800">{tittle}</h2>
-          {showAll && (
-            <Link
-              to={`/pesquisa?q=${queryButtonShowAll}`}
-              className="relative font-medium
-  after:content-[''] after:absolute after:left-1/2 after:bottom-1
-  after:h-0.5 after:w-0 after:bg-primary-50
-  after:transition-all after:duration-300
-  hover:after:w-full hover:after:left-0 cursor-pointer hidden lg:block"
-            >
-              Ver todos
-            </Link>
-          )}
+          
         </div>
         <Swiper
           modules={[Navigation, Pagination]}
@@ -49,13 +37,12 @@ export function SuggestionProduct({ suggestionProducts, tittle, showAll, queryBu
             320: { slidesPerView: 1.8, spaceBetween: 10, slidesPerGroup: 1 },
             420: { slidesPerView: 2, spaceBetween: 15, slidesPerGroup: 1 },
             530: { slidesPerView: 2.5, spaceBetween: 15, slidesPerGroup: 1 },
-            800: { slidesPerView: 3.5, spaceBetween: 10, slidesPerGroup: 1},
+            800: { slidesPerView: 3.5, spaceBetween: 10, slidesPerGroup: 1 },
             1024: { slidesPerView: 4.5, spaceBetween: 10, slidesPerGroup: 1 },
             1366: { slidesPerView: 5.5, spaceBetween: 10, slidesPerGroup: 1 },
             1536: { slidesPerView: 5.5, spaceBetween: 25, slidesPerGroup: 1 },
           }}
           navigation
-        
           className="w-full"
         >
           {limitedProduct.length > 0 &&

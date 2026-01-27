@@ -83,7 +83,9 @@ export function Dashboard() {
         <section className="mt-10"></section>
 
         <div className="flex  gap-4 mt-10">
+         
           <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} dataKey="payment" />
+        
           <FinancialCard />
         </div>
       </LayoutSidebar>

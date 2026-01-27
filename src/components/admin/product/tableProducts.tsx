@@ -2,13 +2,12 @@ import { deleteProduct } from "@/api/admin/productAdmin";
 import { Pagination } from "@/components/site/search/pagination";
 import { DropDown, NativeSelectOption } from "@/components/ui/native-select";
 import { useAllProducts } from "@/hooks/site/useAllProducts";
-import { Pencil, Trash } from "lucide-react";
+import { Pencil, Search, Trash } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { ModalEditProduct } from "./modalEditProduct";
-
 
 export function TableProduct() {
   const [filterOrder, setFilterOrder] = useState("relevance");
@@ -75,14 +74,15 @@ export function TableProduct() {
       <section className="bg-white  px-4 rounded-md pb-4 relative">
         <div className="w-full  pt-4 my-4">
           <div className="text-end w-full flex justify-between  text-sm gap-4">
-            <div className="flex  gap-10">
+            <div className="flex  gap-10 relative">
               <DropDown title="Ordenar por" value={filterOrder} onChange={setFilterOrder}>
                 <NativeSelectOption value="relevance">Relevância</NativeSelectOption>
                 <NativeSelectOption value="highestPrice">Maior preço</NativeSelectOption>
                 <NativeSelectOption value="lowestPrice">Menor Preço</NativeSelectOption>
               </DropDown>
 
-              <input type="text" placeholder="Buscar produto" className="border border-gray-300 rounded-lg w-100 px-4 text-sm outline-none focus:ring-1 focus:ring-primary-50" />
+              <input type="text" placeholder="Buscar produtos..." className="border border-gray-300 rounded-lg w-100 pl-8 text-sm outline-none focus:ring-1 focus:ring-primary-50" />
+              <Search className="absolute left-45 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
             </div>
             <Link to="/admin/novo-produto" className="bg-primary-50 text-white px-4 rounded-md flex items-center gap-2 cursor-pointer">
               <AiOutlinePlus size={15} />
@@ -106,8 +106,18 @@ export function TableProduct() {
               <tr key={product.id} className="hover:bg-gray-50 transition">
                 <td className="px-4 py-2 text-primary-50 font-bold">{product.id}</td>
                 <td className="px-4 py-2">{product.name}</td>
-                <td className="px-4 py-2 line-through text-gray-400">R$ {Number(product.lastPrice).toFixed(2)} </td>
-                <td className="px-4 py-2 font-semibold text-[#A2785A]">R$ {Number(product.price).toFixed(2)}</td>
+                <td className="px-4 py-2 line-through text-gray-400">
+                  {Number(product.lastPrice).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}{" "}
+                </td>
+                <td className="px-4 py-2 font-semibold text-[#A2785A]">
+                  {Number(product.price).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </td>
                 <td className="px-4 py-2">{product.category.name}</td>
                 <td className="px-4 py-2 flex gap-3">
                   <button title="Excluir produto" onClick={() => delProduct(product.id)} disabled={loadingButton} className={`hover:opacity-45 cursor-pointer`}>
@@ -130,7 +140,7 @@ export function TableProduct() {
         <div>{totalPages && <Pagination currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />}</div>
       </section>
 
-      <section>{productId && modeEdit && <ModalEditProduct productId={productId} onClose={() => setModeEdit(false)} />}</section>
+      <section>{modeEdit && <ModalEditProduct productId={productId} onClose={() => setModeEdit(false)} />}</section>
     </main>
   );
 }

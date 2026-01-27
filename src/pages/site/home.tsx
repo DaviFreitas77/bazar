@@ -20,7 +20,7 @@ export function Home() {
       </section>
 
       <section className="mt-20">
-        <SuggestionProduct suggestionProducts={vestidos} showAll={true} queryButtonShowAll="vestido" tittle="Vestidos que falam por você" />
+        <SuggestionProduct suggestionProducts={vestidos} tittle="Vestidos que falam por você" />
       </section>
       {/* <Questions /> */}
     </main>

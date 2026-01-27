@@ -19,7 +19,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorGoogle, setErrorGoogle] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const { setName, setEmail, setLastName, setTel,setRole } = useUser();
+  const { setName, setEmail, setLastName, setTel,setRole,setNewsLetter } = useUser();
   const navigate = useNavigate();
   const {
     register,
@@ -40,6 +40,8 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       setLastName(response.user.lastName);
       setTel(response.user.tel);
       setRole(response.user.role)
+      setNewsLetter(response.user.receive_newsletter)
+      
       if(response.user.role === "admin"){
         navigate("/admin-dashboard");
       }else{

@@ -11,3 +11,11 @@ export const updateUser = async (data: UpdateUserResponse) => {
   }
 };
 
+
+export const apiRegisterNewsLetter = async(data:any)=>{
+  const response = await api.patch("user/registerNewsLetter",{
+    email:data.email
+  });
+  return response.data;
+
+}

@@ -1,9 +1,12 @@
+import { useLocation } from "react-router-dom";
 import { NewsLetter } from "./newsLetter";
 
 export function Footer() {
+  const localPath = useLocation()
   return (
-    <footer className=" mt-20 bg-gray-50/70">
-      <NewsLetter/>
+    <footer className="mt-20 flex flex-col gap-20">
+      {localPath.pathname == "/" && <NewsLetter />}
+      
 
       <div className="max-w-[1400px] mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8 border-t border-t-gray-200">
         <div>

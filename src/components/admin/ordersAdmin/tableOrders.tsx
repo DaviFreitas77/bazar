@@ -182,27 +182,37 @@ export function TableOrders() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {currentItems.map((order) => (
-              <tr key={order.id} className="hover:bg-gray-50 transition">
-                <td className="px-4 py-2 font-semibold text-primary-50">#{order.number_order}</td>
-                <td className="px-4 py-2 capitalize">{order.user}</td>
-                <td className="px-4 py-2">{order.cupom ?? "-"}</td>
-                <td className="px-4 py-2">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold tracking-wide
+            {currentItems.length > 0 ? (
+              currentItems.map((order) => (
+                <tr key={order.id} className="hover:bg-gray-50 transition">
+                  <td className="px-4 py-2 font-semibold text-primary-50">#{order.number_order}</td>
+                  <td className="px-4 py-2 capitalize">{order.user}</td>
+                  <td className="px-4 py-2">{order.cupom ?? "-"}</td>
+                  <td className="px-4 py-2">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold tracking-wide
     ${order.status === "completed" ? "bg-emerald-100 text-emerald-700" : order.status === "preparando" ? "bg-sky-100 text-sky-700" : order.status === "canceled" ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-700"}`}
-                  >
-                    {order.status}
-                  </span>
+                    >
+                      {order.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2">{order.payment_method === "credit_card" ? "Cartão" : order.payment_method === "bank_transfer" ? "Pix" : order.payment_methos === "ticket" ? "Boleto" : "-"}</td>
+                  <td className="px-4 py-2 font-semibold">
+                    {Number(order.total).toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </td>
+                  <td className="px-4 py-2"> {new Date(order.created_at).toLocaleDateString("pt-BR")}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7} className="text-center py-6 text-gray-400">
+                  Nenhum pedido encontrado
                 </td>
-                <td className="px-4 py-2">{order.payment_method === "credit_card" ? "Cartão" : order.payment_method === "bank_transfer" ? "Pix" : order.payment_methos === "ticket" ? "Boleto" : "-"}</td>
-                <td className="px-4 py-2 font-semibold">{Number(order.total).toLocaleString("pt-BR",{
-                  style: "currency",
-                  currency: "BRL",
-                })}</td>
-                <td className="px-4 py-2"> {new Date(order.created_at).toLocaleDateString("pt-BR")}</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
         <div className=" flex justify-center">

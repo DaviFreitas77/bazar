@@ -16,7 +16,7 @@ const queryClient = new QueryClient();
 
 function InitApp() {
   const navigate = useNavigate();
-  const { setName, setEmail, setLoading, setLastName, setTel, setRole } = useUser();
+  const { setName, setEmail, setLoading, setLastName, setTel, setRole,setNewsLetter } = useUser();
 
   useEffect(() => {
     async function fetchCsrfAndUser() {
@@ -29,6 +29,9 @@ function InitApp() {
         });
 
         if (user) {
+          console.log(user)
+        
+          setNewsLetter(user.receive_newsletter)
           setName(user.name);
           setEmail(user.email);
           setTel(user.tel);

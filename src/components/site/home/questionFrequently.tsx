@@ -2,7 +2,7 @@ import { AccordionFilter } from "../../ui/accordion";
 
 export function Questions(){
   return(
-      <section className="mt-32 flex justify-center items-center px-10">
+      <section className=" flex justify-center items-center px-10">
         <div className=" max-w-[1450px] w-full flex flex-col gap-5">
           <h5 className="text-center text-2xl font-semibold text-gray-900">Perguntas frequentes</h5>
           <AccordionFilter value="item-2" padding="12px 10px 12px 10px" backgroundColor="#F9F9F9" name="Os produtos no site são novos?">
