@@ -1,9 +1,11 @@
+import { logout } from "@/api/site/auth.api";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { useUser } from "@/context/userContext";
 
 import { Home, Settings, Mail } from "lucide-react";
 import { GiClothes } from "react-icons/gi";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const menuGroups = [
   {
@@ -42,7 +44,26 @@ const menuGroups = [
     ],
   },
 ];
+
+
 export function AppSidebar() {
+  const navigate = useNavigate()
+const {setName,setEmail,setLastName,setTel} = useUser();
+ const logOut = async () => {
+  try{
+     const response = await logout();
+    if (response.status === 200) {
+      setName(null);
+      setEmail(null);
+      setLastName(null);
+      setTel(null);
+      // navigate('/')
+    }
+  }catch(error){
+    console.log(error)
+  }
+   
+  };
   return (
     <Sidebar className="border-gray-200 bg-white">
       <SidebarContent className="bg-white flex flex-col h-full">
@@ -73,10 +94,10 @@ export function AppSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link to="/logout">
+                  <button onClick={logOut} className="cursor-pointer py-5">
                     <Settings className="mr-2 h-4 w-4" />
                     <span className="text-base">Sair</span>
-                  </Link>
+                  </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>

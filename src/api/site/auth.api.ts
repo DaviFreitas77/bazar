@@ -1,15 +1,11 @@
-import type { login } from "@/@types/login";
+
+import type { login } from "@/@types/auth/login";
 import type { Register } from "@/@types/auth/register";
 import { api } from "@/lib/api";
 import type { AxiosResponse } from "axios";
-import axios from "axios";
 
-export const ensureCsrf = async () => {
-  await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
-    withCredentials: true,
-    withXSRFToken: true,                                                                                                                                                                                                                                                                                                                                
-  });
-};
+
+
 
 export const getMe = async () => {
   const response = await api.get("/auth/profile");

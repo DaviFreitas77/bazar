@@ -36,7 +36,7 @@ export function Header() {
 
             {/* LOGO */}
 
-            <img src="/images/logo.png" alt="" className="w-20" />
+            <img src="/images/logo.png" alt="" className="w-20 ml-10" />
 
             <div className="gap-8 text-sm hidden lg:flex">
               {allCategories?.map((category) => (
@@ -80,6 +80,7 @@ export function Header() {
                 <IoMdHeartEmpty size={22} />
               </button> */}
               {/* Sacola */}
+
               <button onClick={() => setOpenCart(true)} className="hover:text-primary-50 transition-colors relative cursor-pointer" title="Sacola">
                 <LiaShoppingBagSolid size={22} />
                 {/* Badge da sacola */}

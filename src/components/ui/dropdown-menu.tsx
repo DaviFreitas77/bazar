@@ -2,7 +2,7 @@ import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { IoIosHeartEmpty } from "react-icons/io";
+// import { IoIosHeartEmpty } from "react-icons/io";
 
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -194,14 +194,14 @@ function DropdownUser({ name }: DropdownUserPros) {
           <DropdownMenuLabel>Pedidos</DropdownMenuLabel>
         </Link>
 
-        <Link to={"/favoritos"} className="flex items-center cursor-pointer hover:text-primary-50">
+        {/* <Link to={"/favoritos"} className="flex items-center cursor-pointer hover:text-primary-50">
           <IoIosHeartEmpty />
           <DropdownMenuLabel>Favoritos</DropdownMenuLabel>
-        </Link>
-        <Link to={"/meus-enderecos"} className="flex items-center cursor-pointer hover:text-primary-50">
+        </Link> */}
+        {/* <Link to={"/meus-enderecos"} className="flex items-center cursor-pointer hover:text-primary-50">
           <IoIosHeartEmpty />
           <DropdownMenuLabel>Endereços</DropdownMenuLabel>
-        </Link>
+        </Link> */}
         <button onClick={logOut} className="flex items-center cursor-pointer hover:text-primary-50">
           <CiLogout />
           <DropdownMenuLabel>Sair</DropdownMenuLabel>

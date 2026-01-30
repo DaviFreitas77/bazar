@@ -29,6 +29,7 @@ export function Orders() {
     }
   }, [filterOrder, myOrders]);
 
+ 
   return (
     <main className="flex justify-center px-5 py-10">
       <div className="w-full flex max-w-[1450px]">
@@ -49,7 +50,7 @@ export function Orders() {
               <Loading />
             </div>
           ) : sortedOrders && sortedOrders.length > 0 ? (
-            sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} number_order={order.number_order} created_at={order.created_at} total={order.total} status={order.status} item={order.items} />)
+            sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} number_order={order.numberOrder} created_at={order.created_at} total={order.total} status={order.status} item={order.items} />)
           ) : (
             <p className="text-center text-gray-500 mt-20 flex flex-col items-center gap-4">
               <span className="text-2xl text-primary-50">

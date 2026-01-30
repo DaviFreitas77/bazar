@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import { toast } from "sonner";
+
 import type { ApiProduct } from "../@types/product";
 
 interface CretedProductProps {

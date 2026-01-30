@@ -10,105 +10,11 @@ export type ChartConfig = {
   } & ({ color?: string; theme?: never } | { color?: never; theme: Record<keyof typeof THEMES, string> });
 };
 
-interface Order {
-  id: number;
-  orderNumber: string;
-  productId: number;
-  customerName: string;
-  coupon?: string;
-  status: "Pago" | "Pendente" | "Cancelado";
-  paymentMethod: "Cartão" | "Pix" | "Boleto";
-  total: number;
-  createdAt: string;
-}
 
-const orders: Order[] = [
-  {
-    id: 1,
-    orderNumber: "#000123",
-    productId: 101,
-    customerName: "João Silva",
-    coupon: "PROMO10",
-    status: "Pago",
-    paymentMethod: "Cartão",
-    total: 250.9,
-    createdAt: "10/01/2026",
-  },
-  {
-    id: 2,
-    orderNumber: "#000124",
-    productId: 102,
-    customerName: "Maria Santos",
-    status: "Pendente",
-    paymentMethod: "Pix",
-    total: 120,
-    createdAt: "11/01/2026",
-  },
-  {
-    id: 3,
-    orderNumber: "#000125",
-    productId: 103,
-    customerName: "Carlos Lima",
-    coupon: "FRETEGRATIS",
-    status: "Cancelado",
-    paymentMethod: "Boleto",
-    total: 89.9,
-    createdAt: "12/01/2026",
-  },
-  {
-    id: 4,
-    orderNumber: "#000126",
-    productId: 104,
-    customerName: "Ana Paula",
-    status: "Pago",
-    paymentMethod: "Cartão",
-    total: 430,
-    createdAt: "13/01/2026",
-  },
-  {
-    id: 5,
-    orderNumber: "#000127",
-    productId: 105,
-    customerName: "Rafael Costa",
-    status: "Pago",
-    paymentMethod: "Pix",
-    total: 199.99,
-    createdAt: "14/01/2026",
-  },
-  {
-    id: 6,
-    orderNumber: "#000128",
-    productId: 106,
-    customerName: "Fernanda Rocha",
-    status: "Pendente",
-    paymentMethod: "Boleto",
-    total: 310,
-    createdAt: "15/01/2026",
-  },
-  {
-    id: 7,
-    orderNumber: "#000129",
-    productId: 107,
-    customerName: "Lucas Mendes",
-    status: "Pago",
-    paymentMethod: "Cartão",
-    total: 99.9,
-    createdAt: "15/01/2026",
-  },
-  {
-    id: 8,
-    orderNumber: "#000130",
-    productId: 108,
-    customerName: "Paulo Henrique",
-    status: "Pago",
-    paymentMethod: "Pix",
-    total: 560,
-    createdAt: "16/01/2026",
-  },
-];
+
 
 export function TableOrders() {
-  const { data: allOrders, isLoading } = useAllOrders();
+  const { data: allOrders } = useAllOrders();
   const [filterOrder, setFilterOrder] = useState("relevance");
   const ordersPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);

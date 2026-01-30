@@ -1,4 +1,4 @@
-import CountUp from "@/components/styles/countUp";
+
 
 export function Feedbacks() {
   return (

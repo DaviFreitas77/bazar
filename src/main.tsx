@@ -7,7 +7,7 @@ import "./index.css";
 import App from "./App.tsx";
 import { ProductsSearchedProvider } from "./context/productsSearchedContext.tsx";
 import { UserProvider, useUser } from "./context/userContext.tsx";
-import { ensureCsrf, getMe } from "./api/site/auth.api.ts";
+import {  getMe } from "./api/site/auth.api.ts";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "./context/cartContext.tsx";
 import { UIProvider } from "./context/UIContext.tsx";
@@ -21,15 +21,13 @@ function InitApp() {
   useEffect(() => {
     async function fetchCsrfAndUser() {
       try {
-        await ensureCsrf();
-
+  
         const user = await getMe().catch((err) => {
           if (err.response.status === 401) return null;
           throw err;
         });
 
         if (user) {
-          console.log(user)
         
           setNewsLetter(user.receive_newsletter)
           setName(user.name);

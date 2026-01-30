@@ -41,6 +41,8 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       setTel(response.user.tel);
       setRole(response.user.role)
       setNewsLetter(response.user.receive_newsletter)
+      localStorage.setItem("token",response.token)
+    
       
       if(response.user.role === "admin"){
         navigate("/admin-dashboard");

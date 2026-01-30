@@ -42,6 +42,8 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
       setName(response.user.name);
       setLastName(response.user.lastName);
       setTel(response.user.tel);
+      localStorage.setItem('token',response.token);
+      
     } catch (error: any) {
       if (error.response?.data?.message) {
         setErrorMessage(error.response.data.message);
