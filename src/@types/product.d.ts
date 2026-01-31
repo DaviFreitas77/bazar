@@ -23,8 +23,9 @@
     image: string[];
       category: {
     id: number;
-    name: string;
+    name: string;     
   };
+  idSubCategory:number
   }
 
   export interface Category {

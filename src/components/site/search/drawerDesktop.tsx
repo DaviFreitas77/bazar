@@ -3,6 +3,11 @@ import { AccordionFilter } from "@/components/ui/accordion";
 import { SliderProduct } from "@/components/ui/slider";
 import { useProductsSearched } from "@/context/productsSearchedContext";
 
+type SubCategoriesType = {
+  id: number;
+  name: string;
+  id_category: number;
+};
 interface DrawerDesktopProps {
   allColors: string[];
   allSizes: string[];
@@ -10,13 +15,14 @@ interface DrawerDesktopProps {
   selectedColor: string;
   selectedSize: string;
   selectedcategorie: string;
+  subCategories: SubCategoriesType[];
   maxPrice: number;
   minPrice: number;
   valueChange: React.Dispatch<React.SetStateAction<number[]>>;
 
   applyFilterProducts: (filter: "filterColor" | "filterSize" | "filtercategory", value: string) => void;
 }
-export function DrawerDesktop({ allColors, allSizes, selectedColor, selectedSize, selectedcategorie, allCategories, applyFilterProducts, maxPrice, minPrice, valueChange }: DrawerDesktopProps) {
+export function DrawerDesktop({ allColors, allSizes, selectedColor, selectedSize, selectedcategorie, allCategories, subCategories, applyFilterProducts, maxPrice, minPrice, valueChange }: DrawerDesktopProps) {
   const { nameProduct } = useProductsSearched();
   return (
     <section className="max-w-xs w-full h-screen rounded-md mt-10 hidden lg:block">
@@ -39,6 +45,24 @@ export function DrawerDesktop({ allColors, allSizes, selectedColor, selectedSize
             </label>
           ))}
         </AccordionFilter>
+        {subCategories && subCategories.length > 0 && (
+          <AccordionFilter name="Modelos" value="item-1">
+            {subCategories.map((subCategory) => (
+              <label key={subCategory.id} className={`flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-50 mt-1 capitalize`}>
+                <input
+                  type="checkbox"
+                  value={subCategory.id}
+                  className="accent-primary-50 w-4 h-4"
+                  onChange={(e) => {
+                    applyFilterProducts("filtercategory", e.target.value);
+                  }}
+                />
+                <span>{subCategory.name}</span>
+              </label>
+            ))}
+          </AccordionFilter>
+        )}
+
         <AccordionFilter name="Cores" value="item-1">
           {allColors.map((color, index) => (
             <label key={index} className={`flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-50 mt-1 capitalize`}>

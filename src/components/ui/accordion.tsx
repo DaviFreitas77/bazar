@@ -50,7 +50,7 @@ function AccordionFilter({ name, children,backgroundColor,padding,value}: Accord
   return (
     <Accordion type="single" collapsible defaultValue="item-1">
       <AccordionItem value={value}>
-        <AccordionTrigger  style={{ backgroundColor: backgroundColor,padding:padding}} className="text-base font-semibold text-gray-800  ">{name}</AccordionTrigger>
+        <AccordionTrigger  style={{ backgroundColor: backgroundColor,padding:padding}} className="text-base font-semibold text-gray-700  ">{name}</AccordionTrigger>
         <div className="border border-gray-100/70 mb-2"></div>
         <AccordionContent>{children}</AccordionContent>
       </AccordionItem>

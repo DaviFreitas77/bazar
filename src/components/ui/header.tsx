@@ -17,10 +17,12 @@ import { DrawerResponsive } from "../site/header/drawerResponsive";
 import { useListCategories } from "@/hooks/site/useListCategories";
 import { Link } from "react-router-dom";
 import { ModalAuth } from "../site/auth/modalAuth";
+import { useProductsSearched } from "@/context/productsSearchedContext";
 export function Header() {
   const { name } = useUser();
   const { state } = useCart();
   const { setOpenSearch, setOpenCart, setOpenFavorite, openSearch, openCart, openFavorite, modalAuth, setModalAuth, setOpenDrawer } = useUI();
+  const { setNameProduct } = useProductsSearched();
   const { data: allCategories } = useListCategories();
 
   return (
@@ -36,11 +38,11 @@ export function Header() {
 
             {/* LOGO */}
 
-            <img src="/images/logo.png" alt="" className="w-20 ml-10" />
+            <img src="/images/logo.png" alt="" className="w-20" />
 
             <div className="gap-8 text-sm hidden lg:flex">
               {allCategories?.map((category) => (
-                <Link key={category.id} className="hover:text-primary-50 text-gray-700" to={`/pesquisa?q=${category.name}`}>
+                <Link onClick={() => setNameProduct(category.name)} key={category.id} className="hover:text-primary-50 text-gray-700" to={`/pesquisa?q=${category.name}&category=${category.id}`}>
                   {category.name}
                 </Link>
               ))}

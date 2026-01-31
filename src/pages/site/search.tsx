@@ -12,15 +12,15 @@ import { useAllProducts } from "@/hooks/site/useAllProducts";
 import { LoadingPage } from "@/components/site/loading/loadingPage";
 import type { Product } from "@/@types/product";
 import { hookSearchParams } from "@/hooks/site/useSearchParams";
+import { useListSubCategories } from "@/hooks/site/useListSubCategories";
 
 
 export function Search() {
-    const { pathname } = useLocation();
-    
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, [pathname]);
+  const { pathname } = useLocation();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
@@ -30,16 +30,17 @@ export function Search() {
   const [inputValue, setInputValue] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("q");
+  const idCategory = searchParams.get("category");
+  const {data:subCategories} = useListSubCategories(Number(idCategory));
   const [currentPage, setCurrentPage] = useState(1);
   const [filterOrder, setFilterOrder] = useState("relevance");
-
-
-
   const [priceRange, setPriceRange] = useState<number[]>([0, 0]);
+
+
   let productsPerPage = 16;
   const { data: allProducts, isLoading: isLoadingAllProducts } = useAllProducts();
   const { data: productsSearched } = hookSearchParams(search);
-
+  
   const baseProducts = allProducts ?? productsSearched ?? [];
 
   const [minPrice, maxPrice] = useMemo(() => {
@@ -47,10 +48,6 @@ export function Search() {
 
     return [Math.min(...baseProducts.map((p) => p.price)), Math.max(...baseProducts.map((p) => p.price))];
   }, [baseProducts]);
-
-  if (baseProducts.length && priceRange[0] === 0 && priceRange[1] === 0) {
-    setPriceRange([minPrice, maxPrice]);
-  }
 
   const applyFilterProducts = (filter: string, value: string) => {
     if (filter === "filterColor") {
@@ -114,7 +111,12 @@ export function Search() {
 
   const allColors = [...new Set(filteredProducts.flatMap((product) => product.color))];
   const allSizes = [...new Set(filteredProducts.flatMap((product) => product.sizes))];
+
   const allCategories = [...new Set(filteredProducts.flatMap((product) => product.category.name))];
+
+
+  
+    
 
   return (
     <main className="px-2 md:px-6 flex flex-col gap-6">
@@ -124,7 +126,7 @@ export function Search() {
         </section>
       ) : (
         <section className="flex gap-6 justify-center">
-          {currentItems.length === 0 ? null : (
+          {currentItems.length === 0   || !search ?  null : (
             <>
               {showSidebar && (
                 <DrawerDesktop
@@ -132,11 +134,12 @@ export function Search() {
                   allSizes={allSizes}
                   selectedColor={selectedColor}
                   selectedcategorie={selectedcategorie}
+                  subCategories={subCategories}
                   allCategories={allCategories}
                   selectedSize={selectedSize}
                   applyFilterProducts={applyFilterProducts}
                   maxPrice={maxPrice}
-                  minPrice={minPrice}
+                  minPrice={minPrice}             
                   valueChange={setPriceRange}
                 />
               )}
@@ -159,7 +162,7 @@ export function Search() {
           )}
 
           <div className={`flex flex-col items-center ${showSidebar ? "w-full max-w-[1100px]" : "w-full max-w-[1420px]"}`}>
-            {currentItems.length === 0 ? (
+            {currentItems.length === 0  || !search ? (
               <div className="flex h-[80vh] w-full justify-center items-center">
                 <EmptyProduct inputValue={inputValue} setInputValue={setInputValue} setSearchParams={setSearchParams} />
               </div>
