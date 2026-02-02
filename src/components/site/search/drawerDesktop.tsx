@@ -8,7 +8,7 @@ type SubCategoriesType = {
   name: string;
   id_category: number;
 };
-interface DrawerDesktopProps {
+export interface DrawerDesktopProps {
   allColors: string[];
   allSizes: string[];
   changeColor: (color: string) => void;

@@ -195,14 +195,20 @@ export function Search() {
                 open={drawerOpen}
                 onOpenChange={setDrawerOpen}
                 allColors={allColors}
-                allSizes={allSizes}
-                selectedColor={selectedColor}
-                selectedSize={selectedSize}
-                selectedcategorie={selectedcategorie}
-                allCategories={allCategories}
-                maxPrice={maxPrice}
-                minPrice={minPrice}
-                valueChange={setPriceRange}
+                  allSizes={allSizes}
+                  selectedColor={selectedColor}
+                  selectedcategorie={selectedcategorie}
+                  selectedSubCategory={selectedSubCategory}
+                  subCategories={subCategories}
+                  allCategories={allCategories}
+                  selectedSize={selectedSize}
+                  changeColor={toggleColor}
+                  changeSize={toggleSize}
+                  changeCategory={toggleCategory}
+                  changeSubCategory={toggleSubCategory}
+                  maxPrice={maxPrice}
+                  minPrice={minPrice}
+                  valueChange={setPriceRange}
               />
             </>
           )}
