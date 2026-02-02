@@ -1,11 +1,11 @@
-import { listSubCategoryByIdCategory } from "@/api/site/subCategory.api"
+import { listSubCategoryBynameCategory } from "@/api/site/subCategory.api"
 import { useQuery } from "@tanstack/react-query"
 
 
-export const useListSubCategories = (idCategory:number)=>{
+export const useListSubCategories = (nameCategory:string)=>{
   return useQuery({
-    queryKey: ['subCategories',idCategory],
-    queryFn: () => listSubCategoryByIdCategory(idCategory),
-    enabled: !!idCategory
+    queryKey: ['subCategories',nameCategory],
+    queryFn: () => listSubCategoryBynameCategory(nameCategory),
+    enabled: !!nameCategory
   })
 }

@@ -4,8 +4,9 @@ import type { ApiProduct } from "../@types/product";
 
 
 
-export const getProductsByCategory = async (id: number): Promise<Product[]> => {
-  const { data } = await api.get<Product[]>(`prod/productsByCategory/${id}`);
+export const getProductsByCategory = async (name: string): Promise<Product[]> => {
+
+  const { data } = await api.get<Product[]>(`prod/productsByCategory/${name}`);
   return data;
 };
 

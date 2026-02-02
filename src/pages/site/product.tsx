@@ -38,7 +38,8 @@ export function Product() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const { data: recomendation } = useProductsByCategory(product?.category ?? null);
+  const { data: recomendation } = useProductsByCategory(product?.categoryName?? null);
+
 
   const chooseImage = useMemo(() => {
     return images[numberImage]?.image ?? "";

@@ -21,11 +21,11 @@
     sizes: string[];
     material: string;
     image: string[];
-      category: {
+    category: {
     id: number;
     name: string;     
   };
-  idSubCategory:number
+  idSubcategory:number
   }
 
   export interface Category {

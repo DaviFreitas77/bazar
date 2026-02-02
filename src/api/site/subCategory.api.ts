@@ -1,8 +1,8 @@
 import { api } from "@/lib/api"
 
 
-export const listSubCategoryByIdCategory = async(idCategory:number) => {
-  const response = await api.get(`/subCategory/listSubCategories/${idCategory}`);
+export const listSubCategoryBynameCategory = async(nameCategory:string) => {
+  const response = await api.get(`/subCategory/listSubCategories/${nameCategory}`);
   return response.data.subCategories;
 
 }

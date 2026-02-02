@@ -14,10 +14,7 @@ interface DrawerFilterMobileProps {
     maxPrice:number;
   minPrice:number;
   valueChange:React.Dispatch<React.SetStateAction<number[]>>
-  applyFilterProducts: (
-    filter: "filterColor" | "filterSize" | "filtercategory",
-    value: string
-  ) => void;
+
 }
 
 export function DrawerFilterMobile({
@@ -29,7 +26,6 @@ export function DrawerFilterMobile({
   selectedSize,
   allCategories,
   selectedcategorie,
-  applyFilterProducts,
   maxPrice,minPrice,valueChange
 }: DrawerFilterMobileProps) {
   return (
@@ -43,9 +39,7 @@ export function DrawerFilterMobile({
                 value={category}
                 checked={selectedcategorie === category}
                 className="accent-primary-50 w-4 h-4"
-                onChange={(e) => {
-                  applyFilterProducts("filtercategory", e.target.value);
-                }}
+                onChange={(e) =>()=>{}}
               />
               <span className={`${selectedcategorie === category ? "text-primary-50" : ""}`}>{category}</span>
             </label>
@@ -63,9 +57,7 @@ export function DrawerFilterMobile({
               value={color}
               checked={selectedColor === color}
               className="accent-primary-50 w-4 h-4"
-              onChange={(e) =>
-                applyFilterProducts("filterColor", e.target.value)
-              }
+              onChange={(e) =>()=>{}}
             />
             <span className={selectedColor === color ? "text-primary-50" : ""}>
               {color}
@@ -85,9 +77,7 @@ export function DrawerFilterMobile({
               value={size}
               checked={selectedSize === size}
               className="accent-primary-50 w-4 h-4"
-              onChange={(e) =>
-                applyFilterProducts("filterSize", e.target.value)
-              }
+              onChange={(e) =>()=>{}}
             />
             <span className={selectedSize === size ? "text-primary-50" : ""}>
               {size}

@@ -1,13 +1,13 @@
 import { getProductsByCategory } from "@/api/site/products.api";
 import { useQuery } from "@tanstack/react-query";
 
-export const useProductsByCategory = (id: number | null) => {
+export const useProductsByCategory = (name: string | null) => {
   return useQuery({
-    queryKey: ["productsByCategory", id],
+    queryKey: ["productsByCategory", name],
     queryFn: () => {
-      if (id === null) throw new Error("Category id is null");
-      return getProductsByCategory(id);
+      if (name === null) throw new Error("Category name is null");
+      return getProductsByCategory(name);
     },
-    enabled: !!id,
+    enabled: !!name,
   });
 };
