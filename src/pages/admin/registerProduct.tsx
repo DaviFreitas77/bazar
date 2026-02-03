@@ -1,4 +1,3 @@
-
 import { uploadImage } from "@/api/admin/uploadImage";
 import { HeaderAdmin } from "@/components/admin/headerAdmin/header";
 import LayoutSidebar from "@/components/admin/sidebar";
@@ -10,6 +9,7 @@ import { useSizesAdmin } from "@/hooks/admin/useSizesAdmin";
 import { useState } from "react";
 import { FaCircle, FaCloudUploadAlt, FaSpinner, FaTrash } from "react-icons/fa";
 import { createdProduct } from "@/api/admin/productAdmin";
+import { useListSubCategoriesById } from "@/hooks/admin/useListSubCategoryById";
 
 export function RegisterProduct() {
   const [name, setName] = useState("");
@@ -19,11 +19,13 @@ export function RegisterProduct() {
   const [selectedSize, setSelectedSize] = useState<number[]>([]);
   const [selectedColors, setSelectedColors] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
 
   const { data: categories } = useCategoriesAdmin();
+  const { data: subCategories } = useListSubCategoriesById(Number(selectedCategory));
   const { data: colors } = useColors();
   const { data: sizes } = useSizesAdmin();
 
@@ -60,13 +62,15 @@ export function RegisterProduct() {
   const handleCreatedProduct = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedCategory) return toast.error("Selecione uma categoria");
-    
+
     setLoading(true);
     try {
       const data = {
         name,
         description,
         idCategory: Number(selectedCategory),
+        idSubCategory: Number(selectedSubCategory),
+        oldPrice: oldPrice ? Number(oldPrice.replace(",", ".")) : null,
         lastPrice: Number(oldPrice.replace(",", ".")),
         price: Number(price.replace(",", ".")),
         colors: selectedColors,
@@ -76,7 +80,7 @@ export function RegisterProduct() {
 
       await createdProduct(data);
       toast.success("Produto cadastrado com sucesso!");
-      
+
       // Reset states
       setName("");
       setDescription("");
@@ -85,6 +89,7 @@ export function RegisterProduct() {
       setSelectedSize([]);
       setSelectedColors([]);
       setSelectedCategory("");
+      setSelectedSubCategory("");
       setImages([]);
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Erro ao cadastrar");
@@ -112,25 +117,37 @@ export function RegisterProduct() {
                   <span className="w-1 h-6 bg-primary-50 rounded-full"></span>
                   Informações Básicas
                 </h2>
-      
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Nome do Produto</label>
+                    <label className="text-sm font-bold text-gray-700  tracking-wider">Nome do Produto</label>
                     <input required onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Ex: Camiseta Oversized" className={inputStyle} />
                   </div>
                   <div className="flex flex-col gap-1.5 md:col-span-2 lg:col-span-1">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Descrição Curta</label>
+                    <label className="text-sm font-bold text-gray-700  tracking-wider">Descrição Curta</label>
                     <input required onChange={(e) => setDescription(e.target.value)} value={description} type="text" placeholder="Ex: Camiseta básica 100% algodão" className={inputStyle} />
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Categoria</label>
-                    <DropDown title="Selecione..." value={selectedCategory} onChange={setSelectedCategory} style="border-gray-300 rounded-lg h-[46px] shadow-none">
-                      {categories?.map((category) => (
-                        <NativeSelectOption key={category.id} value={category.id}>
-                          {category.name}
-                        </NativeSelectOption>
-                      ))}
-                    </DropDown>
+                  <div className="flex gap-6">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-sm font-bold text-gray-700  tracking-wider">Categoria</label>
+                      <DropDown title="Selecione..." value={selectedCategory} onChange={setSelectedCategory} style="border-gray-300 rounded-lg h-[46px] shadow-none">
+                        {categories?.map((category) => (
+                          <NativeSelectOption key={category.id} value={category.id}>
+                            {category.name}
+                          </NativeSelectOption>
+                        ))}
+                      </DropDown>
+                    </div>
+                    <div className={`flex flex-col gap-1.5 ${subCategories ? "" : "hidden"}`}>
+                      <label className="text-sm font-bold text-gray-700  tracking-wider">Modelo</label>
+                      <DropDown title="Selecione..." value={selectedSubCategory} onChange={setSelectedSubCategory} style="border-gray-300 rounded-lg h-[46px] shadow-none">
+                        {subCategories?.map((subCategory: any) => (
+                          <NativeSelectOption key={subCategory.id} value={subCategory.id}>
+                            {subCategory.name}
+                          </NativeSelectOption>
+                        ))}
+                      </DropDown>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -142,14 +159,14 @@ export function RegisterProduct() {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Preço Antigo (Opcional)</label>
+                    <label className="text-sm font-bold text-gray-700  tracking-wider">Preço Antigo (Opcional)</label>
                     <div className="relative">
                       <span className="absolute left-3 top-3 text-gray-400 text-sm">R$</span>
                       <input onChange={(e) => setOldPrice(e.target.value)} value={oldPrice} type="text" placeholder="0,00" className={`${inputStyle} w-full pl-10`} />
                     </div>
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Preço de Venda</label>
+                    <label className="text-sm font-bold text-gray-700  tracking-wider">Preço de Venda</label>
                     <div className="relative">
                       <span className="absolute left-3 top-3 text-gray-400 text-sm">R$</span>
                       <input required onChange={(e) => setPrice(e.target.value)} value={price} type="text" placeholder="0,00" className={`${inputStyle} w-full pl-10`} />
@@ -161,7 +178,7 @@ export function RegisterProduct() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* CORES */}
                 <div className="bg-white p-6 rounded-xl  border border-gray-200">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4 block">Cores Disponíveis</label>
+                  <label className="text-sm font-bold text-gray-700  tracking-wider mb-4 block">Cores disponíveis</label>
                   <div className="flex flex-wrap gap-3">
                     {colors?.map((color) => (
                       <button
@@ -180,7 +197,7 @@ export function RegisterProduct() {
                 </div>
                 {/* TAMANHOS */}
                 <div className="bg-white p-6 rounded-xl  border border-gray-200">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4 block">Tamanhos</label>
+                  <label className="text-sm font-bold text-gray-700  tracking-wider mb-4 block">Tamanhos</label>
                   <div className="flex flex-wrap gap-2">
                     {sizes?.map((size) => (
                       <button
@@ -188,9 +205,7 @@ export function RegisterProduct() {
                         type="button"
                         onClick={() => toggleSize(size.id)}
                         className={`cursor-pointer min-w-[45px] h-[45px] rounded-lg border flex items-center justify-center text-sm font-bold transition-all
-                          ${selectedSize.includes(size.id)
-                            ? "bg-primary-50 text-white border-primary-50 shadow-md"
-                            : "border-gray-200 text-gray-600 hover:border-primary-50 hover:text-primary-50 bg-white"}
+                          ${selectedSize.includes(size.id) ? "bg-primary-50 text-white border-primary-50 shadow-md" : "border-gray-200 text-gray-600 hover:border-primary-50 hover:text-primary-50 bg-white"}
                         `}
                       >
                         {size.name}
@@ -200,8 +215,8 @@ export function RegisterProduct() {
                 </div>
                 {/* IMAGENS */}
                 <div className="bg-white p-6 rounded-xl  border border-gray-200">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4 block">Fotos do Produto</label>
-      
+                  <label className="text-sm font-bold text-gray-700  tracking-wider mb-4 block">Fotos do Produto</label>
+
                   <label className="group cursor-pointer flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-4 hover:border-primary-50 hover:bg-primary-50/5 transition-all">
                     {uploading ? (
                       <FaSpinner className="animate-spin text-primary-50 text-2xl" />
@@ -213,38 +228,29 @@ export function RegisterProduct() {
                     )}
                     <input type="file" accept="image/*" onChange={handleUploadImage} className="hidden" />
                   </label>
-                  <div className="grid grid-cols-3 gap-2 mt-4">
-                    {images.map((image, index) => (
-                      <div key={index} className="relative group aspect-square">
-                        <img src={image} alt="" className="w-full h-full object-cover rounded-lg border" />
-                        <button
-                          type="button"
-                          onClick={() => removeImage(index)}
-                          className="absolute -top-1 -right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
-                        >
-                          <FaTrash size={10} />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-2 mt-4">
+                  {images.map((image, index) => (
+                    <div key={index} className="relative group aspect-square">
+                      <img src={image} alt="" className="w-full h-full object-cover rounded-lg border" />
+                      <button type="button" onClick={() => removeImage(index)} className="absolute -top-1 -right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+                        <FaTrash size={10} />
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </div>
               {/* BOTÃO DE AÇÃO */}
               <div className="flex justify-end items-center gap-4 mt-4">
-                <button
-                  type="button"
-                  onClick={() => window.history.back()}
-                  className="px-8 py-3 text-gray-500 font-semibold hover:text-gray-700 transition-colors"
-                >
+                <button type="button" onClick={() => window.history.back()} className="px-8 py-3 text-gray-500 font-semibold hover:text-gray-700 transition-colors">
                   Cancelar
                 </button>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className={`cursor-pointer bg-primary-50 px-12 py-4 text-white font-bold rounded-xl shadow-lg shadow-primary-50/20 hover:bg-primary-50/90 transition-all flex items-center gap-3 ${loading && "opacity-70 cursor-not-allowed"}`}
-                >
+                <button type="submit" disabled={loading} className={`cursor-pointer bg-primary-50 px-12 py-4 text-white font-bold rounded-xl shadow-lg shadow-primary-50/20 hover:bg-primary-50/90 transition-all flex items-center gap-3 ${loading && "opacity-70 cursor-not-allowed"}`}>
                   {loading ? (
-                    <> <FaSpinner className="animate-spin" /> Cadastrando...</>
+                    <>
+                      {" "}
+                      <FaSpinner className="animate-spin" /> Cadastrando...
+                    </>
                   ) : (
                     "Finalizar Cadastro"
                   )}

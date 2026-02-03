@@ -45,25 +45,29 @@ const menuGroups = [
   },
 ];
 
-
 export function AppSidebar() {
-  const navigate = useNavigate()
-const {setName,setEmail,setLastName,setTel} = useUser();
- const logOut = async () => {
-  try{
-     const response = await logout();
-    if (response.status === 200) {
+  const navigate = useNavigate();
+  const { setName, setEmail, setLastName, setTel, setRole } = useUser();
+
+  const logOut = async () => {
+    try {
+      await logout();
+
+      localStorage.removeItem("token");
+
       setName(null);
       setEmail(null);
       setLastName(null);
       setTel(null);
-      // navigate('/')
+      setRole(null);
+      localStorage.removeItem("token");
+
+      navigate("/");
+    } catch (err) {
+      console.error(err);
     }
-  }catch(error){
-    console.log(error)
-  }
-   
   };
+
   return (
     <Sidebar className="border-gray-200 bg-white">
       <SidebarContent className="bg-white flex flex-col h-full">

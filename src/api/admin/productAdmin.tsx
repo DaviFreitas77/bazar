@@ -11,6 +11,7 @@ interface CretedProductProps {
   images: string[];
   sizes: number[];
   colors: number[];
+  idSubCategory: number;
 }
 export const createdProduct = async (data: CretedProductProps) => {
   const response = await api.post("/prod/registerProduct", {
@@ -22,6 +23,8 @@ export const createdProduct = async (data: CretedProductProps) => {
     images: data.images,
     sizes: data.sizes,
     colors: data.colors,
+    idSubcategory: data.idSubCategory,
+    
   });
   return response.data;
 };

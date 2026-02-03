@@ -5,7 +5,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 // import { IoIosHeartEmpty } from "react-icons/io";
 
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "@/api/site/auth.api";
 import { useUser } from "@/context/userContext";
 import { CiLogout } from "react-icons/ci";
@@ -173,39 +173,49 @@ interface DropdownUserPros {
   name: string;
 }
 function DropdownUser({ name }: DropdownUserPros) {
-  const { setName, setEmail, setLastName, setTel } = useUser();
-  const logOut = async () => {
-    const response = await logout();
-    if (response.status === 200) {
-      setName(null);
-      setEmail(null);
-      setLastName(null);
-      setTel(null);
-      localStorage.removeItem("token");
-    }
-  };
+  const navigate = useNavigate();
+  const { setName, setEmail, setLastName, setTel,setRole } = useUser();
+
+
+const logOut = async () => {
+  try {
+    await logout();
+
+    localStorage.removeItem("token");
+
+    setName(null);
+    setEmail(null);
+    setLastName(null);
+    setTel(null);
+    setRole(null);
+    navigate("/")
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="cursor-pointer hover:text-primary-50">Olá {name}</DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <Link to={"/pedidos"} className="flex items-center cursor-pointer hover:text-primary-50">
-          <HiOutlineShoppingBag />
-          <DropdownMenuLabel>Pedidos</DropdownMenuLabel>
-        </Link>
+      <DropdownMenuTrigger className="cursor-pointer hover:text-primary-50">
+        Olá {name}
+      </DropdownMenuTrigger>
 
-        {/* <Link to={"/favoritos"} className="flex items-center cursor-pointer hover:text-primary-50">
-          <IoIosHeartEmpty />
-          <DropdownMenuLabel>Favoritos</DropdownMenuLabel>
-        </Link> */}
-        {/* <Link to={"/meus-enderecos"} className="flex items-center cursor-pointer hover:text-primary-50">
-          <IoIosHeartEmpty />
-          <DropdownMenuLabel>Endereços</DropdownMenuLabel>
-        </Link> */}
-        <button onClick={logOut} className="flex items-center cursor-pointer hover:text-primary-50">
+      <DropdownMenuContent>
+        <DropdownMenuItem asChild>
+          <Link to="/pedidos" className="flex items-center gap-2">
+            <HiOutlineShoppingBag />
+            Pedidos
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem
+          onSelect={logOut}
+          className="flex items-center gap-2 text-red-500"
+        >
           <CiLogout />
-          <DropdownMenuLabel>Sair</DropdownMenuLabel>
-        </button>
+          Sair
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

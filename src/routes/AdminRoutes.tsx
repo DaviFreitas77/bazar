@@ -6,11 +6,20 @@ import { ProductsAdmin } from "@/pages/admin/ProductsAdmin";
 import { RegisterProduct } from "@/pages/admin/RegisterProduct";
 import { Dashboard } from "@/pages/admin/Dashboard";
 import { EmailAdmin } from "@/pages/admin/Email";
-
+import { Home } from "@/pages/site/home";
 
 export default function AdminRoutes() {
   return (
     <Routes>
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        }
+      ></Route>
+
       <Route
         path="/admin-dashboard"
         element={
@@ -19,7 +28,7 @@ export default function AdminRoutes() {
           </PrivateRoute>
         }
       ></Route>
-      
+
       <Route
         path="/admin-email"
         element={
