@@ -5,8 +5,9 @@ namespace App\Notifications;
 use App\Mail\MailOrderCreated;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class OrderCreatedOrderNotification extends Notification 
+class OrderCreatedOrderNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
