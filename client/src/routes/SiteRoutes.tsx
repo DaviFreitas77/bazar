@@ -1,4 +1,4 @@
-import { Header } from "@/components/ui/header";
+
 import { Home } from "@/pages/site/home";
 import { Product } from "@/pages/site/product";
 import { Search } from "@/pages/site/search";
@@ -9,6 +9,7 @@ import { Checkout } from "@/pages/site/checkout";
 import { Orders } from "@/pages/site/orders";
 import { Footer } from "@/components/site/footer";
 import { NotFound } from "@/pages/notFound";
+import { Header } from "@/components/ui/header";
 
 
 function SiteRoutes() {

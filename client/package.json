@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "vite preview --port $PORT --host"
+    "start": "vite preview --port 5173 --host"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
