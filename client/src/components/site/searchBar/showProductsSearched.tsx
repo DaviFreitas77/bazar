@@ -11,7 +11,6 @@ export function ShowProductsSearched() {
   const { nameProduct } = useProductsSearched();
   const { data: productsSearched, isLoading } = hookSearchParams(nameProduct);
   const limitedProducts = productsSearched?.slice(0, 6) ?? [];
-  const idCategory = productsSearched?.[0]?.category?.id ?? null;
   const { setOpenSearch } = useUI();
 
 
