@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://bazar-production-b726.up.railway.app//api",
+  baseURL: "https://bazar-production-b726.up.railway.app/api",
 });
 
 export const api = instance;
