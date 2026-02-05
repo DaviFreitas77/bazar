@@ -130,9 +130,9 @@ class MCPService
             })->toArray();
 
             if ($payment->status === "approved") {
-                // SendOrderCreatedEmailJob::dispatch($emailUser, $nameUser, $numberOrder->number_order, $productsData);
+                SendOrderCreatedEmailJob::dispatch($emailUser, $nameUser, $numberOrder->number_order, $productsData);
 
-                // SendNewOrderEmailToAdminJob::dispatch($nameUser, $numberOrder->number_order, $productsData, $telUser);
+                SendNewOrderEmailToAdminJob::dispatch($nameUser, $numberOrder->number_order, $productsData, $telUser);
 
                 $this->orderService->changeOrderStatus('preparando', $payment->external_reference);
 
