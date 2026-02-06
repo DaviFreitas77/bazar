@@ -205,7 +205,20 @@
     font-size:13px;
     color:#047857;
   ">
-        {{$paymentMethod}}
+        @switch($paymentMethod)
+        @case('credit_card')
+        Cartão de crédito
+        @break
+
+        @case('bankTransfer')
+        PIX
+        @break
+
+        @case('ticket')
+        Boleto
+        @break
+        @endswitch
+
       </p>
 
     </div>

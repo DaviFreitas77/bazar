@@ -8,10 +8,10 @@ use App\Http\Services\MCPService;
 use App\Http\Services\OrderItemsService;
 use App\Http\Services\OrderService;
 use App\Http\Services\ProductService;
+use App\Jobs\cancelOrderJob;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log;
 
 #[Group('Order')]
 class CreateOrderController extends Controller
@@ -39,14 +39,16 @@ class CreateOrderController extends Controller
         }
         $userId = $request->user()->id;
 
-        //cria um novo pedido
+       
         $sumPrice = $this->productService->fethPricesProduct($data['items']);
+        
         $newOder = $this->orderService->create($userId, 'pending', $sumPrice, $adressId);
-
 
         $newOrderItems = $this->orderItemsService->create($data['items'], $newOder->id);
 
         $preference = $this->mcpService->createPreferenceService($data['items'], $sumPrice, $newOder->id);
+
+        CancelOrderJob::dispatch($newOder->id)->delay(now()->addMinutes(10));
 
 
         return response()->json([

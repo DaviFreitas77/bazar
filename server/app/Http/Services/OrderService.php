@@ -5,7 +5,7 @@ namespace App\Http\Services;
 use App\Models\Order;
 use App\Models\OrderItems;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+
 
 
 class OrderService
@@ -34,9 +34,9 @@ class OrderService
     }
 
 
-    public function updatePaymentOrderService($method, $idOrder,$userId)
+    public function updatePaymentOrderService($method, $idOrder, $userId)
     {
-   
+
         $order = Order::where('fk_user', $userId)->where('id', $idOrder)->first();
         if ($order->payment_method == null) {
             $order->payment_method = $method;
@@ -57,7 +57,7 @@ class OrderService
 
     public function fetchOrderUser($idUser)
     {
-        
+
         $orderUser =  Order::where('fk_user', $idUser)->get();
 
         $orderComplet = [];
@@ -81,7 +81,7 @@ class OrderService
             ];
         }
 
-          return response()->json($orderComplet);
+        return response()->json($orderComplet);
     }
 
     public function orderById($orderId)
@@ -90,13 +90,28 @@ class OrderService
         return $order;
     }
 
-    public function deleteOrderExpired()
+    public function cancelOrder($id)
     {
-        $order = Order::where('status', 'pending')->where('created_at', '<', now()->subMinutes(30))->get();
+        $order = Order::find($id);
 
-        foreach ($order as $ord) {
-            $ord->delete();
+        if (!$order) {
+            return response()->json([
+                'message' => 'Pedido não encontrado'
+            ], 404);
         }
+
+        if ($order->status !== 'pending') {
+            return response()->json([
+                'message' => 'Este pedido não pode ser cancelado'
+            ], 400);
+        }
+
+        $order->status = 'canceled';
+        $order->save();
+
+        return response()->json([
+            'message' => 'Pedido cancelado com sucesso'
+        ]);
     }
 
     public function fetchAllOrders()
@@ -104,6 +119,4 @@ class OrderService
         $orders = Order::all();
         return $orders;
     }
-
-    
 }

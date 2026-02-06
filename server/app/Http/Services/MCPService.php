@@ -113,7 +113,7 @@ class MCPService
 
             //numero do pedido
             $numberOrder = Order::where('id', $payment->external_reference)->first();
-            
+
             $paymentMethod = $payment->payment_type_id;
             $totalOrder = $payment->transaction_amount;
 
@@ -137,11 +137,11 @@ class MCPService
             })->toArray();
 
             if ($payment->status === "approved") {
-                SendOrderCreatedEmailJob::dispatch($emailUser, $nameUser, $numberOrder->number_order, $productsData,$paymentMethod,$totalOrder,);
+                SendOrderCreatedEmailJob::dispatch($emailUser, $nameUser, $numberOrder->number_order, $productsData, $paymentMethod, $totalOrder,);
 
                 SendNewOrderEmailToAdminJob::dispatch($nameUser, $numberOrder->number_order, $productsData, $telUser);
- 
-            
+
+
 
                 $this->orderService->changeOrderStatus('preparando', $payment->external_reference);
 
