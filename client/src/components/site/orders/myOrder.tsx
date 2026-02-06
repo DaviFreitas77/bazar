@@ -2,6 +2,10 @@ import type { OrderProps } from "@/api/@types/order";
 import { CiTimer } from "react-icons/ci";
 
 export function MyOrder({ number_order, created_at, total, status, item }: OrderProps) {
+
+
+  const formatedStatus = status == 'preparando' ? 'Preparando' : status == 'pending' ? 'Pendente' : 'Completo'
+
   return (
     <div className="mt-10 border  rounded-sm border-gray-200">
       <div className=" flex flex-col md:flex-row  gap-5 md:items-center justify-between border-b p-4 border-gray-200/50 bg-gray-100/50">
@@ -21,9 +25,9 @@ export function MyOrder({ number_order, created_at, total, status, item }: Order
           </p>
         </div>
 
-        <div className="bg-orange-300  text-center px-4 rounded-xs py-3 flex items-center gap-1">
+        <div className={`${formatedStatus == 'Pendente' ? 'bg-orange-300 ': formatedStatus == 'Preparando' ? 'bg-yellow-200': 'bg-green-300' }  text-center px-4 rounded-xs py-3 flex items-center gap-1`}>
           <CiTimer size={15} />
-          <p className="text-sm">{status}</p>
+          <p className={`text-sm`}>{formatedStatus}</p>
         </div>
       </div>
 
