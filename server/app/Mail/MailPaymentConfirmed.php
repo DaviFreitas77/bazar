@@ -3,27 +3,31 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Address;
-class MailOrderCreated extends Mailable
+class MailPaymentConfirmed extends Mailable
 {
     use Queueable, SerializesModels;
 
     public string $name;
     public string $numberOrder;
     public array $products;
+    public string $paymentMethod;
+    public float $totalOrder;
+    
     /**
      * Create a new message instance.
      */
-    public function __construct(string $name,string $numberOrder,array $products)
+    public function __construct(string $name,string $numberOrder,array $products, string $paymentMethod,  string $totalOrder)
     {
         $this->name = $name;
         $this->numberOrder = $numberOrder;
         $this->products = $products;
+        $this->paymentMethod = $paymentMethod;
+        $this->totalOrder = $totalOrder;
+        
     }
 
     /**
@@ -32,7 +36,6 @@ class MailOrderCreated extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('freitaadavi20@gmail.com', 'Bazar'),
             subject: 'Uhuul,pagamento confirmado',
         );
     }
@@ -43,8 +46,8 @@ class MailOrderCreated extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.viewMailOrderCreated',
-            with: ['name' => $this->name,'order'=>$this->numberOrder,'products'=>$this->products]
+            view: 'mail.paymentConfirmed',
+            with: ['name' => $this->name,'order'=>$this->numberOrder,'products'=>$this->products, 'paymentMethod'=> $this->paymentMethod, 'totalOrder' => $this->totalOrder]
         );
     }
 
@@ -57,4 +60,4 @@ class MailOrderCreated extends Mailable
     {
         return [];
     }
-}
+} 

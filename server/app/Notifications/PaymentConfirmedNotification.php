@@ -3,11 +3,12 @@
 namespace App\Notifications;
 
 use App\Mail\MailOrderCreated;
+use App\Mail\MailPaymentConfirmed;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class OrderCreatedOrderNotification extends Notification implements ShouldQueue
+class PaymentConfirmedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -17,7 +18,9 @@ class OrderCreatedOrderNotification extends Notification implements ShouldQueue
     public function __construct(
     public string $name,
     public string $numberOrder,
-    public array $products
+    public array $products,
+    public string $paymentMethod,
+    public float $totalOrder
     )
     {
         //
@@ -36,9 +39,9 @@ class OrderCreatedOrderNotification extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailOrderCreated
+    public function toMail(object $notifiable): MailPaymentConfirmed
     {
-        return (new MailOrderCreated($this->name, $this->numberOrder, $this->products))->to($notifiable->email);
+        return (new MailPaymentConfirmed($this->name, $this->numberOrder, $this->products,$this->paymentMethod,$this->totalOrder))->to($notifiable->email);
                    
     }
 

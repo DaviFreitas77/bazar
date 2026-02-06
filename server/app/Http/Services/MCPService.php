@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Jobs\SendNewOrderEmailToAdminJob;
 use App\Jobs\SendOrderCreatedEmailJob;
+use App\Mail\NewOrderMail;
 use App\Models\Order;
 use App\Models\OrderItems;
 use App\Models\Product;
@@ -11,18 +12,20 @@ use App\Models\User;
 use MercadoPago\Client\Preference\PreferenceClient;
 use ErrorException;
 
-use Illuminate\Support\Facades\Auth;
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Common\RequestOptions;
 use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\Exceptions\MPApiException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Resend\Laravel\Facades\Resend;
 
 MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
 
 class MCPService
 {
+
 
     public function __construct(private ColorService $colorService, private SizeService $sizeService, private OrderService $orderService, private ShoppingCartService $shoppingCartService)
     {
@@ -110,6 +113,10 @@ class MCPService
 
             //numero do pedido
             $numberOrder = Order::where('id', $payment->external_reference)->first();
+            
+            $paymentMethod = $payment->payment_type_id;
+            $totalOrder = $payment->transaction_amount;
+
 
             //recuperando produtos ligado ao pedido
             $orderItems = OrderItems::with('product.images')->where('fk_order', $numberOrder->id)->get();
@@ -130,13 +137,15 @@ class MCPService
             })->toArray();
 
             if ($payment->status === "approved") {
-                SendOrderCreatedEmailJob::dispatch($emailUser, $nameUser, $numberOrder->number_order, $productsData);
+                SendOrderCreatedEmailJob::dispatch($emailUser, $nameUser, $numberOrder->number_order, $productsData,$paymentMethod,$totalOrder,);
 
                 SendNewOrderEmailToAdminJob::dispatch($nameUser, $numberOrder->number_order, $productsData, $telUser);
+ 
+            
 
                 $this->orderService->changeOrderStatus('preparando', $payment->external_reference);
 
-                $this->orderService->updatePaymentOrderService($payment->payment_type_id, $payment->external_reference,$userId);
+                $this->orderService->updatePaymentOrderService($payment->payment_type_id, $payment->external_reference, $userId);
 
                 $this->shoppingCartService->deleteCartUser($userId);
             } elseif ($payment->status === "in_process") {

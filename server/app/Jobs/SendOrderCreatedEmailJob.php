@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\User;
 use App\Notifications\OrderCreatedOrderNotification;
+use App\Notifications\PaymentConfirmedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
@@ -18,7 +19,9 @@ class SendOrderCreatedEmailJob implements ShouldQueue
         public string $email,
         public string $name,
         public string $numberOrder,
-        public array $products
+        public array $products,
+        public string $paymentMethod,
+        public float $totalOrder
     ) {}
 
     /**
@@ -29,7 +32,7 @@ class SendOrderCreatedEmailJob implements ShouldQueue
         $user = User::where('email', $this->email)->first();
 
         if ($user){
-            $user->notify(new OrderCreatedOrderNotification($this->name, $this->numberOrder, $this->products));
+            $user->notify(new PaymentConfirmedNotification($this->name, $this->numberOrder, $this->products,$this->paymentMethod,$this->totalOrder));
         }
 
     }

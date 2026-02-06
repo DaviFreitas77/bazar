@@ -167,6 +167,7 @@
       font-size:15px;
       font-weight:600;
       color:#1f2937;
+      margin-right:5px;
     ">
           Total
         </span>
@@ -176,7 +177,7 @@
       font-weight:700;
       color:#3b2f2f;
     ">
-          R$ 150,00
+          R$ {{ number_format($totalOrder, 2, ',', '.') }}
         </span>
       </div>
     </div>
@@ -204,7 +205,7 @@
     font-size:13px;
     color:#047857;
   ">
-        Credito
+        {{$paymentMethod}}
       </p>
 
     </div>
