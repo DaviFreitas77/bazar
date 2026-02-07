@@ -6,17 +6,25 @@ Uma plataforma de e-commerce moderna e responsiva desenvolvida com React e TypeS
 
 O projeto foi construído utilizando uma stack moderna para garantir performance e manutenibilidade:
 
-- **[React](https://react.dev/)** + **[Vite](https://vitejs.dev/)**: Para uma interface rápida e desenvolvimento ágil.
-- **[TypeScript](https://www.typescriptlang.org/)**: Para tipagem estática e maior segurança no código.
-- **[Tailwind CSS](https://tailwindcss.com/)**: Para estilização utilitária e responsiva.
-- **[React Router](https://reactrouter.com/)**: Para gerenciamento de rotas e navegação.
-- **[React Hook Form](https://react-hook-form.com/)** + **[Yup](https://github.com/jquense/yup)**: Para criação e validação de formulários complexos.
-- **[Axios](https://axios-http.com/)**: Para comunicação com a API Backend.
-- **[Mercado Pago SDK](https://www.mercadopago.com.br/developers/pt/docs/sdks-library/client-side/sdk-js-react-installation)**: Para integração de pagamentos transparente (Pix, Cartão).
-- **[Resend](https://resend.com/docs/send-with-laravel)**: Para envio de emails controlados.
-- **[Swiper](https://swiperjs.com/react)**: Para carrosséis de imagens e produtos.
-- **[Sonner](https://sonner.emilkowal.ski/)**: Para notificações (toasts) elegantes.
-- **[Lucide React](https://lucide.dev/)**: Para ícones consistentes.
+### Front-end
+
+- **TypeScript**
+- **React**
+- **Tailwind CSS**
+- **Shadcn UI**
+- **Magic UI**
+
+### Back-end
+
+- **PHP**
+- **Laravel**
+- **mysql**
+
+### Integrações
+
+- **Mercado Pago**
+- **ViaCEP**
+- **Resend**
 
 ## Funcionalidades
 
