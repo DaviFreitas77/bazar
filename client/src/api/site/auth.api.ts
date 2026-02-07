@@ -5,8 +5,6 @@ import { api } from "@/lib/api";
 import type { AxiosResponse } from "axios";
 
 
-
-
 export const getMe = async () => {
   const response = await api.get("/auth/profile");
   return response.data;
