@@ -4,7 +4,16 @@ import { CiTimer } from "react-icons/ci";
 export function MyOrder({ number_order, created_at, total, status, item }: OrderProps) {
 
 
-  const formatedStatus = status == 'preparando' ? 'Preparando' : status == 'pending' ? 'Pendente' : 'Completo'
+  let formatedStatus = status == 'preparando' ? 'Preparando' : status == 'pending' ? 'Pendente' : status == 'completed' ? 'Completo' : 'Cancelado'
+
+
+  const style = formatedStatus === 'Pendente'
+    ? 'bg-orange-300'
+    : formatedStatus === 'Preparando'
+    ? 'bg-yellow-200'
+    : formatedStatus === 'Completo'
+    ? 'bg-green-300'
+    : 'bg-red-300'
 
   return (
     <div className="mt-10 border  rounded-sm border-gray-200">
@@ -25,7 +34,7 @@ export function MyOrder({ number_order, created_at, total, status, item }: Order
           </p>
         </div>
 
-        <div className={`${formatedStatus == 'Pendente' ? 'bg-orange-300 ': formatedStatus == 'Preparando' ? 'bg-yellow-200': 'bg-green-300' }  text-center px-4 rounded-xs py-3 flex items-center gap-1`}>
+        <div className={`${style} text-center px-4 rounded-xs py-3 flex items-center gap-1`}>
           <CiTimer size={15} />
           <p className={`text-sm`}>{formatedStatus}</p>
         </div>
