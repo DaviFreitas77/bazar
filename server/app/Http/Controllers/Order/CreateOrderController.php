@@ -48,7 +48,7 @@ class CreateOrderController extends Controller
 
         $preference = $this->mcpService->createPreferenceService($data['items'], $sumPrice, $newOder->id);
 
-        CancelOrderJob::dispatch($newOder->id)->delay(now()->addMinutes(10));
+        // CancelOrderJob::dispatch($newOder->id)->delay(now()->addMinutes(10));
 
 
         return response()->json([
