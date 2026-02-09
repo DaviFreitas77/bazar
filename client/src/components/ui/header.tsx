@@ -38,7 +38,7 @@ export function Header() {
 
             {/* LOGO */}
 
-            <a href="/localhost:5173/">
+            <a href="/">
               <img src="/images/logo.png" alt="" className="w-20" />
             </a>
 

@@ -2,7 +2,7 @@ import { deleteProduct } from "@/api/admin/productAdmin";
 import { Pagination } from "@/components/site/search/pagination";
 import { DropDown, NativeSelectOption } from "@/components/ui/native-select";
 import { useAllProducts } from "@/hooks/site/useAllProducts";
-import { Pencil, Search, Trash } from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -18,7 +18,7 @@ export function TableProduct() {
 
   let productsPerPage = 15;
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: products, refetch,isLoading:loadingProducts} = useAllProducts();
+  const { data: products, refetch} = useAllProducts();
 
   const filteredProducts = useMemo(() => {
     let result = [...(products ?? [])];
