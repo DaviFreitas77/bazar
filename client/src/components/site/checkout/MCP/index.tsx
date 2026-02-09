@@ -8,7 +8,7 @@ import { Loading } from "@/components/site/loading/loading";
 import { PixQRCode } from "./PixQrCode";
 import { createOrder } from "@/api/site/order.api";
 
-const publicKey = "TEST-c87560f2-2e8e-439c-912f-ee65c7460423"
+const publicKey = "APP_USR-ea6cbb6f-9a22-476b-a44c-d3270ec16d20"
 
 initMercadoPago(publicKey, {
   locale: "pt-BR",
