@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Log;
 
 class billingController extends Controller
 {
@@ -16,7 +17,7 @@ class billingController extends Controller
     {
         $ordersCompleted = Order::where('status', 'preparando')->get();
 
-
+          
         $billingTotal = $ordersCompleted->sum('total');
 
 
@@ -125,17 +126,17 @@ class billingController extends Controller
              'billingTotal' => number_format($billingTotal, 2, '.', ''),
 
             'billingMonth' => [
-                'value' => number_format($billingTotal, 2, '.', ''),
+                'value' => number_format($billingMonth, 2, '.', ''),
                 'variation' => $resultCurrentMonth,
             ],
 
             'billingToday' => [
-                'value' => number_format($billingTotal, 2, '.', ''),
+                'value' => number_format($billingToday, 2, '.', ''),
                 'variation' => $resultCurrentDay,
             ],
 
             'billingCurrentTrimester' => [
-                'value' => number_format($billingTotal, 2, '.', ''),
+                'value' => number_format($billingCurrentTrimester, 2, '.', ''),
                 'variation' => $resultCurrentTrimester,
             ],
         ]);
