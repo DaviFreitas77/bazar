@@ -38,7 +38,9 @@ export function Header() {
 
             {/* LOGO */}
 
-            <img src="/images/logo.png" alt="" className="w-20" />
+            <a href="/localhost:5173/">
+              <img src="/images/logo.png" alt="" className="w-20" />
+            </a>
 
             <div className="gap-8 text-sm hidden lg:flex">
               {allCategories?.map((category) => (

@@ -16,12 +16,12 @@ export function AsideUser({ namePage }: AsideUserProps) {
           </Link>
           <FaChevronRight size={13} className="text-primary-100" />
         </div>
-        <div className="flex items-center justify-between hover:opacity-80 cursor-pointer">
+        {/* <div className="flex items-center justify-between hover:opacity-80 cursor-pointer">
           <p className="text-sm">Favoritos</p>
           <FaChevronRight size={13} className="text-primary-100" />
-        </div>
+        </div> */}
       </div>
-      <div className="flex flex-col gap-4">
+      {/* <div className="flex flex-col gap-4">
         <h2 className="font-bold text-gray-700 text-lg">Meu cadastro</h2>
         <div className="flex items-center justify-between hover:opacity-80 cursor-pointer">
           <Link to="/meus-enderecos" className={`text-sm ${namePage === "Meus endereços" ? "text-primary-100" : "text-gray-700"}`}>
@@ -33,7 +33,7 @@ export function AsideUser({ namePage }: AsideUserProps) {
           <p className="text-sm">Meus cartões</p>
           <FaChevronRight size={13} className="text-primary-100" />
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

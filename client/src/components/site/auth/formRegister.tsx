@@ -10,7 +10,6 @@ import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
 import type { Register } from "@/@types/auth/register";
 
-
 interface FormRegisterProps {
   onChangeForm: () => void;
   onClose: () => void;
@@ -20,7 +19,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
   const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const { setName, setEmail, setLastName, setTel,setRole} = useUser();
+  const { setName, setEmail, setLastName, setTel, setRole } = useUser();
 
   const {
     register,
@@ -43,8 +42,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
       setLastName(response.user.lastName);
       setTel(response.user.tel);
       setRole(response.user.role);
-      localStorage.setItem('token',response.token);
-      
+      localStorage.setItem("token", response.token);
     } catch (error: any) {
       if (error.response?.data?.message) {
         setErrorMessage(error.response.data.message);
@@ -57,7 +55,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
   };
 
   return (
-    <main >
+    <main>
       <div className="flex flex-col mb-2 ">
         <h2 className="mt-4 text-xl font-bold">Crie sua conta</h2>
         <p className="text-sm text-gray-600 mt-2">Preencha os campos abaixo para começar a usar a plataforma.</p>
@@ -110,12 +108,18 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
 
             <span className="absolute top-10.5 right-6">
               <button type="button" onClick={() => setVisiblePassword(!visiblePassword)} className="cursor-pointer hover:opacity-85">
-                {visiblePassword ? <FaRegEyeSlash size={17} /> : <IoEyeOutline size={17} /> }
+                {visiblePassword ? <FaRegEyeSlash size={17} /> : <IoEyeOutline size={17} />}
               </button>
             </span>
 
             <div className="h-2 mt-1">{errors.password ? <span className="text-red-500 text-xs">{errors.password.message}</span> : <span className="text-red-500 text-xs">{errorMessage}</span>}</div>
           </div>
+        </div>
+
+        <div>
+          <input type="checkbox" {...register("terms")} className="mr-2" />
+          <label className="text-sm text-gray-600">Li e concordo com os <a href="/termos" className="text-primary hover:underline">Termos de Uso</a></label>
+          <div className="h-2 my-2">{errors.terms && <span className="text-red-500 text-xs">{errors.terms.message}</span>}</div>
         </div>
         <div className="flex w-full">
           <button type="submit" className="bg-primary-50 transition-colors text-white px-6 p-3 rounded-sm-sm font-semibold w-full hover:bg-primary-100 cursor-pointer mt-4">
