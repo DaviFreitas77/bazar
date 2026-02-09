@@ -83,6 +83,11 @@
   border: 2px solid #f0f0f0; /* espaço ao redor */
 }
 
+
+.linear-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
 /* MERCADO PAGO */
 .mp-checkout-bricks__payment-form {
   padding: 0px !important;
