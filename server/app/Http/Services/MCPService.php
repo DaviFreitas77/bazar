@@ -137,9 +137,9 @@ class MCPService
             })->toArray();
 
             if ($payment->status === "approved") {
-                SendOrderCreatedEmailJob::dispatch($emailUser, $nameUser, $numberOrder->number_order, $productsData, $paymentMethod, $totalOrder,);
+                // SendOrderCreatedEmailJob::dispatch($emailUser, $nameUser, $numberOrder->number_order, $productsData, $paymentMethod, $totalOrder,);
 
-                SendNewOrderEmailToAdminJob::dispatch($nameUser, $numberOrder->number_order, $productsData, $telUser);
+                // SendNewOrderEmailToAdminJob::dispatch($nameUser, $numberOrder->number_order, $productsData, $telUser);
 
 
 

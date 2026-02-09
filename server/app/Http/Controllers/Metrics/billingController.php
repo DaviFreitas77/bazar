@@ -109,7 +109,7 @@ class billingController extends Controller
 
             $resultCurrentMonth = round($resultCurrentMonth);
         }
-        
+
 
         //calc result current day
 
@@ -121,24 +121,23 @@ class billingController extends Controller
             $resultCurrentDay = round($resultCurrentDay);
         }
 
-       return response()->json([
-    'billingTotal' => $billingTotal,
+        return response()->json([
+             'billingTotal' => number_format($billingTotal, 2, '.', ''),
 
-    'billingMonth' => [
-        'value' => $billingMonth,
-        'variation' => $resultCurrentMonth,
-    ],
+            'billingMonth' => [
+                'value' => number_format($billingTotal, 2, '.', ''),
+                'variation' => $resultCurrentMonth,
+            ],
 
-    'billingToday' => [
-        'value' => $billingToday,
-        'variation' => $resultCurrentDay,
-    ],
+            'billingToday' => [
+                'value' => number_format($billingTotal, 2, '.', ''),
+                'variation' => $resultCurrentDay,
+            ],
 
-    'billingCurrentTrimester' => [
-        'value' => $billingCurrentTrimester,
-        'variation' => $resultCurrentTrimester,
-    ],
-]);
-
+            'billingCurrentTrimester' => [
+                'value' => number_format($billingTotal, 2, '.', ''),
+                'variation' => $resultCurrentTrimester,
+            ],
+        ]);
     }
 }

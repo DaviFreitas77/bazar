@@ -5,8 +5,7 @@ namespace App\Http\Services;
 use App\Models\Order;
 use App\Models\OrderItems;
 use App\Models\User;
-
-
+use Illuminate\Support\Facades\Log;
 
 class OrderService
 {
@@ -82,6 +81,36 @@ class OrderService
         }
 
         return response()->json($orderComplet);
+    }
+
+    public function fetchItemsOrder($idOrder)
+    {
+
+        $orderById =  Order::where('id', $idOrder)->get();
+
+        
+        $orderComplet = [];
+        foreach ($orderById as $order) {
+            $orderItems = OrderItems::with('product.images', 'color', 'size')
+                ->where('fk_order', $idOrder)
+                ->get();
+
+
+            $infoproducts = $orderItems->map(function ($item) {
+                return ['nameProduct' => $item->product->name, 'quantityProduct' => $item->quantity, 'imageProduct' => $item->product->images->first()->image, 'colorProduct' => $item->color->name, 'sizeProduct' => $item->size->name];
+            });
+
+            $orderComplet[] = [
+                'numberOrder'    => $order->number_order,
+                'status'         => $order->status,
+                'total'          => $order->total,
+                'payment_method' => $order->payment_method,
+                'created_at'     => $order->created_at,
+                'items'          => $infoproducts
+            ];
+        }
+
+      return $orderComplet;
     }
 
     public function orderById($orderId)
