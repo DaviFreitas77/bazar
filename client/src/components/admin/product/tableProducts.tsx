@@ -82,8 +82,8 @@ export function TableProduct() {
                 <NativeSelectOption value="lowestPrice">Menor Preço</NativeSelectOption>
               </DropDown>
 
-              <input type="text" placeholder="Buscar produtos..." className="border border-gray-300 rounded-lg w-100 pl-8 text-sm outline-none focus:ring-1 focus:ring-primary-50" />
-              <Search className="absolute left-45 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+              {/* <input type="text" placeholder="Buscar produtos..." className="border border-gray-300 rounded-lg w-100 pl-8 text-sm outline-none focus:ring-1 focus:ring-primary-50" />
+              <Search className="absolute left-45 top-1/2 -translate-y-1/2 text-gray-400" size={18} /> */}
             </div>
             <Link to="/admin/novo-produto" className="bg-primary-50 text-white px-4 rounded-md flex items-center gap-2 cursor-pointer">
               <AiOutlinePlus size={15} />

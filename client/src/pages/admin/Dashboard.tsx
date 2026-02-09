@@ -72,20 +72,22 @@ export function Dashboard() {
         </section>
 
         <motion.div
-        animate={{ opacity: 1,y:0 }} initial={{ opacity: 0, y: -50 }}transition={{
-            duration:0.8,
-            delay:0.5,
+          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -50 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5,
             ease: "anticipate",
           }}
-        className="mt-10">
+          className="mt-10"
+        >
           <TableOrders />
         </motion.div>
         <section className="mt-10"></section>
 
         <div className="flex  gap-4 mt-10">
-         
           <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} dataKey="payment" />
-        
+
           <FinancialCard />
         </div>
       </LayoutSidebar>

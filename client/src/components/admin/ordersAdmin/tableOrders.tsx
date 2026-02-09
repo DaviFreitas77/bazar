@@ -2,6 +2,7 @@ import { Pagination } from "@/components/site/search/pagination";
 import { useMemo, useState } from "react";
 import { ActionOrder } from "./actionsOrders";
 import { useAllOrders } from "@/hooks/admin/useAllOrders";
+import { OrderDetailsModal } from "./OrderDetailsModal";
 const THEMES = { light: "", dark: ".dark" } as const;
 export type ChartConfig = {
   [k in string]: {
@@ -10,14 +11,16 @@ export type ChartConfig = {
   } & ({ color?: string; theme?: never } | { color?: never; theme: Record<keyof typeof THEMES, string> });
 };
 
-
-
-
 export function TableOrders() {
   const { data: allOrders } = useAllOrders();
   const [filterOrder, setFilterOrder] = useState("relevance");
   const ordersPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
+  const [idOrder, setIdOrder] = useState(0);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+
 
   const parseDate = (date: string) => {
     const [day, month, year] = date.split("/");
@@ -90,7 +93,14 @@ export function TableOrders() {
           <tbody className="bg-white divide-y divide-gray-200">
             {currentItems.length > 0 ? (
               currentItems.map((order) => (
-                <tr key={order.id} className="hover:bg-gray-50 transition">
+                <tr
+                  onClick={() => {
+                    setIdOrder(order.id);
+                    setIsOpen(true);
+                  }}
+                  key={order.id}
+                  className="hover:bg-gray-50 transition cursor-pointer"
+                >
                   <td className="px-4 py-2 font-semibold text-primary-50">#{order.number_order}</td>
                   <td className="px-4 py-2 capitalize">{order.user}</td>
                   <td className="px-4 py-2">{order.cupom ?? "-"}</td>
@@ -125,6 +135,8 @@ export function TableOrders() {
           <Pagination currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />
         </div>
       </section>
+
+      <OrderDetailsModal   isOpen={isOpen} onClose={() => setIsOpen(false)} idOrder={idOrder} />
     </div>
   );
 }
