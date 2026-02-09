@@ -48,13 +48,13 @@ export function Orders() {
           </div>
 
           {isLoadingMyOrders ? (
-            <div className="flex justify-center items-center h-80 w-full">
+            <div className="flex justify-center items-center w-full">
               <Loading />
             </div>
           ) : sortedOrders && sortedOrders.length > 0 ? (
             sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} number_order={order.numberOrder} created_at={order.created_at} total={order.total} status={order.status} item={order.items} />)
           ) : (
-            <div className="flex justify-center items-center h-full">
+            <div className="flex justify-center items-center ">
               <p className="text-center text-gray-500  flex flex-col items-center gap-4">
                 <span className="text-2xl text-primary-50">
                   <BsBoxSeam size={40} />
