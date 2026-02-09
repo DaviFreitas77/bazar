@@ -26,7 +26,7 @@ class UserService
 
 
 
-  public function updateUser(array $data,User $user)
+  public function updateUser(array $data, User $user)
   {
     $idUser = $user['id'];
     $user = User::find($idUser);

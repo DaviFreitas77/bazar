@@ -20,7 +20,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
   const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const { setName, setEmail, setLastName, setTel } = useUser();
+  const { setName, setEmail, setLastName, setTel,setRole} = useUser();
 
   const {
     register,
@@ -42,6 +42,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
       setName(response.user.name);
       setLastName(response.user.lastName);
       setTel(response.user.tel);
+      setRole(response.user.role);
       localStorage.setItem('token',response.token);
       
     } catch (error: any) {
