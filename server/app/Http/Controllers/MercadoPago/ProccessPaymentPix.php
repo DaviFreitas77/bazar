@@ -31,12 +31,6 @@ class ProccessPaymentPix extends Controller
                 "payment_method_id" => $data['payment_method_id'],
                 "payer" => [
                     "email" => $data["payer"]["email"],
-                    "first_name" => $data["payer"]["first_name"] ?? "Cliente",
-                    "last_name" => $data["payer"]["last_name"] ?? "Loja",
-                    "identification" => [
-                        "type"   => $data["payer"]["identification"]["type"],
-                        "number" => $data["payer"]["identification"]["number"]
-                    ]
                 ],
                 "external_reference" => strval($order),
             ], $request_options);
