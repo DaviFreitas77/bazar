@@ -38,8 +38,7 @@ export function Product() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const { data: recomendation } = useProductsByCategory(product?.categoryName?? null);
-
+  const { data: recomendation } = useProductsByCategory(product?.categoryName ?? null);
 
   const chooseImage = useMemo(() => {
     return images[numberImage]?.image ?? "";
@@ -112,7 +111,7 @@ export function Product() {
                       }}
                       navigation
                       pagination={{ clickable: true }}
-                      className="w-full"
+                      className="w-full product-swiper"
                     >
                       {images &&
                         images.map((image) => (
