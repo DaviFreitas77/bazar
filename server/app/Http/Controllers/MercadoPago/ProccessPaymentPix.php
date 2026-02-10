@@ -38,10 +38,7 @@ class ProccessPaymentPix extends Controller
                     "email" => $data['payer']['email'],
                     "first_name" => $data['payer']['first_name'] ?? '',
                     "last_name" => $data['payer']['last_name'] ?? '',
-                    "identification" => [
-                        "type" => "CPF",
-                        "number" => "19119119100"
-                    ]
+                   
 
                 ],
                 "external_reference" => strval($order)
