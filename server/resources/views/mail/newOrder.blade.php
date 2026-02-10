@@ -125,11 +125,23 @@
                   font-weight:700;
                   color:#3b2f2f;
                 ">
-                  R$ 150,00
+                  R$ {{ number_format($totalOrder, 2, ',', '.') }}
                 </p>
 
                 <p style="margin:8px 0 0; font-size:13px; color:#6b7280;">
-                  credito
+                  @switch($paymentMethod)
+                  @case('credit_card')
+                  Cartão de crédito
+                  @break
+
+                  @case('bank_transfer')
+                  PIX
+                  @break
+
+                  @case('ticket')
+                  Boleto
+                  @break
+                  @endswitch
                 </p>
               </div>
 

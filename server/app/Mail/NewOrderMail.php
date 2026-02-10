@@ -20,7 +20,9 @@ class NewOrderMail extends Mailable
         public string $name,
         public string $numberOrder,
         public array $products,
-        public string $telUser
+        public string $telUser,
+        public string $paymentMethod,
+        public float $totalOrder
     ) {}
 
     /**
@@ -43,7 +45,7 @@ class NewOrderMail extends Mailable
             view: 'mail.newOrder',
             // Com propriedades públicas no construtor, o 'with' é opcional,
             // mas você pode manter se quiser renomear variáveis.
-             with:['name' => $this->name,'numberOrder' => $this->numberOrder,'products' => $this->products,'tel' => $this->telUser]
+             with:['name' => $this->name,'numberOrder' => $this->numberOrder,'products' => $this->products,'tel' => $this->telUser, 'paymentMethod' => $this->paymentMethod, 'totalOrder' => $this->totalOrder]
         );
     }
 

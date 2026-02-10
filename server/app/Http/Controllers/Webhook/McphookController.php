@@ -82,7 +82,9 @@ class McphookController extends Controller
                             $user->name,
                             $order->number_order,
                             $productsData,
-                            $user->tel
+                            $user->tel,
+                            $data['payment_type_id'],
+                            $data['transaction_amount']
                         );
                         break;
 

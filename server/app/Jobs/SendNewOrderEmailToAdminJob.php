@@ -14,7 +14,7 @@ class SendNewOrderEmailToAdminJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(public string $name,public string $numberOrder,public array $products,public string $telUser)
+    public function __construct(public string $name,public string $numberOrder,public array $products,public string $telUser,public string $paymentMethod,public float $totalOrder)
     {
         //
     }
@@ -24,6 +24,6 @@ class SendNewOrderEmailToAdminJob implements ShouldQueue
      */
     public function handle(): void
     {
-        User::where('role','admin')->get()->each(fn(User $user)=> $user->notify(new NewOrderNotification($this->name,$this->numberOrder,$this->products,$this->telUser)));
+        User::where('role','admin')->get()->each(fn(User $user)=> $user->notify(new NewOrderNotification($this->name,$this->numberOrder,$this->products,$this->telUser,$this->paymentMethod,$this->totalOrder)));
     }
 }

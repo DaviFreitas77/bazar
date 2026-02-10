@@ -210,7 +210,7 @@
         Cartão de crédito
         @break
 
-        @case('bankTransfer')
+        @case('bank_transfer')
         PIX
         @break
 
