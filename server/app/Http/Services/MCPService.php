@@ -134,25 +134,7 @@ class MCPService
                     'quantity' => $item->quantity,
                     'image' => $imageUrl
                 ];
-            })->toArray();
-
-            if ($payment->status === "approved") {
-                // SendOrderCreatedEmailJob::dispatch($emailUser, $nameUser, $numberOrder->number_order, $productsData, $paymentMethod, $totalOrder,);
-
-                // SendNewOrderEmailToAdminJob::dispatch($nameUser, $numberOrder->number_order, $productsData, $telUser);
-
-
-
-                $this->orderService->changeOrderStatus('preparando', $payment->external_reference);
-
-                $this->orderService->updatePaymentOrderService($payment->payment_type_id, $payment->external_reference, $userId);
-
-                $this->shoppingCartService->deleteCartUser($userId);
-            } elseif ($payment->status === "in_process") {
-                $this->orderService->changeOrderStatus('processando', $payment->external_reference);
-            } else {
-                return response()->json($payment);
-            }
+            })->toArray();  
             return response()->json([
                 'payment' => $payment,
                 'numberOrder' => $numberOrder->number_order
