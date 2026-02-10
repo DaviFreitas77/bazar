@@ -34,7 +34,7 @@ class ProccessPaymentPix extends Controller
             $payment = $client->create([
                 "transaction_amount" => (float) $data['transaction_amount'],
                 "payment_method_id" => $data['payment_method_id'],
-                "url_notification" => env('MERCADO_PAGO_NOTIFICATION_URL'),
+                "notification_url" => env('MERCADO_PAGO_NOTIFICATION_URL'),
                 "description" => "Bazar",
                 "payer" => [
                     "email" => $data['payer']['email'],
