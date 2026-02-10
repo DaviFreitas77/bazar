@@ -9,7 +9,7 @@ import { PixQRCode } from "./PixQrCode";
 import { createOrder } from "@/api/site/order.api";
 import { useUser } from "@/context/userContext";
 
-const publicKey = "APP_USR-ea6cbb6f-9a22-476b-a44c-d3270ec16d20";
+const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
 
 initMercadoPago(publicKey, {
   locale: "pt-BR",
@@ -58,9 +58,12 @@ export function PaymentMercadoPago() {
       setQrCodeBase64(response.point_of_interaction.transaction_data.qr_code_base64);
       setQrCode(response.point_of_interaction.transaction_data.qr_code);
 
+      
+
       if (response.status === "approved") {
         setStep((prev) => prev + 1);
       }
+      
       return;
     }
 
