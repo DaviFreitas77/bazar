@@ -23,6 +23,7 @@ export function Product() {
   const [selectedColorName, setSelectedColorName] = useState<string>("");
   const [selectedSizeName, setSelectedSizeName] = useState<string>("");
   const [numberImage, setNumberImage] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
   const { dispatch } = useCart();
   const { name } = useUser();
   const { pathname } = useLocation();
@@ -50,32 +51,40 @@ export function Product() {
     if (!selectedColor || !selectedSize) {
       return alert("selecione cor e tamanho");
     }
-    dispatch({
-      type: "addItem",
-      payload: {
-        id: product!.id,
-        name: product!.name,
-        price: Number(product?.price),
-        image: imageProduct,
-        quantity: 1,
-        color: selectedColor,
-        size: selectedSize,
-        colorName: selectedColorName,
-        sizeName: selectedSizeName,
-      },
-    });
+    setLoading(true);
+    try {
+      if (name) {
+        await apiAddProduct({
+          id: product!.id,
+          name: product!.name,
+          price: Number(product?.price),
+          image: imageProduct,
+          quantity: 1,
+          color: selectedColor,
+          size: selectedSize,
+        });
+      }
 
-    if (name) {
-      await apiAddProduct({
-        id: product!.id,
-        name: product!.name,
-        price: Number(product?.price),
-        image: imageProduct,
-        quantity: 1,
-        color: selectedColor,
-        size: selectedSize,
+      dispatch({
+        type: "addItem",
+        payload: {
+          id: product!.id,
+          name: product!.name,
+          price: Number(product?.price),
+          image: imageProduct,
+          quantity: 1,
+          color: selectedColor,
+          size: selectedSize,
+          colorName: selectedColorName,
+          sizeName: selectedSizeName,
+        },
       });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
+
     setSelectedColor(null);
     setSelectedSize(null);
     toast.success("Produto adicionado ao carrinho!");
@@ -185,9 +194,9 @@ export function Product() {
                   ))}
                 </div>
               </AccordionFilter>
-              <button onClick={handleAddCart} className="bg-primary-50 hover:bg-primary-100 text-white py-3 w-full rounded-xs font-medium text-base hover:opacity-85 cursor-pointer flex itmes-center justify-center gap-2">
+              <button onClick={handleAddCart} className="bg-primary-50  text-white py-3 w-full rounded-xs font-medium text-base hover:opacity-85 cursor-pointer flex itmes-center justify-center gap-2">
                 <LiaShoppingBagSolid size={22} />
-                Adicionar à sacola
+                {loading ? "Carregando..." : "Adicionar à sacola"}
               </button>
               <button className="flex items-center justify-center gap-2 text-gray-700 cursor-pointer text-sm ">
                 <FaWhatsapp size={22} />
