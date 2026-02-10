@@ -7,8 +7,9 @@ import { useCheckout } from "@/context/checkoutContext";
 import { Loading } from "@/components/site/loading/loading";
 import { PixQRCode } from "./PixQrCode";
 import { createOrder } from "@/api/site/order.api";
+import { useUser } from "@/context/userContext";
 
-const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60"
+const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
 
 initMercadoPago(publicKey, {
   locale: "pt-BR",
@@ -18,6 +19,7 @@ export function PaymentMercadoPago() {
   const { setStep, setPreference, preference, idLogradouro } = useCheckout();
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
+  const {name,email,lastName} = useUser();
 
   useEffect(() => {
     const createPreference = async () => {
@@ -36,6 +38,11 @@ export function PaymentMercadoPago() {
   const initialization = {
     preferenceId: preference.id,
     amount: Number(preference.total.toFixed(2)),
+    payer: {
+      firstName: name || "",
+      lastName: email || "",
+      email: lastName || "",
+    },
   };
   const customization = {
     paymentMethods: {
@@ -47,7 +54,7 @@ export function PaymentMercadoPago() {
   };
   const handleSubmit = async ({ formData, selectedPaymentMethod }: any) => {
     if (selectedPaymentMethod === "bank_transfer") {
-      const response = await apiProcessPaymentPix(formData,preference.orderId);
+      const response = await apiProcessPaymentPix(formData, preference.orderId);
       setQrCodeBase64(response.point_of_interaction.transaction_data.qr_code_base64);
       setQrCode(response.point_of_interaction.transaction_data.qr_code);
 
