@@ -23,7 +23,7 @@ class ProccessPaymentPix extends Controller
         try {
             $data = $request->formdata;
             $order = $request->order;
-            
+
             Log::info('Processing PIX payment', ['data' => $data, 'order' => $order]);
             $client = new PaymentClient();
             $request_options = new RequestOptions();
@@ -41,8 +41,10 @@ class ProccessPaymentPix extends Controller
             ], $request_options);
 
             return response()->json($payment, Response::HTTP_OK);
-        } catch (ErrorException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (\MercadoPago\Exceptions\MPApiException $e) {
+
+            return response()->json($e->getApiResponse()->getContent(), 400);
+            
         }
     }
 }
