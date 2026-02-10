@@ -7,6 +7,7 @@ use Dedoc\Scramble\Attributes\Group;
 use ErrorException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use MercadoPago\Client\Common\RequestOptions;
 use MercadoPago\Client\Payment\PaymentClient;
 
@@ -23,6 +24,7 @@ class ProccessPaymentPix extends Controller
             $data = $request->formdata;
             $order = $request->order;
             
+            Log::info('Processing PIX payment', ['data' => $data, 'order' => $order]);
             $client = new PaymentClient();
             $request_options = new RequestOptions();
 
@@ -32,8 +34,8 @@ class ProccessPaymentPix extends Controller
                 "payment_method_id" => $data['payment_method_id'],
                 "payer" => [
                     "email" => $data['payer']['email'],
-                    "first_name" => $data['payer']['first_name'],
-                    "last_name" => $data['payer']['last_name'],
+                    "first_name" => $data['payer']['first_name'] ?? '',
+                    "last_name" => $data['payer']['last_name'] ?? '',
                 ],
                 "external_reference" => strval($order)
             ], $request_options);
