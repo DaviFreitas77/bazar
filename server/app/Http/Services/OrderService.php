@@ -35,11 +35,9 @@ class OrderService
 
     public function updatePaymentOrderService($method, $idOrder, $userId)
     {
-
         $order = Order::where('fk_user', $userId)->where('id', $idOrder)->first();
         if ($order->payment_method == null) {
             $order->payment_method = $method;
-
             $order->save();
         }
         return $order;
@@ -88,7 +86,7 @@ class OrderService
 
         $orderById =  Order::where('id', $idOrder)->get();
 
-        
+
         $orderComplet = [];
         foreach ($orderById as $order) {
             $orderItems = OrderItems::with('product.images', 'color', 'size')
@@ -97,10 +95,13 @@ class OrderService
 
 
             $infoproducts = $orderItems->map(function ($item) {
-                return ['nameProduct' => $item->product->name, 'quantityProduct' => $item->quantity, 
-                'imageProduct' => $item->product->images->first()->image, 'colorProduct' => $item->color->name, 
-                'sizeProduct' => $item->size->name,
-                'price' => $item->product->price
+                return [
+                    'nameProduct' => $item->product->name,
+                    'quantityProduct' => $item->quantity,
+                    'imageProduct' => $item->product->images->first()->image,
+                    'colorProduct' => $item->color->name,
+                    'sizeProduct' => $item->size->name,
+                    'price' => $item->product->price
                 ];
             });
 
@@ -114,7 +115,7 @@ class OrderService
             ];
         }
 
-      return $orderComplet;
+        return $orderComplet;
     }
 
     public function orderById($orderId)
