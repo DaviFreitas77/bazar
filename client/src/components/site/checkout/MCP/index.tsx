@@ -19,7 +19,7 @@ export function PaymentMercadoPago() {
   const { setStep, setPreference, preference, idLogradouro } = useCheckout();
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
-  const {name,email,lastName} = useUser();
+  const { name, email, lastName } = useUser();
 
   useEffect(() => {
     const createPreference = async () => {
@@ -46,7 +46,6 @@ export function PaymentMercadoPago() {
   };
   const customization = {
     paymentMethods: {
-      ticket: ["all"],
       bankTransfer: ["all"],
       creditCard: ["all"],
     },
@@ -54,16 +53,17 @@ export function PaymentMercadoPago() {
   };
   const handleSubmit = async ({ formData, selectedPaymentMethod }: any) => {
     if (selectedPaymentMethod === "bank_transfer") {
+
       const response = await apiProcessPaymentPix(formData, preference.orderId);
       setQrCodeBase64(response.point_of_interaction.transaction_data.qr_code_base64);
       setQrCode(response.point_of_interaction.transaction_data.qr_code);
 
-      
+      console.log(response);
 
       if (response.status === "approved") {
         setStep((prev) => prev + 1);
       }
-      
+
       return;
     }
 
