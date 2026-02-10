@@ -17,7 +17,7 @@ class ProccessPaymentPix extends Controller
     /**
      * Process payment PIX
      */
-    public function __invoke(Request $request,$order)
+    public function __invoke(Request $request)
     {
         try {
             $data = $request->formdata;
@@ -29,8 +29,10 @@ class ProccessPaymentPix extends Controller
             $payment = $client->create([
                 "transaction_amount" => (float) $data['transaction_amount'],
                 "payment_method_id" => $data['payment_method_id'],
-             "payer" => [
+                "payer" => [
                     "email" => $data["payer"]["email"],
+                    "first_name" => $data["payer"]["first_name"] ?? "Cliente",
+                    "last_name" => $data["payer"]["last_name"] ?? "Loja",
                     "identification" => [
                         "type"   => $data["payer"]["identification"]["type"],
                         "number" => $data["payer"]["identification"]["number"]
