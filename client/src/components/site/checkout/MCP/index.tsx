@@ -47,7 +47,7 @@ export function PaymentMercadoPago() {
   };
   const handleSubmit = async ({ formData, selectedPaymentMethod }: any) => {
     if (selectedPaymentMethod === "bank_transfer") {
-      const response = await apiProcessPaymentPix(formData);
+      const response = await apiProcessPaymentPix(formData,preference.orderId);
       setQrCodeBase64(response.point_of_interaction.transaction_data.qr_code_base64);
       setQrCode(response.point_of_interaction.transaction_data.qr_code);
 
