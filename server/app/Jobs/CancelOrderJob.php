@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\Http\Services\OrderService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Log;
+
 
 class CancelOrderJob implements ShouldQueue
 {
