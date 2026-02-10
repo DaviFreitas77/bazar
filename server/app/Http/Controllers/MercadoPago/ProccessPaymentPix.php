@@ -14,13 +14,16 @@ use MercadoPago\Client\Payment\PaymentClient;
 #[Group('MercadoPago')]
 class ProccessPaymentPix extends Controller
 {
-    /**
-     * Process payment PIX
-     */
-    public function __invoke(Request $request)
+
+    public function __invoke($formdata, $order)
     {
         try {
-            $data = $request->all();
+            $data = $formdata;
+            $order = $order;
+
+            if (!$data) {
+                return response()->json(["error" => "formData ausente"], 400);
+            }
             $client = new PaymentClient();
             $request_options = new RequestOptions();
 
@@ -29,8 +32,13 @@ class ProccessPaymentPix extends Controller
                 "transaction_amount" => (float) $data['transaction_amount'],
                 "payment_method_id" => $data['payment_method_id'],
                 "payer" => [
-                    "email" => $data['payer']['email'],
-                ]
+                    "email" => $data["payer"]["email"],
+                    "identification" => [
+                        "type"   => $data["payer"]["identification"]["type"],
+                        "number" => $data["payer"]["identification"]["number"]
+                    ]
+                ],
+                "external_reference" => strval($order),
             ], $request_options);
 
             return response()->json($payment, Response::HTTP_OK);

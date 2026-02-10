@@ -69,7 +69,7 @@ class MCPService
     }
 
 
-    public function processPayment($formdata, $order,  User $user)
+    public function processPayment($formdata, $order)
     {
      
         try {

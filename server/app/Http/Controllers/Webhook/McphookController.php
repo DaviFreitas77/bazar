@@ -40,8 +40,6 @@ class McphookController extends Controller
             $data = $response->json();
             $order = Order::with('user')->find($data['external_reference']);
 
-            Log::info($order);
-
             if ($order) {
                 $user = $order->user;
                 $orderItems = OrderItems::with('product.images')
@@ -91,12 +89,18 @@ class McphookController extends Controller
                     case 'pending':
                         $this->orderService->changeOrderStatus('pending', $data['external_reference']);
                         break;
+
                     case 'rejected':
                         $this->orderService->changeOrderStatus('canceled', $data['external_reference']);
                         break;
 
+                    case 'in_process':
+                        $this->orderService->changeOrderStatus('processing', $data['external_reference']);
+                        break;
+
                     case 'refunded':
                         $this->orderService->changeOrderStatus('refunded', $data['external_reference']);
+
                         break;
 
                     default:
