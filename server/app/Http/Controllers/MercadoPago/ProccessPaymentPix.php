@@ -22,6 +22,7 @@ class ProccessPaymentPix extends Controller
         try {
             $data = $request->formdata;
             $order = $request->order;
+            
             $client = new PaymentClient();
             $request_options = new RequestOptions();
 
@@ -30,9 +31,9 @@ class ProccessPaymentPix extends Controller
                 "transaction_amount" => (float) $data['transaction_amount'],
                 "payment_method_id" => $data['payment_method_id'],
                 "payer" => [
-                    "email" => $data["payer"]["email"],
+                    "email" => $data['payer']['email'],
                 ],
-                "external_reference" => strval($order),
+                "external_reference" => strval($order)
             ], $request_options);
 
             return response()->json($payment, Response::HTTP_OK);
