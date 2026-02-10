@@ -44,11 +44,11 @@ class CreateOrderController extends Controller
         
         $newOder = $this->orderService->create($userId, 'pending', $sumPrice, $adressId);
 
-        $newOrderItems = $this->orderItemsService->create($data['items'], $newOder->id);
+        $this->orderItemsService->create($data['items'], $newOder->id);
 
         $preference = $this->mcpService->createPreferenceService($data['items'], $sumPrice, $newOder->id);
 
-        // CancelOrderJob::dispatch($newOder->id)->delay(now()->addMinutes(10));
+        CancelOrderJob::dispatch($newOder->id)->delay(now()->addMinutes(2));
 
 
         return response()->json([
