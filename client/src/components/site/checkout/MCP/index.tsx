@@ -6,7 +6,7 @@ import { useCart } from "@/context/cartContext";
 import { useCheckout } from "@/context/checkoutContext";
 import { Loading } from "@/components/site/loading/loading";
 import { PixQRCode } from "./PixQrCode";
-import { createOrder } from "@/api/site/order.api";
+import { apiLatestOrder, createOrder } from "@/api/site/order.api";
 import { useUser } from "@/context/userContext";
 
 const publicKey = "APP_USR-ea6cbb6f-9a22-476b-a44c-d3270ec16d20";
@@ -35,6 +35,29 @@ export function PaymentMercadoPago() {
     createPreference();
   }, [state, preference.id]);
 
+  useEffect(() => {
+    if (!preference.orderId) return;
+
+    const interval = setInterval(async () => {
+      try {
+        const response = await apiLatestOrder();
+
+        if (response.status === "preparando") {
+          clearInterval(interval);
+          setStep((prev) => prev + 1);
+        }
+
+        if (response.status === "canceled") {
+          clearInterval(interval);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [preference.orderId]);
+
   const initialization = {
     preferenceId: preference.id,
     amount: Number(preference.total.toFixed(2)),
@@ -52,27 +75,23 @@ export function PaymentMercadoPago() {
     visual: {},
   };
   const handleSubmit = async ({ formData, selectedPaymentMethod }: any) => {
+    if (!preference.orderId) return;
+
     if (selectedPaymentMethod === "bank_transfer") {
-
       const response = await apiProcessPaymentPix(formData, preference.orderId);
+
       setQrCodeBase64(response.point_of_interaction.transaction_data.qr_code_base64);
+
       setQrCode(response.point_of_interaction.transaction_data.qr_code);
-
-      console.log(response);
-
-      if (response.status === "approved") {
-        setStep((prev) => prev + 1);
-      }
 
       return;
     }
 
-    // Caso seja cartão de crédito
-    if (!preference.orderId) return;
-    const response = await apiProcessPayment(formData, preference.orderId);
-    if (response.payment.status === "approved") {
-      setStep((prev) => prev + 1);
-    }
+     await apiProcessPayment(formData, preference.orderId);
+
+    // if (response.payment.status === "approved") {
+    //   setStep((prev) => prev + 1);
+    // }
   };
 
   if (qrCodeBase64 && qrCode) {
