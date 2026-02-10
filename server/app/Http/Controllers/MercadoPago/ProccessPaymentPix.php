@@ -10,9 +10,11 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use MercadoPago\Client\Common\RequestOptions;
 use MercadoPago\Client\Payment\PaymentClient;
+use MercadoPago\MercadoPagoConfig;
 
-
+MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
 #[Group('MercadoPago')]
+
 class ProccessPaymentPix extends Controller
 {
     /**
