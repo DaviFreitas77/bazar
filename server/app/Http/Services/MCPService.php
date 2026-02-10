@@ -71,12 +71,7 @@ class MCPService
 
     public function processPayment($formdata, $order,  User $user)
     {
-        $nameUser  = $user['name'];
-        $emailUser = $user['email'];
-        $telUser   = $user['tel'];
-        $userId    = $user['id'];
-
-
+     
         try {
             $data = $formdata;
             $order = $order;
@@ -106,35 +101,11 @@ class MCPService
                     ]
                 ],
                 "external_reference" => strval($order),
-                // "notification_url" => "http://localhost:5173/api/webhook"
-
-
             ], $request_options);
 
             //numero do pedido
             $numberOrder = Order::where('id', $payment->external_reference)->first();
 
-            $paymentMethod = $payment->payment_type_id;
-            $totalOrder = $payment->transaction_amount;
-
-
-            //recuperando produtos ligado ao pedido
-            $orderItems = OrderItems::with('product.images')->where('fk_order', $numberOrder->id)->get();
-
-            $productsData = $orderItems->map(function ($item) {
-                $firstImage = $item->product->images->first();
-                $imageUrl = $firstImage ? $firstImage->image : null;
-                $colorName = $this->colorService->getColorById($item->fk_color);
-                $sizeName = $this->sizeService->getSizeById($item->fk_size);
-                return [
-                    'name' => $item->product->name,
-                    'price' => $item->product->price,
-                    'color' => $colorName,
-                    'size' => $sizeName,
-                    'quantity' => $item->quantity,
-                    'image' => $imageUrl
-                ];
-            })->toArray();  
             return response()->json([
                 'payment' => $payment,
                 'numberOrder' => $numberOrder->number_order
