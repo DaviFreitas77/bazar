@@ -48,6 +48,9 @@ export function Checkout() {
     }
   }, [step]);
 
+
+
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-2 md:px-6 py-2 lg:py-12">
       <section className={`bg-gray-100 flex items-center justify-center rounded-md  w-full max-w-7xl mb-10`}>

@@ -33,7 +33,7 @@ export function Orders() {
 
  
   return (
-    <main className="flex justify-center px-5 py-10 h-150">
+    <main className="flex justify-center px-5 py-10 ">
       <div className="w-full flex max-w-[1450px]">
         <AsideUser namePage="Meus pedidos" />
 
@@ -54,7 +54,7 @@ export function Orders() {
           ) : sortedOrders && sortedOrders.length > 0 ? (
             sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} number_order={order.numberOrder} created_at={order.created_at} total={order.total} status={order.status} item={order.items} />)
           ) : (
-            <div className="flex justify-center items-center ">
+            <div className="flex justify-center items-center mt-30">
               <p className="text-center text-gray-500  flex flex-col items-center gap-4">
                 <span className="text-2xl text-primary-50">
                   <BsBoxSeam size={40} />

@@ -41,13 +41,13 @@ export function PaymentMercadoPago() {
     const interval = setInterval(async () => {
       try {
         const response = await apiLatestOrder();
-
         if (response.status === "preparando") {
           clearInterval(interval);
           setStep((prev) => prev + 1);
         }
 
         if (response.status === "canceled") {
+          setStep(1);
           clearInterval(interval);
         }
       } catch (err) {
@@ -87,7 +87,7 @@ export function PaymentMercadoPago() {
       return;
     }
 
-     await apiProcessPayment(formData, preference.orderId);
+    await apiProcessPayment(formData, preference.orderId);
 
     // if (response.payment.status === "approved") {
     //   setStep((prev) => prev + 1);

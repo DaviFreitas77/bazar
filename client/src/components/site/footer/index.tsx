@@ -11,7 +11,7 @@ export function Footer() {
   const { setNameProduct } = useProductsSearched();
 
   return (
-    <footer className="mt-20 border-t border-gray-200">
+    <footer className="mt-20 border-t border-gray-200 ">
       {pathname === "/" && (
         <div className="bg-white pb-20">
           <NewsLetter />
