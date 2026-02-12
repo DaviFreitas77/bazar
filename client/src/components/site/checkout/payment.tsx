@@ -3,7 +3,7 @@ import { ChoosePayment } from "./sub-component/choosePaymento";
 import { useEffect, useRef } from "react";
 export function Payment() {
   const secondsRef = useRef(59);
-  const minutesRef = useRef(1);
+  const minutesRef = useRef(15);
 
   const timerSpanRef = useRef<HTMLSpanElement>(null);
 
