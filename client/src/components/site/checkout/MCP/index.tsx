@@ -9,7 +9,7 @@ import { PixQRCode } from "./PixQrCode";
 import { apiLatestOrder, createOrder } from "@/api/site/order.api";
 import { useUser } from "@/context/userContext";
 
-const publicKey = "APP_USR-ea6cbb6f-9a22-476b-a44c-d3270ec16d20";
+const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
 
 initMercadoPago(publicKey, {
   locale: "pt-BR",
@@ -25,10 +25,12 @@ export function PaymentMercadoPago() {
     const createPreference = async () => {
       if (!preference.id) {
         const response = await createOrder(state, idLogradouro);
+        console.log(response);
         setPreference({
           id: response.preference.id,
           total: response.preference.total,
           orderId: response.preference.orderId,
+          created_at: response.created_at,
         });
       }
     };
@@ -41,13 +43,19 @@ export function PaymentMercadoPago() {
     const interval = setInterval(async () => {
       try {
         const response = await apiLatestOrder();
-        if (response.status === "preparando") {
+        if (response.status === "paid") {
           clearInterval(interval);
           setStep((prev) => prev + 1);
         }
 
         if (response.status === "canceled") {
-          setStep(1);
+          setStep(5);
+          setPreference({
+            id: "",
+            total: 0,
+            orderId: "",
+            created_at: "",
+          });
           clearInterval(interval);
         }
       } catch (err) {
@@ -87,11 +95,11 @@ export function PaymentMercadoPago() {
       return;
     }
 
-    await apiProcessPayment(formData, preference.orderId);
+    const response = await apiProcessPayment(formData, preference.orderId);
 
-    // if (response.payment.status === "approved") {
-    //   setStep((prev) => prev + 1);
-    // }
+    if (response.payment.status === "approved") {
+      setStep((prev) => prev + 1);
+    }
   };
 
   if (qrCodeBase64 && qrCode) {

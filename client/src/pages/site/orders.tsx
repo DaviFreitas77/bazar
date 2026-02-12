@@ -10,7 +10,9 @@ import { BsBoxSeam } from "react-icons/bs";
 
 export function Orders() {
   const { data: myOrders, isLoading: isLoadingMyOrders } = useMyOrders();
+  
 
+  console.log(myOrders);
   const [filterOrder, setFilterOrder] = useState("relevance");
 
   const sortedOrders = useMemo(() => {
@@ -48,11 +50,11 @@ export function Orders() {
           </div>
 
           {isLoadingMyOrders ? (
-            <div className="flex justify-center items-center w-full">
+            <div className="flex justify-center items-center w-full mt-30">
               <Loading />
             </div>
           ) : sortedOrders && sortedOrders.length > 0 ? (
-            sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} number_order={order.numberOrder} created_at={order.created_at} total={order.total} status={order.status} item={order.items} />)
+            sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} number_order={order.numberOrder} created_at={order.created_at} total={order.total} status={order.status} item={order.items}  pix_qr_code_base64={order.pix_qr_code_base64} pix_code={order.pix_code}/>)
           ) : (
             <div className="flex justify-center items-center mt-30">
               <p className="text-center text-gray-500  flex flex-col items-center gap-4">

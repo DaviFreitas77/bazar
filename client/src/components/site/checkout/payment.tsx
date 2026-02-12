@@ -1,43 +1,12 @@
 import { CiDeliveryTruck } from "react-icons/ci";
 import { ChoosePayment } from "./sub-component/choosePaymento";
-import { useEffect, useRef } from "react";
+import { Timer } from "./timer";
+import { useCheckout } from "@/context/checkoutContext";
+
 export function Payment() {
-  const secondsRef = useRef(59);
-  const minutesRef = useRef(15);
+  const { preference } = useCheckout();
 
-  const timerSpanRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (minutesRef.current !== 0 || secondsRef.current !== 0) {
-        if (minutesRef.current == 0 && secondsRef.current == 0) {
-          console.log("acabou");
-          return;
-        }
-        if (secondsRef.current == 0) {
-          minutesRef.current--;
-          secondsRef.current = 59;
-        } else {
-          secondsRef.current--;
-        }
-      }
-      if (timerSpanRef.current) {
-        timerSpanRef.current.textContent = `${minutesRef.current}:${secondsRef.current < 10 ? "0" + secondsRef.current : secondsRef.current}`;
-
-        if (minutesRef.current == 0 && secondsRef.current < 10) {
-          timerSpanRef.current.classList.remove("text-green-900");
-          timerSpanRef.current.classList.add("text-red-500");
-        } else {
-   
-          timerSpanRef.current.classList.add("text-green-900");
-          timerSpanRef.current.classList.remove("text-red-500");
-        }
-      }
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
+  
   return (
     <section className="lg:col-span-2">
       <div className="p-5 md:p-8 rounded-md">
@@ -51,10 +20,9 @@ export function Payment() {
               <p className="font-semibold text-gray-900 text-lg">Método de pagamento</p>
               <p className="text-sm text-gray-400">Selecione a forma de pagemento desejada</p>
             </div>
-            {minutesRef && secondsRef && (
-              <span ref={timerSpanRef} className="font-semibold text-green-900 text-lg">
-                {minutesRef.current}:{secondsRef.current}
-              </span>
+            {preference.created_at && (
+              
+            <Timer createdAt={preference.created_at} />
             )}
           </div>
         </div>

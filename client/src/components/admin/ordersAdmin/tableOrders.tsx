@@ -107,7 +107,7 @@ export function TableOrders() {
                   <td className="px-4 py-2">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold tracking-wide
-    ${order.status === "completed" ? "bg-emerald-100 text-emerald-700" : order.status === "preparando" ? "bg-sky-100 text-sky-700" : order.status === "canceled" ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-700"}`}
+    ${order.status === "completed" ? "bg-emerald-100 text-emerald-700" : order.status === "paid" ? "bg-sky-100 text-sky-700" : order.status === "canceled" ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-700"}`}
                     >
                       {order.status}
                     </span>

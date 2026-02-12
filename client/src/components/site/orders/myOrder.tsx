@@ -1,54 +1,82 @@
 import type { OrderProps } from "@/api/@types/order";
-import { CiTimer } from "react-icons/ci";
+import { PixQRCode } from "../checkout/MCP/PixQrCode";
+import { useState } from "react";
+import { Timer } from "../checkout/timer";
 
-export function MyOrder({ number_order, created_at, total, status, item }: OrderProps) {
+export function MyOrder({ number_order, created_at, total, status, item, pix_qr_code_base64, pix_code }: OrderProps) {
+  const [showPixCode, setShowPixCode] = useState(false);
 
+  const statusMap = {
+    pending: { label: "Pendente", style: "bg-orange-300" },
+    paid: { label: "Pago", style: "bg-yellow-200" },
+    completed: { label: "Completo", style: "bg-green-300" },
+    canceled: { label: "Cancelado", style: "bg-red-300" },
+  };
 
-  let formatedStatus = status == 'preparando' ? 'Preparando' : status == 'pending' ? 'Pendente' : status == 'completed' ? 'Completo' : 'Cancelado'
-
-
-  const style = formatedStatus === 'Pendente'
-    ? 'bg-orange-300'
-    : formatedStatus === 'Preparando'
-    ? 'bg-yellow-200'
-    : formatedStatus === 'Completo'
-    ? 'bg-green-300'
-    : 'bg-red-300'
+  const currentStatus = statusMap[status as keyof typeof statusMap] || {
+    label: "Desconhecido",
+    style: "bg-gray-300",
+  };
 
   return (
-    <div className="mt-10 border  rounded-sm border-gray-200">
-      <div className=" flex flex-col md:flex-row  gap-5 md:items-center justify-between border-b p-4 border-gray-200/50 bg-gray-100/50">
-        <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-2">
-          <p className="font-bold">
-            Numero do pedido: <span className="text-primary-50">{number_order} </span>
-            |
+    <div className="mt-8 border rounded-md border-gray-200 overflow-hidden">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b p-4 border-gray-200  bg-gray-100/60">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:items-center text-sm">
+          <p className="font-semibold">
+            Pedido: <span className="text-primary-50">{number_order}</span>
           </p>
 
-          <p className="font-bold">
-            Data do pedido: <span className="font-normal">{new Date(created_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })} </span>
-            |
+          <p className="font-semibold">
+            Data:{" "}
+            <span className="font-normal">
+              {new Date(created_at).toLocaleDateString("pt-BR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
+            </span>
           </p>
-      
-          <p className="font-bold lg:-ml-6 ">
-            Valor total: <span className="font-normal">{Number(total).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} </span>
+
+          <p className="font-semibold">
+            Total:{" "}
+            <span className="font-normal">
+              {Number(total).toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </span>
           </p>
+
+          <div className={`${currentStatus.style} px-3 py-1 rounded-full text-center w-fit`}>
+            <p className="text-xs font-medium">{currentStatus.label}</p>
+          </div>
         </div>
 
-        <div className={`${style} text-center px-4 rounded-xs py-3 flex items-center gap-1`}>
-          <CiTimer size={15} />
-          <p className={`text-sm`}>{formatedStatus}</p>
+        <div className="flex items-center gap-4">
+          <Timer createdAt={created_at}/>
+        {status === "pending" && pix_code && (
+            <button onClick={() => setShowPixCode(!showPixCode)} className="bg-green-800 text-white px-4 py-2 rounded-md hover:opacity-85 transition text-sm w-full sm:w-auto">
+              Pagar agora
+            </button>
+        )}
         </div>
       </div>
 
+      {showPixCode && status === "pending" && pix_code && pix_qr_code_base64 && (
+        <div className="p-4 border-b border-gray-200  bg-gray-50 flex justify-center">
+          <PixQRCode qrCode={pix_code} qrCodeBase64={pix_qr_code_base64} />
+        </div>
+      )}
+
       {item &&
         item.map((product, index) => (
-          <div key={index} className="flex items-start gap-2 mt-4 border-b pb-4 px-4 border-gray-200/50">
-            <img src={product.imageProduct} alt="" className="max-w-18" />
+          <div key={index} className="flex  gap-4 p-4 border-b border-gray-200/60">
+            <img src={product.imageProduct} alt={product.nameProduct} className="w-24 h-24 object-cover rounded" />
 
-            <div className="mt-2 text-sm flex flex-col gap-1">
-              <p className="">{product.nameProduct}</p>
-              <p>Cor:{product.colorProduct}</p>
-              <p>Tam:{product.sizeProduct}</p>
+            <div className="text-sm flex flex-col gap-1">
+              <p className="font-medium">{product.nameProduct}</p>
+              <p>Cor: {product.colorProduct}</p>
+              <p>Tamanho: {product.sizeProduct}</p>
               <p>Quantidade: {product.quantityProduct}</p>
             </div>
           </div>

@@ -9,13 +9,12 @@ import { ApplyCupom } from "../applyCupom";
 interface SummaryProps {
   products: CartItem[];
   total: string;
-  isConfirmed?: boolean;
   numberOrder: string;
 }
-export function Summary({ products, isConfirmed, numberOrder, total }: SummaryProps) {
+export function Summary({ products, numberOrder, total }: SummaryProps) {
   const { step } = useCheckout();
   return (
-    <section className="border border-gray-200 bg-white md:shadow-sm rounded-md p-6  md:p-6 h-fit  lg:max-w-md">
+    <section className="border border-gray-200 bg-white  rounded-md p-6  md:p-6 h-fit  lg:max-w-md">
       <div className="flex items-center gap-3 mb-6">
         <div className="bg-[#F4EDE7] p-3 rounded-full text-primary-50 shadow-sm">
           <LiaShoppingBagSolid size={22} />
@@ -58,7 +57,7 @@ export function Summary({ products, isConfirmed, numberOrder, total }: SummaryPr
           <SkeletonSummary />
         )}
 
-        {step === 4 ? null : <ApplyCupom step={step} />}
+        {step === 4 || step === 5 ? null : <ApplyCupom step={step} />}
 
         <div className="flex items-center justify-between border-t border-gray-100 pt-4">
           <p className="text-gray-600">Frete</p>
@@ -72,7 +71,7 @@ export function Summary({ products, isConfirmed, numberOrder, total }: SummaryPr
           </div>
         )}
 
-        {isConfirmed && (
+        {step === 4 && (
           <div className="bg-green-50 p-6 rounded-2xl border border-green-200 max-w-md mx-auto my-10 flex flex-col gap-2">
             <div className="flex gap-2 items-center">
               <div className="bg-green-800 p-2 rounded-full text-white">
@@ -83,6 +82,21 @@ export function Summary({ products, isConfirmed, numberOrder, total }: SummaryPr
             <div>
               <p className="text-green-800 font-semibold">Número do pedido: #{numberOrder}</p>
               <p className="text-green-700 text-sm mt-1">Guarde este número para acompanhar seu pedido</p>
+            </div>
+          </div>
+        )}
+
+        {step === 5 && (
+          <div className="bg-red-50 p-6 rounded-2xl border border-red-200 max-w-md mx-auto my-10 flex flex-col gap-2">
+            <div className="flex gap-2 items-center">
+              <div className="bg-red-400 p-2 rounded-full text-white">
+                <MdDone size={20} />
+              </div>
+              <p className="text-red-400 font-semibold text-base">Pedido cancelado !</p>
+            </div>
+            <div>
+              <p className="text-red-400 font-semibold">Número do pedido: #{numberOrder}</p>
+              <p className="text-red-500 text-sm mt-1">Tempo expirado ou pagamento recusado.</p>
             </div>
           </div>
         )}

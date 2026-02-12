@@ -18,10 +18,10 @@ export function OrderDetailsModal({ isOpen, onClose, idOrder }: OrderDetailsModa
       pending: "bg-yellow-100 text-yellow-700 border-yellow-200",
       completed: "bg-green-100 text-green-700 border-green-200",
       canceled: "bg-red-100 text-red-700 border-red-200",
-      preparando: "bg-gray-100 text-gray-700 border-gray-200",
+      paid: "bg-gray-100 text-gray-700 border-gray-200",
     };
-    const style = styles[status] || styles.preparando;
-    return <span className={`px-3 py-1 rounded-full text-sm font-bold border ${style}`}>{status === "canceled" ? "Cancelado" : status === "completed" ? "Completo" : status === "pending" ? "Pendente" : "Preparando"}</span>;
+    const style = styles[status] || styles.paid;
+    return <span className={`px-3 py-1 rounded-full text-sm font-bold border ${style}`}>{status === "canceled" ? "Cancelado" : status === "completed" ? "Completo" : status === "pending" ? "Pendente" : "paid"}</span>;
   };
 
   return (

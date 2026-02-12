@@ -194,7 +194,7 @@ export function Product() {
                   ))}
                 </div>
               </AccordionFilter>
-              <button onClick={handleAddCart} className="bg-primary-50  text-white py-3 w-full rounded-xs font-medium text-base hover:opacity-85 cursor-pointer flex itmes-center justify-center gap-2">
+              <button onClick={handleAddCart} className={`flex items-center justify-center gap-2 text-white font-medium transition duration-200 shadow-sm cursor-pointer  px-10 py-3 rounded-md ${loading ? "bg-primary-100 cursor-not-allowed" : "bg-primary-50 hover:bg-primary-100"}`} disabled={loading}>
                 <LiaShoppingBagSolid size={22} />
                 {loading ? "Carregando..." : "Adicionar à sacola"}
               </button>

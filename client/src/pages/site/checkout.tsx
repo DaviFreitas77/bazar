@@ -12,6 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useCart } from "@/context/cartContext";
 import { apiLatestOrder } from "@/api/site/order.api";
 import { useNavigate } from "react-router-dom";
+import { OrderCanceled } from "@/components/site/checkout/orderCanceled";
 
 export function Checkout() {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export function Checkout() {
   }, []);
 
   useEffect(() => {
-    if (step === 4) {
+    if (step === 4 || step === 5) {
       const fetchOrder = async () => {
         try {
           const response = await apiLatestOrder();
@@ -48,9 +49,6 @@ export function Checkout() {
     }
   }, [step]);
 
-
-
-
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-2 md:px-6 py-2 lg:py-12">
       <section className={`bg-gray-100 flex items-center justify-center rounded-md  w-full max-w-7xl mb-10`}>
@@ -61,9 +59,9 @@ export function Checkout() {
       <ProgressStep step={step} />
 
       <div className="w-full max-w-7xl flex gap-10 flex-wrap lg:flex-nowrap">
-        <div className="w-full h-fit border border-gray-200 rounded-md">{step === 1 ? <PeopleInformation /> : step === 2 ? <ChooseDelivery /> : step === 3 ? <Payment /> : <PaymentConfirmed numberOrder={numberOrder} />}</div>
+        <div className="w-full h-fit border border-gray-200 rounded-md">{step === 1 ? <PeopleInformation /> : step === 2 ? <ChooseDelivery /> : step === 3 ? <Payment /> : step === 4 ? <PaymentConfirmed numberOrder={numberOrder} /> : <OrderCanceled numberOrder={numberOrder} />}</div>
 
-        <Summary products={state} total={total} isConfirmed={orderConfirmed} numberOrder={numberOrder} />
+        <Summary products={state} total={total}  numberOrder={numberOrder} />
       </div>
     </main>
   );
