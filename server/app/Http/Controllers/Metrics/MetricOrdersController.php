@@ -18,7 +18,7 @@ class MetricOrdersController extends Controller
         $collection = collect($orders);
 
         $ordersPreparando = $collection->filter(function ($value) {
-            return $value->status == 'preparando';
+            return $value->status == 'paid';
         });
 
         $ordersCompleted = $collection->filter(function ($value) {

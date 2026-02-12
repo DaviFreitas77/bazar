@@ -15,7 +15,7 @@ class billingController extends Controller
      */
     public function __invoke()
     {
-        $ordersCompleted = Order::where('status', 'preparando')->get();
+        $ordersCompleted = Order::where('status', 'paid')->get();
 
           
         $billingTotal = $ordersCompleted->sum('total');

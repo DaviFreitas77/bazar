@@ -74,7 +74,9 @@ class OrderService
                 'total'          => $order->total,
                 'payment_method' => $order->payment_method,
                 'created_at'     => $order->created_at,
-                'items'          => $infoproducts
+                'items'          => $infoproducts,
+                'pix_code'        => $order->pix_code,
+                'pix_qr_code_base64' => $order->pix_qr_code_base64
             ];
         }
 

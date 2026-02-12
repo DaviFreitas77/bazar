@@ -54,6 +54,7 @@ class CreateOrderController extends Controller
         return response()->json([
             "total" => $preference['total'],
             "orderId" => $preference['orderId'],
+            "created_at" => $newOder->created_at,
             "preference" => $preference
         ],Response::HTTP_CREATED);
     }

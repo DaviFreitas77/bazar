@@ -62,7 +62,7 @@ class McphookController extends Controller
                 switch ($data['status']) {
                     case 'approved':
 
-                        $this->orderService->changeOrderStatus('preparando', $order->id);
+                        $this->orderService->changeOrderStatus('paid', $order->id);
 
                         $this->orderService->updatePaymentOrderService($data['payment_type_id'], $order->id, $user->id);
 

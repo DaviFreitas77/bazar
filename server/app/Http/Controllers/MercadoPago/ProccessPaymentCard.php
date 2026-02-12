@@ -4,9 +4,11 @@ namespace App\Http\Controllers\MercadoPago;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\MCPService;
+use App\Models\Order;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 #[Group('MercadoPago')]
 class ProccessPaymentCard extends Controller
@@ -24,11 +26,20 @@ class ProccessPaymentCard extends Controller
     {
         $user = $request->user();
 
-        if(!$user) {
-            return response()->json(['Não autenticado'], Response::HTTP_UNAUTHORIZED);
+        $order = Order::where('id', $request->order)->where('status', 'canceled')->first();
+
+        if ($order) {
+            return response()->json(['Pedido cancelado'], Response::HTTP_BAD_REQUEST);
         }
 
 
-        return $this->mcpService->processPayment($request->formdata, $request->order,$user);
+
+        if (!$user) {
+            return response()->json(['Não autenticado'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        
+
+        return $this->mcpService->processPayment($request->formdata, $request->order, $user);
     }
 }
