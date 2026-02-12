@@ -58,11 +58,11 @@ export function Summary({ products, numberOrder, total }: SummaryProps) {
         )}
 
         {step === 4 || step === 5 ? null : <ApplyCupom step={step} />}
-
+{/* 
         <div className="flex items-center justify-between border-t border-gray-100 pt-4">
           <p className="text-gray-600">Frete</p>
           <p className="text-gray-800 font-medium">R$ 15,00</p>
-        </div>
+        </div> */}
 
         {total && (
           <div className="flex items-center justify-between border-t border-gray-100 pt-4">

@@ -8,6 +8,7 @@ use App\Http\Services\MCPService;
 use App\Http\Services\OrderItemsService;
 use App\Http\Services\OrderService;
 use App\Http\Services\ProductService;
+use App\Http\Services\ShoppingCartService;
 use App\Jobs\CancelOrderJob;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Response;
@@ -20,12 +21,13 @@ class CreateOrderController extends Controller
     /**
      * Create new order
      */
-    public function __construct(private ProductService $productService, private OrderService $orderService, private OrderItemsService $orderItemsService, private MCPService $mcpService)
+    public function __construct(private ProductService $productService, private OrderService $orderService, private OrderItemsService $orderItemsService, private MCPService $mcpService,private ShoppingCartService $shoppingCartService)
     {
         $this->productService = $productService;
         $this->orderService = $orderService;
         $this->orderItemsService = $orderItemsService;
         $this->mcpService = $mcpService;
+        $this->shoppingCartService = $shoppingCartService;    
     }
 
     public function __invoke(StoreOrderRequest $request)
@@ -49,6 +51,7 @@ class CreateOrderController extends Controller
         $preference = $this->mcpService->createPreferenceService($data['items'], $sumPrice, $newOder->id);
 
         CancelOrderJob::dispatch($newOder->id)->delay(now()->addMinutes(15));
+        $this->shoppingCartService->deleteCartUser($userId);
 
 
         return response()->json([

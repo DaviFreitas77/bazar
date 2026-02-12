@@ -13,9 +13,9 @@ export function OrderCanceled({numberOrder}:orderCanceledProps) {
   
   
     const handleConfirm = () => {
-    navigate("/"); 
-    dispatch({ type: "clear" }); 
-    setStep(1);
+      setStep(1);
+      dispatch({ type: "clear" }); 
+      navigate("/"); 
   };
   return (
     <section className=" justify-center items-center flex py-10 flex-col gap-15">

@@ -17,12 +17,14 @@ import { LiaShoppingBagSolid } from "react-icons/lia";
 import { Stamps } from "@/components/ui/stamps";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { useCheckout } from "@/context/checkoutContext";
 export function Product() {
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
   const [selectedColorName, setSelectedColorName] = useState<string>("");
   const [selectedSizeName, setSelectedSizeName] = useState<string>("");
   const [numberImage, setNumberImage] = useState<number>(0);
+  const { setStep, setPreference, setDiscount } = useCheckout();
   const [loading, setLoading] = useState<boolean>(false);
   const { dispatch } = useCart();
   const { name } = useUser();
@@ -52,6 +54,16 @@ export function Product() {
       return alert("selecione cor e tamanho");
     }
     setLoading(true);
+
+    setDiscount(0);
+    setStep(1);
+    setPreference({
+      id: "",
+      total: 0,
+      orderId: "",
+      created_at: "",
+    });
+
     try {
       if (name) {
         await apiAddProduct({
@@ -194,7 +206,11 @@ export function Product() {
                   ))}
                 </div>
               </AccordionFilter>
-              <button onClick={handleAddCart} className={`flex items-center justify-center gap-2 text-white font-medium transition duration-200 shadow-sm cursor-pointer  px-10 py-3 rounded-md ${loading ? "bg-primary-100 cursor-not-allowed" : "bg-primary-50 hover:bg-primary-100"}`} disabled={loading}>
+              <button
+                onClick={handleAddCart}
+                className={`flex items-center justify-center gap-2 text-white font-medium transition duration-200 shadow-sm cursor-pointer  px-10 py-3 rounded-md ${loading ? "bg-primary-100 cursor-not-allowed" : "bg-primary-50 hover:bg-primary-100"}`}
+                disabled={loading}
+              >
                 <LiaShoppingBagSolid size={22} />
                 {loading ? "Carregando..." : "Adicionar à sacola"}
               </button>

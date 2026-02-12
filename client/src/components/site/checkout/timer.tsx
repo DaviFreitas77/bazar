@@ -10,7 +10,6 @@ export function Timer({ createdAt }: TimerProps) {
   const { preference } = useCheckout();
   const timerSpanRef = useRef<HTMLSpanElement>(null);
 
-
   const createdTime = new Date(createdAt).getTime();
   const expirationTime = createdTime + 15 * 60 * 1000; //minutes * seconds * milliseconds
 
@@ -59,11 +58,11 @@ export function Timer({ createdAt }: TimerProps) {
   }, [preference.id]);
   return (
     <div>
-      {minutesRef && secondsRef && (
+      {minutesRef.current > 0 || secondsRef.current > 0 ? (
         <span ref={timerSpanRef} className="font-semibold text-green-900 text-lg">
           {minutesRef.current}:{secondsRef.current}
         </span>
-      )}
+      ) : null}
     </div>
   );
 }
