@@ -19,7 +19,6 @@ export function Checkout() {
   const { step, discount } = useCheckout();
   const { state } = useCart();
   const [numberOrder, setNumberOrder] = useState("");
-  const orderConfirmed = step === 4;
   const total = useMemo(() => {
     const prices = state.map((item) => item.price * item.quantity);
     const sum = prices.reduce((a, b) => a + b, 0);

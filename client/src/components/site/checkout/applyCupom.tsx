@@ -17,11 +17,11 @@ export function ApplyCupom({ step }: { step: number }) {
       if (response.status === 200) {
         setNameCupom("");
         setDiscount(Number(response.data.discount));
-        console.log(response.data);
         setPreference({
           id: response.data.preference.id,
           total: response.data.preference.total,
           orderId: response.data.preference.orderId,
+          created_at: response.data.preference.created_at,
         });
       }
     } catch (error: any) {
