@@ -66,7 +66,6 @@ class McphookController extends Controller
 
                         $this->orderService->updatePaymentOrderService($data['payment_type_id'], $order->id, $user->id);
 
-                        $this->shoppingCartService->deleteCartUser($user->id);
 
                         // Disparar os Jobs
                         SendOrderCreatedEmailJob::dispatch(
