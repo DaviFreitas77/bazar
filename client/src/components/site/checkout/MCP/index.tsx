@@ -9,7 +9,7 @@ import { PixQRCode } from "./PixQrCode";
 import { apiLatestOrder, createOrder } from "@/api/site/order.api";
 import { useUser } from "@/context/userContext";
 
-const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
+const publicKey = "APP_USR-ea6cbb6f-9a22-476b-a44c-d3270ec16d20";
 
 initMercadoPago(publicKey, {
   locale: "pt-BR",
