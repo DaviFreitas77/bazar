@@ -41,6 +41,10 @@ export function TableOrders() {
       result = result.filter((order) => order.status === "canceled");
     }
 
+    if (filterOrder === "paid") {
+      result = result.filter((order) => order.status === "paid");
+    }
+
     switch (filterOrder) {
       case "relevance":
         result.sort((a, b) => b.id - a.id);

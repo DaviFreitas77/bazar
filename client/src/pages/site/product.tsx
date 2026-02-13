@@ -150,7 +150,7 @@ export function Product() {
               <BreadcrumbPages pageName={["Produto", `${product?.name}`]} />
               <div>
                 <div className="flex  items-center justify-between">
-                  <h1 className="text-3xl font-semibold text-gray-700 mb-2">{product?.name}</h1>
+                  <h1 className="text-3xl font-semibold text-gray-700 mb-2  capitalize">{product?.name}</h1>
                   {/* <button className="cursor-pointer text-primary-50 hover:text-red-500">
                     <GoHeart size={30} />
                   </button> */}

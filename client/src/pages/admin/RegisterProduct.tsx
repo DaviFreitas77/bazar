@@ -10,6 +10,7 @@ import { useState } from "react";
 import { FaCircle, FaCloudUploadAlt, FaSpinner, FaTrash } from "react-icons/fa";
 import { createdProduct } from "@/api/admin/productAdmin";
 import { useListSubCategoriesById } from "@/hooks/admin/useListSubCategoryById";
+import { Loading } from "@/components/site/loading/loading";
 
 export function RegisterProduct() {
   const [name, setName] = useState("");
@@ -180,37 +181,49 @@ export function RegisterProduct() {
                 <div className="bg-white p-6 rounded-xl  border border-gray-200">
                   <label className="text-sm font-bold text-gray-700  tracking-wider mb-4 block">Cores disponíveis</label>
                   <div className="flex flex-wrap gap-3">
-                    {colors?.map((color) => (
-                      <button
-                        key={color.id}
-                        type="button"
-                        title={color.name}
-                        onClick={() => toggleColor(color.id)}
-                        className={`cursor-pointer p-1 rounded-full border-2 transition-all transform hover:scale-110
+                    {colors && colors.length > 0 ? (
+                      colors?.map((color) => (
+                        <button
+                          key={color.id}
+                          type="button"
+                          title={color.name}
+                          onClick={() => toggleColor(color.id)}
+                          className={`cursor-pointer p-1 rounded-full border-2 transition-all transform hover:scale-110
                           ${selectedColors.includes(color.id) ? "border-primary-50 ring-4 ring-primary-50/10" : "border-transparent"}
                         `}
-                      >
-                        <FaCircle size={24} color={color.name} className="drop- border border-gray-100 rounded-full" />
-                      </button>
-                    ))}
+                        >
+                          <FaCircle size={24} color={color.name} className="drop- border border-gray-100 rounded-full" />
+                        </button>
+                      ))
+                    ) : (
+                      <div className="w-full flex items-center justify-center mt-5">
+                        <Loading />
+                      </div>
+                    )}
                   </div>
                 </div>
                 {/* TAMANHOS */}
                 <div className="bg-white p-6 rounded-xl  border border-gray-200">
                   <label className="text-sm font-bold text-gray-700  tracking-wider mb-4 block">Tamanhos</label>
                   <div className="flex flex-wrap gap-2">
-                    {sizes?.map((size) => (
-                      <button
-                        key={size.id}
-                        type="button"
-                        onClick={() => toggleSize(size.id)}
-                        className={`cursor-pointer min-w-[45px] h-[45px] rounded-lg border flex items-center justify-center text-sm font-bold transition-all
+                    {sizes && sizes.length > 0 ? (
+                      sizes?.map((size) => (
+                        <button
+                          key={size.id}
+                          type="button"
+                          onClick={() => toggleSize(size.id)}
+                          className={`cursor-pointer min-w-[45px] h-[45px] rounded-lg border flex items-center justify-center text-sm font-bold transition-all
                           ${selectedSize.includes(size.id) ? "bg-primary-50 text-white border-primary-50 shadow-md" : "border-gray-200 text-gray-600 hover:border-primary-50 hover:text-primary-50 bg-white"}
                         `}
-                      >
-                        {size.name}
-                      </button>
-                    ))}
+                        >
+                          {size.name}
+                        </button>
+                      ))
+                    ) : (
+                      <div className="w-full flex items-center justify-center mt-5">
+                        <Loading />
+                      </div>
+                    )}
                   </div>
                 </div>
                 {/* IMAGENS */}

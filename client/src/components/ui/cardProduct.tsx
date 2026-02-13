@@ -18,7 +18,7 @@ export function CardProduct({ id, name, sizes, price, image, lastPrice }: Card) 
       </div>
 
       <div className="px-2 py-4 space-y-3">
-        <h3 className="text-base lg:text-base  text-gray-700 font-semibold">{name}</h3>
+        <h3 className="text-base lg:text-base  text-gray-700 font-semibold capitalize">{name}</h3>
 
         <div className="flex items-center gap-2">
           <span className="text-xs lg:text-base font-medium text-gray-500">Tam:</span>

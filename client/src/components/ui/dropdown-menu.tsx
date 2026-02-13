@@ -198,7 +198,7 @@ const logOut = async () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer hover:text-primary-50">
-        Olá {name}
+        Olá <span className="capitalize">{name}</span>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>

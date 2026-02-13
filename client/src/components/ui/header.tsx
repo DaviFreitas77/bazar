@@ -44,7 +44,7 @@ export function Header() {
 
             <div className="gap-8 text-sm hidden lg:flex">
               {allCategories?.map((category) => (
-                <Link onClick={() => setNameProduct(category.name)} key={category.id} className="hover:text-primary-50 text-gray-700" to={`/pesquisa?category=${category.name}`}>
+                <Link onClick={() => setNameProduct(category.name)} key={category.id} className="hover:text-primary-50 text-gray-700 capitalize" to={`/pesquisa?category=${category.name}`}>
                   {category.name}
                 </Link>
               ))}

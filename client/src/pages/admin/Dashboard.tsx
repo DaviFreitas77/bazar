@@ -25,9 +25,9 @@ export function Dashboard() {
       footer: "Finalizados com sucesso",
     },
     {
-      title: "Pedidos em preparo",
+      title: "Pedidos Pago",
       value: metricOrders?.ordersPreparando ?? 0,
-      footer: "Atualmente em produção",
+      footer: "Pedidos em preparo para entrega",
     },
     {
       title: "Pedidos cancelados",
