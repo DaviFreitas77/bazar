@@ -98,11 +98,8 @@ export function PaymentMercadoPago() {
       return;
     }
 
-    const response = await apiProcessPayment(formData, preference.orderId);
+   await apiProcessPayment(formData, preference.orderId);
 
-    if (response.payment.status === "approved") {
-      setStep((prev) => prev + 1);
-    }
   };
 
   if (qrCodeBase64 && qrCode) {
