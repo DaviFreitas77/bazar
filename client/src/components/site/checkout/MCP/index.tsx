@@ -48,11 +48,17 @@ export function PaymentMercadoPago() {
         const response = await apiLatestOrder();
         if (response.status === "paid") {
           clearInterval(interval);
-          setStep((prev) => prev + 1);
+          setStep((prev) => {
+            if (prev == 4) return prev;
+            return prev + 1;
+          });
         }
 
         if (response.status === "canceled") {
-          setStep(5);
+          setStep((prev) => {
+            if (prev == 5) return prev;
+            return prev + 1;
+          });
           setPreference({
             id: "",
             total: 0,
@@ -97,8 +103,7 @@ export function PaymentMercadoPago() {
 
       return;
     }
-   await apiProcessPayment(formData, preference.orderId);
-
+    await apiProcessPayment(formData, preference.orderId);
   };
 
   if (qrCodeBase64 && qrCode) {
