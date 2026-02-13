@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Webhook;
 use App\Http\Controllers\Controller;
 use App\Http\Services\ColorService;
 use App\Http\Services\OrderService;
+use App\Http\Services\ProductService;
 use App\Http\Services\ShoppingCartService;
 use App\Http\Services\SizeService;
 use App\Jobs\SendNewOrderEmailToAdminJob;
 use App\Jobs\SendOrderCreatedEmailJob;
 use App\Models\Order;
 use App\Models\OrderItems;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -20,12 +22,13 @@ use Illuminate\Support\Facades\Log;
 class McphookController extends Controller
 {
 
-    public function __construct(private OrderService $orderService, private ShoppingCartService $shoppingCartService, private ColorService $colorService, private SizeService $sizeService)
+    public function __construct(private OrderService $orderService, private ShoppingCartService $shoppingCartService, private ColorService $colorService, private SizeService $sizeService,private ProductService $productService)
     {
         $this->orderService = $orderService;
         $this->shoppingCartService = $shoppingCartService;
         $this->colorService = $colorService;
         $this->sizeService = $sizeService;
+        $this->productService = $productService;
     }
     public function __invoke(Request $request)
     {
@@ -49,6 +52,7 @@ class McphookController extends Controller
                 $productsData = $orderItems->map(function ($item) {
                     $firstImage = $item->product->images->first();
                     return [
+                        'id'       => $item->product->id,
                         'name'     => $item->product->name,
                         'price'    => $item->product->price,
                         'color'    => $this->colorService->getColorById($item->fk_color),
@@ -65,6 +69,8 @@ class McphookController extends Controller
                         $this->orderService->changeOrderStatus('paid', $order->id);
 
                         $this->orderService->updatePaymentOrderService($data['payment_type_id'], $order->id, $user->id);
+
+                        $this->productService->DeleteProduct($productsData['id']);
 
 
                         // Disparar os Jobs
@@ -85,6 +91,7 @@ class McphookController extends Controller
                             $data['payment_type_id'],
                             $data['transaction_amount']
                         );
+                        
                         break;
 
                     case 'pending':

@@ -6,6 +6,7 @@ use App\Models\ImagesProduct;
 use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductSize;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
@@ -131,7 +132,7 @@ class ProductService
         $products = Product::with(['category'])->get();
 
         $result = $products->map(function ($product) {
-        
+
             return [
                 "id" => $product->id,
                 "name" => $product->name,
@@ -171,11 +172,26 @@ class ProductService
                 "image" => $product->images->pluck('image'),
                 "sizes" => $product->sizes->pluck('name'),
                 "color" => $product->colors->pluck('name'),
-                 'idSubcategory' => $product->fkSubcategory,
+                'idSubcategory' => $product->fkSubcategory,
 
             ];
         });
 
         return response()->json($result);
+    }
+
+
+
+    public function DeleteProduct($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return response()->json(['message' => "produto não existe"], Response::HTTP_NOT_FOUND);
+        }
+
+        $product->delete();
+
+        return response()->json(['message' => "produto deletado"], Response::HTTP_OK);
     }
 }
