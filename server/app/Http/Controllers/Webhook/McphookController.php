@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Log;
 class McphookController extends Controller
 {
 
-    public function __construct(private OrderService $orderService, private ShoppingCartService $shoppingCartService, private ColorService $colorService, private SizeService $sizeService,private ProductService $productService)
+    public function __construct(private OrderService $orderService, private ShoppingCartService $shoppingCartService, private ColorService $colorService, private SizeService $sizeService, private ProductService $productService)
     {
         $this->orderService = $orderService;
         $this->shoppingCartService = $shoppingCartService;
@@ -70,7 +70,11 @@ class McphookController extends Controller
 
                         $this->orderService->updatePaymentOrderService($data['payment_type_id'], $order->id, $user->id);
 
-                        $this->productService->DeleteProduct($productsData['id']);
+                        foreach ($productsData as $productItem) {
+                            if (isset($productItem['id'])) {
+                                $this->productService->DeleteProduct($productItem['id']);
+                            }
+                        }
 
 
                         // Disparar os Jobs
@@ -91,7 +95,7 @@ class McphookController extends Controller
                             $data['payment_type_id'],
                             $data['transaction_amount']
                         );
-                        
+
                         break;
 
                     case 'pending':
