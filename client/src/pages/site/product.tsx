@@ -18,6 +18,7 @@ import { Stamps } from "@/components/ui/stamps";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { useCheckout } from "@/context/checkoutContext";
+import { useUI } from "@/context/UIContext";
 export function Product() {
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
@@ -29,6 +30,7 @@ export function Product() {
   const { dispatch } = useCart();
   const { name } = useUser();
   const { pathname } = useLocation();
+  const { setModalAuth } = useUI();
   const { id } = useParams();
   const numberId = Number(id);
   const { data: product, isLoading: isLoadingProduct } = useProductById(numberId);
@@ -50,11 +52,16 @@ export function Product() {
   const imageProduct = product?.image?.[0]?.image ?? "";
 
   const handleAddCart = async () => {
+    if (!name) {
+      setModalAuth(true);
+      return;
+    }
+
     if (!selectedColor || !selectedSize) {
       return alert("selecione cor e tamanho");
     }
-    setLoading(true);
 
+    setLoading(true);
     setDiscount(0);
     setStep(1);
     setPreference({

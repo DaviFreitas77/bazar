@@ -14,16 +14,18 @@ export function Home() {
   const { data: products } = useAllProducts();
 
   const vestidos = filterProductByCategory("Vestido", products ?? []);
+  const calca = filterProductByCategory("Calças", products ?? []);
+  const camisetas = filterProductByCategory("Camisetas", products ?? []);
 
   return (
     <main>
       <section className="relative w-full">
-        <Swiper modules={[Navigation, Pagination, Autoplay]}  loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }}className="w-full home-swiper">
+        <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
           {SlidesImagesHome.map((item, index) => (
             <SwiperSlide key={index} className="relative">
               <img src={item} alt={`Slide ${index + 1}`} className="w-full h-[60vh] lg:h-[80vh] object-cover" />
 
-             <div className="absolute inset-0 bg-black/20 z-10"></div>
+              <div className="absolute inset-0 bg-black/20 z-10"></div>
 
               {index === 0 && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-20 px-5">
@@ -43,11 +45,6 @@ export function Home() {
                   <p className="text-md lg:text-2xl mt-3">Estilo que nunca sai de moda. | DESDE 2025</p>
                 </div>
               )}
-
-            
-
-
-
             </SwiperSlide>
           ))}
         </Swiper>
@@ -56,7 +53,7 @@ export function Home() {
       <Stamps />
 
       <section className="mt-5 ">
-        <SuggestionProduct suggestionProducts={vestidos} tittle="Melhores preços" />
+        <SuggestionProduct suggestionProducts={calca} tittle="Calças com precinho" />
       </section>
 
       <section className="max-w-[1440px] mx-auto mt-20 px-4">
@@ -107,6 +104,10 @@ export function Home() {
 
       <section className="mt-20">
         <SuggestionProduct suggestionProducts={vestidos} tittle="Vestidos que falam por você" />
+      </section>
+
+      <section className="mt-20">
+        <SuggestionProduct suggestionProducts={camisetas} tittle="Garimpo de camisetas" />
       </section>
     </main>
   );
