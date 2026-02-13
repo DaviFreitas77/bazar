@@ -85,6 +85,7 @@ class MCPService
                 "transaction_amount"   => (float) $data["transaction_amount"],
                 "token"                => $data["token"],
                 "description"          => "Pedido no meu site",
+                "notification_url" => env('MERCADO_PAGO_NOTIFICATION_URL'),
                 "installments"         => $data["installments"],
                 "payment_method_id"    => $data["payment_method_id"],
                 "issuer_id" => (int) $data["issuer_id"],
