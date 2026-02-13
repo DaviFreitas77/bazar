@@ -21,26 +21,26 @@ export function Home() {
         <Swiper modules={[Navigation, Pagination, Autoplay]}  loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }}className="w-full home-swiper">
           {SlidesImagesHome.map((item, index) => (
             <SwiperSlide key={index} className="relative">
-              <img src={item} alt={`Slide ${index + 1}`} className="w-full h-[60vh] lg:h-[70vh] object-cover" />
+              <img src={item} alt={`Slide ${index + 1}`} className="w-full h-[60vh] lg:h-[80vh] object-cover" />
 
              <div className="absolute inset-0 bg-black/20 z-10"></div>
 
               {index === 0 && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-20 px-5">
-                  <h1 className="text-7xl lg:text-8xl font-bold tracking-widest">BAZAR</h1>
-                  <p className="text-lg lg:text-2xl mt-3">Estilo que nunca sai de moda. | DESDE 2025</p>
+                  <h1 className="text-5xl lg:text-7xl font-bold tracking-widest">BAZAR</h1>
+                  <p className="text-md lg:text-2xl mt-3">Estilo que nunca sai de moda. | DESDE 2025</p>
                 </div>
               )}
               {index === 1 && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-20 px-5">
-                  <h1 className="text-7xl lg:text-8xl font-bold tracking-widest">BAZAR</h1>
-                  <p className="text-lg lg:text-2xl mt-3">Estilo que nunca sai de moda. | DESDE 2025</p>
+                  <h1 className="text-5xl lg:text-7xl font-bold tracking-widest">BAZAR</h1>
+                  <p className="text-md lg:text-2xl mt-3">Estilo que nunca sai de moda. | DESDE 2025</p>
                 </div>
               )}
               {index === 2 && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-20 px-5">
-                  <h1 className="text-7xl lg:text-8xl font-bold tracking-widest">BAZAR</h1>
-                  <p className="text-lg lg:text-2xl mt-3">Estilo que nunca sai de moda. | DESDE 2025</p>
+                  <h1 className="text-5xl lg:text-7xl font-bold tracking-widest">BAZAR</h1>
+                  <p className="text-md lg:text-2xl mt-3">Estilo que nunca sai de moda. | DESDE 2025</p>
                 </div>
               )}
 

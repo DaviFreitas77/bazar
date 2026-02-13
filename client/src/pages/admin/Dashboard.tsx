@@ -1,4 +1,4 @@
-import { FinancialCard } from "@/components/admin/dashboard/financialCard";
+// import { FinancialCard } from "@/components/admin/dashboard/financialCard";
 
 import { HeaderAdmin } from "@/components/admin/headerAdmin/header";
 import { Metrics } from "@/components/admin/layout/metrics";
@@ -88,7 +88,7 @@ export function Dashboard() {
         <div className="flex  gap-4 mt-10">
           <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} dataKey="payment" />
 
-          <FinancialCard />
+          {/* <FinancialCard /> */}
         </div>
       </LayoutSidebar>
     </main>

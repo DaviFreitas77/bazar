@@ -21,7 +21,6 @@ export function TableOrders() {
   const [isOpen, setIsOpen] = useState(false);
 
 
-
   const parseDate = (date: string) => {
     const [day, month, year] = date.split("/");
     return new Date(`${year}-${month}-${day}`).getTime();
@@ -71,6 +70,8 @@ export function TableOrders() {
   const prevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
+
+  
   return (
     <div className="w-full ">
       <section className="bg-primary-200 px-5 pb-5  rounded-md border border-gray-200">
@@ -109,7 +110,7 @@ export function TableOrders() {
                       className={`px-3 py-1 rounded-full text-xs font-semibold tracking-wide
     ${order.status === "completed" ? "bg-emerald-100 text-emerald-700" : order.status === "paid" ? "bg-sky-100 text-sky-700" : order.status === "canceled" ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-700"}`}
                     >
-                      {order.status}
+                      {order.status === 'pending' ? 'Pendente': order.status === 'paid' ? 'Pago' : order.status === 'canceled' ? 'Cancelado' : 'Finalizado'}
                     </span>
                   </td>
                   <td className="px-4 py-2">{order.payment_method === "credit_card" ? "Cartão" : order.payment_method === "bank_transfer" ? "Pix" : order.payment_methos === "ticket" ? "Boleto" : "-"}</td>
