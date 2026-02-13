@@ -97,7 +97,6 @@ export function PaymentMercadoPago() {
 
       return;
     }
-
    await apiProcessPayment(formData, preference.orderId);
 
   };
