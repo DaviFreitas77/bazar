@@ -67,11 +67,13 @@ class MCPService
     }
 
 
-    public function processPayment($formdata, $order)
+    public function processPayment($formdata, $orderId)
     {
      
         try {
             $data = $formdata;
+            $order = Order::where('id', $orderId)->first();
+
 
 
             if (!$data) {
@@ -98,12 +100,14 @@ class MCPService
                         "number" => $data["payer"]["identification"]["number"]
                     ]
                 ],
-                "external_reference" => strval($order),
+                "external_reference" => strval($orderId),
             ], $request_options);
 
             //numero do pedido
             $numberOrder = Order::where('id', $payment->external_reference)->first();
-
+            
+            $order->payment_gateway_id = $payment->id;
+            $order->save();
             return response()->json([
                 'payment' => $payment,
                 'numberOrder' => $numberOrder->number_order
