@@ -72,7 +72,7 @@ class McphookController extends Controller
 
                         foreach ($productsData as $productItem) {
                             if (isset($productItem['id'])) {
-                                $this->productService->DeleteProduct($productItem['id']);
+                                $this->productService->updateProduct($productItem['id'],["visible"=>false]);
                             }
                         }
 
