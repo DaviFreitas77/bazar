@@ -31,7 +31,7 @@ export function DrawerResponsive() {
         {categories &&
           categories.map((category) => (
             <div key={category.id}>
-              <Link to={`/pesquisa?q=${category.name}`} onClick={() => setOpenDrawer(false)} key={category.id} className="block mb-4 text-gray-700 hover:text-gray-900">
+              <Link to={`/pesquisa?category=${category.name}`} onClick={() => setOpenDrawer(false)} key={category.id} className="block mb-4 text-gray-700 hover:text-gray-900">
                 {category.name}
               </Link>
             </div>

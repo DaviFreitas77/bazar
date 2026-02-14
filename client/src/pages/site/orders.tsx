@@ -10,28 +10,32 @@ import { BsBoxSeam } from "react-icons/bs";
 
 export function Orders() {
   const { data: myOrders, isLoading: isLoadingMyOrders } = useMyOrders();
+  
+
 
   const [filterOrder, setFilterOrder] = useState("relevance");
 
   const sortedOrders = useMemo(() => {
+    let ordersCopy = [...(myOrders || [])];
+
     switch (filterOrder) {
       case "relevance":
-        return myOrders?.sort((a: OrderProps, b: OrderProps) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        return ordersCopy.sort((a: OrderProps, b: OrderProps) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
       case "highestTotal":
-        return myOrders?.sort((a: OrderProps, b: OrderProps) => Number(b.total) - Number(a.total));
+        return ordersCopy.sort((a: OrderProps, b: OrderProps) => Number(b.total) - Number(a.total));
 
       case "lowestTotal":
-        return myOrders?.sort((a: OrderProps, b: OrderProps) => Number(a.total) - Number(b.total));
+        return ordersCopy.sort((a: OrderProps, b: OrderProps) => Number(a.total) - Number(b.total));
 
       default:
-        return myOrders;
+        return ordersCopy;
     }
   }, [filterOrder, myOrders]);
 
  
   return (
-    <main className="flex justify-center px-5 py-10">
+    <main className="flex justify-center px-5 py-10 ">
       <div className="w-full flex max-w-[1450px]">
         <AsideUser namePage="Meus pedidos" />
 
@@ -46,18 +50,20 @@ export function Orders() {
           </div>
 
           {isLoadingMyOrders ? (
-            <div className="flex justify-center items-center h-80 w-full">
+            <div className="flex justify-center items-center w-full mt-30">
               <Loading />
             </div>
           ) : sortedOrders && sortedOrders.length > 0 ? (
-            sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} number_order={order.numberOrder} created_at={order.created_at} total={order.total} status={order.status} item={order.items} />)
+            sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} number_order={order.numberOrder} created_at={order.created_at} total={order.total} status={order.status} item={order.items}  pix_qr_code_base64={order.pix_qr_code_base64} pix_code={order.pix_code}/>)
           ) : (
-            <p className="text-center text-gray-500 mt-20 flex flex-col items-center gap-4">
-              <span className="text-2xl text-primary-50">
-                <BsBoxSeam size={40} />
-              </span>
-              Você ainda não realizou nenhum pedido.
-            </p>
+            <div className="flex justify-center items-center mt-30">
+              <p className="text-center text-gray-500  flex flex-col items-center gap-4">
+                <span className="text-2xl text-primary-50">
+                  <BsBoxSeam size={40} />
+                </span>
+                Você ainda não realizou nenhum pedido.
+              </p>
+            </div>
           )}
         </section>
       </div>

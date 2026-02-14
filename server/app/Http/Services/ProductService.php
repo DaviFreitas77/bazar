@@ -6,6 +6,7 @@ use App\Models\ImagesProduct;
 use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductSize;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
@@ -21,7 +22,9 @@ class ProductService
         $product->lastPrice = $products['lastPrice'] ?? null;
         $product->fkCategory = $products['idCategory'];
         $product->fkSubcategory = $products['idSubcategory'];
+        $product->visible = true;
         $product->save();
+
 
         foreach ($products['images'] as $images) {
             $tableImages = new ImagesProduct();
@@ -48,7 +51,7 @@ class ProductService
 
     public function getProductByCategory($id): Collection
     {
-        $products = Product::with(['category',])->where('fkCategory', $id)->get();
+        $products = Product::with(['category',])->where('fkCategory', $id)->where('visible', true)->get();
 
         $result = $products->map(function ($product) {
             return [
@@ -71,7 +74,7 @@ class ProductService
 
     public function getProductById($id)
     {
-        $product = Product::with(['category',])->where('id', $id)->first();
+        $product = Product::with(['category',])->where('id', $id)->where('visible', true)->first();
 
         if (!$product) {
             return response()->json(['error' => 'Produto não encontrado'], 404);
@@ -128,10 +131,10 @@ class ProductService
 
     public function fetchProduct()
     {
-        $products = Product::with(['category'])->get();
+        $products = Product::with(['category'])->where('visible', true)->get();
 
         $result = $products->map(function ($product) {
-        
+
             return [
                 "id" => $product->id,
                 "name" => $product->name,
@@ -153,8 +156,7 @@ class ProductService
 
     public function searchProduct($search)
     {
-        $products = Product::where('name', 'like', '%' . $search . '%')
-            ->with(['category', 'sizes', 'images', 'category.subCategories'])->get();
+        $products = Product::where('name', 'like', '%' . $search . '%')->where('visible', true)->with(['category', 'sizes', 'images', 'category.subCategories'])->get();
 
         $result = $products->map(function ($product) {
             return [
@@ -171,11 +173,41 @@ class ProductService
                 "image" => $product->images->pluck('image'),
                 "sizes" => $product->sizes->pluck('name'),
                 "color" => $product->colors->pluck('name'),
-                 'idSubcategory' => $product->fkSubcategory,
+                'idSubcategory' => $product->fkSubcategory,
 
             ];
         });
 
         return response()->json($result);
+    }
+
+
+
+    public function DeleteProduct($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return response()->json(['message' => "produto não existe"], Response::HTTP_NOT_FOUND);
+        }
+
+        $product->delete();
+
+        return response()->json(['message' => "produto deletado"], Response::HTTP_OK);
+    }
+
+    public function updateProduct($id, array $data)
+    {
+        $product = Product::find($id);
+
+
+        if (!$product) {
+            return false;
+        }
+
+        $product->fill($data);
+        $product->save();
+
+        return $product;
     }
 }

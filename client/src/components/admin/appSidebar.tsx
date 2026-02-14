@@ -15,11 +15,13 @@ const menuGroups = [
         title: "Estatísticas",
         url: "/admin-dashboard",
         icon: Home,
+        disabled: false,
       },
       {
         title: "Produtos",
         url: "/admin-produtos",
         icon: GiClothes,
+        disabled: false,
       },
     ],
   },
@@ -27,9 +29,10 @@ const menuGroups = [
     label: "Comunicação",
     items: [
       {
-        title: "Email",
+        title: "Email ",
         url: "/admin-email",
         icon: Mail,
+        disabled: true,
       },
     ],
   },
@@ -40,6 +43,7 @@ const menuGroups = [
         title: "Configurações",
         url: "/config",
         icon: Settings,
+        disabled: true,
       },
     ],
   },
@@ -81,10 +85,21 @@ export function AppSidebar() {
                 {group.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <Link to={item.url}>
-                        <item.icon className="mr-2 h-4 w-4" />
-                        <span className="text-base">{item.title}</span>
-                      </Link>
+                      {item.disabled ? (
+                        <div className="flex justify-between items-center w-full">
+                          <div className="flex items-center gap-2">
+                            <item.icon className="mr-2 h-4 w-4" />
+                            <span className="text-base text-gray-400">{item.title}</span>
+                          </div>
+                          <span className="text-xs p-1 bg-amber-200 rounded-full">Em breve</span>
+                        </div>
+                      ) : (
+                        <Link to={item.url}>
+                          <item.icon className="mr-2 h-4 w-4" />
+
+                          <span className="text-base">{item.title}</span>
+                        </Link>
+                      )}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

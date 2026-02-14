@@ -9,7 +9,7 @@ export default defineConfig({
   preview: {
     host: true,
     port: 5173,
-    allowedHosts: ["fabulous-light-production-ef57.up.railway.app"],
+    allowedHosts: ["exciting-love-production-0360.up.railway.app"],
   },
   server: {
     host: "0.0.0.0",

@@ -1,4 +1,4 @@
-import { FinancialCard } from "@/components/admin/dashboard/financialCard";
+// import { FinancialCard } from "@/components/admin/dashboard/financialCard";
 
 import { HeaderAdmin } from "@/components/admin/headerAdmin/header";
 import { Metrics } from "@/components/admin/layout/metrics";
@@ -25,9 +25,9 @@ export function Dashboard() {
       footer: "Finalizados com sucesso",
     },
     {
-      title: "Pedidos em preparo",
+      title: "Pedidos Pago",
       value: metricOrders?.ordersPreparando ?? 0,
-      footer: "Atualmente em produção",
+      footer: "Pedidos em preparo para entrega",
     },
     {
       title: "Pedidos cancelados",
@@ -72,21 +72,23 @@ export function Dashboard() {
         </section>
 
         <motion.div
-        animate={{ opacity: 1,y:0 }} initial={{ opacity: 0, y: -50 }}transition={{
-            duration:0.8,
-            delay:0.5,
+          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -50 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5,
             ease: "anticipate",
           }}
-        className="mt-10">
+          className="mt-10"
+        >
           <TableOrders />
         </motion.div>
         <section className="mt-10"></section>
 
         <div className="flex  gap-4 mt-10">
-         
           <Graphic title="Métodos de pagamento" config={chartConfig} data={chartData} dataKey="payment" />
-        
-          <FinancialCard />
+
+          {/* <FinancialCard /> */}
         </div>
       </LayoutSidebar>
     </main>

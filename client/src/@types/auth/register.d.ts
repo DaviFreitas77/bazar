@@ -4,4 +4,6 @@ export interface Register {
     lastName:string;
     tel:string;
     password: string;
+    terms: boolean;
+    
   }

@@ -6,12 +6,12 @@ export function Terms() {
         <p className="text-gray-600 mb-4">
           <strong>Última atualização:</strong> 21/08/2025
         </p>
-        <p className="mb-6">Ao acessar e utilizar o site [Nome da Loja], você concorda com os seguintes termos. Caso não concorde, não utilize a plataforma.</p>
+        <p className="mb-6">Ao acessar e utilizar o site bazar, você concorda com os seguintes termos. Caso não concorde, não utilize a plataforma.</p>
 
         <section className="mb-6">
           <h2 className="text-xl font-semibold mb-2">1. Uso do Site</h2>
           <ul className="list-disc list-inside text-gray-700 space-y-1">
-            <li>O site é destinado exclusivamente para compras de produtos da [Nome da Loja].</li>
+            <li>O site é destinado exclusivamente para compras de produtos do bazar.</li>
             <li>É proibido usar o site para atividades ilegais, fraudulentas ou que violem a legislação vigente.</li>
           </ul>
         </section>
@@ -28,7 +28,7 @@ export function Terms() {
         <section className="mb-6">
           <h2 className="text-xl font-semibold mb-2">3. Propriedade Intelectual</h2>
           <ul className="list-disc list-inside text-gray-700 space-y-1">
-            <li>Todo o conteúdo do site (textos, imagens, códigos, logotipos) pertence à [Nome da Loja].</li>
+            <li>Todo o conteúdo do site (textos, imagens, códigos, logotipos) pertence à bazar.</li>
             <li>É proibida reprodução, distribuição ou uso sem autorização prévia.</li>
           </ul>
         </section>

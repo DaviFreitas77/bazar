@@ -20,12 +20,17 @@ return new class extends Migration
                 'processing',
                 'completed',
                 'canceled',
-                'preparando',
+                'refunded',
+                'paid',
             ])->default('pending');
             $table->decimal('total', 10, 2);
             $table->string('payment_method')->nullable();
             $table->unsignedInteger('fk_cupom')->nullable();
             $table->unsignedInteger('fk_adress')->nullable();
+            $table->text('pix_qr_code_base64')->nullable();
+            $table->text("pix_code")->nullable();
+            $table->string('payment_gateway_id')->nullable();
+            
             $table->timestamp('created_at')->useCurrent();
 
             $table->foreign('fk_user')->references('id')->on('users')->onDelete('cascade');

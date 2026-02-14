@@ -38,11 +38,13 @@ export function Header() {
 
             {/* LOGO */}
 
-            <img src="/images/logo.png" alt="" className="w-20" />
+            <a href="/">
+              <img src="/images/logo.png" alt="" className="w-20" />
+            </a>
 
             <div className="gap-8 text-sm hidden lg:flex">
               {allCategories?.map((category) => (
-                <Link onClick={() => setNameProduct(category.name)} key={category.id} className="hover:text-primary-50 text-gray-700" to={`/pesquisa?category=${category.name}`}>
+                <Link onClick={() => setNameProduct(category.name)} key={category.id} className="hover:text-primary-50 text-gray-700 capitalize" to={`/pesquisa?category=${category.name}`}>
                   {category.name}
                 </Link>
               ))}

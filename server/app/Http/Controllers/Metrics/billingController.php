@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Log;
 
 class billingController extends Controller
 {
@@ -14,9 +15,9 @@ class billingController extends Controller
      */
     public function __invoke()
     {
-        $ordersCompleted = Order::where('status', 'preparando')->get();
+        $ordersCompleted = Order::where('status', 'paid')->get();
 
-
+          
         $billingTotal = $ordersCompleted->sum('total');
 
 
@@ -109,7 +110,7 @@ class billingController extends Controller
 
             $resultCurrentMonth = round($resultCurrentMonth);
         }
-        
+
 
         //calc result current day
 
@@ -121,24 +122,23 @@ class billingController extends Controller
             $resultCurrentDay = round($resultCurrentDay);
         }
 
-       return response()->json([
-    'billingTotal' => $billingTotal,
+        return response()->json([
+             'billingTotal' => number_format($billingTotal, 2, '.', ''),
 
-    'billingMonth' => [
-        'value' => $billingMonth,
-        'variation' => $resultCurrentMonth,
-    ],
+            'billingMonth' => [
+                'value' => number_format($billingMonth, 2, '.', ''),
+                'variation' => $resultCurrentMonth,
+            ],
 
-    'billingToday' => [
-        'value' => $billingToday,
-        'variation' => $resultCurrentDay,
-    ],
+            'billingToday' => [
+                'value' => number_format($billingToday, 2, '.', ''),
+                'variation' => $resultCurrentDay,
+            ],
 
-    'billingCurrentTrimester' => [
-        'value' => $billingCurrentTrimester,
-        'variation' => $resultCurrentTrimester,
-    ],
-]);
-
+            'billingCurrentTrimester' => [
+                'value' => number_format($billingCurrentTrimester, 2, '.', ''),
+                'variation' => $resultCurrentTrimester,
+            ],
+        ]);
     }
 }

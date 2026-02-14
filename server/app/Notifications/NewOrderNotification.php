@@ -15,7 +15,7 @@ class NewOrderNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public string $name,public string $numberOrder,public array $products,public string $telOrder)
+    public function __construct(public string $name,public string $numberOrder,public array $products,public string $telOrder,public string $paymentMethod,public float $totalOrder)
     {
         //
     }
@@ -35,7 +35,7 @@ class NewOrderNotification extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): NewOrderMail
     {
-        return (new NewOrderMail($this->name, $this->numberOrder, $this->products,$this->telOrder))->to($notifiable->email);
+        return (new NewOrderMail($this->name, $this->numberOrder, $this->products,$this->telOrder,$this->paymentMethod,$this->totalOrder))->to($notifiable->email);
                   
     }
 

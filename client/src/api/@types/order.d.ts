@@ -7,6 +7,8 @@ export interface OrderProps {
   user?:string;
   cupom?:string
   item: itemsProps[];
+  pix_code?:string;
+  pix_qr_code_base64?:string;
 }
 export interface itemsProps {
   nameProduct: string;

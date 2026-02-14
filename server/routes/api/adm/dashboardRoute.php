@@ -4,6 +4,7 @@ use App\Http\Controllers\Metrics\billingController;
 use App\Http\Controllers\Metrics\MetricOrdersController;
 use App\Http\Controllers\Notification\SendNotificationController;
 use App\Http\Controllers\Order\listAllOrdersController;
+use App\Http\Controllers\Order\ListItemsOrder;
 use App\Http\Controllers\Product\CreateProductController;
 use App\Http\Controllers\Product\DeleteProductController;
 use App\Http\Controllers\Product\EditProductController;
@@ -19,7 +20,9 @@ Route::middleware(['auth:sanctum','is_admin'])->prefix('metrics')->group(functio
 
 Route::middleware(['auth:sanctum','is_admin'])->prefix('order')->group(function () {
   Route::get('/allOrders', listAllOrdersController::class);
-});
+  Route::get('/listItemsOrder/{idOrder}', ListItemsOrder::class);
+  });
+  
 
 
 Route::middleware(['auth:sanctum','is_admin'])->prefix('prod')->group(function () {

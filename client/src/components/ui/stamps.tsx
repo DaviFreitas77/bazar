@@ -1,5 +1,5 @@
 import { CiCreditCard2, CiDeliveryTruck } from "react-icons/ci";
-import { Autoplay } from "swiper/modules";
+import { Autoplay,FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { PiPixLogoLight } from "react-icons/pi";
 import { HiOutlineCheckBadge } from "react-icons/hi2";
@@ -43,9 +43,10 @@ export function Stamps() {
 
       <div className="flex w-full lg:hidden py-10 px-1 md:px-20">
         <Swiper
-          modules={[Autoplay]}
+          modules={[Autoplay,FreeMode]}
           loop={true}
-          speed={8000}
+          freeMode={true}
+          speed={5000}
           autoplay={{
             delay: 0,
             disableOnInteraction: false,
@@ -60,7 +61,7 @@ export function Stamps() {
             1024: { slidesPerView: 4.5, spaceBetween: 10 },
           }}
           pagination={{ clickable: true }}
-          className="w-full"
+          className="w-full linear-swiper"
         >
           <SwiperSlide>
             <div className="flex items-center gap-2 justify-center">
@@ -94,7 +95,7 @@ export function Stamps() {
           </SwiperSlide>
 
           <SwiperSlide>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2  justify-center">
               <CiDeliveryTruck size={40} className="text-gray-700" />
               <div className="leading-5">
                 <p className="text-gray-800 font-semibold text-sm">RETIRE</p>

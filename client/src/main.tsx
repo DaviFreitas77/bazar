@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, useNavigate } from "react-router-dom";
-import { CheckoutProvider } from "@/context/checkoutContext";
+
 import "./index.css";
 import App from "./App.tsx";
 import { ProductsSearchedProvider } from "./context/productsSearchedContext.tsx";
@@ -11,6 +11,7 @@ import {  getMe } from "./api/site/auth.api.ts";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "./context/cartContext.tsx";
 import { UIProvider } from "./context/UIContext.tsx";
+import { CheckoutProvider } from "./context/checkoutContext.tsx";
 
 const queryClient = new QueryClient();
 

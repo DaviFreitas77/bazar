@@ -1,14 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @theme inline {
   --radius: 0.625rem;
   --color-background: #ffffff;
   --color-primary-50: #a2785a;
-  --color-primary-100: #EBE3D0;
-  --color-primary-200: #Ffff;
-  --color-primary-300: #F9FAFB;
+  --color-primary-100: #ebe3d0;
+  --color-primary-200: #ffff;
+  --color-primary-300: #f9fafb;
 
   --color-primary: #000;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -26,7 +26,7 @@
 @custom-variant dark (&:is(.dark *));
 
 * {
-   font-family: "Poppins", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .swiper-button-prev,
@@ -61,12 +61,25 @@
 
 .swiper-navigation-icon {
   display: none;
-
 }
 
-.swiper-pagination-bullet-active {
+.product-swiper .swiper-pagination-bullet-active {
   background-color: var(--color-primary-50) !important;
+}
 
+
+
+.home-swiper .swiper-pagination-bullet {
+  background-color: #ffffff;
+  width: 15px;
+  height: 4px;
+  border-radius: 2px;
+  opacity: 0.4;
+}
+
+.home-swiper .swiper-pagination-bullet-active {
+  background-color: #ffffff;
+  opacity: 1;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -81,6 +94,10 @@
   background-color: #9e5330; /* cor da barra */
   border-radius: 10px; /* arredondada */
   border: 2px solid #f0f0f0; /* espaço ao redor */
+}
+
+.linear-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
 }
 
 /* MERCADO PAGO */
@@ -132,5 +149,4 @@
   --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
   --sidebar-border: hsl(240 3.7% 15.9%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
-
 }

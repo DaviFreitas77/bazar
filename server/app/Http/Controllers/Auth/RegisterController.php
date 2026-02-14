@@ -31,7 +31,6 @@ class RegisterController extends Controller
         
         $token = $user->createToken('sanctum')->plainTextToken;
         
-        $request->session()->regenerate();
         return response()->json([
             "message" => "conta criada com sucesso",
             'user' => $user,

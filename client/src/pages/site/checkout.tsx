@@ -12,13 +12,13 @@ import { useEffect, useMemo, useState } from "react";
 import { useCart } from "@/context/cartContext";
 import { apiLatestOrder } from "@/api/site/order.api";
 import { useNavigate } from "react-router-dom";
+import { OrderCanceled } from "@/components/site/checkout/orderCanceled";
 
 export function Checkout() {
   const navigate = useNavigate();
   const { step, discount } = useCheckout();
   const { state } = useCart();
   const [numberOrder, setNumberOrder] = useState("");
-  const orderConfirmed = step === 4;
   const total = useMemo(() => {
     const prices = state.map((item) => item.price * item.quantity);
     const sum = prices.reduce((a, b) => a + b, 0);
@@ -34,7 +34,7 @@ export function Checkout() {
   }, []);
 
   useEffect(() => {
-    if (step === 4) {
+    if (step === 4 || step === 5) {
       const fetchOrder = async () => {
         try {
           const response = await apiLatestOrder();
@@ -58,9 +58,9 @@ export function Checkout() {
       <ProgressStep step={step} />
 
       <div className="w-full max-w-7xl flex gap-10 flex-wrap lg:flex-nowrap">
-        <div className="w-full h-fit border border-gray-200 rounded-md">{step === 1 ? <PeopleInformation /> : step === 2 ? <ChooseDelivery /> : step === 3 ? <Payment /> : <PaymentConfirmed numberOrder={numberOrder} />}</div>
+        <div className="w-full h-fit border border-gray-200 rounded-md">{step === 1 ? <PeopleInformation /> : step === 2 ? <ChooseDelivery /> : step === 3 ? <Payment /> : step === 4 ? <PaymentConfirmed numberOrder={numberOrder} /> : <OrderCanceled numberOrder={numberOrder} />}</div>
 
-        <Summary products={state} total={total} isConfirmed={orderConfirmed} numberOrder={numberOrder} />
+        <Summary products={state} total={total}  numberOrder={numberOrder} />
       </div>
     </main>
   );

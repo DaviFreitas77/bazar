@@ -28,8 +28,8 @@ export const  apiProcessPayment = async(formdata:any,order:string)=>{
 }
 
 
-export const  apiProcessPaymentPix = async(formdata:any)=>{
-  const response = await api.post("mcp/proccessPaymentPix",formdata);
+export const  apiProcessPaymentPix = async(formdata:any,order:string)=>{
+  const response = await api.post("mcp/proccessPaymentPix",{formdata,order});
   return response.data;
 }
 

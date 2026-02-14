@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Address;
+
 
 class NewOrderMail extends Mailable
 {
@@ -16,40 +16,39 @@ class NewOrderMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct( public string $name,public string $numberOrder,
-    public array $products,public string $telUser)
-    {
-       
-    }
+    public function __construct(
+        public string $name,
+        public string $numberOrder,
+        public array $products,
+        public string $telUser,
+        public string $paymentMethod,
+        public float $totalOrder
+    ) {}
 
     /**
-     * Get the message envelope.
+     * Define o assunto e remetente (Metadata).
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('freitaadavi20@gmail.com', 'Bazar'),
-            subject: 'Uhuuul,novo pedido fresquinho!',
+           subject: 'Uhuuul,novo pedido fresquinho!',
             
         );
     }
 
     /**
-     * Get the message content definition.
+     * Define a View (HTML) e os dados.
      */
     public function content(): Content
     {
         return new Content(
             view: 'mail.newOrder',
-            with:['name' => $this->name,'numberOrder' => $this->numberOrder,'products' => $this->products,'tel' => $this->telUser]
+            // Com propriedades públicas no construtor, o 'with' é opcional,
+            // mas você pode manter se quiser renomear variáveis.
+             with:['name' => $this->name,'numberOrder' => $this->numberOrder,'products' => $this->products,'tel' => $this->telUser, 'paymentMethod' => $this->paymentMethod, 'totalOrder' => $this->totalOrder]
         );
     }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
     public function attachments(): array
     {
         return [];

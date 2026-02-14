@@ -8,9 +8,10 @@ use App\Http\Services\MCPService;
 use App\Http\Services\OrderItemsService;
 use App\Http\Services\OrderService;
 use App\Http\Services\ProductService;
+use App\Http\Services\ShoppingCartService;
+use App\Jobs\CancelOrderJob;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 
 #[Group('Order')]
@@ -20,12 +21,13 @@ class CreateOrderController extends Controller
     /**
      * Create new order
      */
-    public function __construct(private ProductService $productService, private OrderService $orderService, private OrderItemsService $orderItemsService, private MCPService $mcpService)
+    public function __construct(private ProductService $productService, private OrderService $orderService, private OrderItemsService $orderItemsService, private MCPService $mcpService,private ShoppingCartService $shoppingCartService)
     {
         $this->productService = $productService;
         $this->orderService = $orderService;
         $this->orderItemsService = $orderItemsService;
         $this->mcpService = $mcpService;
+        $this->shoppingCartService = $shoppingCartService;    
     }
 
     public function __invoke(StoreOrderRequest $request)
@@ -39,19 +41,23 @@ class CreateOrderController extends Controller
         }
         $userId = $request->user()->id;
 
-        //cria um novo pedido
+       
         $sumPrice = $this->productService->fethPricesProduct($data['items']);
+        
         $newOder = $this->orderService->create($userId, 'pending', $sumPrice, $adressId);
 
-
-        $newOrderItems = $this->orderItemsService->create($data['items'], $newOder->id);
+        $this->orderItemsService->create($data['items'], $newOder->id);
 
         $preference = $this->mcpService->createPreferenceService($data['items'], $sumPrice, $newOder->id);
+
+        CancelOrderJob::dispatch($newOder->id)->delay(now()->addMinutes(15));
+        $this->shoppingCartService->deleteCartUser($userId);
 
 
         return response()->json([
             "total" => $preference['total'],
             "orderId" => $preference['orderId'],
+            "created_at" => $newOder->created_at,
             "preference" => $preference
         ],Response::HTTP_CREATED);
     }

@@ -2,12 +2,13 @@ import { deleteProduct } from "@/api/admin/productAdmin";
 import { Pagination } from "@/components/site/search/pagination";
 import { DropDown, NativeSelectOption } from "@/components/ui/native-select";
 import { useAllProducts } from "@/hooks/site/useAllProducts";
-import { Pencil, Search, Trash } from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { ModalEditProduct } from "./modalEditProduct";
+import { Loading } from "@/components/site/loading/loading";
 
 export function TableProduct() {
   const [filterOrder, setFilterOrder] = useState("relevance");
@@ -17,7 +18,7 @@ export function TableProduct() {
 
   let productsPerPage = 15;
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: products, refetch } = useAllProducts();
+  const { data: products, refetch} = useAllProducts();
 
   const filteredProducts = useMemo(() => {
     let result = [...(products ?? [])];
@@ -71,7 +72,7 @@ export function TableProduct() {
 
   return (
     <main className="mt-4  w-full pb-20 ">
-      <section className="bg-white  px-4 rounded-md pb-4 relative">
+      <section className="bg-white  px-4 rounded-md pb-4 relative border border-gray-200">
         <div className="w-full  pt-4 my-4">
           <div className="text-end w-full flex justify-between  text-sm gap-4">
             <div className="flex  gap-10 relative">
@@ -81,8 +82,8 @@ export function TableProduct() {
                 <NativeSelectOption value="lowestPrice">Menor Preço</NativeSelectOption>
               </DropDown>
 
-              <input type="text" placeholder="Buscar produtos..." className="border border-gray-300 rounded-lg w-100 pl-8 text-sm outline-none focus:ring-1 focus:ring-primary-50" />
-              <Search className="absolute left-45 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+              {/* <input type="text" placeholder="Buscar produtos..." className="border border-gray-300 rounded-lg w-100 pl-8 text-sm outline-none focus:ring-1 focus:ring-primary-50" />
+              <Search className="absolute left-45 top-1/2 -translate-y-1/2 text-gray-400" size={18} /> */}
             </div>
             <Link to="/admin/novo-produto" className="bg-primary-50 text-white px-4 rounded-md flex items-center gap-2 cursor-pointer">
               <AiOutlinePlus size={15} />
@@ -102,7 +103,7 @@ export function TableProduct() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {currentItems?.map((product) => (
+            {currentItems.length > 0 ? currentItems?.map((product) => (
               <tr key={product.id} className="hover:bg-gray-50 transition">
                 <td className="px-4 py-2 text-primary-50 font-bold">{product.id}</td>
                 <td className="px-4 py-2">{product.name}</td>
@@ -134,7 +135,13 @@ export function TableProduct() {
                   </button>
                 </td>
               </tr>
-            ))}
+            )):(
+              <tr>
+                <td colSpan={7} className="text-center py-6 text-gray-400">
+                  <Loading/>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
         <div>{totalPages && <Pagination currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />}</div>

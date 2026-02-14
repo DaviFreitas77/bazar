@@ -198,12 +198,12 @@ const logOut = async () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer hover:text-primary-50">
-        Olá {name}
+        Olá <span className="capitalize">{name}</span>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
         <DropdownMenuItem asChild>
-          <Link to="/pedidos" className="flex items-center gap-2">
+          <Link to="/pedidos" className="flex items-center gap-2 cursor-pointer hover:opacity-60">
             <HiOutlineShoppingBag />
             Pedidos
           </Link>
@@ -211,7 +211,7 @@ const logOut = async () => {
 
         <DropdownMenuItem
           onSelect={logOut}
-          className="flex items-center gap-2 text-red-500"
+          className="flex items-center gap-2 text-red-500 cursor-pointer hover:opacity-60"
         >
           <CiLogout />
           Sair

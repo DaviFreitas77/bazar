@@ -5,8 +5,7 @@ namespace App\Http\Services;
 use App\Models\Order;
 use App\Models\OrderItems;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log;
 
 class OrderService
 {
@@ -34,13 +33,11 @@ class OrderService
     }
 
 
-    public function updatePaymentOrderService($method, $idOrder,$userId)
+    public function updatePaymentOrderService($method, $idOrder, $userId)
     {
-   
         $order = Order::where('fk_user', $userId)->where('id', $idOrder)->first();
         if ($order->payment_method == null) {
             $order->payment_method = $method;
-
             $order->save();
         }
         return $order;
@@ -57,7 +54,7 @@ class OrderService
 
     public function fetchOrderUser($idUser)
     {
-        
+
         $orderUser =  Order::where('fk_user', $idUser)->get();
 
         $orderComplet = [];
@@ -77,11 +74,50 @@ class OrderService
                 'total'          => $order->total,
                 'payment_method' => $order->payment_method,
                 'created_at'     => $order->created_at,
+                'items'          => $infoproducts,
+                'pix_code'        => $order->pix_code,
+                'pix_qr_code_base64' => $order->pix_qr_code_base64
+            ];
+        }
+
+        return response()->json($orderComplet);
+    }
+
+    public function fetchItemsOrder($idOrder)
+    {
+
+        $orderById =  Order::where('id', $idOrder)->get();
+
+
+        $orderComplet = [];
+        foreach ($orderById as $order) {
+            $orderItems = OrderItems::with('product.images', 'color', 'size')
+                ->where('fk_order', $idOrder)
+                ->get();
+
+
+            $infoproducts = $orderItems->map(function ($item) {
+                return [
+                    'nameProduct' => $item->product->name,
+                    'quantityProduct' => $item->quantity,
+                    'imageProduct' => $item->product->images->first()->image,
+                    'colorProduct' => $item->color->name,
+                    'sizeProduct' => $item->size->name,
+                    'price' => $item->product->price
+                ];
+            });
+
+            $orderComplet[] = [
+                'numberOrder'    => $order->number_order,
+                'status'         => $order->status,
+                'total'          => $order->total,
+                'payment_method' => $order->payment_method,
+                'created_at'     => $order->created_at,
                 'items'          => $infoproducts
             ];
         }
 
-          return response()->json($orderComplet);
+        return $orderComplet;
     }
 
     public function orderById($orderId)
@@ -90,13 +126,28 @@ class OrderService
         return $order;
     }
 
-    public function deleteOrderExpired()
+    public function cancelOrder($id)
     {
-        $order = Order::where('status', 'pending')->where('created_at', '<', now()->subMinutes(30))->get();
+        $order = Order::find($id);
 
-        foreach ($order as $ord) {
-            $ord->delete();
+        if (!$order) {
+            return response()->json([
+                'message' => 'Pedido não encontrado'
+            ], 404);
         }
+
+        if ($order->status !== 'pending') {
+            return response()->json([
+                'message' => 'Este pedido não pode ser cancelado'
+            ], 400);
+        }
+
+        $order->status = 'canceled';
+        $order->save();
+
+        return response()->json([
+            'message' => 'Pedido cancelado com sucesso'
+        ]);
     }
 
     public function fetchAllOrders()
@@ -104,6 +155,4 @@ class OrderService
         $orders = Order::all();
         return $orders;
     }
-
-    
 }

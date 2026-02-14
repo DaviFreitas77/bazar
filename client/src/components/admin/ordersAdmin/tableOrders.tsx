@@ -2,6 +2,7 @@ import { Pagination } from "@/components/site/search/pagination";
 import { useMemo, useState } from "react";
 import { ActionOrder } from "./actionsOrders";
 import { useAllOrders } from "@/hooks/admin/useAllOrders";
+import { OrderDetailsModal } from "./OrderDetailsModal";
 const THEMES = { light: "", dark: ".dark" } as const;
 export type ChartConfig = {
   [k in string]: {
@@ -10,14 +11,15 @@ export type ChartConfig = {
   } & ({ color?: string; theme?: never } | { color?: never; theme: Record<keyof typeof THEMES, string> });
 };
 
-
-
-
 export function TableOrders() {
   const { data: allOrders } = useAllOrders();
   const [filterOrder, setFilterOrder] = useState("relevance");
   const ordersPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
+  const [idOrder, setIdOrder] = useState(0);
+
+  const [isOpen, setIsOpen] = useState(false);
+
 
   const parseDate = (date: string) => {
     const [day, month, year] = date.split("/");
@@ -37,6 +39,10 @@ export function TableOrders() {
 
     if (filterOrder === "canceled") {
       result = result.filter((order) => order.status === "canceled");
+    }
+
+    if (filterOrder === "paid") {
+      result = result.filter((order) => order.status === "paid");
     }
 
     switch (filterOrder) {
@@ -68,6 +74,8 @@ export function TableOrders() {
   const prevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
+
+  
   return (
     <div className="w-full ">
       <section className="bg-primary-200 px-5 pb-5  rounded-md border border-gray-200">
@@ -90,16 +98,23 @@ export function TableOrders() {
           <tbody className="bg-white divide-y divide-gray-200">
             {currentItems.length > 0 ? (
               currentItems.map((order) => (
-                <tr key={order.id} className="hover:bg-gray-50 transition">
+                <tr
+                  onClick={() => {
+                    setIdOrder(order.id);
+                    setIsOpen(true);
+                  }}
+                  key={order.id}
+                  className="hover:bg-gray-50 transition cursor-pointer"
+                >
                   <td className="px-4 py-2 font-semibold text-primary-50">#{order.number_order}</td>
                   <td className="px-4 py-2 capitalize">{order.user}</td>
                   <td className="px-4 py-2">{order.cupom ?? "-"}</td>
                   <td className="px-4 py-2">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold tracking-wide
-    ${order.status === "completed" ? "bg-emerald-100 text-emerald-700" : order.status === "preparando" ? "bg-sky-100 text-sky-700" : order.status === "canceled" ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-700"}`}
+    ${order.status === "completed" ? "bg-emerald-100 text-emerald-700" : order.status === "paid" ? "bg-sky-100 text-sky-700" : order.status === "canceled" ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-700"}`}
                     >
-                      {order.status}
+                      {order.status === 'pending' ? 'Pendente': order.status === 'paid' ? 'Pago' : order.status === 'canceled' ? 'Cancelado' : 'Finalizado'}
                     </span>
                   </td>
                   <td className="px-4 py-2">{order.payment_method === "credit_card" ? "Cartão" : order.payment_method === "bank_transfer" ? "Pix" : order.payment_methos === "ticket" ? "Boleto" : "-"}</td>
@@ -125,6 +140,8 @@ export function TableOrders() {
           <Pagination currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />
         </div>
       </section>
+
+      <OrderDetailsModal   isOpen={isOpen} onClose={() => setIsOpen(false)} idOrder={idOrder} />
     </div>
   );
 }

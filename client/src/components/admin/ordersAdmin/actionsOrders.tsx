@@ -14,8 +14,9 @@ export function ActionOrder({ filterOrder, setFilterOrder }:OrderPros) {
           <NativeSelectOption value="relevance">Relevância</NativeSelectOption>
           <NativeSelectOption value="recents">Mais recentes</NativeSelectOption>
           <NativeSelectOption value="oldest">Mais antigos</NativeSelectOption>
+          <NativeSelectOption value="paid">Pagos</NativeSelectOption>
           <NativeSelectOption value="completed">Completo</NativeSelectOption>
-          <NativeSelectOption value="pending">pending</NativeSelectOption>
+          <NativeSelectOption value="pending">Pendentes</NativeSelectOption>
           <NativeSelectOption value="canceled">Cancelados</NativeSelectOption>
         </DropDown>
       </div>

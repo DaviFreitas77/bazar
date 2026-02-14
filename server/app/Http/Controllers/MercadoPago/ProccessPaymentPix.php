@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\MercadoPago;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Dedoc\Scramble\Attributes\Group;
 use ErrorException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use MercadoPago\Client\Common\RequestOptions;
 use MercadoPago\Client\Payment\PaymentClient;
+use MercadoPago\MercadoPagoConfig;
 
-
+MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
 #[Group('MercadoPago')]
+
 class ProccessPaymentPix extends Controller
 {
     /**
@@ -20,7 +24,9 @@ class ProccessPaymentPix extends Controller
     public function __invoke(Request $request)
     {
         try {
-            $data = $request->all();
+            $data = $request->formdata;
+            $order = $request->order;
+
             $client = new PaymentClient();
             $request_options = new RequestOptions();
 
@@ -28,14 +34,31 @@ class ProccessPaymentPix extends Controller
             $payment = $client->create([
                 "transaction_amount" => (float) $data['transaction_amount'],
                 "payment_method_id" => $data['payment_method_id'],
+                "notification_url" => env('MERCADO_PAGO_NOTIFICATION_URL'),
+                "description" => "Bazar",
                 "payer" => [
                     "email" => $data['payer']['email'],
-                ]
+                    "first_name" => $data['payer']['first_name'] ?? '',
+                    "last_name" => $data['payer']['last_name'] ?? '',
+
+
+                ],
+                "external_reference" => strval($order)
             ], $request_options);
 
+            $order =  Order::where('id', $order)->first();
+            $order->pix_code = $payment->point_of_interaction->transaction_data->qr_code;
+
+            $order->pix_qr_code_base64 = $payment->point_of_interaction->transaction_data->qr_code_base64;
+
+            $order->payment_gateway_id = $payment->id;
+
+            $order->save();
+
             return response()->json($payment, Response::HTTP_OK);
-        } catch (ErrorException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (\MercadoPago\Exceptions\MPApiException $e) {
+
+            return response()->json($e->getApiResponse()->getContent(), 400);
         }
     }
 }

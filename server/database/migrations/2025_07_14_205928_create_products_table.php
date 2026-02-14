@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal("lastPrice",10,2)->nullable();
             $table->unsignedInteger('fkCategory');
             $table->unsignedInteger('fkSubcategory');
+            $table->boolean('visible')->default(true);
             $table->foreign('fkCategory')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('fkSubcategory')->references('id')->on('sub_categories')->onDelete('cascade');
         });

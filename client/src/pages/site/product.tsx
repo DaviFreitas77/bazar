@@ -17,15 +17,20 @@ import { LiaShoppingBagSolid } from "react-icons/lia";
 import { Stamps } from "@/components/ui/stamps";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { useCheckout } from "@/context/checkoutContext";
+import { useUI } from "@/context/UIContext";
 export function Product() {
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
   const [selectedColorName, setSelectedColorName] = useState<string>("");
   const [selectedSizeName, setSelectedSizeName] = useState<string>("");
   const [numberImage, setNumberImage] = useState<number>(0);
+  const { setStep, setPreference, setDiscount } = useCheckout();
+  const [loading, setLoading] = useState<boolean>(false);
   const { dispatch } = useCart();
   const { name } = useUser();
   const { pathname } = useLocation();
+  const { setModalAuth } = useUI();
   const { id } = useParams();
   const numberId = Number(id);
   const { data: product, isLoading: isLoadingProduct } = useProductById(numberId);
@@ -38,8 +43,7 @@ export function Product() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const { data: recomendation } = useProductsByCategory(product?.categoryName?? null);
-
+  const { data: recomendation } = useProductsByCategory(product?.categoryName ?? null);
 
   const chooseImage = useMemo(() => {
     return images[numberImage]?.image ?? "";
@@ -48,35 +52,58 @@ export function Product() {
   const imageProduct = product?.image?.[0]?.image ?? "";
 
   const handleAddCart = async () => {
+    if (!name) {
+      setModalAuth(true);
+      return;
+    }
+
     if (!selectedColor || !selectedSize) {
       return alert("selecione cor e tamanho");
     }
-    dispatch({
-      type: "addItem",
-      payload: {
-        id: product!.id,
-        name: product!.name,
-        price: Number(product?.price),
-        image: imageProduct,
-        quantity: 1,
-        color: selectedColor,
-        size: selectedSize,
-        colorName: selectedColorName,
-        sizeName: selectedSizeName,
-      },
+
+    setLoading(true);
+    setDiscount(0);
+    setStep(1);
+    setPreference({
+      id: "",
+      total: 0,
+      orderId: "",
+      created_at: "",
     });
 
-    if (name) {
-      await apiAddProduct({
-        id: product!.id,
-        name: product!.name,
-        price: Number(product?.price),
-        image: imageProduct,
-        quantity: 1,
-        color: selectedColor,
-        size: selectedSize,
+    try {
+      if (name) {
+        await apiAddProduct({
+          id: product!.id,
+          name: product!.name,
+          price: Number(product?.price),
+          image: imageProduct,
+          quantity: 1,
+          color: selectedColor,
+          size: selectedSize,
+        });
+      }
+
+      dispatch({
+        type: "addItem",
+        payload: {
+          id: product!.id,
+          name: product!.name,
+          price: Number(product?.price),
+          image: imageProduct,
+          quantity: 1,
+          color: selectedColor,
+          size: selectedSize,
+          colorName: selectedColorName,
+          sizeName: selectedSizeName,
+        },
       });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
+
     setSelectedColor(null);
     setSelectedSize(null);
     toast.success("Produto adicionado ao carrinho!");
@@ -112,7 +139,7 @@ export function Product() {
                       }}
                       navigation
                       pagination={{ clickable: true }}
-                      className="w-full"
+                      className="w-full product-swiper"
                     >
                       {images &&
                         images.map((image) => (
@@ -130,7 +157,7 @@ export function Product() {
               <BreadcrumbPages pageName={["Produto", `${product?.name}`]} />
               <div>
                 <div className="flex  items-center justify-between">
-                  <h1 className="text-3xl font-semibold text-gray-700 mb-2">{product?.name}</h1>
+                  <h1 className="text-3xl font-semibold text-gray-700 mb-2  capitalize">{product?.name}</h1>
                   {/* <button className="cursor-pointer text-primary-50 hover:text-red-500">
                     <GoHeart size={30} />
                   </button> */}
@@ -186,9 +213,13 @@ export function Product() {
                   ))}
                 </div>
               </AccordionFilter>
-              <button onClick={handleAddCart} className="bg-primary-50 hover:bg-primary-100 text-white py-3 w-full rounded-xs font-medium text-base hover:opacity-85 cursor-pointer flex itmes-center justify-center gap-2">
+              <button
+                onClick={handleAddCart}
+                className={`flex items-center justify-center gap-2 text-white font-medium transition duration-200 shadow-sm cursor-pointer  px-10 py-3 rounded-md ${loading ? "bg-primary-100 cursor-not-allowed" : "bg-primary-50 hover:bg-primary-100"}`}
+                disabled={loading}
+              >
                 <LiaShoppingBagSolid size={22} />
-                Adicionar à sacola
+                {loading ? "Carregando..." : "Adicionar à sacola"}
               </button>
               <button className="flex items-center justify-center gap-2 text-gray-700 cursor-pointer text-sm ">
                 <FaWhatsapp size={22} />
