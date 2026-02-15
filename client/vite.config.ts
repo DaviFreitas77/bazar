@@ -9,7 +9,7 @@ export default defineConfig({
   preview: {
     host: true,
     port: 5173,
-    allowedHosts: ["exciting-love-production-0360.up.railway.app"],
+    allowedHosts: ["bazarsandra.freitasz.com.br"],
   },
   server: {
     host: "0.0.0.0",
