@@ -16,6 +16,4 @@ RUN npm run build
 
 
 
-# Roda o app em produção usando npm start
-CMD ["sh", "-c", "npx serve -s dist -l ${PORT:-3000}"]
-
+CMD ["sh", "-c", "npx serve -s dist -l tcp://0.0.0.0:${PORT:-8080}"]
