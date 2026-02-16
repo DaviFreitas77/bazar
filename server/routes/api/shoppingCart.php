@@ -9,6 +9,5 @@ Route::middleware('auth:sanctum')
     ->prefix('shoppingCart')
     ->group(function () {
         Route::post('/add', AddProductInCart::class);
-        Route::post('/sync', SyncCartController::class);
         Route::get('/getCart', GetCartController::class);
     });

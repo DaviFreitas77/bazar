@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('fkCategory');
             $table->unsignedInteger('fkSubcategory');
             $table->boolean('visible')->default(true);
+            $table->integer('stock')->default(1);
             $table->foreign('fkCategory')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('fkSubcategory')->references('id')->on('sub_categories')->onDelete('cascade');
         });

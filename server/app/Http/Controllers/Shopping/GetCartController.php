@@ -38,10 +38,9 @@ class GetCartController extends Controller
 
         $productsCart = ProductShoppingCart::where('fkShoppingCart', $idShoppingCart)
             ->join('products', 'product_shopping_cart.fkProduct', '=', 'products.id')
-            ->join('product_colors', 'product_shopping_cart.fkColor', '=', 'product_colors.id')
-            ->join('colors', 'product_colors.fkColor', '=', 'colors.id')
-            ->join('product_sizes', 'product_shopping_cart.fkSize', '=', 'product_sizes.id')
-            ->join('sizes', 'product_sizes.fkSize', '=', 'sizes.id')
+            ->join('colors', 'product_shopping_cart.fkColor', '=', 'colors.id')
+             ->join('sizes', 'product_shopping_cart.fkSize', '=', 'sizes.id')
+           
             ->join('images_products', function ($join) {
                 $join->on('products.id', '=', 'images_products.idProduct')
                     ->where('images_products.id', function ($query) {

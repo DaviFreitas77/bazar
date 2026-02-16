@@ -6,6 +6,8 @@ import { useAllProducts } from "@/hooks/site/useAllProducts";
 import { GoArrowLeft } from "react-icons/go";
 import { useUI } from "@/context/UIContext";
 import { useNavigate } from "react-router-dom";
+import { apiAddProduct } from "@/api/site/shoppingCart.api";
+import { toast } from "sonner";
 
 import { SkeletonRecomendedProducts } from "./skeletonRecomendedProduct";
 
@@ -17,9 +19,31 @@ export function CartProducts() {
 
   const limited = products?.slice(0, 3);
 
-  const handleIncrement = (item: CartItem) => {
-    dispatch({ type: "increment", payload: { id: item.id, color: item.color, size: item.size } });
-  };
+ const handleIncrement = async (item: CartItem) => {
+  try {
+    await apiAddProduct({
+      id: item.id,
+      name: item.name,
+      price: Number(item.price),
+      image: item.image,
+      quantity: 1,
+      color: item.color,
+      size: item.size,
+    });
+
+    dispatch({
+      type: "increment",
+      payload: { id: item.id, color: item.color, size: item.size }
+    });
+
+  } catch (error: any) {
+    if (error.response?.status === 400) {
+      toast.error(error.response.data.message);
+    } else {
+      toast.error("Erro ao adicionar produto");
+    }
+  }
+};
 
   const handleDecrement = (item: CartItem) => {
     dispatch({ type: "decrement", payload: { id: item.id, color: item.color, size: item.size } });
@@ -86,7 +110,7 @@ export function CartProducts() {
                     </div>
                     <button
                       onClick={() => {
-                        setOpenCart(false), navigate(`/product/${product.id}`);
+                        (setOpenCart(false), navigate(`/product/${product.id}`));
                       }}
                       className="bg-primary-50 text-white text-sm w-full cursor-pointer mt-12 py-1"
                     >
