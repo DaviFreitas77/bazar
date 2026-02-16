@@ -14,8 +14,11 @@ COPY . .
 # Build da aplicação
 RUN npm run build
 
+RUN npm install -g serve
+
+EXPOSE 3000
 
 
 # Roda o app em produção usando npm start
-CMD ["sh", "-c", "npx serve -s dist -l ${PORT:-3000}"]
+CMD ["sh", "-c", "serve -s dist -l $PORT"]
 
