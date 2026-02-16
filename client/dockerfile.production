@@ -14,8 +14,8 @@ COPY . .
 # Build da aplicação
 RUN npm run build
 
-# Expõe a porta
-EXPOSE 5173
+
 
 # Roda o app em produção usando npm start
-CMD ["npm", "start"]
+CMD ["sh", "-c", "npx serve -s dist -l ${PORT:-3000}"]
+
