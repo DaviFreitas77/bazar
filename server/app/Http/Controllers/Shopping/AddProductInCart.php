@@ -9,8 +9,9 @@ use App\Models\Product;
 use App\Models\ProductShoppingCart;
 use App\Models\ShoppingCart;
 use Dedoc\Scramble\Attributes\Group;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log;
 
 #[Group('Shopping Cart')]
 class AddProductInCart extends Controller
@@ -37,6 +38,11 @@ class AddProductInCart extends Controller
 
         $priceProduct = Product::where('id', $data['idProduct'])->first()->price;
 
+        $verifyProductStock = Product::where('id', $data['idProduct'])->first()->stock;
+
+
+
+
         //verifica se o produto existe no carrinho,se sim ,soma na quantidade
         $existingProduct = ProductShoppingCart::where('fkShoppingCart', $cartId)
             ->where('fkProduct', $data['idProduct'])
@@ -46,6 +52,12 @@ class AddProductInCart extends Controller
 
 
         if ($existingProduct) {
+
+            $newQuantity = $existingProduct->quantity + $data['quantity'];
+            if ($newQuantity > $verifyProductStock) {
+                return response()->json(['message' => 'Quantidade indisponível no estoque '], Response::HTTP_BAD_REQUEST);
+            }
+
             $existingProduct->quantity += $data['quantity'];
             $existingProduct->save();
         } else {
@@ -62,6 +74,6 @@ class AddProductInCart extends Controller
         $shoppingCart->totalPrice += $priceProduct * $data['quantity'];
         $shoppingCart->save();
 
-        return response()->json(['message' => 'produto adicionado ao carrinho']);
+        return response()->json(['message' => 'produto adicionado ao carrinho'], Response::HTTP_OK);
     }
 }

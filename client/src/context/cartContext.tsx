@@ -39,7 +39,7 @@ export function cartReducer(state: CartItem[], action: CartAction) {
       return state.map((item) => (item.id === action.payload.id && item.color === action.payload.color && item.size === action.payload.size ? { ...item, quantity: item.quantity + 1 } : item));
 
     case "decrement":
-      return state.map((item) => (item.id === action.payload.id && item.color === action.payload.color && item.size === action.payload.size ? item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : null : item)) .filter((item) => item !== null); ;
+      return state.map((item) => (item.id === action.payload.id && item.color === action.payload.color && item.size === action.payload.size ? (item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : null) : item)).filter((item) => item !== null);
 
     case "delete":
       return state.filter((item) => item.id !== action.payload.id && item.color !== action.payload.color && item.size !== action.payload.size);
@@ -66,38 +66,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return stored ? JSON.parse(stored) : [];
   });
 
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(state));
-
-    const syncCart = async () => {
-      if (!name) return;
-      try {
-        await apiSyncCart(state);
-      } catch (error: any) {
-        if (error.response.status === 422) {
-          return null;
-        } else {
-          console.error("Erro ao sincronizar o carrinho", error);
-        }
-      }
-    };
-    syncCart();
-  }, [state]);
 
   useEffect(() => {
-
     const fetchCart = async () => {
       if (!name) return;
 
+      localStorage.removeItem("cart");
+      dispatch({ type: "setState", payload: [] });
 
-    localStorage.removeItem("cart");
-    dispatch({ type: "setState", payload: [] });
-    
       try {
         const itemsFromDb = await apiGetCart();
-       
+
         // Joga o carrinho do banco para dentro do state local
-        dispatch({ type: "setState", payload: itemsFromDb.productsCart});
+        dispatch({ type: "setState", payload: itemsFromDb.productsCart });
       } catch (err) {
         console.error("Erro ao obter o carrinho", err);
       }

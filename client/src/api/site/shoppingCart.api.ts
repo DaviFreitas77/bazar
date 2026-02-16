@@ -10,11 +10,6 @@ export const apiAddProduct = async (data: any) => {
   return response.data;
 };
 
-export const apiSyncCart = async (data: any) => {
-  const response = await api.post(`/shoppingCart/sync`, {products:data});
-  return response.data;
-};
-
 export const apiGetCart = async () => {
   const response = await api.get(`/shoppingCart/getCart`);
   return response.data;
