@@ -6,7 +6,7 @@ import { useAllProducts } from "@/hooks/site/useAllProducts";
 import { GoArrowLeft } from "react-icons/go";
 import { useUI } from "@/context/UIContext";
 import { useNavigate } from "react-router-dom";
-import { apiAddProduct } from "@/api/site/shoppingCart.api";
+import { apiAddProduct, apiDecrementProduct } from "@/api/site/shoppingCart.api";
 import { toast } from "sonner";
 
 import { SkeletonRecomendedProducts } from "./skeletonRecomendedProduct";
@@ -19,13 +19,15 @@ export function CartProducts() {
   const navigate = useNavigate();
   const { setOpenCart } = useUI();
   const [loadingId, setLoadingId] = useState<string | number | null>(null);
+  const [loadingDecrement, setLoadingDecrement] =  useState<string | number | null>(null);
+
 
   const limited = products?.slice(0, 3);
 
   const handleIncrement = async (item: CartItem) => {
     const uniqueId = `${item.id}-${item.color}-${item.size}`;
 
-    setLoadingId(uniqueId); 
+    setLoadingId(uniqueId);
     try {
       await apiAddProduct({
         id: item.id,
@@ -52,8 +54,25 @@ export function CartProducts() {
     }
   };
 
-  const handleDecrement = (item: CartItem) => {
-    dispatch({ type: "decrement", payload: { id: item.id, color: item.color, size: item.size } });
+  const handleDecrement = async (item: CartItem) => {
+    const uniqueId = `${item.id}-${item.color}-${item.size}`;
+    setLoadingDecrement(uniqueId);
+    try {
+      await apiDecrementProduct({
+        id: item.id,
+        name: item.name,
+        price: Number(item.price),
+        image: item.image,
+        color: item.color,
+        size: item.size,
+        quantity: 1,
+      });
+      dispatch({ type: "decrement", payload: { id: item.id, color: item.color, size: item.size } });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingDecrement(null);
+    }
   };
   return (
     <section className="mt-2 flex flex-col gap-2">
@@ -74,14 +93,15 @@ export function CartProducts() {
 
                   <div className="flex items-center gap-3 mt-1">
                     <button onClick={() => handleDecrement(item)} className="p-1 rounded-full border border-primary-50 hover:bg-primary-100 hover:text-white cursor-pointer">
-                      <Minus size={16} />
+                      {loadingDecrement === uniqueId ? <Loading width={16} height={16} /> : <Minus size={16} />}
+      
                     </button>
 
                     <p className="text-sm font-medium text-gray-700">{item.quantity}</p>
 
                     <button onClick={() => handleIncrement(item)} className="p-1 border rounded-full border-primary-50 hover:bg-primary-100 hover:text-white cursor-pointer">
-                      {/* Verifica se o ID carregando é igual ao ID deste botão */}
-                      {loadingId === uniqueId ? <Loading  width={16} height={16}/> : <Plus size={16} />}
+                     
+                      {loadingId === uniqueId ? <Loading width={16} height={16} /> : <Plus size={16} />}
                     </button>
                   </div>
                 </div>

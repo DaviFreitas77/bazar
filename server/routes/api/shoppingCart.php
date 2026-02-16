@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Shopping\AddProductInCart;
+use App\Http\Controllers\Shopping\DecrementProduct;
 use App\Http\Controllers\Shopping\GetCartController;
-use App\Http\Controllers\Shopping\SyncCartController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')
@@ -10,4 +10,5 @@ Route::middleware('auth:sanctum')
     ->group(function () {
         Route::post('/add', AddProductInCart::class);
         Route::get('/getCart', GetCartController::class);
+        Route::post('/decrementProduct',DecrementProduct::class);
     });
