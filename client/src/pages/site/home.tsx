@@ -56,6 +56,11 @@ export function Home() {
         <SuggestionProduct suggestionProducts={calca} tittle="Calças com precinho" />
       </section>
 
+
+      {/* <section>
+        <Categories/>
+      </section> */}
+
       <section className="max-w-[1440px] mx-auto mt-20 px-4">
         <div className="relative bg-[#f6e6d8] w-full rounded-2xl min-h-[360px] flex items-center justify-between overflow-hidden px-5 lg:px-20">
           <div className="flex flex-col gap-6 max-w-xl  z-10 w-full md:w-50 ">
