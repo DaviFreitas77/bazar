@@ -1,5 +1,6 @@
 import { logout } from "@/api/site/auth.api";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { CiDiscount1 } from "react-icons/ci";
 import { useUser } from "@/context/userContext";
 
 import { Home, Settings, Mail } from "lucide-react";
@@ -22,6 +23,12 @@ const menuGroups = [
         url: "/admin-produtos",
         icon: GiClothes,
         disabled: false,
+      },
+      {
+        title: "Cupons",
+        url: "/admin-produtos",
+        icon: CiDiscount1,
+        disabled: true,
       },
     ],
   },

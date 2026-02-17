@@ -19,7 +19,7 @@ export function Home() {
 
   return (
     <main>
-      <section className="relative w-full hidden md:block">
+      <section className="relative w-full hidden md:block mt-20">
         <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
           {SlidesImagesHome.map((item, index) => (
             <SwiperSlide key={index} className="relative">
@@ -29,7 +29,7 @@ export function Home() {
           ))}
         </Swiper>
       </section>
-      <section className="relative w-full md:hidden">
+      <section className="relative w-full md:hidden mt-25">
         <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
           {SlidesImagesHomeMobile.map((item, index) => (
             <SwiperSlide key={index} className="relative">

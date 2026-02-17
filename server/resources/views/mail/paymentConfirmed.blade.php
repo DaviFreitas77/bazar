@@ -60,7 +60,7 @@
     margin-bottom:28px;
     color:#4b5563;
   ">
-      {{$name}} seu pedido <strong>#650050</strong> foi confirmado.<br>
+      {{$name}} seu pedido <strong>#{{$order}}</strong> foi confirmado.<br>
       Em breve, peças únicas do nosso bazar chegam até você,
       cheias de estilo e história.
     </p>
@@ -150,12 +150,12 @@
       </p>
 
       <!-- Subtotal -->
-      <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+      <!-- <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
         <span style="font-size:13px; color:#6b7280;">Subtotal</span>
         <span style="font-size:13px; color:#374151;">
           R$ 150,00
         </span>
-      </div>
+      </div> -->
 
 
 

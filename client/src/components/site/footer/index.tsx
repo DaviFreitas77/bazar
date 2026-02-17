@@ -11,7 +11,7 @@ export function Footer() {
   const { setNameProduct } = useProductsSearched();
 
   return (
-    <footer className="mt-20 border-t border-gray-200 bg-black text-white">
+    <footer className="mt-20 border-t border-gray-200  text-black">
       {pathname === "/" && (
         <div className="bg-white pb-20">
           <NewsLetter />
@@ -21,8 +21,11 @@ export function Footer() {
       <div className="max-w-[1400px] mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
         <div className="flex flex-col gap-6">
           <div>
-            <h2 className="text-2xl font-bold  tracking-tight">Bazar</h2>
-            <p className="mt-4  leading-relaxed max-w-xs">Sua loja online com os melhores produtos, curadoria exclusiva e preços imbatíveis.</p>
+           <a href="/">
+              <img src="/images/logo.png" alt="" className="w-20" />
+            </a>
+
+            <p className="mt-4  leading-relaxed max-w-xs">Bazar online e com os melhores produtos, curadoria exclusiva e preços imbatíveis.</p>
           </div>
         </div>
 
@@ -74,7 +77,7 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-3">
               <Phone size={16} className="" />
-              <span>(11) 9999-9999</span>
+              <span>(11) 97614-5291</span>
             </li>
             <li className="pt-2">
               <p className="text-xs ">Segunda a Sexta, das 09h às 18h</p>

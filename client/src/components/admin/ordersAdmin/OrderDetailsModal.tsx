@@ -21,7 +21,7 @@ export function OrderDetailsModal({ isOpen, onClose, idOrder }: OrderDetailsModa
       paid: "bg-gray-100 text-gray-700 border-gray-200",
     };
     const style = styles[status] || styles.paid;
-    return <span className={`px-3 py-1 rounded-full text-sm font-bold border ${style}`}>{status === "canceled" ? "Cancelado" : status === "completed" ? "Completo" : status === "pending" ? "Pendente" : "paid"}</span>;
+    return <span className={`px-3 py-1 rounded-full text-sm font-bold border ${style}`}>{status === "canceled" ? "Cancelado" : status === "completed" ? "Completo" : status === "pending" ? "Pendente" : "Pago"}</span>;
   };
 
   return (
