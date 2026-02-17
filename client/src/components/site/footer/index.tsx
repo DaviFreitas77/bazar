@@ -1,5 +1,5 @@
-import { useLocation, Link } from "react-router-dom";
-import { NewsLetter } from "./newsLetter";
+import { Link } from "react-router-dom";
+
 import { Mail, Phone } from "lucide-react";
 import { useListCategories } from "@/hooks/site/useListCategories";
 import { useProductsSearched } from "@/context/productsSearchedContext";
