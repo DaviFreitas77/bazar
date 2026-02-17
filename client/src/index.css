@@ -83,7 +83,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 10px; /* espessura */
+  width: 6px; /* espessura */
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -123,11 +123,6 @@
 .svelte-r6lpve {
   display: none !important;
 }
-
-/* .lucide-x{
-  margin-top: 22px;
-  cursor: pointer;
-} */
 
 :root {
   --sidebar: hsl(0 0% 98%);

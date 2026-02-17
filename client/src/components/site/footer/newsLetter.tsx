@@ -28,7 +28,7 @@ export function NewsLetter() {
   };
 
   return (
-    <section className="flex items-center justify-around px-5 bg-gray-50">
+    <section className="flex items-center justify-around px-5 ">
       <div className="flex  lg:justify-between w-full max-w-[1440px] gap-2 my-10 flex-col lg:flex-row justify-center ">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-gray-800 font-semibold text-3xl lg:text-4xl max-w-xl ">

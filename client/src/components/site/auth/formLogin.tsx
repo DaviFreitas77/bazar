@@ -78,7 +78,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
   }, []);
 
   return (
-    <main>
+    <main className="w-full ">
       <div className="flex flex-col mb-2">
         <h2 className="mt-4 text-xl font-bold">Entrar</h2>
         <p className="text-sm text-gray-600 mt-2">Faça login com seus dados para acessar sua conta.</p>
@@ -114,7 +114,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
           </div>
           <div className="w-full relative">
             <label className="text-sm font-medium text-gray-700">Senha</label>
-            <input {...register("password")} type={visiblePassword ? "text" : "password"} className="px-3 py-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" />
+            <input {...register("password")} placeholder="********" type={visiblePassword ? "text" : "password"} className="px-3 py-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" />
 
             <span className="absolute top-11 right-6">
               <button type="button" onClick={() => setVisiblePassword(!visiblePassword)} className="cursor-pointer hover:opacity-85">
