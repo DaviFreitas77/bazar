@@ -7,11 +7,12 @@ type ChooseForm = "login" | "register";
 
 export function ModalAuth({ open, onClose }: ModalAuthProps) {
   const [chooseForm, setChooseForm] = useState<ChooseForm>("login");
+  
 
   return (
     <main
       className={`${open ? "block" : "hidden"} fixed inset-0 flex 
-     justify-center items-center bg-black/50 z-999 px-2 `}
+     justify-center items-center bg-black/50 z-50 px-2 `}
     >
       <section
         className="relative bg-white rounded-2xl  w-full max-w-5xl 

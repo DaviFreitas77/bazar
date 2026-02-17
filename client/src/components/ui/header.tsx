@@ -124,7 +124,7 @@ export function Header() {
           <PopularSearches />
           <ShowProductsSearched />
         </SheetSearch>
-        <ModalAuth open={modalAuth} onClose={() => setModalAuth(false)} />
+  
         <DrawerResponsive />
       </header>
     </div>
