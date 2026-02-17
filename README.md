@@ -58,32 +58,6 @@ O projeto foi construído utilizando uma stack moderna para garantir performance
 - **Gestão de Produtos**: Cadastro, edição e remoção de produtos, incluindo upload de imagens e controle de estoque.
 - **Comunicação**: Envio de e-mails promocionais e informativos para a base de usuários.
 
-## Estrutura do Projeto
-
-```
-Client/
-├── public/             # Arquivos estáticos públicos
-├── src/
-│   ├── @types/         # Definições de tipos globais
-│   ├── components/     # Componentes reutilizáveis
-│   │   ├── checkout/   # Componentes específicos do checkout
-│   │   ├── home/       # Componentes da página inicial
-│   │   └── ui/         # Componentes de UI genéricos
-│   ├── context/        # Context API
-│   ├── hooks/          # Hooks personalizados
-│   ├── lib/            # Utilitários e configurações
-│   ├── pages/          # Páginas da aplicação
-│   ├── schemas/        # schemas form
-
-
-```
-
-```
-Server/
-
-
-```
-
 ## Como Rodar o Projeto
 
 ## Passos (Client)
@@ -130,4 +104,56 @@ Server/
 
     ```
 
-    O Back-end estará disponível em `http://localhost:8000`.
+O Back-end estará disponível em `http://localhost:8000`.
+
+## Rodar com Docker
+
+### Pré-requisitos
+
+- Docker instalado e em execução
+- Docker Compose instalado
+
+### Passos
+
+1. **Subir os containers**
+
+   Na raiz do projeto, execute:
+
+   ```bash
+   docker compose up -d
+   ```
+
+   Este comando irá criar e iniciar os containers de acordo com a configuração do `docker-compose.yml`.
+
+2. **Acessar o container do servidor**
+
+   ```bash
+   docker exec -it bazar-ecommerce-server-1 bash
+   ```
+
+   Você agora está dentro do container.
+
+3. **Instalar dependências e configurar o banco de dados**
+
+   Dentro do container, execute:
+
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
+
+   - `php artisan migrate`: Executa as migrações do banco de dados
+   - `php artisan db:seed`: Popula o banco de dados com dados de exemplo
+
+4. **Acessar a aplicação**
+   - **Front-end**: http://localhost:5173
+   - **Back-end**: http://localhost:8000
+   - **Documentação API**: http://localhost:8000/docs/api#
+
+### Parar os containers
+
+Para parar todos os containers, execute:
+
+```bash
+docker compose down
+```

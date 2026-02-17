@@ -13,5 +13,5 @@ COPY . .
 
 
 # Roda o app em produção usando npm start
-CMD ["npm", "rum" ,"dev"]
+CMD ["npm", "run" ,"dev"]
 
