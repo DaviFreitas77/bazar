@@ -16,13 +16,12 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { DrawerResponsive } from "../site/header/drawerResponsive";
 import { useListCategories } from "@/hooks/site/useListCategories";
 import { Link } from "react-router-dom";
-import { ModalAuth } from "../site/auth/modalAuth";
 import { useProductsSearched } from "@/context/productsSearchedContext";
 import { useEffect, useState } from "react";
 export function Header() {
   const { name } = useUser();
   const { state } = useCart();
-  const { setOpenSearch, setOpenCart, setOpenFavorite, openSearch, openCart, openFavorite, modalAuth, setModalAuth, setOpenDrawer } = useUI();
+  const { setOpenSearch, setOpenCart, setOpenFavorite, openSearch, openCart, openFavorite, setModalAuth, setOpenDrawer } = useUI();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const { setNameProduct } = useProductsSearched();
