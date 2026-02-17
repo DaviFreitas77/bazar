@@ -3,21 +3,29 @@ import { FormLogin } from "./formLogin";
 import { FormRegister } from "./formRegister";
 import type { ModalAuthProps } from "@/@types/auth/modalAuth";
 
-
 type ChooseForm = "login" | "register";
 
 export function ModalAuth({ open, onClose }: ModalAuthProps) {
   const [chooseForm, setChooseForm] = useState<ChooseForm>("login");
 
   return (
-    <main className={`${open ? "block" : "hidden"} fixed inset-0 flex 
-     justify-center items-center bg-black/50 z-999 px-2 `}>
-      <section className="relative bg-white p-6 rounded-sm shadow-lg w-full max-w-xl   overflow-y-auto max-h-[500px] custom-scrollbar 2xl:max-h-[700px]">
-        <button className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 transition" onClick={onClose}>
+    <main
+      className={`${open ? "block" : "hidden"} fixed inset-0 flex 
+     justify-center items-center bg-black/50 z-999 px-2 `}
+    >
+      <section
+        className="relative bg-white rounded-2xl  w-full max-w-5xl 
+        flex "
+      >
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-black transition text-xl ">
           ✕
         </button>
-
-        {chooseForm === "login" ? <FormLogin onChangeForm={() => setChooseForm("register")} onClose={onClose} /> : <FormRegister onChangeForm={() => setChooseForm("login")} onClose={onClose} />}
+        <div className="w-full md:w-1/2 p-8 flex items-center justify-center overflow-y-auto h-160 custom-scrollbar">
+          {chooseForm === "login" ? <FormLogin onChangeForm={() => setChooseForm("register")} onClose={onClose} /> : <FormRegister onChangeForm={() => setChooseForm("login")} onClose={onClose} />}
+        </div>
+        <div className="hidden md:block md:w-1/2">
+          <img src="/images/login.jpg" alt="Moda feminina elegante" className="w-full h-full object-cover" />
+        </div>
       </section>
     </main>
   );

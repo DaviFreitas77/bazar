@@ -27,6 +27,13 @@ export function Checkout() {
     return totalWithoutDiscount.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   }, [state, discount]);
 
+  const checkoutSteps = [
+    { id: 1, label: "Dados" },
+    { id: 2, label: "Entrega" },
+    { id: 3, label: "Pagamento" },
+    { id: 4, label: "Confirmação" },
+  ];
+
   useEffect(() => {
     if (!state.length) {
       navigate("/");
@@ -55,7 +62,9 @@ export function Checkout() {
       </section>
       <TitlePage />
 
-      <ProgressStep step={step} />
+      <div className="w-full max-w-7xl mb-10">
+        <ProgressStep step={step}  steps={checkoutSteps} />
+      </div>
 
       <div className="w-full max-w-7xl flex gap-10 flex-wrap lg:flex-nowrap">
         <div className="w-full h-fit border border-gray-200 rounded-md">{step === 1 ? <PeopleInformation /> : step === 2 ? <ChooseDelivery /> : step === 3 ? <Payment /> : step === 4 ? <PaymentConfirmed numberOrder={numberOrder} /> : <OrderCanceled numberOrder={numberOrder} />}</div>
