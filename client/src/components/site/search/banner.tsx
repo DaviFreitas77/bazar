@@ -9,7 +9,7 @@ export function BannerSearch({showSidebar}:BaneerSearchProps){
               showSidebar ? "w-full max-w-7xl" : "w-full "
             }`}
           >
-            <img src="images/banner.png" alt="" className="rounded-sm "/>
+            <img src="images/banner.webp" alt="" className="rounded-sm "/>
           </section>
     )
 }
