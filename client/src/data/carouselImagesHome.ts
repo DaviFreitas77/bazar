@@ -1,4 +1,5 @@
-export const SlidesImagesHome = ["images/bannerHome.webp", "images/bannerHome.webp", "images/bannerHome.webp"];
+export const SlidesImagesHome = [ "images/bannerHome3.png", "images/bannerHome4.png"];
+
+export const SlidesImagesHomeMobile = [ "images/bannerMobile1.png", "images/bannerMobile2.png"];
 
 
-// export const SlidesImagesHomeMobile = ["images/bannerHomeMobile.png", "images/bannerHomeMobile.png", "images/bannerHomeMobile.png"];

@@ -8,7 +8,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { SlidesImagesHome } from "@/data/carouselImagesHome";
+import { SlidesImagesHome, SlidesImagesHomeMobile } from "@/data/carouselImagesHome";
 
 export function Home() {
   const { data: products } = useAllProducts();
@@ -19,32 +19,22 @@ export function Home() {
 
   return (
     <main>
-      <section className="relative w-full">
+      <section className="relative w-full hidden md:block">
         <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
           {SlidesImagesHome.map((item, index) => (
             <SwiperSlide key={index} className="relative">
-              <img src={item} alt={`Slide ${index + 1}`} className="w-full h-[60vh] lg:h-[80vh] object-cover" />
+              <img src={item} alt={`Slide ${index + 1}`} className="w-full  object-cover" />
 
-              <div className="absolute inset-0 bg-black/20 z-10"></div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </section>
+      <section className="relative w-full md:hidden">
+        <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
+          {SlidesImagesHomeMobile.map((item, index) => (
+            <SwiperSlide key={index} className="relative">
+              <img src={item} alt={`Slide ${index + 1}`} className="w-full h-[60vh] lg:h-[90vh] object-cover" />
 
-              {index === 0 && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-20 px-5">
-                  <h1 className="text-5xl lg:text-7xl font-bold tracking-widest">BAZAR</h1>
-                  <p className="text-md lg:text-2xl mt-3">Estilo que nunca sai de moda. | DESDE 2025</p>
-                </div>
-              )}
-              {index === 1 && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-20 px-5">
-                  <h1 className="text-5xl lg:text-7xl font-bold tracking-widest">BAZAR</h1>
-                  <p className="text-md lg:text-2xl mt-3">Estilo que nunca sai de moda. | DESDE 2025</p>
-                </div>
-              )}
-              {index === 2 && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-20 px-5">
-                  <h1 className="text-5xl lg:text-7xl font-bold tracking-widest">BAZAR</h1>
-                  <p className="text-md lg:text-2xl mt-3">Estilo que nunca sai de moda. | DESDE 2025</p>
-                </div>
-              )}
             </SwiperSlide>
           ))}
         </Swiper>
