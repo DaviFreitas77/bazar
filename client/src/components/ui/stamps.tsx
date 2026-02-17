@@ -1,5 +1,5 @@
 import { CiCreditCard2, CiDeliveryTruck } from "react-icons/ci";
-import { Autoplay,FreeMode } from "swiper/modules";
+import { Autoplay, FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { PiPixLogoLight } from "react-icons/pi";
 import { HiOutlineCheckBadge } from "react-icons/hi2";
@@ -23,8 +23,6 @@ export function Stamps() {
           </div>
         </div>
 
-   
-
         <div className="flex items-center gap-2">
           <HiOutlineCheckBadge size={50} className="text-gray-700" />
           <div className="leading-5">
@@ -41,27 +39,21 @@ export function Stamps() {
         </div>
       </div>
 
+      {/* responsivo */}
       <div className="flex w-full lg:hidden py-10 px-1 md:px-20">
         <Swiper
-          modules={[Autoplay,FreeMode]}
+          modules={[Autoplay]}
           loop={true}
-          freeMode={true}
-          speed={5000}
+          speed={4000}
           autoplay={{
             delay: 0,
             disableOnInteraction: false,
+            pauseOnMouseEnter: false,
           }}
           allowTouchMove={false}
-          slidesPerView={4}
+         slidesPerView={2}
           spaceBetween={20}
-          breakpoints={{
-            320: { slidesPerView: 2, spaceBetween: 5 },
-            510: { slidesPerView: 3, spaceBetween: 15 },
-            800: { slidesPerView: 3, spaceBetween: 10 },
-            1024: { slidesPerView: 4.5, spaceBetween: 10 },
-          }}
-          pagination={{ clickable: true }}
-          className="w-full linear-swiper"
+          className="linear-swiper"
         >
           <SwiperSlide>
             <div className="flex items-center gap-2 justify-center">
@@ -82,7 +74,6 @@ export function Stamps() {
               </div>
             </div>
           </SwiperSlide>
-
 
           <SwiperSlide>
             <div className="flex items-center gap-2 justify-center">
