@@ -1,5 +1,5 @@
 import { CiCreditCard2, CiDeliveryTruck } from "react-icons/ci";
-import { Autoplay, FreeMode } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { PiPixLogoLight } from "react-icons/pi";
 import { HiOutlineCheckBadge } from "react-icons/hi2";
