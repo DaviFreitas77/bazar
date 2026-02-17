@@ -83,7 +83,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
         <h2 className="mt-4 text-xl font-bold">Entrar</h2>
         <p className="text-sm text-gray-600 mt-2">Faça login com seus dados para acessar sua conta.</p>
 
-        <div className="flex flex-col sm:flex-row gap-3 mt-4">
+        {/* <div className="flex flex-col sm:flex-row gap-3 mt-4">
           <button onClick={authGoogle} className="bg-white border border-gray-200 w-full flex items-center justify-center gap-2 px-4 py-3  rounded-sm  transition font-medium mt-4 cursor-pointer">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-5 h-5">
               <g>
@@ -96,13 +96,13 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
             </svg>
             <p className=" text-sm">Entrar com Google</p>
           </button>
-        </div>
+        </div> */}
 
-        <div className="flex items-center my-4">
+        {/* <div className="flex items-center my-4">
           <div className="grow border-t border-gray-200"></div>
           <span className="shrink mx-4 text-gray-400 text-sm">ou</span>
           <div className="grow border-t border-gray-200"></div>
-        </div>
+        </div> */}
       </div>
 
       <form onSubmit={handleSubmit(login)} className="w-full text-sm" method="POST">
