@@ -40,7 +40,7 @@ export function ProgressStep({ step, steps }: ProgressProps) {
 
               {!isLast && (
                 <div
-                  className={`w-15 lg:w-25 h-1 mx-2 -mt-5 transition-all
+                  className={`w-10 lg:w-25 h-1 mx-2 -mt-5 transition-all
                   ${step > item.id ? "bg-primary-100" : "bg-gray-200"}`}
                 />
               )}

@@ -162,7 +162,7 @@ export function Search() {
   const allCategories = [...new Set(productsSearched?.flatMap((product) => product.category.name))];
 
   return (
-    <main className="px-2 md:px-6 flex flex-col gap-6">
+    <main className="px-2 md:px-6 flex flex-col gap-6 mt-25">
       {currentItems.length == 0 ? (
         <section className="flex items-center justify-center h-screen w-full">
           <LoadingPage />

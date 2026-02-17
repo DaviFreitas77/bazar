@@ -110,7 +110,7 @@ export function Product() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center md:py-10 min-h-screen ">
+    <main className="flex flex-col items-center justify-center md:py-10 min-h-screen mt-25">
       {isLoadingProduct ? (
         <LoadingPage />
       ) : (

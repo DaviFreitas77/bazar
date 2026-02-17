@@ -1,4 +1,3 @@
-
 import { Home } from "@/pages/site/home";
 import { Product } from "@/pages/site/product";
 import { Search } from "@/pages/site/search";
@@ -10,10 +9,12 @@ import { Orders } from "@/pages/site/orders";
 import { Footer } from "@/components/site/footer";
 import { NotFound } from "@/pages/notFound";
 import { Header } from "@/components/ui/header";
-
+import { ModalAuth } from "@/components/site/auth/modalAuth";
+import { useUI } from "@/context/UIContext";
 
 function SiteRoutes() {
   const location = useLocation();
+  const { modalAuth, setModalAuth } = useUI();
   return (
     <>
       {location.pathname !== "/checkout" && <Header />}
@@ -38,7 +39,7 @@ function SiteRoutes() {
             </PrivateRoute>
           }
         />
-{/* 
+        {/* 
         <Route
           path="/meus-enderecos"
           element={
@@ -47,9 +48,10 @@ function SiteRoutes() {
             </PrivateRoute>
           }
         /> */}
-         <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer/>
+      <ModalAuth open={modalAuth} onClose={() => setModalAuth(false)} />
+      <Footer />
     </>
   );
 }
