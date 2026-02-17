@@ -55,13 +55,9 @@ export function MyOrder({ number_order, created_at, total, status, item, pix_qr_
         <div className="flex items-center gap-4">
           {status === "pending" && <Timer createdAt={created_at} />}
           {status === "pending" &&
-            (pix_qr_code_base64 && pix_code ? (
+            (pix_qr_code_base64 && pix_code && (
               <button onClick={() => setShowPixCode(!showPixCode)} className="bg-green-800 text-white px-4 py-2 rounded-md hover:opacity-85 transition text-sm w-full sm:w-auto">
                 {showPixCode ? "Esconder QR Code" : "Mostrar QR Code"}
-              </button>
-            ) : (
-              <button onClick={() => setShowPixCode(!showPixCode)} className="bg-green-800 text-white px-4 py-2 rounded-md hover:opacity-85 transition text-sm w-full sm:w-auto">
-                Pagar
               </button>
             ))}
         </div>
