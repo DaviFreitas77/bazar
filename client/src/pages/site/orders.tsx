@@ -35,7 +35,7 @@ export function Orders() {
 
  
   return (
-    <main className="flex justify-center px-5 py-10 ">
+    <main className="flex justify-center px-5 py-10 mt-25">
       <div className="w-full flex max-w-[1450px]">
         <AsideUser namePage="Meus pedidos" />
 

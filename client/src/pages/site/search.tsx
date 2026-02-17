@@ -162,7 +162,7 @@ export function Search() {
   const allCategories = [...new Set(productsSearched?.flatMap((product) => product.category.name))];
 
   return (
-    <main className="px-2 md:px-6 flex flex-col gap-6 mt-25">
+    <main className=" md:px-6 flex flex-col gap-6 mt-25">
       {currentItems.length == 0 ? (
         <section className="flex items-center justify-center h-screen w-full">
           <LoadingPage />
@@ -220,11 +220,15 @@ export function Search() {
               </div>
             ) : (
               <>
-                <BannerSearch showSidebar={showSidebar} />
+           
+                  <BannerSearch showSidebar={showSidebar} />
+ 
 
-                <ActionButtons showSidebar={showSidebar} products={filteredProducts} setShowSidebar={setShowSidebar} setDrawerOpen={setDrawerOpen} filterOrder={filterOrder} setFilterOrder={setFilterOrder} />
+                <div className="px-2 w-full">
+                  <ActionButtons showSidebar={showSidebar} products={filteredProducts} setShowSidebar={setShowSidebar} setDrawerOpen={setDrawerOpen} filterOrder={filterOrder} setFilterOrder={setFilterOrder} />
+                </div>
 
-                <div className={`grid gap-2 w-full ${showSidebar ? "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-[1920px]"}`}>
+                <div className={`grid gap-2 w-full px-2 ${showSidebar ? "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-[1920px]"}`}>
                   {currentItems.map((product) => (
                     <CardProduct key={product.id} id={product.id} name={product.name} sizes={product.sizes} price={product.price} image={product.image[0]} lastPrice={product.lastPrice} />
                   ))}

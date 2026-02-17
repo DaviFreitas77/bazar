@@ -9,10 +9,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { SlidesImagesHome, SlidesImagesHomeMobile } from "@/data/carouselImagesHome";
+import { useLocation } from "react-router-dom";
+import { NewsLetter } from "@/components/site/footer/newsLetter";
 
 export function Home() {
   const { data: products } = useAllProducts();
-
+  const { pathname } = useLocation();
   const vestidos = filterProductByCategory("Vestido", products ?? []);
   const calca = filterProductByCategory("Calças", products ?? []);
   const camisetas = filterProductByCategory("Camisetas", products ?? []);
@@ -51,8 +53,8 @@ export function Home() {
         <Categories/>
       </section> */}
 
-      <section className="max-w-[1440px] mx-auto mt-20 px-4">
-        <div className="relative bg-[#f6e6d8] w-full rounded-2xl min-h-[360px] flex items-center justify-between overflow-hidden px-5 lg:px-20">
+      <section className="max-w-[1445px] mx-auto mt-20 px-4">
+        <div className="relative bg-[#FFFBF8] w-full rounded-2xl min-h-[360px] flex items-center justify-between overflow-hidden px-5 lg:px-20">
           <div className="flex flex-col gap-6 max-w-xl  z-10 w-full md:w-50 ">
             <div className="flex items-center gap-2 flex-col lg:ml-20">
               <h1 className="text-5xl lg:text-7xl font-light text-[#6b5a55] leading-tight flex flex-col ">
@@ -104,6 +106,13 @@ export function Home() {
       <section className="mt-20">
         <SuggestionProduct suggestionProducts={camisetas} tittle="Garimpo de camisetas" />
       </section>
+
+       {pathname === "/" && (
+        <div className="bg-[#FFFBF8] py-10  my-20">
+          <NewsLetter />
+        </div>
+      )}
+
     </main>
   );
 }

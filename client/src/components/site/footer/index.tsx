@@ -5,20 +5,15 @@ import { useListCategories } from "@/hooks/site/useListCategories";
 import { useProductsSearched } from "@/context/productsSearchedContext";
 
 export function Footer() {
-  const { pathname } = useLocation();
+
   const currentYear = new Date().getFullYear();
   const { data: allCategories } = useListCategories();
   const { setNameProduct } = useProductsSearched();
 
   return (
     <footer className="mt-20 border-t border-gray-200  text-black">
-      {pathname === "/" && (
-        <div className="bg-white pb-20">
-          <NewsLetter />
-        </div>
-      )}
-
-      <div className="max-w-[1400px] mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+     
+      <div className="max-w-[1400px] mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 ">
         <div className="flex flex-col gap-6">
           <div>
            <a href="/">
