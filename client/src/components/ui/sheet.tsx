@@ -141,7 +141,7 @@ function SheetSearch({open,onOpenChange,children,side,tittle}:SheetSearchProps) 
         className="overflow-auto custom-scrollbar w-full sm:w-[500px] sm:max-w-2xl "
       side={side}>
         <SheetHeader className="p-2 md:p-4">
-          <SheetTitle className="text-lg text-gray-900 font-semibold border-b border-b-gray-100 py-4">{tittle}</SheetTitle>
+          <SheetTitle className="text-lg text-gray-900 font-semibold border-b border-b-gray-100 py-4 capitalize">{tittle}</SheetTitle>
         {children}
         </SheetHeader>
       </SheetContent>

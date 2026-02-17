@@ -18,16 +18,38 @@ import { useListCategories } from "@/hooks/site/useListCategories";
 import { Link } from "react-router-dom";
 import { ModalAuth } from "../site/auth/modalAuth";
 import { useProductsSearched } from "@/context/productsSearchedContext";
+import { useEffect, useState } from "react";
 export function Header() {
   const { name } = useUser();
   const { state } = useCart();
   const { setOpenSearch, setOpenCart, setOpenFavorite, openSearch, openCart, openFavorite, modalAuth, setModalAuth, setOpenDrawer } = useUI();
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
   const { setNameProduct } = useProductsSearched();
   const { data: allCategories } = useListCategories();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
     <div>
-      <header className="w-full border-b border-gray-200 ">
+      <header className={`w-full border-b border-gray-200 bg-white fixed top-0 left-0 z-50 transition-transform duration-300 ${
+    isVisible ? "translate-y-0" : "-translate-y-full"
+  }`}>
         <section className="bg-primary-50 text-white text-center py-2 text-xs tracking-wide">RETIRE EM NOSSO BAZAR FÍSICO</section>
         {/* Header principal */}
         <section className="flex justify-center items-center h-20 bg-white">
@@ -39,7 +61,7 @@ export function Header() {
             {/* LOGO */}
 
             <a href="/">
-              <img src="/images/logo.png" alt="" className="w-20" />
+              <img src="/images/logo.png" alt="" className="w-20 ml-10 lg:ml-0" />
             </a>
 
             <div className="gap-8 text-sm hidden lg:flex">
