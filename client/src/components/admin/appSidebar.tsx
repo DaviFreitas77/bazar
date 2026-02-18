@@ -7,6 +7,8 @@ import { Home, Settings, Mail } from "lucide-react";
 import { GiClothes } from "react-icons/gi";
 
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Loading } from "../site/loading/loading";
 
 const menuGroups = [
   {
@@ -59,8 +61,10 @@ const menuGroups = [
 export function AppSidebar() {
   const navigate = useNavigate();
   const { setName, setEmail, setLastName, setTel, setRole } = useUser();
+  const [loading, setLoading] = useState(false);
 
   const logOut = async () => {
+    setLoading(true)
     try {
       await logout();
 
@@ -76,6 +80,8 @@ export function AppSidebar() {
       navigate("/");
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -120,9 +126,10 @@ export function AppSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <button onClick={logOut} className="cursor-pointer py-5">
+                  <button onClick={logOut} title="Sair da conta" disabled={loading} className="cursor-pointer py-5 flex items-center">
                     <Settings className="mr-2 h-4 w-4" />
-                    <span className="text-base">Sair</span>
+                    
+                    <span className="text-base ">{loading ? <Loading /> : 'Sair'}</span>
                   </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
