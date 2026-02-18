@@ -1,6 +1,6 @@
 // import { FinancialCard } from "@/components/admin/dashboard/financialCard";
 
-import { HeaderAdmin } from "@/components/admin/headerAdmin/header";
+import { HeaderAdmin } from "@/components/admin/layout/header";
 import { Metrics } from "@/components/admin/layout/metrics";
 import { TableOrders } from "@/components/admin/ordersAdmin/tableOrders";
 import LayoutSidebar from "@/components/admin/sidebar";

@@ -1,4 +1,4 @@
-import { HeaderAdmin } from "@/components/admin/headerAdmin/header";
+import { HeaderAdmin } from "@/components/admin/layout/header";
 import LayoutSidebar from "@/components/admin/sidebar";
 import { 
   Eye, 

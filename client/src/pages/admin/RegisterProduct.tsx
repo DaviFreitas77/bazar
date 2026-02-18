@@ -1,5 +1,5 @@
 import { uploadImage } from "@/api/admin/uploadImage";
-import { HeaderAdmin } from "@/components/admin/headerAdmin/header";
+import { HeaderAdmin } from "@/components/admin/layout/header";
 import LayoutSidebar from "@/components/admin/sidebar";
 import { DropDown, NativeSelectOption } from "@/components/ui/native-select";
 import { toast } from "sonner";

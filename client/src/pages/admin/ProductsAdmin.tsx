@@ -1,4 +1,4 @@
-import { HeaderAdmin } from "@/components/admin/headerAdmin/header";
+import { HeaderAdmin } from "@/components/admin/layout/header";
 import { TableProduct } from "@/components/admin/product/tableProducts";
 import LayoutSidebar from "@/components/admin/sidebar";
 
