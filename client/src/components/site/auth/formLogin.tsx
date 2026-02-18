@@ -61,11 +61,11 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
     }
   };
 
-  const authGoogle = () => {
-    setErrorGoogle(false);
-    setErrorMessage("");
-    window.location.href = "https://web-production-edc6.up.railway.app/auth/google/redirect";
-  };
+  // const authGoogle = () => {
+  //   setErrorGoogle(false);
+  //   setErrorMessage("");
+  //   window.location.href = "https://web-production-edc6.up.railway.app/auth/google/redirect";
+  // };
 
   const [params] = useSearchParams();
 
