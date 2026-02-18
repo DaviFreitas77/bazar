@@ -81,7 +81,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
     <main className="w-full ">
       <div className="flex flex-col mb-2">
         <h2 className="mt-4 text-xl font-bold">Entrar</h2>
-        <p className="text-sm text-gray-600 mt-2">Faça login com seus dados para acessar sua conta.</p>
+        <p className="text-sm text-gray-600 mt-2 mb-10">Faça login com seus dados para acessar sua conta.</p>
 
         {/* <div className="flex flex-col sm:flex-row gap-3 mt-4">
           <button onClick={authGoogle} className="bg-white border border-gray-200 w-full flex items-center justify-center gap-2 px-4 py-3  rounded-sm  transition font-medium mt-4 cursor-pointer">
