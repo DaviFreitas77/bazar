@@ -18,6 +18,7 @@ services:
 
     volumes:
       - ./server:/var/www/html
+      - /var/www/html/vendor
 
     depends_on:
       - mysql

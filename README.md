@@ -140,10 +140,12 @@ O Back-end estará disponível em `http://localhost:8000`.
    ```bash
    php artisan migrate
    php artisan db:seed
+   php artisan key:generate
    ```
 
    - `php artisan migrate`: Executa as migrações do banco de dados
    - `php artisan db:seed`: Popula o banco de dados com dados de exemplo
+   - `php artisan key:generate`: Gera key da apliação
 
 4. **Acessar a aplicação**
    - **Front-end**: http://localhost:5173
