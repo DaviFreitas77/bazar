@@ -23,6 +23,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<login>({
     resolver: yupResolver(loginSchema),
@@ -47,7 +48,9 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       } 
       
       onClose();
+
       toast.success("Login realizado");
+      reset(); 
     } catch (error: any) {
       if (error.status === 401) {
         setErrorMessage("Credenciais inválidas");

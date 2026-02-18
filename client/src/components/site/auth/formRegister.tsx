@@ -33,6 +33,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
     register,
     handleSubmit,
     trigger,
+    reset,
     formState: { errors },
   } = useForm<Register>({
     resolver: yupResolver(registerSchema),
@@ -52,6 +53,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
       setTel(response.user.tel);
       setRole(response.user.role);
       localStorage.setItem("token", response.token);
+      reset(); 
     } catch (error: any) {
       if (error.response?.data?.message) {
         setErrorMessage(error.response.data.message);
