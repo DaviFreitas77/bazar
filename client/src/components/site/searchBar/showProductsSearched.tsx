@@ -9,7 +9,8 @@ import { hookSearchParams } from "@/hooks/site/useSearchParams";
 
 export function ShowProductsSearched() {
   const { nameProduct } = useProductsSearched();
-  const { data: productsSearched, isLoading } = hookSearchParams(nameProduct);
+  const queryFormated = nameProduct?.toLowerCase() ?? null
+  const { data: productsSearched, isLoading } = hookSearchParams(queryFormated);
   const limitedProducts = productsSearched?.slice(0, 6) ?? [];
   const { setOpenSearch } = useUI();
 
