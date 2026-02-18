@@ -75,7 +75,7 @@ export function Home() {
           </div>
 
           <div className="hidden md:flex flex-1 justify-center items-end h-full relative  max-w-md">
-            <img src="images/banner-model.png" alt="Modelo vestindo roupa elegante" className="h-full object-cover w-60" />
+            <img src="images/banner-model.jpg" alt="Modelo vestindo roupa elegante" className="h-full object-cover w-60" />
 
             <img src="images/butterfly.png" className="absolute top-20 right-10 w-10 opacity-80 hidden lg:block" alt="" />
             <img src="images/butterfly.png" className="absolute bottom-20 left-10 w-10 opacity-80 hidden lg:block" alt="" />
