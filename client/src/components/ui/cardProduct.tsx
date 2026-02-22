@@ -29,10 +29,10 @@ export function CardProduct({ id, name, sizes, price, image, lastPrice }: Card) 
           ))}
         </div>
 
-        <div>
-          {lastPrice && (
+        <div className="flex flex-col justify-end min-h-10">
+          {lastPrice && lastPrice > 0 && (
             <p className="text-gray-600 text-xs line-through">
-              {(Number(lastPrice) || 0).toLocaleString("pt-BR", {
+              {Number(lastPrice).toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
               })}
@@ -40,7 +40,7 @@ export function CardProduct({ id, name, sizes, price, image, lastPrice }: Card) 
           )}
 
           <p className="text-base font-semibold text-gray-700">
-            {(Number(price) || 0).toLocaleString("pt-BR", {
+            {Number(price).toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL",
             })}
