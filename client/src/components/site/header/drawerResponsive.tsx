@@ -1,7 +1,6 @@
 import { useUI } from "@/context/UIContext";
 import { SheetSearch } from "../../ui/sheet";
 import { useListCategories } from "@/hooks/site/useListCategories";
-import { AccordionFilter } from "../../ui/accordion";
 import { Link } from "react-router-dom";
 import { useUser } from "@/context/userContext";
 // import { IoMdHeartEmpty } from "react-icons/io";
