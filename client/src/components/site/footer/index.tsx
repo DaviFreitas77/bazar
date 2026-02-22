@@ -64,12 +64,12 @@ export function Footer() {
         <div>
           <h3 className="font-bold uppercase tracking-wider text-xs  mb-6">Atendimento</h3>
           <ul className="space-y-4 text-sm ">
-            <li className="flex items-center gap-3">
+            {/* <li className="flex items-center gap-3">
               <Mail size={16} className="" />
               <a href="mailto:atendimento.bazar@gmail.com" className="hover:underline">
                 atendimento.bazar@gmail.com
               </a>
-            </li>
+            </li> */}
             <li className="flex items-center gap-3">
               <Phone size={16} className="" />
               <span>(11) 97614-5291</span>

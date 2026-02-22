@@ -82,7 +82,12 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
 
   return (
     <main className="w-full ">
+      
       <div className="flex flex-col mb-2">
+        <div className="flex items-center justify-center">   
+              <img src="/images/logo.png" alt="" className="w-20" />
+
+        </div>
         <h2 className="mt-4 text-xl font-bold">Entrar</h2>
         <p className="text-sm text-gray-600 mt-2 mb-10">Faça login com seus dados para acessar sua conta.</p>
 

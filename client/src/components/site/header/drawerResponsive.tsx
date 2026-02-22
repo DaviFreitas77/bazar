@@ -9,6 +9,7 @@ import { BsBoxSeam } from "react-icons/bs";
 // import { CiLocationOn } from "react-icons/ci";
 import { LogOutIcon, UserIcon } from "lucide-react";
 import { logout } from "@/api/site/auth.api";
+import { Loading } from "../loading/loading";
 export function DrawerResponsive() {
   const { data: categories } = useListCategories();
   const { openDrawer, setOpenDrawer, setModalAuth } = useUI();
@@ -26,16 +27,31 @@ export function DrawerResponsive() {
 
   return (
     <SheetSearch open={openDrawer} onOpenChange={setOpenDrawer} side="left" tittle={name ? `Olá ${name}` : "Menu"}>
-      <AccordionFilter name="Categorias" value="item-1">
-        {categories &&
-          categories.map((category) => (
-            <div key={category.id}>
-              <Link to={`/pesquisa?category=${category.name}`} onClick={() => setOpenDrawer(false)} key={category.id} className="block mb-4 text-gray-700 hover:text-gray-900">
-                {category.name}
-              </Link>
-            </div>
-          ))}
-      </AccordionFilter>
+
+      {categories ?
+        categories.map((category) => (
+          <div
+            key={category.id}
+            className="border-b border-gray-200 last:border-b-0"
+          >
+            <Link
+              to={`/pesquisa?category=${category.name}`}
+              onClick={() => setOpenDrawer(false)}
+              className="block w-full  py-3 text-gray-700 text-base font-medium transition-colors duration-200 hover:bg-gray-50 hover:text-gray-900 active:bg-gray-100"
+            >
+              {category.name}
+            </Link>
+          </div>
+        )) : (
+          <div className=" flex items-center justify-center h-[85vh]">
+            <Loading />
+          </div>
+        )}
+
+
+
+
+
 
       <section className="absolute bottom-4 flex items-center gap-2 text-sm justify-evenly w-[90%] border-t border-gray-200 pt-5 pb-2 text-gray-700">
         <Link

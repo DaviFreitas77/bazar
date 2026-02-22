@@ -13,7 +13,7 @@ class SizeSeeder extends Seeder
      */
     public function run(): void
     {
-        $sizes = ['PP', 'P', 'M', 'G', 'GG', 'XG'];
+             $sizes = ['PP', 'P', 'M', 'G', 'GG', 'XG','34','36','38','40','42','44','46','48'];
          foreach ($sizes as $size) {
             Size::create([
                 'name' => $size
