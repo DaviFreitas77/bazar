@@ -54,7 +54,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
       setTel(response.user.tel);
       setRole(response.user.role);
       localStorage.setItem("token", response.token);
-      reset(); 
+      reset();
     } catch (error: any) {
       if (error.response?.data?.message) {
         setErrorMessage(error.response.data.message);
@@ -70,9 +70,9 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
     if (stepRegister === 1) {
       const valid = await trigger(["name", "lastName", "email"]);
       if (!valid) return;
-    setValue("tel", "");
-    setValue("password", "");
-    setValue("terms", false);
+      setValue("tel", "");
+      setValue("password", "");
+      setValue("terms", false);
     }
 
     if (stepRegister === 2) {
@@ -138,7 +138,21 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
                   <label className="text-sm font-medium text-gray-700">Numero</label>
                   <div>{errors.tel && <span className="text-red-500 text-xs">{errors.tel.message}</span>}</div>
                 </div>
-                <input {...register("tel")} name="tel" type="text" className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" placeholder="(00) 00000-0000" />
+                <input
+                  {...register("tel", {
+                    required: "Telefone obrigatório",
+                    pattern: {
+                      value: /^\d{11}$/,
+                      message: "Telefone inválido. Deve conter 11 números."
+                    },
+                  })}
+                  className="px-3 p-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" placeholder="(00) 00000-0000"
+                  type="text"
+                  maxLength={11}
+                  onInput={(e) => {
+                    e.currentTarget.value = e.currentTarget.value.replace(/\D/g, ""); // remove tudo que não é número
+                  }}
+                />
               </div>
               <div className="w-full relative">
                 <label className="text-sm font-medium text-gray-700">Senha</label>
