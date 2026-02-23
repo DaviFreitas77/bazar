@@ -40,6 +40,7 @@ class RegisterRequest extends FormRequest
             "password.min" => "a senha deve ter no mínimo 8 caracteres",
             "password.max" => "a senha deve ter no máximo 30 caracteres",
             "tel.required" => "o telefone é obrigatório",
+            "tel.unique" => "o telefone ja está sendo utilizado"
             
         ];
     }
