@@ -65,7 +65,7 @@ class OrderService
 
 
             $infoproducts = $orderItems->map(function ($item) {
-                return ['nameProduct' => $item->product->name, 'quantityProduct' => $item->quantity, 'imageProduct' => $item->product->images->first()->image, 'colorProduct' => $item->color->name, 'sizeProduct' => $item->size->name];
+                return ['nameProduct' => $item->product->name, 'quantityProduct' => $item->quantity, 'imageProduct' => $item->product->images->first()->image, 'colorProduct' => $item->color->hexadecimal, 'sizeProduct' => $item->size->name];
             });
 
             $orderComplet[] = [
