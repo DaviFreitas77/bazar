@@ -62,7 +62,7 @@ class ProductService
                 'description' => $product->description,
                 "category" => $product->category,
                 'sizes' => $product->sizes->pluck('name'),
-                'color' => $product->colors->pluck('name'),
+                'color' => $product->colors->pluck('hexadecimal'),
                 "image" => $product->images->pluck('image'),
 
             ];

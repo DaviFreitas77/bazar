@@ -159,6 +159,7 @@ export function Search() {
   const allColors = [...new Set(filteredProducts.flatMap((product) => product.color))];
   const allSizes = [...new Set(filteredProducts.flatMap((product) => product.sizes))];
 
+
   const allCategories = [...new Set(productsSearched?.flatMap((product) => product.category.name))];
 
   return (
