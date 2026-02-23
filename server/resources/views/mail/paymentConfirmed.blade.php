@@ -61,8 +61,7 @@
     color:#4b5563;
   ">
       {{$name}} seu pedido <strong>#{{$order}}</strong> foi confirmado.<br>
-      Em breve, peças únicas do nosso bazar chegam até você,
-      cheias de estilo e história.
+      Em breve, Mandaremos mensagens para combinar a entrega das peças únicas do nosso bazar.
     </p>
 
     <!-- Botão -->
