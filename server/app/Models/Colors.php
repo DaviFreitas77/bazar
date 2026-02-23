@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Colors extends Model
 {
    protected $table = 'colors';
-   protected $fillable = ['name'];
+   protected $fillable = ['name','hexadecimal'];
    public $timestamps = false;
 }

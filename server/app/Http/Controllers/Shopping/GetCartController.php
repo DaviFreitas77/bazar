@@ -56,7 +56,7 @@ class GetCartController extends Controller
                 'products.id as id',
                 'products.name as name',
                 'products.price',
-                'colors.name as colorName',
+                'colors.hexadecimal as colorName',
                 'colors.id as color',
                 'sizes.id as size',
                 'sizes.name as sizeName',

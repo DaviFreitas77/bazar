@@ -97,7 +97,7 @@ class ProductService
             'color' => $product->colors->map(function ($color) {
                 return [
                     'id' => $color->id,
-                    'name' => $color->name
+                    'name' => $color->hexadecimal
                 ];
             }),
             'description' => $product->description,

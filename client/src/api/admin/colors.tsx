@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 interface ColorsAdminProps {
   id: number;
   name: string;
+  hexadecimal:string
 }
 
 export const getColors = async () => {

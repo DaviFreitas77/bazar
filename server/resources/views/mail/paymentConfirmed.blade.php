@@ -111,14 +111,7 @@
           </p>
 
           <p style="margin:2px 0; font-size:13px; color:#6b7280;">
-            Cor: <span style="
-            display:inline-block;
-            width:16px;
-            height:16px;
-            background-color: '{{ $product['color'] }}';
-            border-radius:50%;
-            border:1px solid #e5e7eb;
-          "></span>
+            Cor: {{ $product['color'] }}
           </p>
 
           <p style="margin:2px 0; font-size:13px; color:#6b7280;">

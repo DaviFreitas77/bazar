@@ -35,6 +35,7 @@ export function Product() {
   const numberId = Number(id);
   const { data: product, isLoading: isLoadingProduct } = useProductById(numberId);
 
+  console.log(product)
   const images = product?.image ?? [];
   const colors = product?.color ?? [];
   const sizes = product?.sizes ?? [];
