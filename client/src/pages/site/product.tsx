@@ -35,7 +35,6 @@ export function Product() {
   const numberId = Number(id);
   const { data: product, isLoading: isLoadingProduct } = useProductById(numberId);
 
-  console.log(product)
   const images = product?.image ?? [];
   const colors = product?.color ?? [];
   const sizes = product?.sizes ?? [];
@@ -164,7 +163,7 @@ export function Product() {
                   </button> */}
                 </div>
                 <div className="flex flex-col mt-4">
-                  {product?.lastPrice && (
+                  {product?.lastPrice && Number(product.lastPrice) > 0 &&(
                     <p className="text-gray-600 text-base line-through">
                       {Number(product?.lastPrice).toLocaleString("pt-BR", {
                         style: "currency",
