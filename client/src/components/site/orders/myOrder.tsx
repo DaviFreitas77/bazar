@@ -2,6 +2,7 @@ import type { OrderProps } from "@/api/@types/order";
 import { PixQRCode } from "../checkout/MCP/PixQrCode";
 import { useState } from "react";
 import { Timer } from "../checkout/timer";
+import { FaCircle } from "react-icons/fa";
 
 export function MyOrder({ number_order, created_at, total, status, item, pix_qr_code_base64, pix_code }: OrderProps) {
   const [showPixCode, setShowPixCode] = useState(false);
@@ -76,7 +77,7 @@ export function MyOrder({ number_order, created_at, total, status, item, pix_qr_
 
             <div className="text-sm flex flex-col gap-1">
               <p className="font-medium">{product.nameProduct}</p>
-              <p>Cor: {product.colorProduct}</p>
+              <p className="flex items-center gap-2">Cor: <FaCircle size={15} color={product.colorProduct} /></p>
               <p>Tamanho: {product.sizeProduct}</p>
               <p>Quantidade: {product.quantityProduct}</p>
             </div>

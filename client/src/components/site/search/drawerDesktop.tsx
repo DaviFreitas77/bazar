@@ -2,6 +2,7 @@ import { BreadcrumbPages } from "@/components/ui/breadcrumb";
 import { AccordionFilter } from "@/components/ui/accordion";
 import { SliderProduct } from "@/components/ui/slider";
 import { useProductsSearched } from "@/context/productsSearchedContext";
+import { FaCircle } from "react-icons/fa";
 
 type SubCategoriesType = {
   id: number;
@@ -59,7 +60,8 @@ export function DrawerDesktop({ allColors, allSizes, selectedColor, selectedSize
           {allColors.map((color, index) => (
             <label key={index} className={`flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-50 mt-1 capitalize`}>
               <input type="checkbox" value={color} checked={selectedColor === color} className="accent-primary-50 w-4 h-4" onChange={(e) => changeColor(e.target.value)} />
-              <span className={`${selectedColor === color ? "text-primary-50" : ""}`}>{color}</span>
+              
+              <span className={`${selectedColor === color ? "text-primary-50" : ""}`}><FaCircle size={15} color={color} /></span>
             </label>
           ))}
         </AccordionFilter>

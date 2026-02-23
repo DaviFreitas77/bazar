@@ -5,6 +5,7 @@ import type { CartItem } from "@/context/cartContext";
 import { MdDone } from "react-icons/md";
 import { useCheckout } from "@/context/checkoutContext";
 import { ApplyCupom } from "../applyCupom";
+import { FaCircle } from "react-icons/fa";
 
 interface SummaryProps {
   products: CartItem[];
@@ -38,8 +39,8 @@ export function Summary({ products, numberOrder, total }: SummaryProps) {
                 </div>
                 <div>
                   <p className="text-gray-900 font-medium">{product.name}</p>
-                  <p className="text-xs text-gray-500">{product.colorName}</p>
-                  <p className="text-xs text-gray-500">{product.sizeName}</p>
+                  <p className="text-xs text-gray-500 flex items-center gap-2">Cor: <FaCircle size={15} color={product.colorName} /></p>
+                  <p className="text-xs text-gray-500">Tam: {product.sizeName}</p>
                   <p className="text-xs text-gray-500">Qtd: {product.quantity}</p>
                 </div>
               </div>

@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { SkeletonRecomendedProducts } from "./skeletonRecomendedProduct";
 import { useState } from "react";
 import { Loading } from "../loading/loading";
+import { FaCircle } from "react-icons/fa";
 
 export function CartProducts() {
   const { state, dispatch } = useCart();
@@ -85,7 +86,7 @@ export function CartProducts() {
               <div className="w-full">
                 <p className="font-semibold text-gray-700">{item.name}</p>
                 <p className="text-xs text-gray-400">Quantidade: {item.quantity}</p>
-                <p className="text-xs text-gray-400">Cor: {item.colorName}</p>
+                <p className="text-xs text-gray-400 flex items-center gap-2" >Cor: <FaCircle size={15} color={item.colorName} /></p>
                 <p className="text-xs text-gray-400">Tamanho: {item.sizeName}</p>
 
                 <div className="flex items-end justify-between">
