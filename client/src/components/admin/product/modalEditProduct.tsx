@@ -4,6 +4,7 @@ import { apiEditProduct } from "@/api/admin/productAdmin";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Loading } from "@/components/site/loading/loading";
+import { FaCircle } from "react-icons/fa";
 
 interface ModalEditProductProps {
   productId: number;
@@ -86,7 +87,8 @@ export function ModalEditProduct({ productId, onClose }: ModalEditProductProps) 
                     <div className="flex gap-2 flex-wrap">
                       {productById?.color.map((c) => (
                         <span key={c.id} className="px-3 py-1 text-xs rounded-full border border-gray-300 bg-gray-100">
-                          {c.name}
+                          <FaCircle size={15} color={c.name} />
+                          
                         </span>
                       ))}
                     </div>

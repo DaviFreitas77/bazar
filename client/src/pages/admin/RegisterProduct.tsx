@@ -186,13 +186,13 @@ export function RegisterProduct() {
                         <button
                           key={color.id}
                           type="button"
-                          title={color.hexadecimal}
+                          title={color.name}
                           onClick={() => toggleColor(color.id)}
                           className={`cursor-pointer p-1 rounded-full border-2 transition-all transform hover:scale-110
                           ${selectedColors.includes(color.id) ? "border-primary-50 ring-4 ring-primary-50/10" : "border-transparent"}
                         `}
                         >
-                          <FaCircle size={24} color={color.name} className="drop- border border-gray-100 rounded-full" />
+                          <FaCircle size={24} color={color.hexadecimal} className="drop- border border-gray-100 rounded-full" />
                         </button>
                       ))
                     ) : (
