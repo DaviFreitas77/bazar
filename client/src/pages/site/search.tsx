@@ -231,7 +231,7 @@ export function Search() {
 
                 <div className={`grid gap-2 w-full px-2 ${showSidebar ? "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-[1920px]"}`}>
                   {currentItems.map((product) => (
-                    <CardProduct key={product.id} id={product.id} name={product.name} sizes={product.sizes} price={product.price} image={product.image[0]} lastPrice={product.lastPrice} />
+                    <CardProduct key={product.id} id={product.id} name={product.name} sizes={product.sizes} price={product.price} image={product.image[0]} lastPrice={product.lastPrice} colors={product.color}/>
                   ))}
                 </div>
 
