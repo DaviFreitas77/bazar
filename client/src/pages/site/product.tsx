@@ -109,6 +109,26 @@ export function Product() {
     toast.success("Produto adicionado ao carrinho!");
   };
 
+
+  const openWhatsap = () => {
+    const phoneNumber = "5511976145291";
+
+    const message = `Olá! Tenho interesse no produto:
+
+      Produto: ${product?.name}
+      Preço: ${Number(product?.price).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      })}
+      Imagem: ${imageProduct}
+
+  Poderia me ajudar?`;
+
+    window.open(
+      `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+  };
   return (
     <main className="flex flex-col items-center justify-center md:py-10 min-h-screen mt-25">
       {isLoadingProduct ? (
@@ -163,7 +183,7 @@ export function Product() {
                   </button> */}
                 </div>
                 <div className="flex flex-col mt-4">
-                  {product?.lastPrice && Number(product.lastPrice) > 0 &&(
+                  {product?.lastPrice && Number(product.lastPrice) > 0 && (
                     <p className="text-gray-600 text-base line-through">
                       {Number(product?.lastPrice).toLocaleString("pt-BR", {
                         style: "currency",
@@ -221,7 +241,9 @@ export function Product() {
                 <LiaShoppingBagSolid size={22} />
                 {loading ? "Carregando..." : "Adicionar à sacola"}
               </button>
-              <button className="flex items-center justify-center gap-2 text-gray-700 cursor-pointer text-sm ">
+              <button
+                onClick={openWhatsap}
+                className="flex items-center justify-center gap-2 text-gray-700 cursor-pointer text-sm ">
                 <FaWhatsapp size={22} />
                 Comprar pelo whatsApp
               </button>
