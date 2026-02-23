@@ -18,6 +18,7 @@ interface SuggestionProductProps {
 export function SuggestionProduct({ suggestionProducts, tittle }: SuggestionProductProps) {
   const limitedProduct = suggestionProducts.slice(0, 8);
 
+
   while (limitedProduct.length == 0) {
     return <SkeletoSliderProducts />;
   }
@@ -48,7 +49,7 @@ export function SuggestionProduct({ suggestionProducts, tittle }: SuggestionProd
           {limitedProduct.length > 0 &&
             limitedProduct.map((item) => (
               <SwiperSlide key={item.id}>
-                <CardProduct price={item.price} image={item.image[0]} name={item.name} id={item.id} sizes={item.sizes} lastPrice={item.lastPrice} />
+                <CardProduct price={item.price} image={item.image[0]} name={item.name} id={item.id} sizes={item.sizes} lastPrice={item.lastPrice} colors={item.color}/>
               </SwiperSlide>
             ))}
         </Swiper>

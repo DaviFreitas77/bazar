@@ -14,7 +14,7 @@ export function ShowProductsSearched() {
   const limitedProducts = productsSearched?.slice(0, 6) ?? [];
   const { setOpenSearch } = useUI();
 
-
+  console.log(productsSearched)
 
   if (isLoading && nameProduct) {
     return (
@@ -38,7 +38,7 @@ export function ShowProductsSearched() {
     <section className="flex flex-col gap-4 ">
       <div className="grid grid-cols-2 gap-2 justify-center items-center mt-4">
         {limitedProducts.length > 0 ? (
-          limitedProducts.map((item) => <CardProduct key={item.id} name={item.name} id={item.id} price={item.price} image={item.image?.[0]} sizes={item.sizes} />)
+          limitedProducts.map((item) => <CardProduct key={item.id} name={item.name} id={item.id} price={item.price} image={item.image?.[0]} sizes={item.sizes} colors={item.color}/>)
         ) : (
           <div className="col-span-2 flex flex-col gap-2 justify-center items-center min-h-48 text-primary-50 h-[80vh]">
             <PackageX size={48} className="opacity-70" />

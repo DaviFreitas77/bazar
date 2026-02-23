@@ -144,7 +144,7 @@ class ProductService
                 "category" => $product->category,
                 "image" => $product->images->pluck('image'),
                 'sizes' => $product->sizes->pluck('name'),
-                'color' => $product->colors->pluck('name'),
+                'color' => $product->colors->pluck('hexadecimal'),
                 'idSubcategory' => $product->fkSubcategory,
             ];
         });
