@@ -33,6 +33,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
     register,
     handleSubmit,
     trigger,
+    setValue,
     reset,
     formState: { errors },
   } = useForm<Register>({
@@ -68,9 +69,12 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
   const avancedStep = async () => {
     if (stepRegister === 1) {
       const valid = await trigger(["name", "lastName", "email"]);
-
       if (!valid) return;
+    setValue("tel", "");
+    setValue("password", "");
+    setValue("terms", false);
     }
+
     if (stepRegister === 2) {
       const valid = await trigger(["tel", "password", "terms"]);
 
