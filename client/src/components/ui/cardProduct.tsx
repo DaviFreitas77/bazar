@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import type { Card } from "@/@types/product";
 import { useUI } from "@/context/UIContext";
-export function CardProduct({ id, name, sizes, price, image, lastPrice }: Card) {
+import { FaCircle } from "react-icons/fa";
+export function CardProduct({ id, name, sizes, price, image, lastPrice, colors }: Card) {
   const navigate = useNavigate();
   const { setOpenSearch } = useUI();
   function handleClick() {
@@ -20,16 +21,35 @@ export function CardProduct({ id, name, sizes, price, image, lastPrice }: Card) 
       <div className="px-2 py-4 space-y-3">
         <h3 className="text-base lg:text-base  text-gray-700 font-semibold capitalize">{name}</h3>
 
-        <div className="flex items-center gap-2">
-          <span className="text-xs lg:text-base font-medium text-gray-500">Tam:</span>
-          {sizes?.map((tamanho) => (
-            <span key={tamanho} className="flex items-center justify-center w-5 h-5  rounded-full bg-gray-100 text-xs font-semibold text-gray-700 ring-1 ring-gray-300">
-              {tamanho}
-            </span>
-          ))}
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="text-xs lg:text-base font-medium text-gray-500">Tam:</span>
+            {sizes?.map((tamanho) => (
+              <span key={tamanho} className="flex items-center justify-center w-5 h-5  rounded-full bg-gray-100 text-xs font-semibold text-gray-700 ring-1 ring-gray-300">
+                {tamanho}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs lg:text-base font-medium text-gray-500">Cor:</span>
+            {colors?.map((colorName: any) => (
+              <span key={colorName} className="flex items-center justify-center  rounded-full text-xs font-semibold text-gray-700 ring-1 ring-gray-300">
+                <FaCircle size={15} color={colorName} />
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className="flex flex-col justify-end min-h-10">
+        <div className="flex  items-center gap-2 min-h-10">
+
+
+          <p className="text-base font-semibold text-gray-700">
+            {Number(price).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })}
+          </p>
           {lastPrice && lastPrice > 0 && (
             <p className="text-gray-600 text-xs line-through">
               {Number(lastPrice).toLocaleString("pt-BR", {
@@ -38,13 +58,6 @@ export function CardProduct({ id, name, sizes, price, image, lastPrice }: Card) 
               })}
             </p>
           )}
-
-          <p className="text-base font-semibold text-gray-700">
-            {Number(price).toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}
-          </p>
         </div>
 
         <button className="text-sm  w-full bg-primary-50 text-white py-2 px-2 rounded-xs font-semibold hover:bg-primary-100 cursor-pointer transition-colors">Vizualizar produto</button>

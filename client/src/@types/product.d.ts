@@ -6,6 +6,7 @@
     price: number;
     lastPrice?: number;
     image: string;
+    colors:string[]
   }
 
  export interface Product {
