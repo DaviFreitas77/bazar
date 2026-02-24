@@ -111,7 +111,7 @@ export function FormForgotPassword({ onChangeForm }: FormForgotPasswordProps) {
         <main className="w-full flex flex-col h-full">
             <section className="flex flex-col ">
                 <div className="flex items-center justify-center">
-                    <img src="/images/logo.png" alt="" className="w-20" />
+                    <img src="/images/logo.png" alt="" className="w-20 mb-10" />
 
                 </div>
                 <h2 className="mt-4 text-xl font-bold">{stepForgot == 1 ? "Recupere sua senha" : stepForgot == 2 ? 'Confirme seu email' : 'Alterar senha'}</h2>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ForgotPassword;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ForgotPasword\VerifyMailRequest;
+use App\Jobs\ForgotPassword;
 use App\Models\PasswordReset;
 use App\Models\User;
 use Illuminate\Http\Response;
@@ -29,6 +30,8 @@ class VerifyMailController extends Controller
             $code = rand(100000, 999999);
             $existing_code = PasswordReset::where('token_password_reset', $code)->first();
         } while ($existing_code);
+
+        ForgotPassword::dispatch($data['mail'], $code);
 
         PasswordReset::create([
             'email_user' => $data['mail'],
