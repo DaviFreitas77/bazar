@@ -85,14 +85,27 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
 
   return (
     <main className="w-full">
-      {stepRegister > 1 && (
-        <button type="button" onClick={returnStep} className=" rounded-full hover:bg-gray-100 transition absolute left-2 top-2">
-          <IoArrowBack size={20} />
-        </button>
-      )}
-      <div className="flex flex-col mb-2 ">
-        <h2 className="mt-4 text-xl font-bold">Crie sua conta</h2>
-        <p className="text-sm text-gray-600 mt-2 mb-10">Preencha os campos abaixo para começar a usar a plataforma.</p>
+
+      <div className="flex flex-col mb-2">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              {stepRegister > 1 && (
+                <button
+                  type="button"
+                  onClick={returnStep}
+                  className="rounded-full hover:bg-gray-100 transition p-1"
+                >
+                  <IoArrowBack size={20} />
+                </button>
+              )}
+              Crie sua conta
+            </h2>
+          </div>
+          <p className="text-sm text-gray-600 mb-10">
+            Preencha os campos abaixo para começar a usar a plataforma.
+          </p>
+        </div>
       </div>
 
       <div className="flex items-center justify-center w-full mb-10">

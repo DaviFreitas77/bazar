@@ -6,7 +6,7 @@ import { Loading } from "../loading/loading";
 import type { FormForgotPasswordProps } from "@/@types/auth/register";
 import { ProgressStep } from "../checkout/progress";
 import { apiResetPassword, apiVerifyCode, apiVerifyEmail } from "@/api/site/forgot-password.api";
-import { IoEyeOutline } from "react-icons/io5";
+import { IoArrowBack, IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { InputFormOTP } from "@/components/ui/input-otp";
 import { toast } from "sonner";
@@ -105,7 +105,9 @@ export function FormForgotPassword({ onChangeForm }: FormForgotPasswordProps) {
         }
     };
 
-
+    const returnStep = () => {
+        onChangeForm("login")
+    };
 
     return (
         <main className="w-full flex flex-col h-full">
@@ -114,7 +116,18 @@ export function FormForgotPassword({ onChangeForm }: FormForgotPasswordProps) {
                     <img src="/images/logo.png" alt="" className="w-20 mb-10" />
 
                 </div>
-                <h2 className="mt-4 text-xl font-bold">{stepForgot == 1 ? "Recupere sua senha" : stepForgot == 2 ? 'Confirme seu email' : 'Alterar senha'}</h2>
+                <div className="flex items-center gap-2" >
+                    {stepForgot == 1 && (
+                        <button
+                            type="button"
+                            onClick={returnStep}
+                            className="rounded-full hover:bg-gray-100 transition p-1"
+                        >
+                            <IoArrowBack size={20} />
+                        </button>
+                    )}
+                    <h2 className=" text-xl font-bold">{stepForgot == 1 ? "Recupere sua senha" : stepForgot == 2 ? 'Confirme seu email' : 'Alterar senha'}</h2>
+                </div>
 
                 <p className="text-sm text-gray-600 mt-2 mb-10">
                     {stepForgot == 1 && 'Prencha seus dados para recuperar seu acesso'}
