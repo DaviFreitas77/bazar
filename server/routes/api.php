@@ -27,7 +27,7 @@ require __DIR__ . '/api/size.php';
 require __DIR__ . '/api/shoppingCart.php';
 require __DIR__ . '/api/subCategory.php';
 require __DIR__ . '/api/adm/dashboardRoute.php';
-
+require __DIR__ . '/api/forgotPassword.api.php';
 
 
 
