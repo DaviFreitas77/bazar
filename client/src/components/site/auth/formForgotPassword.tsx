@@ -17,7 +17,7 @@ interface ForgotPassword {
     newPassword: string;
 }
 
-export function FormForgotPassword({ onChangeForm, onClose }: FormForgotPasswordProps) {
+export function FormForgotPassword({ onChangeForm }: FormForgotPasswordProps) {
     const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [loading, setLoading] = useState(false);
