@@ -1,5 +1,5 @@
 export interface FormLoginProps {
-  onChangeForm: () => void;
+  onChangeForm: (form: 'register' | 'forgotPassword') => void;
   onClose: () => void;
 }
 

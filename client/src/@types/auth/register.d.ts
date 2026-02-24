@@ -7,3 +7,13 @@ export interface Register {
     terms: boolean;
     
   }
+
+export interface FormRegisterProps {
+  onChangeForm: (form: 'login' | 'forgotPassword') => void;
+  onClose: () => void;
+}
+
+export interface FormForgotPasswordProps {
+  onChangeForm: (form: 'login' | 'register') => void;
+  onClose: () => void;
+}

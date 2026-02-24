@@ -138,9 +138,13 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
           <label className="flex items-center text-sm text-gray-600">
             <input type="checkbox" name="remember" className="mr-2" /> Lembrar-me
           </label>
-          <a id="show-form-password" className="text-sm hover:underline text-primary-50 cursor-pointer  font-medium">
+          <button
+            type="button" 
+            onClick={() => onChangeForm('forgotPassword')}
+            className="text-sm hover:underline text-primary-50 cursor-pointer font-medium bg-none border-none p-0"
+          >
             Esqueceu a senha?
-          </a>
+          </button>
         </div>
         <div className="flex w-full">
           <button type="submit" className="bg-primary-50 transition-colors text-white px-6 py-3 rounded-sm font-semibold w-full hover:bg-primary-100 cursor-pointer">
@@ -149,7 +153,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
         </div>
         <p className="mt-4 text-center text-sm">
           Não tem conta?
-          <button onClick={onChangeForm} type="button" className=" ml-1 text-primary-50 cursor-pointer  font-medium">
+          <button onClick={() => onChangeForm('register')} type="button" className="ml-1 text-primary-50 cursor-pointer font-medium bg-none border-none p-0">
             Registrar
           </button>
         </p>

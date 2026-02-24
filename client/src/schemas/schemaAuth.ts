@@ -13,3 +13,10 @@ export const loginSchema = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
   password: yup.string().required("senha é obrigatório"),
 });
+
+
+export const forgotPasswordSchema = yup.object().shape({
+  email: yup.string().email("Email inválido").required("Email é obrigatório"),
+  code: yup.string().required("Código obrigatorio"),
+  newPassword: yup.string().required("Nova senha obrigatório").min(8, "Minimo de 8 caractéres")
+})

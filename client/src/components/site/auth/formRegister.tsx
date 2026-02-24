@@ -8,14 +8,9 @@ import { useUser } from "@/context/userContext";
 import { toast } from "sonner";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
-import type { Register } from "@/@types/auth/register";
+import type { Register, FormRegisterProps } from "@/@types/auth/register";
 import { ProgressStep } from "../checkout/progress";
 import { IoArrowBack } from "react-icons/io5";
-
-interface FormRegisterProps {
-  onChangeForm: () => void;
-  onClose: () => void;
-}
 
 export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
   const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
@@ -194,7 +189,7 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
 
         <p className="mt-4 text-center text-sm">
           Já tem conta?
-          <button onClick={onChangeForm} type="button" className="text-primary  cursor-pointer ml-1">
+          <button onClick={() => onChangeForm('login')} type="button" className="text-primary cursor-pointer ml-1">
             Entrar
           </button>
         </p>
