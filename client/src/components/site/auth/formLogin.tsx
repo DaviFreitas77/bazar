@@ -45,12 +45,12 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
 
       if (response.user.role === "admin") {
         navigate("/admin-dashboard");
-      } 
-      
+      }
+
       onClose();
 
       toast.success("Login realizado");
-      reset(); 
+      reset();
     } catch (error: any) {
       if (error.status === 401) {
         setErrorMessage("Credenciais inválidas");
@@ -82,10 +82,10 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
 
   return (
     <main className="w-full ">
-      
+
       <div className="flex flex-col mb-2">
-        <div className="flex items-center justify-center">   
-              <img src="/images/logo.png" alt="" className="w-20" />
+        <div className="flex items-center justify-center">
+          <img src="/images/logo.png" alt="" className="w-20" />
 
         </div>
         <h2 className="mt-4 text-xl font-bold">Entrar</h2>
@@ -117,12 +117,12 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
         <div className="flex flex-col gap-4 mb-2">
           <div className="w-full">
             <label className="text-sm font-medium text-gray-700">Email</label>
-            <input {...register("email")} name="email" type="email" className="px-3 py-4 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" placeholder="seu@email.com" />
+            <input {...register("email")} name="email" type="email" className="px-3 py-4 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2 caret-primary-50" placeholder="seu@email.com" />
             <div className="h-2 my-1">{errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}</div>
           </div>
           <div className="w-full relative">
             <label className="text-sm font-medium text-gray-700">Senha</label>
-            <input {...register("password")} placeholder="********" type={visiblePassword ? "text" : "password"} className="px-3 py-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2" />
+            <input {...register("password")} placeholder="********" type={visiblePassword ? "text" : "password"} className="px-3 py-3 border border-gray-200 rounded-sm focus:ring-1 focus:ring-primary-50 transition-all duration-300 outline-0 w-full mt-2 caret-primary-50" />
 
             <span className="absolute top-11 right-6">
               <button type="button" onClick={() => setVisiblePassword(!visiblePassword)} className="cursor-pointer hover:opacity-85">
@@ -139,7 +139,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
             <input type="checkbox" name="remember" className="mr-2" /> Lembrar-me
           </label>
           <button
-            type="button" 
+            type="button"
             onClick={() => onChangeForm('forgotPassword')}
             className="text-sm hover:underline text-primary-50 cursor-pointer font-medium bg-none border-none p-0"
           >
