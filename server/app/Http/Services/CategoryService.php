@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Models\Category;
 use App\Models\Colors;
+use Illuminate\Http\Response;
 
 class CategoryService
 {
@@ -14,7 +15,7 @@ class CategoryService
     $existingCategpry = Category::where('name', $data['name'])->first();
 
     if ($existingCategpry) {
-      return response()->json(['message' => "Categoria ja cadastrada"], 400);
+      return response()->json(['message' => "Categoria ja cadastrada"], Response::HTTP_CONFLICT);
     }
 
     $category = new Category;
