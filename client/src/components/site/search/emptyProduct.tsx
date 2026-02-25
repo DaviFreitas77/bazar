@@ -30,7 +30,7 @@ export function EmptyProduct({inputValue,setInputValue,setSearchParams}:EmptyPro
                 </div>
                 <button
                   onClick={() => setSearchParams({ q: inputValue })}
-                  className="absolute top-4 right-2 z-999 cursor-pointer"
+                  className="absolute top-4 right-5 z-999 cursor-pointer"
                 >
                   <FiArrowRight />
                 </button>
