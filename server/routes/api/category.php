@@ -4,7 +4,7 @@ use App\Http\Controllers\Category\CreateCategory;
 use App\Http\Controllers\Category\ListCategoryController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('is_admin')->prefix('category')->group(function () {
+Route::middleware(['auth:sanctum','is_admin'])->prefix('category')->group(function () {
 Route::post('/create', CreateCategory::class);
 });
 

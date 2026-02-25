@@ -18,12 +18,12 @@ Route::middleware(['auth:sanctum','is_admin'])->prefix('metrics')->group(functio
   Route::get('/billing', billingController::class);
 });
 
+
 Route::middleware(['auth:sanctum','is_admin'])->prefix('order')->group(function () {
   Route::get('/allOrders', listAllOrdersController::class);
   Route::get('/listItemsOrder/{idOrder}', ListItemsOrder::class);
   });
   
-
 
 Route::middleware(['auth:sanctum','is_admin'])->prefix('prod')->group(function () {
   Route::delete('delProduct/{id}', DeleteProductController::class);
@@ -31,6 +31,3 @@ Route::middleware(['auth:sanctum','is_admin'])->prefix('prod')->group(function (
   Route::patch('/editProduct',EditProductController::class);
 });
 
-Route::prefix('notification')->group(function(){
-  Route::get('/welcome', SendNotificationController::class);
-});
