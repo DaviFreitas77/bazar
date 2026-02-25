@@ -39,7 +39,7 @@ export function Search() {
 
   const { data: productsByCategory, isLoading: loadingCategory } = useProductsByCategory(category);
 
-  const { data: productsBySubCategory, isLoading: loadingSub } = useFilterSubCategory(subCategory || "");
+  const { data: productsBySubCategory, isLoading: loadingSub } = useFilterSubCategory(subCategory);
 
   const { data: productsSearched, isLoading: loadingSearch } = hookSearchParams(search);
 
@@ -118,6 +118,7 @@ export function Search() {
     return [];
   }, [category, subCategory, search, productsByCategory, productsBySubCategory, productsSearched]);
 
+
   const filteredProducts = useMemo(() => {
     let result: Product[] = [...baseProducts];
 
@@ -172,7 +173,7 @@ export function Search() {
   const allSizes = [...new Set(filteredProducts.flatMap((product) => product.sizes))];
 
 
-  const allCategories = [...new Set(productsSearched?.flatMap((product) => product.category.name))];
+  const allCategories = [...new Set(filteredProducts?.flatMap((product) => product.category.name))];
 
 
   if (isLoading) {
@@ -186,7 +187,7 @@ export function Search() {
 
   if (currentItems.length == 0) {
     return (
-      <div className="flex h-[80vh] w-full justify-center items-center mt-25">
+      <div className="flex h-[80vh] w-full justify-center items-center mt-25 px-5">
         <EmptyProduct inputValue={inputValue} setInputValue={setInputValue} setSearchParams={setSearchParams} />
       </div>
     )
