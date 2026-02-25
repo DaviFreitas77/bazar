@@ -15,11 +15,12 @@ class CreateSubCategoryController extends Controller
     public function __invoke(CreateSubCategoryRequest $request)
     {
         $data = $request->validated();
-
-        $subCategory = SubCategory::create([
-            'id_category' => $data['idCategory'],
-            'name' => $data['name'],
-        ]);
+        
+        $subCategory = new SubCategory;
+        $subCategory->id_category = $data['idCategory'];
+        $subCategory->name = $data['name'];
+        $subCategory->save();
+        
         return response()->json([
             'message' => 'Subcategoria cadastrada com sucesso!',
             'subCategory' => $subCategory
