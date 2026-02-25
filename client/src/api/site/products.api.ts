@@ -4,8 +4,7 @@ import type { ApiProduct } from "../@types/product";
 
 
 
-export const getProductsByCategory = async (name: string): Promise<Product[]> => {
-
+export const getProductsByCategory = async (name: string | null): Promise<Product[]> => {
   const { data } = await api.get<Product[]>(`prod/productsByCategory/${name}`);
   return data;
 };
@@ -36,7 +35,7 @@ export const apiGetAllProducts = async (): Promise<Product[]> => {
 };
 
 
- export const searchProducts = async (query: string): Promise<Product[]> => {
+ export const searchProducts = async (query: string | null): Promise<Product[]> => {
   try {
     const response = await api.get<Product[]>(`prod/search/${query}`);
     return response.data;

@@ -26,10 +26,10 @@ class ListProductByCategoryController extends Controller
         $id = Category::where('name', $name)->first()->id;
 
         $products = $this->productService->getProductByCategory($id);
-
         if ($products->isEmpty()) {
-            return response()->json(['message' => "Nenhum Produto Encontrado"],Response::HTTP_NOT_FOUND);
+    
+            return response()->json([], Response::HTTP_OK);
         }
-        return response()->json($products,Response::HTTP_OK);
+        return response()->json($products, Response::HTTP_OK);
     }
 }

@@ -28,20 +28,28 @@ export function Search() {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedcategorie, setSelectedcategorie] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
-
   const [inputValue, setInputValue] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+
   const search = searchParams.get("q");
-  const { data: subCategories } = useListSubCategories(searchParams.get("category") ?? "");
-  const { data: productsByCategory } = useProductsByCategory(searchParams.get("category") ?? "");
-  const { data: productsBySubCategory } = useFilterSubCategory(searchParams.get("subCategory") ?? "");
+  const category = searchParams.get("category");
+  const subCategory = searchParams.get("subCategory");
+
+  const { data: subCategories } = useListSubCategories(category || "");
+
+  const { data: productsByCategory, isLoading: loadingCategory } = useProductsByCategory(category);
+
+  const { data: productsBySubCategory, isLoading: loadingSub } = useFilterSubCategory(subCategory || "");
+
+  const { data: productsSearched, isLoading: loadingSearch } = hookSearchParams(search);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [filterOrder, setFilterOrder] = useState("relevance");
   const [priceRange, setPriceRange] = useState<number[]>([0, 0]);
 
   let productsPerPage = 16;
 
-  const { data: productsSearched } = hookSearchParams(search);
+  const isLoading = (!!category && loadingCategory) || (!!subCategory && loadingSub) || (!!search && loadingSearch);
 
   useEffect(() => {
     setSelectedcategorie(searchParams.get("category") ?? "");
@@ -95,16 +103,20 @@ export function Search() {
   };
 
   const baseProducts: Product[] = useMemo(() => {
-    if (searchParams.get("subCategory")) {
+    if (subCategory) {
       return productsBySubCategory ?? [];
     }
 
-    if (searchParams.get("category")) {
+    if (category) {
       return productsByCategory ?? [];
     }
 
-    return productsSearched ?? [];
-  }, [productsByCategory, productsBySubCategory, productsSearched, searchParams]);
+    if (search) {
+      return productsSearched ?? [];
+    }
+
+    return [];
+  }, [category, subCategory, search, productsByCategory, productsBySubCategory, productsSearched]);
 
   const filteredProducts = useMemo(() => {
     let result: Product[] = [...baseProducts];
@@ -135,7 +147,7 @@ export function Search() {
     }
 
     return result;
-  }, [selectedColor, selectedSize, selectedcategorie, productsSearched, filterOrder, priceRange, selectedSubCategory, productsByCategory, searchParams, productsBySubCategory, baseProducts]);
+  }, [selectedColor, selectedSize, filterOrder, priceRange, baseProducts]);
 
   const [minPrice, maxPrice] = useMemo(() => {
     if (!filteredProducts.length) return [0, 0];
@@ -162,86 +174,90 @@ export function Search() {
 
   const allCategories = [...new Set(productsSearched?.flatMap((product) => product.category.name))];
 
+
+  if (isLoading) {
+    return (
+      <section className="flex items-center justify-center h-screen w-full mt-25">
+        <LoadingPage />
+      </section>
+    )
+
+  }
+
+  if (currentItems.length == 0) {
+    return (
+      <div className="flex h-[80vh] w-full justify-center items-center mt-25">
+        <EmptyProduct inputValue={inputValue} setInputValue={setInputValue} setSearchParams={setSearchParams} />
+      </div>
+    )
+  }
+
   return (
     <main className=" md:px-6 flex flex-col gap-6 mt-25">
-      {currentItems.length == 0 ? (
-        <section className="flex items-center justify-center h-screen w-full">
-          <LoadingPage />
-        </section>
-      ) : (
-        <section className="flex gap-6 justify-center">
-          {currentItems.length === 0 ? null : (
-            <>
-              {showSidebar && (
-                <DrawerDesktop
-                  allColors={allColors}
-                  allSizes={allSizes}
-                  selectedColor={selectedColor}
-                  selectedcategorie={selectedcategorie}
-                  selectedSubCategory={selectedSubCategory}
-                  subCategories={subCategories}
-                  allCategories={allCategories}
-                  selectedSize={selectedSize}
-                  changeColor={toggleColor}
-                  changeSize={toggleSize}
-                  changeCategory={toggleCategory}
-                  changeSubCategory={toggleSubCategory}
-                  maxPrice={maxPrice}
-                  minPrice={minPrice}
-                  valueChange={setPriceRange}
-                />
-              )}
 
-              <DrawerFilterMobile
-                open={drawerOpen}
-                onOpenChange={setDrawerOpen}
+      <section className="flex gap-6 justify-center">
+        {currentItems.length === 0 ? null : (
+          <>
+            {showSidebar && (
+              <DrawerDesktop
                 allColors={allColors}
-                  allSizes={allSizes}
-                  selectedColor={selectedColor}
-                  selectedcategorie={selectedcategorie}
-                  selectedSubCategory={selectedSubCategory}
-                  subCategories={subCategories}
-                  allCategories={allCategories}
-                  selectedSize={selectedSize}
-                  changeColor={toggleColor}
-                  changeSize={toggleSize}
-                  changeCategory={toggleCategory}
-                  changeSubCategory={toggleSubCategory}
-                  maxPrice={maxPrice}
-                  minPrice={minPrice}
-                  valueChange={setPriceRange}
+                allSizes={allSizes}
+                selectedColor={selectedColor}
+                selectedcategorie={selectedcategorie}
+                selectedSubCategory={selectedSubCategory}
+                subCategories={subCategories}
+                allCategories={allCategories}
+                selectedSize={selectedSize}
+                changeColor={toggleColor}
+                changeSize={toggleSize}
+                changeCategory={toggleCategory}
+                changeSubCategory={toggleSubCategory}
+                maxPrice={maxPrice}
+                minPrice={minPrice}
+                valueChange={setPriceRange}
               />
-            </>
-          )}
-
-          <div className={`flex flex-col items-center ${showSidebar ? "w-full max-w-[1100px]" : "w-full max-w-[1420px]"}`}>
-            {currentItems.length === 0 ? (
-              <div className="flex h-[80vh] w-full justify-center items-center">
-                <EmptyProduct inputValue={inputValue} setInputValue={setInputValue} setSearchParams={setSearchParams} />
-              </div>
-            ) : (
-              <>
-           
-                  <BannerSearch showSidebar={showSidebar} />
- 
-
-                <div className="px-2 w-full">
-                  <ActionButtons showSidebar={showSidebar} products={filteredProducts} setShowSidebar={setShowSidebar} setDrawerOpen={setDrawerOpen} filterOrder={filterOrder} setFilterOrder={setFilterOrder} />
-                </div>
-
-                <div className={`grid gap-2 w-full px-2 ${showSidebar ? "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-[1920px]"}`}>
-                  {currentItems.map((product) => (
-                    <CardProduct key={product.id} id={product.id} name={product.name} sizes={product.sizes} price={product.price} image={product.image[0]} lastPrice={product.lastPrice} colors={product.color}/>
-                  ))}
-                </div>
-
-                {/* Paginação */}
-                <Pagination currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />
-              </>
             )}
+
+            <DrawerFilterMobile
+              open={drawerOpen}
+              onOpenChange={setDrawerOpen}
+              allColors={allColors}
+              allSizes={allSizes}
+              selectedColor={selectedColor}
+              selectedcategorie={selectedcategorie}
+              selectedSubCategory={selectedSubCategory}
+              subCategories={subCategories}
+              allCategories={allCategories}
+              selectedSize={selectedSize}
+              changeColor={toggleColor}
+              changeSize={toggleSize}
+              changeCategory={toggleCategory}
+              changeSubCategory={toggleSubCategory}
+              maxPrice={maxPrice}
+              minPrice={minPrice}
+              valueChange={setPriceRange}
+            />
+          </>
+        )}
+
+        <div className={`flex flex-col items-center ${showSidebar ? "w-full max-w-[1100px]" : "w-full max-w-[1420px]"}`}>
+          <BannerSearch showSidebar={showSidebar} />
+
+          <div className="px-2 w-full">
+            <ActionButtons showSidebar={showSidebar} products={filteredProducts} setShowSidebar={setShowSidebar} setDrawerOpen={setDrawerOpen} filterOrder={filterOrder} setFilterOrder={setFilterOrder} />
           </div>
-        </section>
-      )}
-    </main>
+
+          <div className={`grid gap-2 w-full px-2 ${showSidebar ? "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-[1920px]"}`}>
+            {currentItems.map((product) => (
+              <CardProduct key={product.id} id={product.id} name={product.name} sizes={product.sizes} price={product.price} image={product.image[0]} lastPrice={product.lastPrice} colors={product.color} />
+            ))}
+          </div>
+
+          {/* Paginação */}
+          <Pagination currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />
+
+        </div>
+      </section>
+    </main >
   );
 }
