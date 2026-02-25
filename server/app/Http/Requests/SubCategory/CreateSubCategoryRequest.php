@@ -22,7 +22,7 @@ class CreateSubCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "idCategory" => "required|integer|exists:categories,id",
+            "idCategory" => "required|integer",
             "name" => "required|string|min:4|max:100",
         ];
     }
@@ -31,8 +31,6 @@ class CreateSubCategoryRequest extends FormRequest
     {
         return [
             "idCategory.required" => "A categoria é obrigatória.",
-            "idCategory.integer" => "O ID da categoria deve ser um número.",
-            "idCategory.exists" => "A categoria selecionada não existe.",
             "name.required" => "O nome da subcategoria é obrigatório.",
             "name.string" => "O nome deve ser texto.",
             "name.min" => "O nome deve ter no mínimo 4 caracteres.",
