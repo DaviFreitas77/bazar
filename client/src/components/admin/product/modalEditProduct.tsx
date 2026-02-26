@@ -15,10 +15,12 @@ export function ModalEditProduct({ productId, onClose }: ModalEditProductProps) 
   const queryClient = useQueryClient();
   const { data: productById } = useProductById(productId);
 
+
   const [newName, setNewName] = useState<string | undefined>(undefined);
   const [newDescription, setNewDescription] = useState<string | undefined>(undefined);
   const [newPrice, setNewPrice] = useState<number | undefined>(undefined);
   const [newLastPrice, setNewLastPrice] = useState<number | undefined>(undefined);
+
 
   const editProduct = async () => {
     try {
@@ -80,23 +82,39 @@ export function ModalEditProduct({ productId, onClose }: ModalEditProductProps) 
                     <input onChange={(e) => setNewLastPrice(Number(e.target.value))} type="number" defaultValue={productById?.lastPrice} className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm" />
                   </div>
                 </div>
-                {/* Categoria */}
-                <div className="flex gap-10 flex-col">
-                  <div>
+
+                <div className="flex gap-6 flex-col ">
+                  {/* Categoria */}
+                  <div className="flex items-center gap-4">
+                    <label className="text-sm text-gray-600">Categoria</label>
+                    <span className="px-3 py-1 text-xs rounded-full border border-gray-300 bg-gray-100 max-w-21 text-center">{productById?.categoryName}</span>
+                  </div>
+
+                  <div className="flex items-center gap-4">
                     <label className="text-sm text-gray-600">Cores</label>
                     <div className="flex gap-2 flex-wrap">
                       {productById?.color.map((c) => (
                         <span key={c.id} className="px-3 py-1 text-xs rounded-full border border-gray-300 bg-gray-100">
                           <FaCircle size={15} color={c.name} />
-                          
+
                         </span>
                       ))}
                     </div>
                   </div>
-                  <div className="flex flex-col">
-                    <label className="text-sm text-gray-600">Categoria</label>
-                    <span className="px-3 py-1 text-xs rounded-full border border-gray-300 bg-gray-100 max-w-21 text-center">{productById?.categoryName}</span>
+
+                  <div className="flex items-center gap-4">
+                    <label className="text-sm text-gray-600">Tamanhos</label>
+                    <div className="flex gap-2 flex-wrap">
+                      {productById?.sizes.map((s) => (
+                        <span key={s.id} className="px-3 py-1 text-xs rounded-full border border-gray-300 bg-gray-100">
+                          {s.name}
+                        </span>
+                      ))}
+                    </div>
                   </div>
+
+
+
                 </div>
               </div>
 

@@ -103,41 +103,65 @@ export function TableProduct() {
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Preço Anterior</th>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Preço Atual</th>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Categoria</th>
+                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Modelo</th>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Ações</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-gray-200 ">
               {currentItems.length > 0 ? currentItems?.map((product) => (
                 <tr key={product.id} className="hover:bg-gray-50 transition">
                   <td className="px-4 py-2 text-primary-50 font-bold">{product.id}</td>
-                  <td className="px-4 py-2 text-primary-50 font-bold"><img src={product.image[0]} alt="" className="w-10"/></td>
+                  <td className="py-2">
+
+                    <img
+                      src={product.image[0]}
+                      alt=""
+                      className="w-20 h-20 object-cover rounded-md border border-gray-200"
+                    />
+
+                  </td>
                   <td className="px-4 py-2">{product.name}</td>
                   <td className="px-4 py-2 line-through text-gray-400">
-                    {Number(product.lastPrice).toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}{" "}
+                    {
+                      Number(product.lastPrice) > 0
+                        ? Number(product.lastPrice).toLocaleString("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        })
+                        : <p>-</p>
+                    }
+
                   </td>
-                  <td className="px-4 py-2 font-semibold text-[#A2785A]">
+                  <td className="px-4 py-2 font-semibold text-[#A2785A] ">
                     {Number(product.price).toLocaleString("pt-BR", {
                       style: "currency",
                       currency: "BRL",
                     })}
                   </td>
                   <td className="px-4 py-2">{product.category.name}</td>
-                  <td className="px-4 py-2 flex gap-3 mt-5">
-                    <button title="Excluir produto" onClick={() => delProduct(product.id)} disabled={loadingButton} className={`hover:opacity-45 cursor-pointer`}>
-                      <Trash size={18} color="red" />
-                    </button>
-                    <button
-                      onClick={() => {
-                        (setProductId(product.id), setModeEdit(true));
-                      }}
-                      title="Editar produto"
-                      className="hover:opacity-45 cursor-pointer"
-                    >
-                      <Pencil size={18} />
-                    </button>
+                  <td className="px-4 py-2">{product.category.name}</td>
+                  <td className="px-4 py-2">
+                    <div className="flex  items-center ">
+                      <button
+                        title="Excluir produto"
+                        onClick={() => delProduct(product.id)}
+                        disabled={loadingButton}
+                        className="p-2 rounded-md hover:bg-red-50 transition"
+                      >
+                        <Trash size={18} className="text-red-500" />
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          setProductId(product.id);
+                          setModeEdit(true);
+                        }}
+                        title="Editar produto"
+                        className="p-2 rounded-md hover:bg-gray-100 transition"
+                      >
+                        <Pencil size={18} className="text-gray-600" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               )) : (
