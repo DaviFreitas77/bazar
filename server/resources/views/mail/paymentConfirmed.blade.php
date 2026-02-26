@@ -65,7 +65,7 @@
     </p>
 
     <!-- Botão -->
-    <a href="http://localhost:5173/pedidos" style="
+    <a href="https://bazarsandra.freitasz.com.br/pedidos" style="
     display:inline-block;
     background:#d39b72;
     color:#ffffff;
