@@ -146,7 +146,7 @@ export function TableProduct() {
                         title="Excluir produto"
                         onClick={() => delProduct(product.id)}
                         disabled={loadingButton}
-                        className="p-2 rounded-md hover:bg-red-50 transition"
+                        className="p-2 rounded-md hover:bg-red-50 transition cursor-pointer"
                       >
                         <Trash size={18} className="text-red-500" />
                       </button>
@@ -157,7 +157,7 @@ export function TableProduct() {
                           setModeEdit(true);
                         }}
                         title="Editar produto"
-                        className="p-2 rounded-md hover:bg-gray-100 transition"
+                        className="p-2 rounded-md hover:bg-gray-100 transition cursor-pointer"
                       >
                         <Pencil size={18} className="text-gray-600" />
                       </button>
