@@ -125,7 +125,7 @@ export function TableProduct() {
                     })}
                   </td>
                   <td className="px-4 py-2">{product.category.name}</td>
-                  <td className="px-4 py-2 flex gap-3">
+                  <td className="px-4 py-2 flex gap-3 mt-5">
                     <button title="Excluir produto" onClick={() => delProduct(product.id)} disabled={loadingButton} className={`hover:opacity-45 cursor-pointer`}>
                       <Trash size={18} color="red" />
                     </button>
