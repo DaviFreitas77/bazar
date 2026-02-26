@@ -106,7 +106,7 @@ export function ModalEditProduct({ productId, onClose }: ModalEditProductProps) 
                   Cancelar
                 </button>
 
-                <button onClick={editProduct} className="px-4 py-2 text-sm rounded-md bg-primary-50 text-white hover:opacity-90">
+                <button onClick={editProduct} className="px-4 py-2 text-sm rounded-md bg-primary-50 text-white hover:opacity-90 cursor-pointer">
                   Salvar alterações
                 </button>
               </div>
