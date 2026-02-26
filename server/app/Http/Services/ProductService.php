@@ -131,7 +131,7 @@ class ProductService
 
     public function fetchProduct()
     {
-        $products = Product::with(['category'])->where('visible', true)->get();
+        $products = Product::with(['category','subCategory'])->where('visible', true)->get();
 
         $result = $products->map(function ($product) {
 
@@ -146,6 +146,7 @@ class ProductService
                 'sizes' => $product->sizes->pluck('name'),
                 'color' => $product->colors->pluck('hexadecimal'),
                 'idSubcategory' => $product->fkSubcategory,
+                'subCategory'=> $product->subCategory->name
             ];
         });
 

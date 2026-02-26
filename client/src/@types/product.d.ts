@@ -27,6 +27,7 @@
     name: string;     
   };
   idSubcategory:number
+  subCategory:string
   }
 
   export interface Category {

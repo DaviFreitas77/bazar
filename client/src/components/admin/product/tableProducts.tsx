@@ -139,7 +139,7 @@ export function TableProduct() {
                     })}
                   </td>
                   <td className="px-4 py-2">{product.category.name}</td>
-                  <td className="px-4 py-2">{product.category.name}</td>
+                  <td className="px-4 py-2">{product.subCategory}</td>
                   <td className="px-4 py-2">
                     <div className="flex  items-center ">
                       <button
