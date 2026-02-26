@@ -18,7 +18,9 @@ export function TableProduct() {
 
   let productsPerPage = 15;
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: products, refetch} = useAllProducts();
+  const { data: products, refetch } = useAllProducts();
+
+
 
   const filteredProducts = useMemo(() => {
     let result = [...(products ?? [])];
@@ -91,11 +93,12 @@ export function TableProduct() {
             </Link>
           </div>
         </div>
-         <div className="w-full overflow-x-auto">
+        <div className="w-full overflow-x-auto">
           <table className="min-w-full border border-gray-200 divide-y divide-gray-200 ">
             <thead className="bg-primary-200">
               <tr>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">ID</th>
+                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Foto</th>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Produto</th>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Preço Anterior</th>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Preço Atual</th>
@@ -107,6 +110,7 @@ export function TableProduct() {
               {currentItems.length > 0 ? currentItems?.map((product) => (
                 <tr key={product.id} className="hover:bg-gray-50 transition">
                   <td className="px-4 py-2 text-primary-50 font-bold">{product.id}</td>
+                  <td className="px-4 py-2 text-primary-50 font-bold"><img src={product.image[0]} alt="" className="w-10"/></td>
                   <td className="px-4 py-2">{product.name}</td>
                   <td className="px-4 py-2 line-through text-gray-400">
                     {Number(product.lastPrice).toLocaleString("pt-BR", {
@@ -136,10 +140,10 @@ export function TableProduct() {
                     </button>
                   </td>
                 </tr>
-              )):(
+              )) : (
                 <tr>
                   <td colSpan={7} className="text-center py-6 text-gray-400">
-                    <Loading/>
+                    <Loading />
                   </td>
                 </tr>
               )}
