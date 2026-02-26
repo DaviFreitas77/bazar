@@ -85,9 +85,15 @@ export function ModalEditProduct({ productId, onClose }: ModalEditProductProps) 
 
                 <div className="flex gap-6 flex-col ">
                   {/* Categoria */}
-                  <div className="flex items-center gap-4">
-                    <label className="text-sm text-gray-600">Categoria</label>
-                    <span className="px-3 py-1 text-xs rounded-full border border-gray-300 bg-gray-100 max-w-21 text-center">{productById?.categoryName}</span>
+                  <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-4">
+                      <label className="text-sm text-gray-600">Categoria</label>
+                      <span className="px-3 py-1 text-xs rounded-full border border-gray-300 bg-gray-100 max-w-21 text-center">{productById?.categoryName}</span>
+                    </div>
+                     <div className="flex items-center gap-4">
+                      <label className="text-sm text-gray-600">Modelo</label>
+                      <span className="px-3 py-1 text-xs rounded-full border border-gray-300 bg-gray-100 max-w-21 text-center">{productById?.subCategory}</span>
+                    </div>
                   </div>
 
                   <div className="flex items-center gap-4">

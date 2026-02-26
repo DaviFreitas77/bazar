@@ -74,7 +74,7 @@ class ProductService
 
     public function getProductById($id)
     {
-        $product = Product::with(['category',])->where('id', $id)->where('visible', true)->first();
+        $product = Product::with(['category','subCategory'])->where('id', $id)->where('visible', true)->first();
 
         if (!$product) {
             return response()->json(['error' => 'Produto não encontrado'], 404);
@@ -86,7 +86,7 @@ class ProductService
             "price" => $product->price,
             "lastPrice" => $product->lastPrice,
             'category' => $product->category->id,
-
+            'subCategory' => $product->subCategory->name,
             'categoryName' => $product->category->name,
             'sizes' => $product->sizes->map(function ($size) {
                 return [
