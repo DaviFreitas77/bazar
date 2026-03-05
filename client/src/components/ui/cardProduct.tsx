@@ -137,13 +137,19 @@ export function CardProduct({ id, image, lastPrice, name, price, sizes, color }:
 
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mt-2">
             <span className="text-xs lg:text-base font-medium text-gray-500">Cor:</span>
             {color && color.map((c) => (
-              <span key={c.id}
+              <span
+                key={c.id}
                 onClick={() => setSelectedColor({ idColor: c.id, nameColor: c.name, hexadecimal: c.hexadecimal })}
-                className={`flex items-center w-5 h-5  justify-center  rounded-full cursor-pointer text-xs font-semibold text-gray-700 ring-1 ring-gray-300 ${selectedColor.idColor == c.id && 'border border-primary-50'} `}>
-                <FaCircle size={15} color={c.hexadecimal} />
+                className={`
+        flex items-center justify-center w-6 h-6 rounded-full cursor-pointer
+        ring-1 ring-gray-300
+        ${selectedColor.idColor == c.id ? 'border border-primary-50' : ''}
+      `}
+              >
+                <FaCircle size={16} color={c.hexadecimal} className="block" />
               </span>
             ))}
           </div>
