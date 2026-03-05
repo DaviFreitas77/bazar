@@ -19,6 +19,9 @@ export function Home() {
   const calca = filterProductByCategory("Calças", products ?? []);
   const camisetas = filterProductByCategory("Camisetas", products ?? []);
 
+  
+
+
   return (
     <main>
       <section className="relative w-full hidden md:block mt-20">

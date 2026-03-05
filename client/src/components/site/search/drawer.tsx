@@ -1,7 +1,9 @@
 import { SheetSearch } from "../../ui/sheet";
 import { AccordionFilter } from "@/components/ui/accordion";
+import type { Color, Size } from "@/components/ui/cardProduct";
 import { SliderProduct } from "@/components/ui/slider";
 import { FaCircle } from "react-icons/fa";
+
 
 type SubCategoriesType = {
   id: number;
@@ -11,8 +13,8 @@ type SubCategoriesType = {
 interface DrawerFilterMobileProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-    allColors: string[];
-  allSizes: string[];
+  allColors:Color[];
+  allSizes: Size[];
   changeColor: (color: string) => void;
   changeSize: (size: string) => void;
   changeCategory: (category: string) => void;
@@ -72,23 +74,23 @@ export function DrawerFilterMobile({
           </AccordionFilter>
         )}
 
-      <AccordionFilter name="Cores" value="item-1">
-         {allColors.map((color, index) => (
-            <label key={index} className={`flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-50 mt-1 capitalize`}>
-              <input type="checkbox" value={color} checked={selectedColor === color} className="accent-primary-50 w-4 h-4" onChange={(e) => changeColor(e.target.value)} />
-              <span className={`${selectedColor === color ? "text-primary-50" : ""}`}><FaCircle size={15} color={color} /></span>
-            </label>
-          ))}
-      </AccordionFilter>
-
-      <AccordionFilter name="Tamanhos" value="item-2">
-        {allSizes.map((sizes, index) => (
-            <label key={index} className="flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-100 mt-1 py-1">
-              <input type="checkbox" value={sizes} checked={selectedSize === sizes} className="accent-primary-100 w-4 h-4" onChange={(e) => changeSize(e.target.value)} />
-              <span className={`${selectedSize === sizes ? "text-primary-50" : ""}`}>{sizes}</span>
-            </label>
-          ))}
-      </AccordionFilter>
+    <AccordionFilter name="Cores" value="item-1">
+              {allColors.map((color, index) => (
+                <label key={index} className={`flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-50 mt-1 capitalize`}>
+                  <input type="checkbox" value={color.hexadecimal} checked={selectedColor === color.hexadecimal} className="accent-primary-50 w-4 h-4" onChange={(e) => changeColor(e.target.value)} />
+                  
+                  <span className={`${selectedColor === color.hexadecimal ? "text-primary-50" : ""}`}><FaCircle size={15} color={color.hexadecimal} /></span>
+                </label>
+              ))}
+            </AccordionFilter>
+            <AccordionFilter name="Tamanhos" value="item-1">
+              {allSizes.map((sizes, index) => (
+                <label key={index} className="flex items-center gap-2 cursor-pointer text-gray-500 hover:text-primary-100 mt-1 py-1">
+                  <input type="checkbox" value={sizes.nameSize} checked={selectedSize === sizes.nameSize} className="accent-primary-100 w-4 h-4" onChange={(e) => changeSize(e.target.value)} />
+                  <span className={`${selectedSize === sizes.nameSize ? "text-primary-50" : ""}`}>{sizes.nameSize}</span>
+                </label>
+              ))}
+            </AccordionFilter>
 
       <AccordionFilter name="Preço" value="item-2">
         <div className="mt-2">

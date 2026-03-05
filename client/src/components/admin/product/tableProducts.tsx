@@ -120,7 +120,7 @@ export function TableProduct() {
                       currency: "BRL",
                     })}
                   </td>
-                  <td className="px-4 py-2">{product.category.name}</td>
+                  <td className="px-4 py-2">{product.category?.name}</td>
                   <td className="px-4 py-2 flex gap-3">
                     <button title="Excluir produto" onClick={() => delProduct(product.id)} disabled={loadingButton} className={`hover:opacity-45 cursor-pointer`}>
                       <Trash size={18} color="red" />

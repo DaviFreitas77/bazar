@@ -1,5 +1,5 @@
 import { filterColorsProducts, filterSizesProducts } from "@/utils/productsUtild";
-import { CardProduct } from "@/components/ui/cardProduct";
+import { CardProduct, type Color, type Size } from "@/components/ui/cardProduct";
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { DrawerFilterMobile } from "@/components/site/search/drawer";
@@ -119,6 +119,7 @@ export function Search() {
   }, [category, subCategory, search, productsByCategory, productsBySubCategory, productsSearched]);
 
 
+
   const filteredProducts = useMemo(() => {
     let result: Product[] = [...baseProducts];
 
@@ -169,11 +170,34 @@ export function Search() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  const allColors = [...new Set(filteredProducts.flatMap((product) => product.color))];
-  const allSizes = [...new Set(filteredProducts.flatMap((product) => product.sizes))];
+
+  const colorsUnique = Array.from(
+    new Map(
+      filteredProducts
+        .flatMap(product => product.color)
+        .map(c => [c.id, c])
+    ).values()
+  );
+
+  const allColors: Color[] = colorsUnique.map(c => ({
+    idColor: c.id,
+    nameColor: c.name,
+    hexadecimal: c.hexadecimal
+  }));
+
+  const sizesUnique = Array.from(
+    new Map(filteredProducts.flatMap(product => product.sizes)
+      .map(s => [s.id, s])
+    ).values()
+  );
+
+  const allSizes: Size[] = sizesUnique.map(s => ({
+    idSize: s.id,
+    nameSize: s.name
+  }));
 
 
-  const allCategories = [...new Set(filteredProducts?.flatMap((product) => product.category.name))];
+  const allCategories = [...new Set(filteredProducts?.flatMap((product) => product.category?.name || ''))];
 
 
   if (isLoading) {
@@ -250,7 +274,7 @@ export function Search() {
 
           <div className={`grid gap-2 w-full px-2 ${showSidebar ? "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-[1920px]"}`}>
             {currentItems.map((product) => (
-              <CardProduct key={product.id} id={product.id} name={product.name} sizes={product.sizes} price={product.price} image={product.image[0]} lastPrice={product.lastPrice} colors={product.color} />
+              <CardProduct key={product.id} id={product.id} name={product.name} sizes={product.sizes} price={product.price} image={product.image} lastPrice={product.lastPrice} color={product.color} />
             ))}
           </div>
 

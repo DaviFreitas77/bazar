@@ -61,8 +61,8 @@ class ProductService
                 "lastPrice" => $product->lastPrice,
                 'description' => $product->description,
                 "category" => $product->category,
-                'sizes' => $product->sizes->pluck('name'),
-                'color' => $product->colors->pluck('hexadecimal'),
+                'sizes' => $product->sizes,
+                'color' => $product->colors,
                 "image" => $product->images->pluck('image'),
 
             ];
@@ -143,8 +143,8 @@ class ProductService
                 'description' => $product->description,
                 "category" => $product->category,
                 "image" => $product->images->pluck('image'),
-                'sizes' => $product->sizes->pluck('name'),
-                'color' => $product->colors->pluck('hexadecimal'),
+                'sizes' => $product->sizes,
+                'color' => $product->colors,
                 'idSubcategory' => $product->fkSubcategory,
             ];
         });
@@ -171,8 +171,8 @@ class ProductService
 
                 ],
                 "image" => $product->images->pluck('image'),
-                "sizes" => $product->sizes->pluck('name'),
-                "color" => $product->colors->pluck('hexadecimal'),
+                "sizes" => $product->sizes,
+                "color" => $product->colors,
                 'idSubcategory' => $product->fkSubcategory,
 
             ];
