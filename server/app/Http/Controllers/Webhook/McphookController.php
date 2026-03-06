@@ -34,7 +34,7 @@ class McphookController extends Controller
     {
 
         $paymentId = $request->input('id');
-        
+
         if (!$paymentId) {
             Log::warning('Webhook sem payment id', [
                 'payload' => $request->all()
@@ -49,9 +49,9 @@ class McphookController extends Controller
             ]);
 
             $data = $response->json();
-            Log::info($data['external_reference']);
-            
-            $order = Order::with('user')->find($data['external_reference']);
+            $externalReference = $data['external_reference'];
+
+            $order = Order::with('user')->find($externalReference);
 
             if (!$order) {
                 Log::warning('Webhook sem external_reference', [
@@ -116,19 +116,19 @@ class McphookController extends Controller
                     break;
 
                 case 'pending':
-                    $this->orderService->changeOrderStatus('pending', $data['external_reference']);
+                    $this->orderService->changeOrderStatus('pending', $externalReference);
                     break;
 
                 case 'rejected':
-                    $this->orderService->changeOrderStatus('canceled', $data['external_reference']);
+                    $this->orderService->changeOrderStatus('canceled', $externalReference);
                     break;
 
                 case 'in_process':
-                    $this->orderService->changeOrderStatus('processing', $data['external_reference']);
+                    $this->orderService->changeOrderStatus('processing', $externalReference);
                     break;
 
                 case 'refunded':
-                    $this->orderService->changeOrderStatus('refunded', $data['external_reference']);
+                    $this->orderService->changeOrderStatus('refunded', $externalReference);
 
                     break;
 
