@@ -33,7 +33,7 @@ class McphookController extends Controller
     public function __invoke(Request $request)
     {
 
-        $paymentId = $request->data['id'];
+        $paymentId = $request->input('data.id');
         
         if (!$paymentId) {
             Log::warning('Webhook sem payment id', [
