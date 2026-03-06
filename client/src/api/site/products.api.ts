@@ -12,7 +12,7 @@ export const getProductsByCategory = async (name: string | null): Promise<Produc
 
 
 
- export const apiGetProductById = async (id: number): Promise<ApiProduct> => {
+export const apiGetProductById = async (id: number): Promise<ApiProduct> => {
   try {
     const { data } = await api.get<ApiProduct>(`prod/product/${id}`);
     return data;
@@ -35,7 +35,7 @@ export const apiGetAllProducts = async (): Promise<Product[]> => {
 };
 
 
- export const searchProducts = async (query: string | null): Promise<Product[]> => {
+export const searchProducts = async (query: string | null): Promise<Product[]> => {
   try {
     const response = await api.get<Product[]>(`prod/search/${query}`);
     return response.data;

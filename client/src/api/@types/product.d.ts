@@ -5,7 +5,7 @@ export interface ApiProduct {
   lastPrice: string;
   categoryName:string;
   category: number;
-
+  subCategory:string
   sizes: {
     id: number;
     name: string;

@@ -22,7 +22,7 @@ class CreateSubCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "idCategory" => "required|integer",
+            "idCategory" => "required",
             "name" => "required|string|min:4|max:100",
         ];
     }
