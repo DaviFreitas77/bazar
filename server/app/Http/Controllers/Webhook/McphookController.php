@@ -49,7 +49,8 @@ class McphookController extends Controller
             ]);
 
             $data = $response->json();
-            Log::info($data);
+            Log::info(json_encode($data, JSON_PRETTY_PRINT));
+            
             $order = Order::with('user')->find($data['external_reference']);
 
             if (!$order) {
