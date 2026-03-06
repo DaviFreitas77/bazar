@@ -12,6 +12,7 @@ import { SlidesImagesHome, SlidesImagesHomeMobile } from "@/data/carouselImagesH
 import { useLocation } from "react-router-dom";
 import { NewsLetter } from "@/components/site/footer/newsLetter";
 
+
 export function Home() {
   const { data: products } = useAllProducts();
   const { pathname } = useLocation();
@@ -19,30 +20,29 @@ export function Home() {
   const calca = filterProductByCategory("Calças", products ?? []);
   const camisetas = filterProductByCategory("Camisetas", products ?? []);
 
-  
-
 
   return (
     <main>
-      <section className="relative w-full hidden md:block mt-20">
-        <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
-          {SlidesImagesHome.map((item, index) => (
-            <SwiperSlide key={index} className="relative">
-              <img src={item} alt={`Slide ${index + 1}`} className="w-full  object-cover" />
+      <section>
+        <div className="relative w-full hidden md:block mt-20">
+          <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
+            {SlidesImagesHome.map((item, index) => (
+              <SwiperSlide key={index} className="relative">
+                <img src={item} alt={`Slide ${index + 1}`} className="w-full  object-cover" />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div className="relative w-full md:hidden mt-25">
+          <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
+            {SlidesImagesHomeMobile.map((item, index) => (
+              <SwiperSlide key={index} className="relative">
+                <img src={item} alt={`Slide ${index + 1}`} className="w-full h-[60vh] lg:h-[90vh] object-cover" />
 
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </section>
-      <section className="relative w-full md:hidden mt-25">
-        <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
-          {SlidesImagesHomeMobile.map((item, index) => (
-            <SwiperSlide key={index} className="relative">
-              <img src={item} alt={`Slide ${index + 1}`} className="w-full h-[60vh] lg:h-[90vh] object-cover" />
-
-            </SwiperSlide>
-          ))}
-        </Swiper>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </section>
 
       <Stamps />
@@ -51,12 +51,7 @@ export function Home() {
         <SuggestionProduct suggestionProducts={calca} tittle="Calças com precinho" />
       </section>
 
-
-      {/* <section>
-        <Categories/>
-      </section> */}
-
-      <section className="max-w-[1445px] mx-auto mt-20 px-4">
+      <div className="max-w-[1445px] mx-auto mt-20 px-4">
         <div className="relative bg-[#FFFBF8] w-full rounded-2xl min-h-[360px] flex items-center justify-between overflow-hidden px-5 lg:px-20">
           <div className="flex flex-col gap-6 max-w-xl  z-10 w-full md:w-50 ">
             <div className="flex items-center gap-2 flex-col lg:ml-20">
@@ -100,17 +95,14 @@ export function Home() {
 
           <img src="images/butterfly.png" className="absolute bottom-10 right-40 w-6 opacity-60 hidden lg:block" alt="" />
         </div>
-      </section>
+      </div>
 
-      <section className="mt-20">
+      <section className="mt-20 space-y-20">
         <SuggestionProduct suggestionProducts={vestidos} tittle="Vestidos que falam por você" />
-      </section>
-
-      <section className="mt-20">
         <SuggestionProduct suggestionProducts={camisetas} tittle="Garimpo de camisetas" />
       </section>
 
-       {pathname === "/" && (
+      {pathname === "/" && (
         <div className="bg-[#FFFBF8] py-10  my-20">
           <NewsLetter />
         </div>
