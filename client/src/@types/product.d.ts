@@ -37,6 +37,7 @@ export interface Product {
     id: number;
     name: string;
   };
+  subCategory?:string
   idSubcategory?: number
 }
 
