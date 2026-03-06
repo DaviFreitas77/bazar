@@ -27,8 +27,8 @@ class filterSubCategoryController extends Controller
                 'description' => $product->description,
                 'category' => $product->category,
                 'image' => $product->images->pluck('image'),
-                'sizes' => $product->sizes->pluck('name'),
-                'color' => $product->colors->pluck('hexadecimal'), 
+                'sizes' => $product->sizes,
+                'color' => $product->colors, 
                 'idSubcategory' => $product->fkSubcategory,
             ];
         });

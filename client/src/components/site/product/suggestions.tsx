@@ -18,7 +18,7 @@ interface SuggestionProductProps {
 export function SuggestionProduct({ suggestionProducts, tittle }: SuggestionProductProps) {
   const limitedProduct = suggestionProducts.slice(0, 8);
 
-
+    
   while (limitedProduct.length == 0) {
     return <SkeletoSliderProducts />;
   }
@@ -28,7 +28,7 @@ export function SuggestionProduct({ suggestionProducts, tittle }: SuggestionProd
       <div className="mx-auto max-w-[1450px] w-full">
         <div className="flex w-full justify-between">
           <h2 className="text-lg 2xl:text-2xl font-semibold mb-3 text-gray-800">{tittle}</h2>
-          
+
         </div>
         <Swiper
           modules={[Navigation, Pagination]}
@@ -49,7 +49,7 @@ export function SuggestionProduct({ suggestionProducts, tittle }: SuggestionProd
           {limitedProduct.length > 0 &&
             limitedProduct.map((item) => (
               <SwiperSlide key={item.id}>
-                <CardProduct price={item.price} image={item.image[0]} name={item.name} id={item.id} sizes={item.sizes} lastPrice={item.lastPrice} colors={item.color}/>
+                <CardProduct price={item.price} image={item.image} name={item.name} id={item.id} sizes={item.sizes} lastPrice={item.lastPrice} color={item.color} />
               </SwiperSlide>
             ))}
         </Swiper>

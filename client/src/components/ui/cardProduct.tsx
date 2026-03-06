@@ -1,8 +1,27 @@
 import { useNavigate } from "react-router-dom";
-import type { Card } from "@/@types/product";
+import type { Product } from "@/@types/product";
 import { useUI } from "@/context/UIContext";
 import { FaCircle } from "react-icons/fa";
-export function CardProduct({ id, name, sizes, price, image, lastPrice, colors }: Card) {
+import { useState } from "react";
+import { useCheckout } from "@/context/checkoutContext";
+import { apiAddProduct } from "@/api/site/shoppingCart.api";
+import { useCart } from "@/context/cartContext";
+import { toast } from "sonner";
+import { useUser } from "@/context/userContext";
+
+
+export interface Size {
+  nameSize: string;
+  idSize: number;
+}
+
+export interface Color {
+  nameColor: string;
+  idColor: number;
+  hexadecimal: string
+}
+
+export function CardProduct({ id, image, lastPrice, name, price, sizes, color }: Product) {
   const navigate = useNavigate();
   const { setOpenSearch } = useUI();
   function handleClick() {
@@ -12,10 +31,94 @@ export function CardProduct({ id, name, sizes, price, image, lastPrice, colors }
     }
   }
 
+  // const [loading, setLoading] = useState(false)
+  const { setModalAuth } = useUI();
+  const { setDiscount, setStep, setPreference } = useCheckout();
+  const { dispatch } = useCart()
+  const { email } = useUser()
+  const [selectedSize, setSelectedSize] = useState<Size>({
+    nameSize: '',
+    idSize: 0,
+  });
+  const [selectedColor, setSelectedColor] = useState<Color>({
+    nameColor: '',
+    idColor: 0,
+    hexadecimal: ''
+  })
+
+
+  const handleAddCart = async (id: number, name: string, price: number, image: string,) => {
+
+    if (!email) {
+      setModalAuth(true);
+      return;
+    }
+
+    if (!selectedColor.idColor || !selectedColor.nameColor || !selectedSize.idSize || !selectedSize.nameSize) {
+      toast.error("Selecione cor e tamanho para continuar");
+      return;
+    }
+
+    // setLoading(true);
+    setDiscount(0);
+    setStep(1);
+    setPreference({
+      id: "",
+      total: 0,
+      orderId: "",
+      created_at: "",
+    });
+
+    try {
+      if (name) {
+        await apiAddProduct({
+          id: id,
+          name: name,
+          price: Number(price),
+          image: image,
+          quantity: 1,
+          color: selectedColor.idColor,
+          size: selectedSize.idSize,
+        });
+      }
+
+      dispatch({
+        type: "addItem",
+        payload: {
+          id: id,
+          name: name,
+          price: Number(price),
+          image: image,
+          quantity: 1,
+          color: selectedColor.idColor,
+          size: selectedSize.idSize,
+          colorName: selectedColor.hexadecimal,
+          sizeName: selectedSize.nameSize,
+        },
+      });
+
+
+      toast.success("Produto adicionado ao carrinho!");
+    } catch (error: any) {
+      if (error.response?.status === 400) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Erro ao adicionar produto");
+      }
+    } finally {
+      // setLoading(false);
+      setSelectedColor({ idColor: 0, nameColor: '', hexadecimal: '' })
+      setSelectedSize({ idSize: 0, nameSize: '' })
+    }
+
+
+  };
+
+
   return (
-    <div onClick={handleClick} className="max-w-[250px] w-full bg-white rounded-sm shadow-sm max-h-130  ">
-      <div>
-        <img className="w-full aspect-3/3 object-cover object-top hover:opacity-85 cursor-pointer" src={image} alt="Vestido um ombro Aura" />
+    <div className="max-w-[250px] w-full bg-white rounded-sm shadow-sm max-h-130  ">
+      <div onClick={handleClick} >
+        <img className="w-full aspect-3/3 object-cover object-top hover:opacity-85 cursor-pointer" src={image[0]} alt="Vestido um ombro Aura" />
       </div>
 
       <div className="px-2 py-4 space-y-3">
@@ -24,18 +127,29 @@ export function CardProduct({ id, name, sizes, price, image, lastPrice, colors }
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="text-xs lg:text-base font-medium text-gray-500">Tam:</span>
-            {sizes?.map((tamanho) => (
-              <span key={tamanho} className="flex items-center justify-center w-5 h-5  rounded-full bg-gray-100 text-xs font-semibold text-gray-700 ring-1 ring-gray-300">
-                {tamanho}
+            {sizes && sizes.map((size) => (
+              <span key={size.id}
+                onClick={() => setSelectedSize({ idSize: size.id, nameSize: size.name })}
+                className={`flex items-center justify-center w-5 h-5  rounded-full  text-xs font-semibold text-gray-700 ring-1 ring-gray-300 cursor-pointer ${selectedSize.idSize == size.id ? 'border border-primary-50' : ''}`}>
+                {size.name}
               </span>
             ))}
+
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mt-2">
             <span className="text-xs lg:text-base font-medium text-gray-500">Cor:</span>
-            {colors?.map((colorName: any) => (
-              <span key={colorName} className="flex items-center justify-center  rounded-full text-xs font-semibold text-gray-700 ring-1 ring-gray-300">
-                <FaCircle size={15} color={colorName} />
+            {color && color.map((c) => (
+              <span
+                key={c.id}
+                onClick={() => setSelectedColor({ idColor: c.id, nameColor: c.name, hexadecimal: c.hexadecimal })}
+                className={`
+        flex items-center justify-center w-6 h-6 rounded-full cursor-pointer
+        ring-1 ring-gray-300
+        ${selectedColor.idColor == c.id ? 'border border-primary-50' : ''}
+      `}
+              >
+                <FaCircle size={16} color={c.hexadecimal} className="block" />
               </span>
             ))}
           </div>
@@ -60,7 +174,9 @@ export function CardProduct({ id, name, sizes, price, image, lastPrice, colors }
           )}
         </div>
 
-        <button className="text-sm  w-full bg-primary-50 text-white py-2 px-2 rounded-xs font-semibold hover:bg-primary-100 cursor-pointer transition-colors">Vizualizar produto</button>
+        <button
+          onClick={() => handleAddCart(id, name, Number(price), image[0],)}
+          className="text-sm  w-full bg-primary-50 text-white py-2 px-2 rounded-xs font-semibold hover:bg-primary-100 cursor-pointer transition-colors">Adicionar à sacola</button>
       </div>
     </div>
   );

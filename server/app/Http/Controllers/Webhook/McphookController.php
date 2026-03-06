@@ -33,8 +33,8 @@ class McphookController extends Controller
     public function __invoke(Request $request)
     {
 
-        $paymentId = $request->data['id'];
-        
+        $paymentId = $request->input('id');
+
         if (!$paymentId) {
             Log::warning('Webhook sem payment id', [
                 'payload' => $request->all()
@@ -49,15 +49,20 @@ class McphookController extends Controller
             ]);
 
             $data = $response->json();
-            $order = Order::with('user')->find($data['external_reference']);
 
-            if (!$order) {
-                Log::warning('Webhook sem external_reference', [
+            if (!isset($data['external_reference'])) {
+                Log::warning('Webhook recebido sem external_reference', [
                     'payment_id' => $paymentId,
                     'response' => $data
                 ]);
                 return response()->json(['status' => 'ignored'], 200);
             }
+
+            $externalReference = $data['external_reference'];
+
+            $order = Order::with('user')->find($externalReference);
+
+
 
             $user = $order->user;
             $orderItems = OrderItems::with('product.images')
@@ -114,19 +119,19 @@ class McphookController extends Controller
                     break;
 
                 case 'pending':
-                    $this->orderService->changeOrderStatus('pending', $data['external_reference']);
+                    $this->orderService->changeOrderStatus('pending', $externalReference);
                     break;
 
                 case 'rejected':
-                    $this->orderService->changeOrderStatus('canceled', $data['external_reference']);
+                    $this->orderService->changeOrderStatus('canceled', $externalReference);
                     break;
 
                 case 'in_process':
-                    $this->orderService->changeOrderStatus('processing', $data['external_reference']);
+                    $this->orderService->changeOrderStatus('processing', $externalReference);
                     break;
 
                 case 'refunded':
-                    $this->orderService->changeOrderStatus('refunded', $data['external_reference']);
+                    $this->orderService->changeOrderStatus('refunded', $externalReference);
 
                     break;
 
