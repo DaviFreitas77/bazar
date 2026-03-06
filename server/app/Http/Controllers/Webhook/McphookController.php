@@ -49,17 +49,20 @@ class McphookController extends Controller
             ]);
 
             $data = $response->json();
-            $externalReference = $data['external_reference'];
 
-            $order = Order::with('user')->find($externalReference);
-
-            if (!$order) {
-                Log::warning('Webhook sem external_reference', [
+            if (!isset($data['external_reference'])) {
+                Log::warning('Webhook recebido sem external_reference', [
                     'payment_id' => $paymentId,
                     'response' => $data
                 ]);
                 return response()->json(['status' => 'ignored'], 200);
             }
+
+            $externalReference = $data['external_reference'];
+
+            $order = Order::with('user')->find($externalReference);
+
+
 
             $user = $order->user;
             $orderItems = OrderItems::with('product.images')
