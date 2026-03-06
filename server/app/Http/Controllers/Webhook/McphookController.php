@@ -49,9 +49,9 @@ class McphookController extends Controller
             ]);
 
             $data = $response->json();
-            Log::info(json_encode($data, JSON_PRETTY_PRINT));
+            Log::info($data['external_reference']);
             
-            $order = Order::with('user')->find($data['internal_execution']['external_reference']);
+            $order = Order::with('user')->find($data['external_reference']);
 
             if (!$order) {
                 Log::warning('Webhook sem external_reference', [
