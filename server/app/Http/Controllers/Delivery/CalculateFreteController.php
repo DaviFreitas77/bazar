@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Delivery;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Delivery\CalculateFreteRequest;
 use ErrorException;
 use Exception;
 use Illuminate\Http\Request;
@@ -15,8 +16,11 @@ class CalculateFreteController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(CalculateFreteRequest $request)
     {
+
+        $data = $request->validated();
+
         try {
             $token = Cache::get('delivery_token');
 
@@ -35,24 +39,14 @@ class CalculateFreteController extends Controller
             ])->post('https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate', [
 
                 "from" => [
-                    "postal_code" => "96020360"
+                    "postal_code" => $data['from.postal_code']
                 ],
 
                 "to" => [
-                    "postal_code" => "01018020"
+                    "postal_code" => $data['to.postal_code']
                 ],
 
-                "products" => [
-                    [
-                        "id" => "Produto A",
-                        "width" => 11,
-                        "height" => 17,
-                        "length" => 11,
-                        "weight" => 1,
-                        "insurance_value" => 10.1,
-                        "quantity" => 1
-                    ]
-                ]
+                "products" => $data['products']
             ]);
 
             if ($response->successful()) {
