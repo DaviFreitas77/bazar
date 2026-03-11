@@ -314,65 +314,66 @@ export function Product() {
               </AccordionFilter>
 
               {/* Entrega */}
-              <AccordionFilter name="Consultar frete " value="item-2">
-                <div
-                  className="flex gap-1 mt-2 pl-1">
-                  {servicesFrete?.length > 0 && (
-                    <div>
-                      {servicesFrete.map((frete) => (
-                        <div>
-                          <div className="flex items-center gap-4 w-full">
-                            <img src={frete.company.picture} alt="" className="w-20" />
-                            <div>
-                              <p key={frete.company.id}>
-                                {frete.company.name}
-                              </p>
-                              <p> Chega em até {frete.delivery_range.max}</p>
-                            </div>
-                            <p>{frete.price}</p>
-                          </div>
-                        </div>
+              <AccordionFilter name="Consultar frete" value="item-2">
+                <div className="flex flex-col gap-4 mt-2 pl-1">
 
+
+                  {servicesFrete?.length > 0 && (
+                    <div className="space-y-3 mb-4">
+                      {servicesFrete.map((frete) => (
+                        <div key={frete.id} className="flex items-center justify-between gap-4 w-full p-2 border-b border-gray-100">
+                          <div className="flex items-center gap-4">
+                            <img src={frete.company.picture} alt={frete.company.name} className="w-16 h-auto object-contain" />
+                            <div>
+                              <p className="font-semibold text-sm">{frete.company.name}</p>
+                              <p className="text-xs text-gray-500">Chega em até {frete.delivery_range.max} dias</p>
+                            </div>
+                          </div>
+                          <p className="font-bold text-primary-50">R$ {frete.price}</p>
+                        </div>
                       ))}
                     </div>
                   )}
+
+
                   {myLogradouro && myLogradouro.length > 0 ? (
                     <div className="w-full space-y-2">
+                      <p className="text-xs font-medium text-gray-400">Selecione um endereço salvo:</p>
                       {myLogradouro.map((adress) => (
                         <div
                           key={adress.id}
-                          onClick={() => calcFrete(adress.zip_code)
-                          }
-                          className="border border-dashed p-3 border-gray-200 w-full cursor-pointer hover:border-primary-50 transition-colors duration-300 rounded-md">
+                          onClick={() => calcFrete(adress.zip_code)}
+                          className="border border-dashed p-3 border-gray-200 w-full cursor-pointer hover:border-primary-50 hover:bg-blue-50/20 transition-all duration-300 rounded-md"
+                        >
                           <p className="font-bold text-base">{adress.zip_code}</p>
-                          <p className="font-light ">{adress.type}-{adress.number},{adress.district}-{adress.state}</p>
+                          <p className="font-light text-sm text-gray-600">
+                            {adress.type} - {adress.number}, {adress.district} - {adress.state}
+                          </p>
                         </div>
                       ))}
                     </div>
-
                   ) : (
-                    <>
-                      <input type="text"
+                    <div className="flex gap-2 w-full">
+                      <input
+                        type="text"
                         onChange={(e) => setPostalCode(e.target.value)}
-                        placeholder="Digite seu CEP" className="border border-gray-200 p-3 rounded-md  focus:outline-none focus:ring-1 focus:ring-primary-50 transition-all duration-300 w-full" />
+                        placeholder="Digite seu CEP"
+                        className="border border-gray-200 p-3 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-50 transition-all duration-300 flex-1"
+                      />
                       <button
                         onClick={() => calcFrete()}
-                        className="bg-primary-50 text-white w-30 rounded-md hover:opacity-85 transition cursor-pointer">
-                        {loadingFrete ? (
-                          <Loading />
-                        ) : (
-                          <>Consultar</>
-                        )}
-
+                        disabled={loadingFrete}
+                        className="bg-primary-50 text-white px-4 rounded-md hover:opacity-85 transition cursor-pointer disabled:opacity-50"
+                      >
+                        {loadingFrete ? <Loading /> : "Consultar"}
                       </button>
-                    </>
-
+                    </div>
                   )}
-
-
-
                 </div>
-                <p className="px-2 text-red-500 text-sm mt-2">{messageError}</p>
+
+                {messageError && (
+                  <p className="px-2 text-red-500 text-sm mt-2 italic">{messageError}</p>
+                )}
               </AccordionFilter>
             </div>
           </div>
