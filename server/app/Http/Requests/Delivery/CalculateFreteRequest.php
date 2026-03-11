@@ -23,7 +23,6 @@ class CalculateFreteRequest extends FormRequest
     {
         return [
 
-            'from.postal_code' => 'required|string|size:8',
             'to.postal_code'   => 'required|string|size:8',
 
             'products'         => 'required|array|min:1',
@@ -42,7 +41,7 @@ class CalculateFreteRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'from.postal_code.required' => 'O CEP de origem é obrigatório.',
+
             'to.postal_code.required'   => 'O CEP de destino é obrigatório.',
             'products.*.width.min'      => 'A largura mínima de cada produto    deve ser 0.1cm.',
             'products.required'         => 'Você precisa adicionar ao menos um produto.',

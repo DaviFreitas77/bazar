@@ -19,14 +19,21 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { useCheckout } from "@/context/checkoutContext";
 import { useUI } from "@/context/UIContext";
+import { CalculateFrete, type CalculateFreteProps } from "@/api/site/delivery.api";
+import { Loading } from "@/components/site/loading/loading";
+import { useMyLogradouro } from "@/hooks/site/useMyLogradouro";
 export function Product() {
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
   const [selectedColorName, setSelectedColorName] = useState<string>("");
   const [selectedSizeName, setSelectedSizeName] = useState<string>("");
   const [numberImage, setNumberImage] = useState<number>(0);
+  const [postalCode, setPostalCode] = useState<string>('')
   const { setStep, setPreference, setDiscount } = useCheckout();
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingFrete, setLodingFrete] = useState<boolean>(false)
+  const [messageError, setMessageError] = useState<string>('')
+  const { data: myLogradouro } = useMyLogradouro()
   const { dispatch } = useCart();
   const { name } = useUser();
   const { pathname } = useLocation();
@@ -34,6 +41,7 @@ export function Product() {
   const { id } = useParams();
   const numberId = Number(id);
   const { data: product, isLoading: isLoadingProduct } = useProductById(numberId);
+
 
   const images = product?.image ?? [];
   const colors = product?.color ?? [];
@@ -119,7 +127,7 @@ export function Product() {
       Preço: ${Number(product?.price).toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
-      })}
+    })}
       Imagem: ${imageProduct}
 
   Poderia me ajudar?`;
@@ -129,6 +137,41 @@ export function Product() {
       "_blank"
     );
   };
+
+
+  const calcFrete = async (zipCode?: string) => {
+    setMessageError("")
+    setLodingFrete(true)
+    try {
+      const data: CalculateFreteProps = {
+        to: {
+          postal_code: zipCode ?? postalCode
+        },
+        products: [
+          {
+            id: product!.id.toString(),
+            width: 1, // largura
+            height: 1,  // alutra
+            length: 1,  //comprimento
+            weight: 1, //peso
+            quantity: 1,
+            insurance_value: Number(product!.price)
+
+          }
+        ]
+      }
+      const response = await CalculateFrete(data)
+      console.log(response)
+    } catch (error: any) {
+      if (error.response.status == 422) {
+        setMessageError(error.response.data.message)
+      }
+      console.log(error)
+    } finally {
+      setLodingFrete(false)
+    }
+
+  }
   return (
     <main className="flex flex-col items-center justify-center md:py-10 min-h-screen mt-25">
       {isLoadingProduct ? (
@@ -235,7 +278,7 @@ export function Product() {
               </AccordionFilter>
               <button
                 onClick={handleAddCart}
-                className={`flex items-center justify-center gap-2 text-white font-medium transition duration-200 shadow-sm cursor-pointer  px-10 py-3 rounded-md ${loading ? "bg-primary-100 cursor-not-allowed" : "bg-primary-50 hover:bg-primary-100"}`}
+                className={`flex items-center justify-center gap-2 text-white font-medium transition duration-200 shadow-sm cursor-pointer  px-10 py-3 rounded-md ${loading ? "bg-primary-100 cursor-not-allowed" : "bg-primary-50 hover:opacity-85"}`}
                 disabled={loading}
               >
                 <LiaShoppingBagSolid size={22} />
@@ -247,15 +290,49 @@ export function Product() {
                 <FaWhatsapp size={22} />
                 Comprar pelo whatsApp
               </button>
-              {/* Entrega */}
-              {/* <AccordionFilter name="Entrega " value="item-2">
-                <div className="flex gap-1 mt-2 pl-1">
-                  <input type="text" placeholder="Digite seu CEP" className="border border-gray-200 p-3 rounded-xs w-full focus:outline-none focus:ring-1 focus:ring-primary-100" />
-                  <button className="bg-primary-50 text-white px-6 rounded-xs hover:bg-primary-100 transition cursor-pointer">Consultar</button>
-                </div>
-              </AccordionFilter> */}
+
               <AccordionFilter name="Descrição" value="item-2">
                 <p>{product?.description}</p>
+              </AccordionFilter>
+
+              {/* Entrega */}
+              <AccordionFilter name="Consultar frete " value="item-2">
+                <div
+                  className="flex gap-1 mt-2 pl-1">
+                  {myLogradouro && myLogradouro.length > 0 ? (
+                    myLogradouro.map((adress) => (
+                      <div
+                        key={adress.id}
+                        onClick={() => calcFrete(adress.zip_code)
+                        }
+                        className="border border-dashed p-3 border-gray-200 w-full cursor-pointer hover:border-primary-50 transition-colors duration-300 rounded-md">
+                        <p className="font-bold text-base">{adress.zip_code}</p>
+                        <p className="font-light ">{adress.type}-{adress.number},{adress.district}-{adress.state}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <>
+                      <input type="text"
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        placeholder="Digite seu CEP" className="border border-gray-200 p-3 rounded-md  focus:outline-none focus:ring-1 focus:ring-primary-50 transition-all duration-300 w-full" />
+                      <button
+                        onClick={() => calcFrete()}
+                        className="bg-primary-50 text-white w-30 rounded-md hover:opacity-85 transition cursor-pointer">
+                        {loadingFrete ? (
+                          <Loading />
+                        ) : (
+                          <>Consultar</>
+                        )}
+
+                      </button>
+                    </>
+
+                  )}
+
+
+
+                </div>
+                <p className="px-2 text-red-500 text-sm mt-2">{messageError}</p>
               </AccordionFilter>
             </div>
           </div>

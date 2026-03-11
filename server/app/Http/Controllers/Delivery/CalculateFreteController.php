@@ -39,11 +39,11 @@ class CalculateFreteController extends Controller
             ])->post('https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate', [
 
                 "from" => [
-                    "postal_code" => $data['from']['postal_code']
+                    "postal_code" => env('POSTAL_CODE')
                 ],
 
                 "to" => [
-                "postal_code" => $data['to']['postal_code']
+                    "postal_code" => $data['to']['postal_code']
                 ],
 
                 "products" => $data['products']

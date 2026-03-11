@@ -25,6 +25,7 @@ export function Adress() {
     resolver: yupResolver(AdressSchema),
   });
   const zip_code = watch("zip_code");
+  
   const onSubmit = async (data: CheckoutProps.InformationsAdressProps) => {
     try {
       setLoading(true);
@@ -74,7 +75,7 @@ export function Adress() {
     );
   }
   return (
-    <section className={`${myLogradouro ? "" : "border"}`}>
+    <section>
       <h4 className={`${myLogradouro && myLogradouro.length > 0 ? "hidden" : "block"} text-gray-900 font-semibold mt-5`}>Endereço de entrega</h4>
       {myLogradouro && myLogradouro?.length > 0 && !newAdress ? (
         <div>
@@ -117,7 +118,7 @@ export function Adress() {
             <div className="flex flex-col w-full gap-1">
               <label className="text-gray-900 font-medium text-sm">CEP</label>
               <div className="relative">
-                <input maxLength={8} {...register("zip_code")} type="text" placeholder="00000-000" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 bg-[#F9FAFB]" />
+                <input maxLength={8} {...register("zip_code")} type="text" placeholder="00000-000" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 " />
                 <div className="h-2 mt-1">{errors.zip_code && <span className="text-red-500 text-sm">{errors.zip_code.message}</span>}</div>
               </div>
             </div>
@@ -125,7 +126,7 @@ export function Adress() {
             <div className="flex flex-col w-full gap-1">
               <label className="text-gray-900 font-medium text-sm">Cidade</label>
               <div className="relative">
-                <input {...register("city")} type="text" placeholder="Sua cidade" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 bg-[#F9FAFB]" />
+                <input {...register("city")} type="text" placeholder="Sua cidade" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 " />
                 {isLoadingCep && (
                   <div className="absolute right-3 top-6 -translate-y-1/2">
                     <Loading />
@@ -139,7 +140,7 @@ export function Adress() {
             <div className="flex flex-col w-full gap-1">
               <label className="text-gray-900 font-medium text-sm">Endereço</label>
               <div className="relative">
-                <input {...register("street")} type="text" placeholder="Rua exemplo" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 bg-[#F9FAFB]" />
+                <input {...register("street")} type="text" placeholder="Rua exemplo" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 " />
                 {isLoadingCep && (
                   <div className="absolute right-3 top-6 -translate-y-1/2">
                     <Loading />
@@ -152,7 +153,7 @@ export function Adress() {
             <div className="flex flex-col w-full gap-1">
               <label className="text-gray-900 font-medium text-sm">Número</label>
               <div className="relative">
-                <input {...register("number")} type="number" placeholder="10" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 bg-[#F9FAFB]" />
+                <input {...register("number")} type="number" placeholder="10" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 " />
 
                 <div className="h-2 mt-1">{errors.number && <span className="text-red-500 text-sm">{errors.number.message}</span>}</div>
               </div>
@@ -162,7 +163,7 @@ export function Adress() {
             <div className="flex flex-col w-full gap-1">
               <label className="text-gray-900 font-medium text-sm">Bairro</label>
               <div className="relative">
-                <input {...register("district")} type="text" placeholder="Seu bairro" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 bg-[#F9FAFB]" />
+                <input {...register("district")} type="text" placeholder="Seu bairro" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 " />
                 {isLoadingCep && (
                   <div className="absolute right-3 top-6 -translate-y-1/2">
                     <Loading />
@@ -175,7 +176,7 @@ export function Adress() {
             <div className="flex flex-col w-full gap-1">
               <label className="text-gray-900 font-medium text-sm">Estado</label>
               <div className="relative">
-                <input {...register("state")} type="text" placeholder="São Paulo" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 bg-[#F9FAFB]" />
+                <input {...register("state")} type="text" placeholder="São Paulo" className="border border-gray-200 py-3 pl-4 pr-4 w-full rounded-md outline-none focus:ring-2 focus:ring-primary-100/40 transition duration-200 " />
                 {isLoadingCep && (
                   <div className="absolute right-3 top-6 -translate-y-1/2">
                     <Loading />
