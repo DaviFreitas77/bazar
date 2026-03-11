@@ -5,7 +5,7 @@ import { useProductById } from "@/hooks/site/useProductById";
 import { useProductsByCategory } from "@/hooks/site/useProductsByCategory";
 import type { Product } from "@/@types/product";
 import { LoadingPage } from "@/components/site/loading/loadingPage";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ChangeEvent } from "react";
 import { FaCircle, FaWhatsapp } from "react-icons/fa";
 import { useCart } from "@/context/cartContext";
 import { useUser } from "@/context/userContext";
@@ -32,7 +32,7 @@ interface FreteService {
     name: string;
     picture: string
   };
-  name:string;
+  name: string;
   delivery_range: {
     max: number;
     min: number
@@ -53,6 +53,7 @@ export function Product() {
   const [servicesFrete, setServicesFrete] = useState<FreteService[]>([]);
   const [messageError, setMessageError] = useState<string>('')
   const { data: myLogradouro } = useMyLogradouro()
+  const [showLogradouro, setShowLogradouro] = useState<boolean>(true)
   const { dispatch } = useCart();
   const { name } = useUser();
   const { pathname } = useLocation();
@@ -192,6 +193,13 @@ export function Product() {
     }
 
   }
+
+
+
+  const handleChangeZipcode = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, '');
+    setPostalCode(value);
+  };
   return (
     <main className="flex flex-col items-center justify-center md:py-10 min-h-screen mt-25">
       {isLoadingProduct ? (
@@ -331,14 +339,19 @@ export function Product() {
                               <p className="text-xs text-gray-500">Chega em até {frete.delivery_range.max} dias</p>
                             </div>
                           </div>
-                          <p className="font-bold text-primary-50">R$ {frete.price}</p>
+                          <p className="font-bold text-primary-50">
+                            {Number(frete.price).toLocaleString("pt-BR", {
+                              currency: "BRL",
+                              style: "currency",
+                            })}
+                          </p>
                         </div>
                       ))}
                     </div>
                   )}
 
 
-                  {myLogradouro && myLogradouro.length > 0 ? (
+                  {myLogradouro && myLogradouro.length > 0 && showLogradouro ? (
                     <div className="w-full space-y-2">
                       <p className="text-xs font-medium text-gray-400">Selecione um endereço salvo:</p>
                       {myLogradouro.map((adress) => (
@@ -353,22 +366,42 @@ export function Product() {
                           </p>
                         </div>
                       ))}
+                      <div className="text-end">
+                        <button
+                          onClick={() => setShowLogradouro(false)}
+                          className="text-primary-50 cursor-pointer hover:opacity-85">
+                          <p >Calcular pra outro endereço</p>
+                        </button>
+                      </div>
                     </div>
                   ) : (
-                    <div className="flex gap-2 w-full">
-                      <input
-                        type="text"
-                        onChange={(e) => setPostalCode(e.target.value)}
-                        placeholder="Digite seu CEP"
-                        className="border border-gray-200 p-3 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-50 transition-all duration-300 flex-1"
-                      />
-                      <button
-                        onClick={() => calcFrete()}
-                        disabled={loadingFrete}
-                        className="bg-primary-50 text-white px-4 rounded-md hover:opacity-85 transition cursor-pointer disabled:opacity-50"
-                      >
-                        {loadingFrete ? <Loading /> : "Consultar"}
-                      </button>
+                    <div>
+                      <div className="flex gap-2 w-full">
+                        <input
+                          type="text"
+                          onChange={handleChangeZipcode}
+                          value={postalCode}
+                          placeholder="Digite seu CEP"
+                          maxLength={8}
+                          className="border border-gray-200 p-3 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-50 transition-all duration-300 flex-1"
+                        />
+                        <button
+                          onClick={() => calcFrete()}
+                          disabled={loadingFrete}
+                          className="bg-primary-50 text-white px-4 rounded-md hover:opacity-85 transition cursor-pointer disabled:opacity-50"
+                        >
+                          {loadingFrete ? <Loading /> : "Consultar"}
+                        </button>
+                      </div>
+                      {myLogradouro && myLogradouro.length > 0 && (
+                        <div className="mt-2">
+                          <button
+                            onClick={() => setShowLogradouro(true)}
+                            className="text-primary-50 cursor-pointer hover:opacity-85">
+                            <p >Exibir meus endereços</p>
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -378,6 +411,7 @@ export function Product() {
                 )}
               </AccordionFilter>
             </div>
+
           </div>
 
           <div className="w-full">
