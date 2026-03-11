@@ -325,9 +325,9 @@ export function Product() {
                       {servicesFrete.map((frete) => (
                         <div key={frete.id} className="flex items-center justify-between gap-4 w-full p-2 border-b border-gray-100">
                           <div className="flex items-center gap-4">
-                            <img src={frete.company.picture} alt={frete.name} className="w-16 h-auto object-contain" />
+                            <img src={frete.company.picture} alt={frete.company.name} className="w-16 h-auto object-contain" />
                             <div>
-                              <p className="font-semibold text-sm">{frete.company.name}</p>
+                              <p className="font-semibold text-sm">{frete.name}</p>
                               <p className="text-xs text-gray-500">Chega em até {frete.delivery_range.max} dias</p>
                             </div>
                           </div>
