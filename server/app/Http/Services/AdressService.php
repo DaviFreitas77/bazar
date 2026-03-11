@@ -5,21 +5,22 @@ namespace App\Http\Services;
 use App\Models\Logradouro;
 use App\Models\User;
 use ErrorException;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Support\Facades\Log;
 
 class AdressService
 {
 
 
-  public function createLogradouro(array $data,User $user)
+  public function createLogradouro(array $data, User $user)
   {
     try {
       $idUser = $user['id'];
-      
+
 
       $logradouro = new logradouro;
       $logradouro->type = $data['street'];
@@ -31,7 +32,7 @@ class AdressService
       $logradouro->fk_user = $idUser;
       $logradouro->save();
 
-      return response()->json(['id' => $logradouro->id],Response::HTTP_CREATED);
+      return response()->json(['id' => $logradouro->id], Response::HTTP_CREATED);
     } catch (ErrorException $e) {
       return response()->json($e->getMessage());
     }
@@ -61,15 +62,29 @@ class AdressService
 
     return response()->json([
       'message' => 'Endereço deletado com sucesso.'
-    ],Response::HTTP_OK);
+    ], Response::HTTP_OK);
   }
 
 
   public function CheckZipCode($data)
-    {
-       
-        $response = Http::get('https://viacep.com.br/ws/' . $data['zipCode'] . '/json/');
+  {
+    try {
+      $response = Http::get('https://viacep.com.br/ws/' . $data['zipCode'] . '/json/');
 
+      if ($response->successful()) {
+        Log::info("Busca de CEP realizada");
         return response()->json($response->json());
+      } else {
+        Log::error("erro ao buscar cep");
+        return response()->json($response->json());
+      }
+    } catch (Exception $e) {
+      Log::error($e->getMessage());
     }
+
+    return response()->json([
+      'message' => 'Não foi possível localizar o CEP. Por favor, preencha manualmente.',
+
+    ], 502);
+  }
 }
