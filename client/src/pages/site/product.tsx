@@ -179,6 +179,7 @@ export function Product() {
         ]
       }
       const response = await CalculateFrete(data)
+      console.log(response)
       setServicesFrete(response)
     } catch (error: any) {
       if (error.response.status == 422) {
