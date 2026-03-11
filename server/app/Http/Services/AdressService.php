@@ -69,11 +69,20 @@ class AdressService
   public function CheckZipCode($data)
   {
     try {
-      $response = Http::get('https://viacep.com.br/ws/' . $data['zipCode'] . '/json/');
+      $response = Http::get('https://brasilapi.com.br/api/cep/v1/' . $data['zipCode']);
 
       if ($response->successful()) {
         Log::info("Busca de CEP realizada");
-        return response()->json($response->json());
+        $data = $response->json();
+
+        return response()->json([
+          "bairro" => $data['neighborhood'],
+          "zip_code" => $data['cep'],
+          "logradouro" => $data['street'],
+          "uf" => $data['state'],
+          "localidade" => $data['city'],
+
+        ]);
       } else {
         Log::error("erro ao buscar cep");
         return response()->json($response->json());

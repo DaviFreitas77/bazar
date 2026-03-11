@@ -300,7 +300,8 @@ export function Product() {
                 <div
                   className="flex gap-1 mt-2 pl-1">
                   {myLogradouro && myLogradouro.length > 0 ? (
-                    myLogradouro.map((adress) => (
+                    <div className="w-full space-y-2">
+                       {myLogradouro.map((adress) => (
                       <div
                         key={adress.id}
                         onClick={() => calcFrete(adress.zip_code)
@@ -309,7 +310,9 @@ export function Product() {
                         <p className="font-bold text-base">{adress.zip_code}</p>
                         <p className="font-light ">{adress.type}-{adress.number},{adress.district}-{adress.state}</p>
                       </div>
-                    ))
+                    ))}
+                    </div>
+                   
                   ) : (
                     <>
                       <input type="text"
