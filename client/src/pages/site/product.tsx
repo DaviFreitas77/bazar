@@ -22,6 +22,23 @@ import { useUI } from "@/context/UIContext";
 import { CalculateFrete, type CalculateFreteProps } from "@/api/site/delivery.api";
 import { Loading } from "@/components/site/loading/loading";
 import { useMyLogradouro } from "@/hooks/site/useMyLogradouro";
+
+
+
+interface FreteService {
+  id: number;
+  company: {
+    id: number
+    name: string;
+    picture: string
+  };
+  delivery_range: {
+    max: number;
+    min: number
+  }
+  price: number;
+  // add other fields you expect from the API here
+}
 export function Product() {
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
@@ -32,6 +49,7 @@ export function Product() {
   const { setStep, setPreference, setDiscount } = useCheckout();
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingFrete, setLodingFrete] = useState<boolean>(false)
+  const [servicesFrete, setServicesFrete] = useState<FreteService[]>([]);
   const [messageError, setMessageError] = useState<string>('')
   const { data: myLogradouro } = useMyLogradouro()
   const { dispatch } = useCart();
@@ -161,7 +179,7 @@ export function Product() {
         ]
       }
       const response = await CalculateFrete(data)
-      console.log(response)
+      setServicesFrete(response)
     } catch (error: any) {
       if (error.response.status == 422) {
         setMessageError(error.response.data.message)
@@ -299,20 +317,39 @@ export function Product() {
               <AccordionFilter name="Consultar frete " value="item-2">
                 <div
                   className="flex gap-1 mt-2 pl-1">
+                  {servicesFrete?.length > 0 && (
+                    <div>
+                      {servicesFrete.map((frete) => (
+                        <div>
+                          <div className="flex items-center gap-4 w-full">
+                            <img src={frete.company.picture} alt="" className="w-20" />
+                            <div>
+                              <p key={frete.company.id}>
+                                {frete.company.name}
+                              </p>
+                              <p> Chega em até {frete.delivery_range.max}</p>
+                            </div>
+                            <p>{frete.price}</p>
+                          </div>
+                        </div>
+
+                      ))}
+                    </div>
+                  )}
                   {myLogradouro && myLogradouro.length > 0 ? (
                     <div className="w-full space-y-2">
-                       {myLogradouro.map((adress) => (
-                      <div
-                        key={adress.id}
-                        onClick={() => calcFrete(adress.zip_code)
-                        }
-                        className="border border-dashed p-3 border-gray-200 w-full cursor-pointer hover:border-primary-50 transition-colors duration-300 rounded-md">
-                        <p className="font-bold text-base">{adress.zip_code}</p>
-                        <p className="font-light ">{adress.type}-{adress.number},{adress.district}-{adress.state}</p>
-                      </div>
-                    ))}
+                      {myLogradouro.map((adress) => (
+                        <div
+                          key={adress.id}
+                          onClick={() => calcFrete(adress.zip_code)
+                          }
+                          className="border border-dashed p-3 border-gray-200 w-full cursor-pointer hover:border-primary-50 transition-colors duration-300 rounded-md">
+                          <p className="font-bold text-base">{adress.zip_code}</p>
+                          <p className="font-light ">{adress.type}-{adress.number},{adress.district}-{adress.state}</p>
+                        </div>
+                      ))}
                     </div>
-                   
+
                   ) : (
                     <>
                       <input type="text"
