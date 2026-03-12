@@ -81,13 +81,13 @@ class CalculateFreteController extends Controller
                 $data = $response->json();
 
                 Log::info("Frete calculado", $data);
-                // $filterServices = array_filter(
-                //     $data,
-                //     fn($service) =>
-                //     in_array($service['name'], ['PAC', 'SEDEX'])
-                // );
+                $filterServices = array_filter(
+                    $data,
+                    fn($service) =>
+                    in_array($service['name'], ['PAC', 'SEDEX']) & empty($service['error'])
+                );
 
-                return response()->json($data);
+                return response()->json($filterServices);
             } else {
                 $data = $response->json();
                 Log::error("Erro ao calcular frete", $data);

@@ -328,7 +328,7 @@ export function Product() {
                             <img src={frete.company.picture} alt={frete.company.name} className="w-16 h-auto object-contain" />
                             <div>
                               <p className="font-semibold text-sm">{frete.name}</p>
-                              <p className="text-xs text-gray-500">Chega em até {frete.delivery_range.max} dias</p>
+                              <p className="text-xs text-gray-500">Chega em até {frete.delivery_range?.max} dias</p>
                             </div>
                           </div>
                           <p className="font-bold text-primary-50">
