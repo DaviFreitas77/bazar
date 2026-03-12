@@ -69,6 +69,11 @@ class CalculateFreteController extends Controller
 
                 "packages" => $package,
 
+                "options" =>  [
+                    "receipt" => false,
+                    "own_hand" => false
+                ],
+
                 "services" => "1,2,18"
             ]);
 
