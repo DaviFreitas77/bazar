@@ -41,6 +41,8 @@ class CalculateFreteController extends Controller
             "insurance_value" => $totalValue,
         ];
 
+
+
         try {
             $token = Cache::get('delivery_token');
 
@@ -66,7 +68,7 @@ class CalculateFreteController extends Controller
                     "postal_code" => $data['to']['postal_code']
                 ],
 
-                "packages" => $package
+                "packages" => [$package]
             ]);
 
             if ($response->successful()) {
