@@ -21,21 +21,25 @@ class CalculateFreteController extends Controller
     {
 
         $data = $request->validated();
-
-        $dataFrete = [];
+        $totalWeight = 0;
+        $totalHeight = 0;
+        $totalValue = 0;
 
         foreach ($data['products'] as $prod) {
             $product = Product::find($prod['id']);
-            $dataFrete[] = [
-                'id' => $product['id'],
-                'width' => $product['width'],
-                'height' => $product['height'],
-                'length' => $product['length'],
-                'weight' => $product['weight'],
-                'insurance_value' => (float) $product->price,
-                'quantity' => $prod['quantity']
-            ];
+
+            $totalWeight += $product->weight * $prod['quantity'];
+            $totalHeight += $product->height * $prod['quantity'];
+            $totalValue += $product->price * $prod['quantity'];
         }
+
+        $package = [
+            "height" => max(1, $totalHeight),
+            "width" => 26,
+            "length" => 36,
+            "weight" => max(0.1, $totalWeight),
+            "insurance_value" => $totalValue,
+        ];
 
         try {
             $token = Cache::get('delivery_token');
@@ -62,7 +66,7 @@ class CalculateFreteController extends Controller
                     "postal_code" => $data['to']['postal_code']
                 ],
 
-                "products" => $dataFrete
+                "packages" => $package
             ]);
 
             if ($response->successful()) {
