@@ -41,6 +41,7 @@ class CalculateFreteController extends Controller
             "insurance" => $totalValue,
         ];
 
+        Log::info($package);
 
         try {
             $token = Cache::get('delivery_token');
@@ -84,7 +85,7 @@ class CalculateFreteController extends Controller
                 $filterServices = array_filter(
                     $data,
                     fn($service) =>
-                    in_array($service['name'], ['PAC', 'SEDEX']) & empty($service['error'])
+                    in_array($service['name'], ['PAC', 'SEDEX']) && empty($service['error'])
                 );
 
                 return response()->json($filterServices);
