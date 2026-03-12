@@ -38,7 +38,8 @@ export interface Product {
     name: string;
   };
   subCategory?:string
-  idSubcategory?: number
+  idSubcategory?: number,
+  
 }
 
 export interface Category {

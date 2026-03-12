@@ -27,11 +27,11 @@ class CalculateFreteRequest extends FormRequest
 
             'products'         => 'required|array|min:1',
             'products.*.id'    => 'required|string',
-            'products.*.width' => 'required|numeric|min:0.1',
-            'products.*.height' => 'required|numeric|min:0.1',
-            'products.*.length' => 'required|numeric|min:0.1',
-            'products.*.weight' => 'required|numeric|min:0.1',
-            'products.*.insurance_value' => 'required|numeric',
+            // 'products.*.width' => 'required|numeric|min:0.1',
+            // 'products.*.height' => 'required|numeric|min:0.1',
+            // 'products.*.length' => 'required|numeric|min:0.1',
+            // 'products.*.weight' => 'required|numeric|min:0.1',
+            // 'products.*.insurance_value' => 'required|numeric',
             'products.*.quantity'        => 'required|integer|min:1',
 
 

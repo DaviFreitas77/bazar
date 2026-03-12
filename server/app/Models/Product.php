@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $table = 'products';
-    protected $fillable = ["name", "description", "price", "lastPrice", "fkCategory","fkSubcategory","visible","stock"];
+    protected $fillable = ["name", "description", "price", "lastPrice", "fkCategory", "fkSubcategory", "visible", "stock", 'width', 'height', 'length', 'weight'];
     public $timestamps = false;
 
 
@@ -28,8 +28,8 @@ class Product extends Model
         return $this->hasMany(ImagesProduct::class, 'idProduct');
     }
 
-   
-    
+
+
 
     public function sizes()
     {
@@ -50,5 +50,4 @@ class Product extends Model
             'fkColor'
         );
     }
-
 }

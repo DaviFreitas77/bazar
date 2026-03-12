@@ -14,6 +14,8 @@ interface SummaryProps {
 }
 export function Summary({ products, numberOrder, total }: SummaryProps) {
   const { step } = useCheckout();
+
+  console.log(products)
   return (
     <section className="border border-gray-200 bg-white  rounded-md p-6  md:p-6 h-fit  lg:max-w-md">
       <div className="flex items-center gap-3 mb-6">

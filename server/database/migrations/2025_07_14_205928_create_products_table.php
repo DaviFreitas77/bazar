@@ -15,12 +15,16 @@ return new class extends Migration
             $table->increments('id');
             $table->string("name");
             $table->string("description");
-            $table->decimal("price",10,2);
-            $table->decimal("lastPrice",10,2)->nullable();
+            $table->decimal("price", 10, 2);
+            $table->decimal("lastPrice", 10, 2)->nullable();
             $table->unsignedInteger('fkCategory');
             $table->unsignedInteger('fkSubcategory');
             $table->boolean('visible')->default(true);
             $table->integer('stock')->default(1);
+            $table->decimal('width'); //largura
+            $table->decimal('height'); //altura
+            $table->decimal('length'); //comprimento
+            $table->decimal('weight'); //peso
             $table->foreign('fkCategory')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('fkSubcategory')->references('id')->on('sub_categories')->onDelete('cascade');
         });

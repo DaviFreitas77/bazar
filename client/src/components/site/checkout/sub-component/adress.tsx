@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { Loading } from "@/components/site/loading/loading";
 import { createLogradouro, getZipCode } from "@/api/site/logradouro.api";
 import { useMyLogradouro } from "@/hooks/site/useMyLogradouro";
+import { useCart } from "@/context/cartContext";
+import { CalculateFrete, type CalculateFreteProps } from "@/api/site/delivery.api";
 
 export function Adress() {
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -14,6 +16,8 @@ export function Adress() {
   const { setIdLogradouro } = useCheckout();
   const { data: myLogradouro, isLoading: isLoadingLogradouro } = useMyLogradouro();
   const { step, setStep } = useCheckout();
+  const { state } = useCart();
+
 
   const {
     register,
@@ -25,13 +29,13 @@ export function Adress() {
     resolver: yupResolver(AdressSchema),
   });
   const zip_code = watch("zip_code");
-  
+
   const onSubmit = async (data: CheckoutProps.InformationsAdressProps) => {
     try {
       setLoading(true);
       const response = await createLogradouro(data);
       setIdLogradouro(response.id);
-      setStep(3);
+      // setStep(3);
     } catch (error) {
       console.log(error);
     } finally {
@@ -63,8 +67,19 @@ export function Adress() {
     fetchAdress();
   }, [zip_code]);
 
-  const changeAdress = () => {
-    setStep(3);
+  const calcFrete = async (cep?: string) => {
+    const data: CalculateFreteProps = {
+      to: {
+        postal_code: zip_code ?? cep
+      },
+      products: state.map((prod) => ({
+        id: prod.id.toString(),
+        quantity: prod.quantity
+      }))
+    }
+
+    const response = await CalculateFrete(data)
+    console.log(response)
   };
 
   if (isLoadingLogradouro) {
@@ -81,9 +96,14 @@ export function Adress() {
         <div>
           <h3 className="text-base mb-4 font-semibold mt-5 ">Seus endereços:</h3>
 
-          <div onClick={changeAdress} className="space-y-3">
+          <div className="space-y-3">
             {myLogradouro.map((item) => (
-              <div onClick={() => setIdLogradouro(item.id)} key={item.id} className="border border-dashed border-gray-300 p-4 rounded-md shadow-sm text-sm hover:border-primary-50 cursor-pointer transition-colors duration-300">
+              <div onClick={() => {
+                setIdLogradouro(item.id)
+                calcFrete(item.zip_code)
+              }}
+
+                key={item.id} className="border border-dashed border-gray-300 p-4 rounded-md shadow-sm text-sm hover:border-primary-50 cursor-pointer transition-colors duration-300">
                 <p>
                   <strong>Rua:</strong> {item.type}
                 </p>

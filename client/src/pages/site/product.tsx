@@ -54,7 +54,7 @@ export function Product() {
   const [messageError, setMessageError] = useState<string>('')
   const { data: myLogradouro } = useMyLogradouro()
   const [showLogradouro, setShowLogradouro] = useState<boolean>(true)
-  const { dispatch } = useCart();
+  const { dispatch, state } = useCart();
   const { name } = useUser();
   const { pathname } = useLocation();
   const { setModalAuth } = useUI();
@@ -167,18 +167,10 @@ export function Product() {
         to: {
           postal_code: zipCode ?? postalCode
         },
-        products: [
-          {
-            id: product!.id.toString(),
-            width: 1, // largura
-            height: 1,  // alutra
-            length: 1,  //comprimento
-            weight: 1, //peso
-            quantity: 1,
-            insurance_value: Number(product!.price)
-
-          }
-        ]
+        products: state.map((prod) => ({
+          id: prod.id.toString(),
+          quantity: prod.quantity
+        }))
       }
       const response = await CalculateFrete(data)
       console.log(response)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Delivery;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Delivery\CalculateFreteRequest;
+use App\Models\Product;
 use ErrorException;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,6 +21,21 @@ class CalculateFreteController extends Controller
     {
 
         $data = $request->validated();
+
+        $dataFrete = [];
+
+        foreach ($data['products'] as $prod) {
+            $product = Product::find($prod['id']);
+            $dataFrete[] = [
+                'id' => $product['id'],
+                'width' => $product['width'],
+                'height' => $product['height'],
+                'length' => $product['length'],
+                'weight' => $product['weight'],
+                'insurance_value' => (float) $product->price,
+                'quantity' => $prod['quantity']
+            ];
+        }
 
         try {
             $token = Cache::get('delivery_token');
@@ -46,7 +62,7 @@ class CalculateFreteController extends Controller
                     "postal_code" => $data['to']['postal_code']
                 ],
 
-                "products" => $data['products']
+                "products" => $dataFrete
             ]);
 
             if ($response->successful()) {

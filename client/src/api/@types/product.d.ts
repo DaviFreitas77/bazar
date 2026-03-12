@@ -3,9 +3,9 @@ export interface ApiProduct {
   name: string;
   price: string;
   lastPrice: string;
-  categoryName:string;
+  categoryName: string;
   category: number;
-  subCategory:string
+  subCategory: string
   sizes: {
     id: number;
     name: string;
@@ -22,4 +22,9 @@ export interface ApiProduct {
     id: number;
     image: string;
   }[];
+  
+  width: number //largura
+  heigth: number //altura
+  length: number //comprimeito
+  weight: number //peso
 }
