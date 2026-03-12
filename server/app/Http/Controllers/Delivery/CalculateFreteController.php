@@ -34,14 +34,15 @@ class CalculateFreteController extends Controller
         }
 
         $package[] = [
-            "height" => max(1, $totalHeight),
-            "width" => 26,
-            "length" => 36,
+            "format" => "box", 
+            "dimensions" => [  
+                "height" => max(2, $totalHeight),
+                "width" => 26,
+                "length" => 36,
+            ],
             "weight" => max(0.1, $totalWeight),
-            "insurance" => $totalValue,
+            "insurance_value" => $totalValue, 
         ];
-
-        Log::info($package);
 
         try {
             $token = Cache::get('delivery_token');
@@ -82,6 +83,7 @@ class CalculateFreteController extends Controller
                 $data = $response->json();
 
                 Log::info("Frete calculado", $data);
+
                 $filterServices = array_filter(
                     $data,
                     fn($service) =>
