@@ -33,15 +33,12 @@ class CalculateFreteController extends Controller
             $totalValue += $product->price * $prod['quantity'];
         }
 
-        $package[] = [
-            "format" => "box",
-            "dimensions" => [
-                "height" => max(2, $totalHeight),
-                "width" => 26,
-                "length" => 36,
-            ],
+        $packages[] = [
+            "height" => max(2, $totalHeight),
+            "width" => 26,
+            "length" => 36,
             "weight" => max(0.1, $totalWeight),
-            "insurance_value" => $totalValue,
+            "insurance" => $totalValue,
         ];
 
         try {
@@ -69,7 +66,7 @@ class CalculateFreteController extends Controller
                     "postal_code" => $data['to']['postal_code']
                 ],
 
-                "packages" => $package,
+                "packages" => $packages,
 
                 "options" =>  [
                     "receipt" => false,
