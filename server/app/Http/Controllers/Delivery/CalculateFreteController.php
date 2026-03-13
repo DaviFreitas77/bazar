@@ -34,10 +34,10 @@ class CalculateFreteController extends Controller
         }
 
         $packages[] = [
-            "height" => max(2, $totalHeight),
+            "height" => $totalHeight,
             "width" => 26,
             "length" => 36,
-            "weight" => max(0.1, $totalWeight),
+            "weight" => round($totalWeight),
             "insurance" => round($totalValue, 2),
         ];
 
