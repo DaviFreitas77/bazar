@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://bacz/api",
+  baseURL: "https://back-end-production-fef8.up.railway.app/api",
 });
 
 export const api = instance;
