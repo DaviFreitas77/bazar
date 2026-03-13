@@ -38,7 +38,7 @@ class CalculateFreteController extends Controller
             "width" => 26,
             "length" => 36,
             "weight" => max(0.1, $totalWeight),
-            "insurance" => $totalValue,
+            "insurance" => round($totalValue, 2),
         ];
 
 
