@@ -24,7 +24,7 @@ class AuthDelivery extends Controller
                 'User-Agent' => 'ecommerce (contato@meusite.com)',
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-            ])->post('https://sandbox.melhorenvio.com.br/oauth/token', [
+            ])->post('https://melhorenvio.com.br/oauth/token', [
                 "grant_type" => "authorization_code",
                 "client_id" => env('DELIVERY_CLIENT_ID'),
                 "client_secret" => env('DELIVERY_CLIENT_SECRET'),

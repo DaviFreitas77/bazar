@@ -56,7 +56,7 @@ class CalculateFreteController extends Controller
                 'Accept' => 'application/json',
                 'Authorization' => 'Bearer ' . $token,
                 'Content-Type' => 'application/json',
-            ])->post('https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate', [
+            ])->post('https://melhorenvio.com.br/api/v2/me/shipment/calculate', [
 
                 "from" => [
                     "postal_code" => env('POSTAL_CODE')
