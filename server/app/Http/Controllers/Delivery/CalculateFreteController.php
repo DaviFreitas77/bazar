@@ -41,6 +41,8 @@ class CalculateFreteController extends Controller
             "insurance" => $totalValue,
         ];
 
+
+        Log::info("Pacotes",$packages);
         try {
             $token = Cache::get('delivery_token');
 
