@@ -70,7 +70,7 @@ class CalculateFreteController extends Controller
                     "postal_code" => $data['to']['postal_code']
                 ],
 
-                "packages" => $packages,
+                "volumes" => $packages,
 
                 "options" =>  [
                     "receipt" => false,
