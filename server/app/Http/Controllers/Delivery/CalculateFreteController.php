@@ -34,15 +34,17 @@ class CalculateFreteController extends Controller
         }
 
         $packages[] = [
-            "height" => $totalHeight,
+            "height" => (int) ceil($totalHeight),
             "width" => 26,
             "length" => 36,
-            "weight" => round($totalWeight),
-            "insurance" => round($totalValue, 2),
+            "weight" => (float)$totalWeight,
+            "insurance" => (float)$totalValue,
         ];
 
 
-        Log::info("Pacotes",$packages);
+
+
+        Log::info("Pacotes", $packages);
         try {
             $token = Cache::get('delivery_token');
 
