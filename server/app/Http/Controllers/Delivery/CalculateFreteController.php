@@ -88,7 +88,6 @@ class CalculateFreteController extends Controller
                 $filterServices = array_values(array_filter(
                     $data,
                     fn($service) => isset($service['name'])
-                        && in_array($service['name'], ['PAC', 'SEDEX'])
                         && empty($service['error'])
                 ));
 
