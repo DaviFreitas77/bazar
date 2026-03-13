@@ -34,14 +34,14 @@ class CalculateFreteController extends Controller
         }
 
         $package[] = [
-            "format" => "box", 
-            "dimensions" => [  
+            "format" => "box",
+            "dimensions" => [
                 "height" => max(2, $totalHeight),
                 "width" => 26,
                 "length" => 36,
             ],
             "weight" => max(0.1, $totalWeight),
-            "insurance_value" => $totalValue, 
+            "insurance_value" => $totalValue,
         ];
 
         try {
@@ -84,11 +84,10 @@ class CalculateFreteController extends Controller
 
                 Log::info("Frete calculado", $data);
 
-                $filterServices = array_filter(
+                $filterServices = array_values(array_filter(
                     $data,
-                    fn($service) =>
-                    in_array($service['name'], ['PAC', 'SEDEX']) && empty($service['error'])
-                );
+                    fn($service) => in_array($service['name'], ['PAC', 'SEDEX']) && empty($service['error'])
+                ));
 
                 return response()->json($filterServices);
             } else {
