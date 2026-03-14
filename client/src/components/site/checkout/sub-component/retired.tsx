@@ -1,7 +1,7 @@
 import { useCheckout } from "@/context/checkoutContext";
 
 export function Retired() {
-  const {setStep} = useCheckout();
+  const { setStep, step } = useCheckout();
   return (
     <section>
       <div className="border border-dashed border-gray-300 rounded-md shadow-sm text-sm p-4 mt-4 bg-white hover:border-primary-50 cursor-pointer transition-colors duration-300 ">
@@ -31,10 +31,13 @@ export function Retired() {
           Segunda a sexta-feira, das 10h às 18h
         </p>
       </div>
-      <div className="flex items-end justify-end">
-        <button 
-        onClick={()=>setStep(prev => prev+1)}
-        type="submit" className={`bg-primary-50 cursor-pointer text-white font-medium px-8 py-3 rounded-md transition duration-200 shadow-sm mt-5 `}>
+      <div className="flex justify-between items-end">
+        <button onClick={() => setStep((prev) => prev - 1)} type="button" className={` ${step === 1 ? "hidden" : "block"} bg-gray-200 hover:bg-primary-50 cursor-pointer  text-white font-medium px-8 py-3 rounded-md transition duration-200 `}>
+          Voltar
+        </button>
+        <button
+          onClick={() => setStep(prev => prev + 1)}
+          type="submit" className={`bg-primary-50 cursor-pointer text-white font-medium px-8 py-3 rounded-md transition duration-200 shadow-sm mt-5 `}>
           Continuar
         </button>
       </div>

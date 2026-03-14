@@ -25,7 +25,7 @@ import { useMyLogradouro } from "@/hooks/site/useMyLogradouro";
 
 
 
-interface FreteService {
+export interface FreteService {
   id: number;
   company: {
     id: number
@@ -54,7 +54,7 @@ export function Product() {
   const [messageError, setMessageError] = useState<string>('')
   const { data: myLogradouro } = useMyLogradouro()
   const [showLogradouro, setShowLogradouro] = useState<boolean>(true)
-  const { dispatch, state } = useCart();
+  const { dispatch } = useCart();
   const { name } = useUser();
   const { pathname } = useLocation();
   const { setModalAuth } = useUI();
@@ -167,10 +167,12 @@ export function Product() {
         to: {
           postal_code: zipCode ?? postalCode
         },
-        products: state.map((prod) => ({
-          id: prod.id.toString(),
-          quantity: prod.quantity
-        }))
+        products: [
+          {
+            id: product!.id.toString(),
+            quantity: 1
+          }
+        ]
       }
       const response = await CalculateFrete(data)
       console.log(response)

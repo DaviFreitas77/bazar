@@ -8,6 +8,9 @@ import { createLogradouro, getZipCode } from "@/api/site/logradouro.api";
 import { useMyLogradouro } from "@/hooks/site/useMyLogradouro";
 import { useCart } from "@/context/cartContext";
 import { CalculateFrete, type CalculateFreteProps } from "@/api/site/delivery.api";
+import type { FreteService } from "@/pages/site/product";
+
+import { PiArrowArcLeft } from "react-icons/pi";
 
 export function Adress() {
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -15,6 +18,8 @@ export function Adress() {
   const [newAdress, setNewAdress] = useState<boolean>(false);
   const { setIdLogradouro } = useCheckout();
   const { data: myLogradouro, isLoading: isLoadingLogradouro } = useMyLogradouro();
+  const [frete, setFrete] = useState<FreteService[]>()
+  const [loadingFrete, setLoadingFrete] = useState<boolean>(false)
   const { step, setStep } = useCheckout();
   const { state } = useCart();
 
@@ -35,13 +40,37 @@ export function Adress() {
       setLoading(true);
       const response = await createLogradouro(data);
       setIdLogradouro(response.id);
-      // setStep(3);
+      await calcFrete()
+
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
+
+  const calcFrete = async (cep?: string) => {
+    setLoadingFrete(true)
+    try {
+      const data: CalculateFreteProps = {
+        to: {
+          postal_code: zip_code ?? cep
+        },
+        products: state.map((prod) => ({
+          id: prod.id.toString(),
+          quantity: prod.quantity
+        }))
+      }
+
+      const response = await CalculateFrete(data)
+      setFrete(response)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoadingFrete(false)
+    }
+  };
+
 
   useEffect(() => {
     if (!zip_code || zip_code.length !== 8) {
@@ -67,20 +96,6 @@ export function Adress() {
     fetchAdress();
   }, [zip_code]);
 
-  const calcFrete = async (cep?: string) => {
-    const data: CalculateFreteProps = {
-      to: {
-        postal_code: zip_code ?? cep
-      },
-      products: state.map((prod) => ({
-        id: prod.id.toString(),
-        quantity: prod.quantity
-      }))
-    }
-
-    const response = await CalculateFrete(data)
-    console.log(response)
-  };
 
   if (isLoadingLogradouro) {
     return (
@@ -89,12 +104,74 @@ export function Adress() {
       </div>
     );
   }
+
+
+
+  if (loadingFrete) {
+    return (
+      <section className="flex justify-center mt-10">
+        <Loading />
+      </section>
+    );
+  }
+  if (frete && frete.length > 0) {
+    return (
+      <section>
+        <div className="relative flex items-center justify-center mb-4 mt-10">
+          <button
+            onClick={() => setFrete([])}
+            className="absolute left-0 cursor-pointer">
+            <PiArrowArcLeft size={20} />
+          </button>
+
+          <h3 className="text-base font-semibold text-gray-800">
+            Fretes disponíveis:
+          </h3>
+        </div>
+
+        <div className="space-y-3 mb-4 ">
+          {frete.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-center justify-between gap-4 w-full px-4 border border-gray-100 py-6 rounded-md cursor-pointer hover:border-primary-50 transition-colors duration-300"
+            >
+              <div className="flex items-center gap-4">
+                <img
+                  src={item.company.picture}
+                  alt={item.company.name}
+                  className="w-16 h-auto object-contain"
+                />
+
+                <div>
+                  <p className="font-semibold text-sm">{item.name}</p>
+                  <p className="text-xs text-gray-500">
+                    Chega em até {item.delivery_range?.max} dias
+                  </p>
+                </div>
+              </div>
+
+              <p className="font-bold text-primary-50">
+                {Number(item.price).toLocaleString("pt-BR", {
+                  currency: "BRL",
+                  style: "currency",
+                })}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section>
       <h4 className={`${myLogradouro && myLogradouro.length > 0 ? "hidden" : "block"} text-gray-900 font-semibold mt-5`}>Endereço de entrega</h4>
+
+
+
       {myLogradouro && myLogradouro?.length > 0 && !newAdress ? (
         <div>
-          <h3 className="text-base mb-4 font-semibold mt-5 ">Seus endereços:</h3>
+          <h3 className="text-base mb-4 font-semibold mt-5 ">Onde você deseja receber?:</h3>
 
           <div className="space-y-3">
             {myLogradouro.map((item) => (
@@ -103,7 +180,7 @@ export function Adress() {
                 calcFrete(item.zip_code)
               }}
 
-                key={item.id} className="border border-dashed border-gray-300 p-4 rounded-md shadow-sm text-sm hover:border-primary-50 cursor-pointer transition-colors duration-300">
+                key={item.id} className="border border-dashed border-gray-300 p-4 rounded-md text-sm hover:border-primary-50 cursor-pointer transition-colors duration-300">
                 <p>
                   <strong>Rua:</strong> {item.type}
                 </p>
@@ -123,7 +200,7 @@ export function Adress() {
             ))}
           </div>
           <div className="pt-6 flex justify-between items-center">
-            <button onClick={() => setStep((prev) => prev - 1)} type="button" className={` ${step === 1 ? "hidden" : "block"} bg-gray-200 hover:bg-primary-50 cursor-pointer  text-white font-medium px-8 py-3 rounded-md transition duration-200 shadow-sm `}>
+            <button onClick={() => setStep((prev) => prev - 1)} type="button" className={` ${step === 1 ? "hidden" : "block"} bg-gray-200 hover:bg-primary-50 cursor-pointer  text-white font-medium px-8 py-3 rounded-md transition duration-200 `}>
               Voltar
             </button>
             <button onClick={() => setNewAdress(true)} className="bg-primary-50 text-white px-4 py-3 rounded-md hover:opacity-85 cursor-pointer">
@@ -209,11 +286,11 @@ export function Adress() {
 
           {/* Botão */}
           <div className={` flex justify-between ${step === 4 ? "hidden" : "block"}`}>
-            <button onClick={() => setStep((prev) => prev - 1)} type="button" className={` ${step === 1 ? "hidden" : "block"} bg-gray-200 hover:bg-primary-50 cursor-pointer  text-white font-medium px-8 py-3 rounded-md transition duration-200 shadow-sm `}>
+            <button onClick={() => setStep((prev) => prev - 1)} type="button" className={` ${step === 1 ? "hidden" : "block"} bg-gray-200 hover:bg-primary-50 cursor-pointer  text-white font-medium px-8 py-3 rounded-md transition duration-200 `}>
               Voltar
             </button>
 
-            <button type="submit" disabled={!isValid || isLoading} className={`bg-primary-50 cursor-pointer text-white font-medium px-8 py-3 rounded-md transition duration-200 shadow-sm ${!isValid && "opacity-50"} ${isLoading && "opacity-50"}`}>
+            <button type="submit" disabled={!isValid || isLoading} className={`bg-primary-50 cursor-pointer text-white font-medium px-8 py-3 rounded-md transition duration-200 ${!isValid && "opacity-50"} ${isLoading && "opacity-50"}`}>
               Continuar
             </button>
           </div>
