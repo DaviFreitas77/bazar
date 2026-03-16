@@ -64,7 +64,7 @@ class CreateOrderController extends Controller
 
             $validFreight = false;
 
-            foreach ($freight['data'] as $service) {
+            foreach ($freight as $service) {
 
                 if (
                     $service['company']['name'] === $freightCompany &&
