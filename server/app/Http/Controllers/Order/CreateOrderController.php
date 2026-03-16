@@ -43,7 +43,7 @@ class CreateOrderController extends Controller
             $zip_code = Logradouro::find($data['idLogradouro'])->zip_code;
             $freightPrice = $data['freight']['price'];
             Log::info('data', $data);
-            Log::info('zip_code', $zip_code);
+            Log::info('Preço do frete', ['price' => $freightPrice]);
 
 
             $products = array_map(function ($item) {
