@@ -28,7 +28,7 @@ class StoreOrderRequest extends FormRequest
             'freight' => 'nullable|array',
             'freight.company' => 'required_with:freight|string',
             'freight.name' => 'required_with:freight|string',
-            'freight.price' => 'required_with:freight|decimal',
+            'freight.price' => 'required_with:freight|numeric',
 
         ];
     }
