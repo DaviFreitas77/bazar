@@ -14,12 +14,11 @@ use App\Jobs\CancelOrderJob;
 use App\Models\Logradouro;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
+
 
 #[Group('Order')]
 class CreateOrderController extends Controller
 {
-
     /**
      * Create new order
      */
@@ -95,7 +94,7 @@ class CreateOrderController extends Controller
 
         $sumPrice = $this->productService->fethPricesProduct($data['items']);
 
-        $newOder = $this->orderService->create($userId, 'pending', $sumPrice, $adressId);
+        $newOder = $this->orderService->create($userId, 'pending', $sumPrice, $adressId, $data['freight']['name'], $data['freight']['company'], $data['freight']['price']);
 
         $this->orderItemsService->create($data['items'], $newOder->id);
 

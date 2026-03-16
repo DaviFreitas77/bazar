@@ -10,18 +10,28 @@ use Illuminate\Support\Facades\Log;
 class OrderService
 {
 
-    public function create(int $idUser, string $status = 'pending', float $total = 0, ?int $idAdress = null)
-    {
-        $newOder = new Order;
-        $newOder->number_order = rand(10000, 99999);
-        $newOder->fk_user = $idUser;
-        $newOder->status = $status;
-        $newOder->payment_method = null;
-        $newOder->total = $total;
-        $newOder->fk_adress = $idAdress;
-        $newOder->created_at = now();
-        $newOder->save();
-        return $newOder;
+    public function create(
+        int $idUser,
+        string $status = 'pending',
+        float $total = 0,
+        ?int $idAdress = null,
+        ?string $nameFreight = null,
+        ?string $companyFreight = null,
+        float $priceFreight = 0
+    ) {
+        $newOrder = new Order;
+        $newOrder->number_order = rand(10000, 99999);
+        $newOrder->fk_user = $idUser;
+        $newOrder->status = $status;
+        $newOrder->payment_method = null;
+        $newOrder->total = $total;
+        $newOrder->fk_adress = $idAdress;
+        $newOrder->name_freight = $nameFreight;
+        $newOrder->company_freight = $companyFreight;
+        $newOrder->price_freight = $priceFreight;
+        $newOrder->created_at = now();
+        $newOrder->save();
+        return $newOrder;
     }
 
     public function changeOrderStatus($status, $idOrder)
