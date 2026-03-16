@@ -42,19 +42,26 @@ class CreateOrderController extends Controller
 
             $zip_code = Logradouro::find($data['idLogradouro'])->zip_code;
             $freightPrice = $data['freight']['price'];
-            Log::info('data' , $data);
-            Log::info('data frete' , $freightPrice);
-            Log::info('zip_code' , $zip_code);
+            Log::info('data', $data);
+            Log::info('zip_code', $zip_code);
+
+
+            $products = array_map(function ($item) {
+                return [
+                    'id' => $item['id'],
+                    'quantity' => $item['quantity']
+                ];
+            }, $data['items']);
+
 
             $validateFreight = $this->deliveryService->CalcFreight([
                 "to" => $zip_code,
-                "products" => [
-                    'id' => $data['items']['id'],
-                    'quantity' => $data['items']['quantity']
-                ]
+                "products" => $products,
             ]);
 
-            Log::info('frete' , $validateFreight);
+
+
+            Log::info('frete', $validateFreight);
         }
 
 
