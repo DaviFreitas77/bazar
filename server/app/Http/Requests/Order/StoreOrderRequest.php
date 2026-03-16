@@ -26,9 +26,9 @@ class StoreOrderRequest extends FormRequest
             'idLogradouro' => 'nullable|integer',
 
             'freight' => 'nullable|array',
-            'freight.company' => 'nullable_with:freight|string',
-            'freight.name' => 'nullable_with:freight|string',
-            'freight.price' => 'nullable_with:freight|numeric',
+            'freight.company' => 'nullable|string',
+            'freight.name' => 'nullable|string',
+            'freight.price' => 'nullable|numeric',
 
         ];
     }
