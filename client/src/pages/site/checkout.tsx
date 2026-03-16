@@ -7,7 +7,7 @@ import { ProgressStep } from "@/components/site/checkout/progress";
 import { Payment } from "@/components/site/checkout/payment";
 import { PaymentConfirmed } from "@/components/site/checkout/paymentConfirmed";
 import { useCheckout } from "@/context/checkoutContext";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useCart } from "@/context/cartContext";
 import { apiLatestOrder } from "@/api/site/order.api";

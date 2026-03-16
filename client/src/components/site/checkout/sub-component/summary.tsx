@@ -24,6 +24,7 @@ export function Summary({ products, numberOrder }: SummaryProps) {
     const freightValue = Number(freight?.price ?? 0);
     const totalWithtDiscount = sum + freightValue - discountValue;
     return {
+      subTotal:sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }),
       total: totalWithtDiscount.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }),
       discountValue: discountValue.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
 
@@ -83,10 +84,11 @@ export function Summary({ products, numberOrder }: SummaryProps) {
           <p className="text-gray-800 font-medium">R$ 15,00</p>
         </div> */}
 
-        {discount > 0 && (
+
+        {freight.price > 0 && (
           <div className="flex items-center justify-between border-t border-gray-100 pt-4">
-            <p className="text-gray-00  text-sm">Frete</p>
-            <p className=" font-bold text-sm">{totals.discountValue}</p>
+            <p className="text-gray-00  text-sm">Subtotal</p>
+            <p className=" font-bold text-sm"> {totals.subTotal}</p>
           </div>
         )}
 
@@ -94,6 +96,13 @@ export function Summary({ products, numberOrder }: SummaryProps) {
           <div className="flex items-center justify-between border-t border-gray-100 pt-4">
             <p className="text-gray-00  text-sm">Frete</p>
             <p className=" font-bold text-sm"> {Number(freight.price).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+          </div>
+        )}
+
+        {discount > 0 && (
+          <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+            <p className="text-gray-00  text-sm">Desconto</p>
+            <p className=" font-bold text-sm text-green-700">{totals.discountValue}</p>
           </div>
         )}
 
