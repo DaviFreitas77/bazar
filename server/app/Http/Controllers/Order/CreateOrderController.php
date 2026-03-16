@@ -55,7 +55,9 @@ class CreateOrderController extends Controller
 
 
             $validateFreight = $this->deliveryService->CalcFreight([
-                "to" => $zip_code,
+                "to" =>[
+                    'postal_code' => $zip_code
+                ] ,
                 "products" => $products,
             ]);
 
