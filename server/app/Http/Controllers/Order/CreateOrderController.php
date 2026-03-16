@@ -38,7 +38,7 @@ class CreateOrderController extends Controller
     {
         $data = $request->validated();
 
-        if (empty($data['freight'])) {
+        if (isset($data['freight'])) {
 
             $zip_code = Logradouro::find($data['idLogradouro'])->zip_code;
             $freightPrice = $data['freight']['price'];
