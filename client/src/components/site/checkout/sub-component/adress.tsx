@@ -56,7 +56,7 @@ export function Adress() {
       price: price
     })
 
-    setStep((prev) => prev+1)
+    setStep((prev) => prev + 1)
 
 
   }

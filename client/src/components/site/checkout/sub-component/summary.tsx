@@ -1,21 +1,37 @@
 import { LiaShoppingBagSolid } from "react-icons/lia";
 import { FiTrash2 } from "react-icons/fi";
 import { SkeletonSummary } from "@/components/site/skeleton/summary";
-import type { CartItem } from "@/context/cartContext";
+import { useCart, type CartItem } from "@/context/cartContext";
 import { MdDone } from "react-icons/md";
 import { useCheckout } from "@/context/checkoutContext";
 import { ApplyCupom } from "../applyCupom";
 import { FaCircle } from "react-icons/fa";
+import { useMemo } from "react";
 
 interface SummaryProps {
   products: CartItem[];
-  total: string;
+
   numberOrder: string;
 }
-export function Summary({ products, numberOrder, total }: SummaryProps) {
-  const { step } = useCheckout();
+export function Summary({ products, numberOrder }: SummaryProps) {
+  const { step, freight, discount } = useCheckout();
+  const { state } = useCart();
 
-  console.log(products)
+  const totals = useMemo(() => {
+    const prices = state.map((item) => item.price * item.quantity);
+    const sum = prices.reduce((a, b) => a + b, 0);
+    const discountValue = (Number(sum) / 100) * discount;
+    const freightValue = Number(freight?.price ?? 0);
+    const totalWithtDiscount = sum + freightValue - discountValue;
+    return {
+      total: totalWithtDiscount.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }),
+      discountValue: discountValue.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+
+    };
+  }, [state, discount, freight]);
+
+
+
   return (
     <section className="border border-gray-200 bg-white  rounded-md p-6  md:p-6 h-fit  lg:max-w-md">
       <div className="flex items-center gap-3 mb-6">
@@ -61,16 +77,30 @@ export function Summary({ products, numberOrder, total }: SummaryProps) {
         )}
 
         {step === 4 || step === 5 ? null : <ApplyCupom step={step} />}
-{/* 
+        {/* 
         <div className="flex items-center justify-between border-t border-gray-100 pt-4">
           <p className="text-gray-600">Frete</p>
           <p className="text-gray-800 font-medium">R$ 15,00</p>
         </div> */}
 
-        {total && (
+        {discount > 0 && (
+          <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+            <p className="text-gray-00  text-sm">Frete</p>
+            <p className=" font-bold text-sm">{totals.discountValue}</p>
+          </div>
+        )}
+
+        {freight.price > 0 && (
+          <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+            <p className="text-gray-00  text-sm">Frete</p>
+            <p className=" font-bold text-sm"> {Number(freight.price).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+          </div>
+        )}
+
+        {totals.total && (
           <div className="flex items-center justify-between border-t border-gray-100 pt-4">
             <p className="text-gray-900 font-semibold text-lg">Total</p>
-            <p className="text-primary-50 font-bold text-lg"> {total}</p>
+            <p className="text-primary-50 font-bold text-lg"> {totals.total}</p>
           </div>
         )}
 

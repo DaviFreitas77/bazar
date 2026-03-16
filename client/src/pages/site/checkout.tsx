@@ -16,16 +16,10 @@ import { OrderCanceled } from "@/components/site/checkout/orderCanceled";
 
 export function Checkout() {
   const navigate = useNavigate();
-  const { step, discount } = useCheckout();
+  const { step } = useCheckout();
   const { state } = useCart();
   const [numberOrder, setNumberOrder] = useState("");
-  const total = useMemo(() => {
-    const prices = state.map((item) => item.price * item.quantity);
-    const sum = prices.reduce((a, b) => a + b, 0);
-    const calcDiscount = (Number(sum) / 100) * discount;
-    const totalWithoutDiscount = sum - calcDiscount;
-    return totalWithoutDiscount.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-  }, [state, discount]);
+
 
   const checkoutSteps = [
     { id: 1, label: "Dados" },
@@ -69,7 +63,7 @@ export function Checkout() {
       <div className="w-full max-w-7xl flex gap-10 flex-wrap lg:flex-nowrap">
         <div className="w-full h-fit border border-gray-200 rounded-md">{step === 1 ? <PeopleInformation /> : step === 2 ? <ChooseDelivery /> : step === 3 ? <Payment /> : step === 4 ? <PaymentConfirmed numberOrder={numberOrder} /> : <OrderCanceled numberOrder={numberOrder} />}</div>
 
-        <Summary products={state} total={total}  numberOrder={numberOrder} />
+        <Summary products={state} numberOrder={numberOrder} />
       </div>
     </main>
   );
