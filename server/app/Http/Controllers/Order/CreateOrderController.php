@@ -41,10 +41,10 @@ class CreateOrderController extends Controller
         if (isset($data['freight'])) {
 
             $zip_code = Logradouro::find($data['idLogradouro'])->zip_code;
-            $freightPrice = $data['freight']['price'];
-            Log::info('data', $data);
-            Log::info('Preço do frete', ['price' => $freightPrice]);
 
+            $freightPrice = $data['freight']['price'];
+            $freightCompany = $data['freight']['company'];
+            $freightName = $data['freight']['name'];
 
             $products = array_map(function ($item) {
                 return [
@@ -53,17 +53,34 @@ class CreateOrderController extends Controller
                 ];
             }, $data['items']);
 
-
-            $validateFreight = $this->deliveryService->CalcFreight([
-                "to" =>[
+            $freightResponse = $this->deliveryService->CalcFreight([
+                "to" => [
                     'postal_code' => $zip_code
-                ] ,
+                ],
                 "products" => $products,
             ]);
 
+            $freight = $freightResponse->getData(true);
 
+            $validFreight = false;
 
-            Log::info('frete', $validateFreight);
+            foreach ($freight['data'] as $service) {
+
+                if (
+                    $service['company']['name'] === $freightCompany &&
+                    $service['name'] === $freightName &&
+                    $service['price'] === $freightPrice
+                ) {
+                    $validFreight = true;
+                    break;
+                }
+            }
+
+            if (!$validFreight) {
+                return response()->json([
+                    'message' => 'Frete alterado'
+                ], 422);
+            }
         }
 
 
