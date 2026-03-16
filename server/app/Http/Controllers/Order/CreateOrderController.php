@@ -94,6 +94,10 @@ class CreateOrderController extends Controller
 
         $sumPrice = $this->productService->fethPricesProduct($data['items']);
 
+        if($validFreight){
+            $sumPrice = $sumPrice + $data['freight']['price'];
+        }
+
         $newOder = $this->orderService->create($userId, 'pending', $sumPrice, $adressId, $data['freight']['name'], $data['freight']['company'], $data['freight']['price']);
 
         $this->orderItemsService->create($data['items'], $newOder->id);
