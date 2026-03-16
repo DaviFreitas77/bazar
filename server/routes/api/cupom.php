@@ -6,7 +6,7 @@ use App\Http\Controllers\Cupom\ListCupomController;
 use App\Http\Controllers\Cupom\UseCupomController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sacntum')->prefix('cupom')->group(function () {
+Route::middleware('auth:sanctum')->prefix('cupom')->group(function () {
   Route::post('/create', CreateCupomController::class);
   Route::get('/list', ListCupomController::class);
   Route::post('/useCupom', UseCupomController::class);
