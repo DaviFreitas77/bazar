@@ -23,6 +23,7 @@ export interface FreightService {
   price: number
 }
 export const createOrder = async (items: Array<CartItem>, idLogradouro: number, freight?: FreightService) => {
-  const response = await api.post('order/create', { items: items, idLogradouro: idLogradouro, freight });
+  console.log(freight)
+  const response = await api.post('order/create', { items: items, idLogradouro: idLogradouro,freight });
   return response.data;
 }
