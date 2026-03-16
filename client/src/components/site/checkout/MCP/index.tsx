@@ -16,7 +16,7 @@ initMercadoPago(publicKey, {
 });
 export function PaymentMercadoPago() {
   const { state } = useCart();
-  const { setStep, setPreference, preference, idLogradouro } = useCheckout();
+  const { setStep, setPreference, preference, idLogradouro,freight} = useCheckout();
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
   const { name, email, lastName } = useUser();
@@ -25,7 +25,7 @@ export function PaymentMercadoPago() {
     const createPreference = async () => {
       if (!preference.id) {
         try {
-          const response = await createOrder(state, idLogradouro);
+          const response = await createOrder(state, idLogradouro,freight);
           setPreference({
             id: response.preference.id,
             total: response.preference.total,

@@ -24,6 +24,12 @@ class StoreOrderRequest extends FormRequest
         return [
             'items' => 'required|array|min:1',
             'idLogradouro' => 'nullable|integer',
+
+            'freight' => 'nullable|array',
+            'freight.company' => 'required_with:freight|string',
+            'freight.name' => 'required_with:freight|string',
+            'freight.price' => 'required_with:freight|decimal',
+
         ];
     }
 

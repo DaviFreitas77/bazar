@@ -25,7 +25,20 @@ interface CheckoutContextType {
       created_at: string;
     }>
   >;
+
+  freight: {
+    company: string,
+    name: string,
+    price: number
+  }
+  setFreight: React.Dispatch<React.SetStateAction<{
+    company: string,
+    name: string,
+    price: number
+  }>
+  >
 }
+
 
 // Criação do contexto
 const CheckoutContext = createContext<CheckoutContextType | undefined>(undefined);
@@ -35,6 +48,11 @@ export function CheckoutProvider({ children }: { children: React.ReactNode }) {
   const [total, setTotal] = useState<number>(0);
   const [idLogradouro, setIdLogradouro] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
+  const [freight, setFreight] = useState({
+    company: "",
+    name: "",
+    price: 0
+  })
   const [preference, setPreference] = useState({
     id: "",
     total: 0,
@@ -43,7 +61,7 @@ export function CheckoutProvider({ children }: { children: React.ReactNode }) {
   });
 
 
-  return <CheckoutContext.Provider value={{ step, setStep, total, setTotal, discount, setDiscount, preference, setPreference, idLogradouro, setIdLogradouro }}>{children}</CheckoutContext.Provider>;
+  return <CheckoutContext.Provider value={{ step, setStep, total, setTotal, discount, setDiscount, preference, setPreference, idLogradouro, setIdLogradouro, setFreight, freight }}>{children}</CheckoutContext.Provider>;
 }
 
 // para consumir o contexto

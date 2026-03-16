@@ -20,9 +20,8 @@ export function Adress() {
   const { data: myLogradouro, isLoading: isLoadingLogradouro } = useMyLogradouro();
   const [frete, setFrete] = useState<FreteService[]>()
   const [loadingFrete, setLoadingFrete] = useState<boolean>(false)
-  const { step, setStep } = useCheckout();
+  const { step, setStep, setFreight } = useCheckout();
   const { state } = useCart();
-
 
   const {
     register,
@@ -49,6 +48,19 @@ export function Adress() {
     }
   };
 
+  const handleAddFreight = (company: string, name: string, price: number) => {
+
+    setFreight({
+      company: company,
+      name: name,
+      price: price
+    })
+
+    setStep((prev) => prev+1)
+
+
+  }
+
   const calcFrete = async (cep?: string) => {
     setLoadingFrete(true)
     try {
@@ -63,6 +75,7 @@ export function Adress() {
       }
 
       const response = await CalculateFrete(data)
+      console.log(response)
       setFrete(response)
     } catch (error) {
       console.log(error)
@@ -132,6 +145,7 @@ export function Adress() {
         <div className="space-y-3 mb-4 ">
           {frete.map((item) => (
             <div
+              onClick={() => handleAddFreight(item.company.name, item.name, item.price)}
               key={item.id}
               className="flex items-center justify-between gap-4 w-full px-4 border border-gray-100 py-6 rounded-md cursor-pointer hover:border-primary-50 transition-colors duration-300"
             >
