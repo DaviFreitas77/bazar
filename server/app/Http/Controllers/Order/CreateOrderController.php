@@ -37,7 +37,7 @@ class CreateOrderController extends Controller
     {
         $data = $request->validated();
 
-        if (!empty($data['freight']) && $data['freight']['price'] > 0 ) {
+        if (!empty($data['freight']) && $data['freight']['price'] > 0) {
 
             $zip_code = Logradouro::find($data['idLogradouro'])->zip_code;
 
@@ -71,7 +71,7 @@ class CreateOrderController extends Controller
                     $service['price'] === $freightPrice
                 ) {
                     $validFreight = true;
-                    break;
+                  
                 }
             }
 
@@ -94,7 +94,7 @@ class CreateOrderController extends Controller
 
         $sumPrice = $this->productService->fethPricesProduct($data['items']);
 
-        if($validFreight){
+        if (isset($validFreight) && $validFreight) {
             $sumPrice = $sumPrice + $data['freight']['price'];
         }
 
