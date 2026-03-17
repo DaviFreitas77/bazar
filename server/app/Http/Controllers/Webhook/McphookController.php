@@ -50,6 +50,7 @@ class McphookController extends Controller
 
             $data = $response->json();
 
+
             if (!isset($data['external_reference'])) {
                 Log::warning('Webhook recebido sem external_reference', [
                     'payment_id' => $paymentId,
@@ -59,6 +60,9 @@ class McphookController extends Controller
             }
 
             $externalReference = $data['external_reference'];
+            Log::info('data',$data);
+            
+            Log::info('externalReference', ['externalReferece' => $externalReference]);
 
             $order = Order::with('user')->find($externalReference);
 
