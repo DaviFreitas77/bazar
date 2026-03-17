@@ -9,14 +9,14 @@ import { PixQRCode } from "./PixQrCode";
 import { apiLatestOrder, createOrder } from "@/api/site/order.api";
 import { useUser } from "@/context/userContext";
 
-const publicKey = "APP_USR-c60822f3-e0cd-4b0b-8473-abfd986e0128";
+const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
 
 initMercadoPago(publicKey, {
   locale: "pt-BR",
 });
 export function PaymentMercadoPago() {
   const { state } = useCart();
-  const { setStep, setPreference, preference, idLogradouro,freight} = useCheckout();
+  const { setStep, setPreference, preference, idLogradouro, freight } = useCheckout();
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
   const { name, email, lastName } = useUser();
@@ -25,7 +25,7 @@ export function PaymentMercadoPago() {
     const createPreference = async () => {
       if (!preference.id) {
         try {
-          const response = await createOrder(state, idLogradouro,freight);
+          const response = await createOrder(state, idLogradouro, freight);
           setPreference({
             id: response.preference.id,
             total: response.preference.total,
