@@ -17,7 +17,7 @@ use MercadoPago\Client\Common\RequestOptions;
 use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\Exceptions\MPApiException;
 use Illuminate\Http\Response;
-
+use Illuminate\Support\Facades\Log;
 
 MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
 
@@ -73,7 +73,8 @@ class MCPService
         try {
             $data = $formdata;
             $order = Order::where('id', $orderId)->first();
-
+            
+            Log::info('orderID', ['orderId'=> $order]);
 
 
             if (!$data) {
