@@ -131,7 +131,7 @@ class OrderService
                 'price_freight' => $order->price_freight,
                 'created_at'     => $order->created_at,
                 'items'          => $infoproducts,
-                'logradouro' => $getLogradouro
+                'logradouro' => $getLogradouro ?? null
             ];
         }
 
