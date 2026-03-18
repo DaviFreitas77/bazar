@@ -122,6 +122,9 @@ class OrderService
                 'status'         => $order->status,
                 'total'          => $order->total,
                 'payment_method' => $order->payment_method,
+                'name_freight' => $order->name_freight,
+                'company_freight' => $order->company_freight,
+                'price_freight' => $order->price_freight,
                 'created_at'     => $order->created_at,
                 'items'          => $infoproducts
             ];
