@@ -97,43 +97,47 @@ class OrderService
     public function fetchItemsOrder($idOrder)
     {
 
-        $orderById =  Order::where('id', $idOrder)->get();
+        $orderById =  Order::where('id', $idOrder)->first();
+
+        if (!$orderById) {
+            return [];
+        }
 
 
         $getLogradouro = Logradouro::find($orderById->fk_adress);
 
 
         $orderComplet = [];
-        foreach ($orderById as $order) {
-            $orderItems = OrderItems::with('product.images', 'color', 'size')
-                ->where('fk_order', $idOrder)
-                ->get();
+
+        $orderItems = OrderItems::with('product.images', 'color', 'size')
+            ->where('fk_order', $idOrder)
+            ->get();
 
 
-            $infoproducts = $orderItems->map(function ($item) {
-                return [
-                    'nameProduct' => $item->product->name,
-                    'quantityProduct' => $item->quantity,
-                    'imageProduct' => $item->product->images->first()->image,
-                    'colorProduct' => $item->color->name,
-                    'sizeProduct' => $item->size->name,
-                    'price' => $item->product->price
-                ];
-            });
-
-            $orderComplet[] = [
-                'numberOrder'    => $order->number_order,
-                'status'         => $order->status,
-                'total'          => $order->total,
-                'payment_method' => $order->payment_method,
-                'name_freight' => $order->name_freight,
-                'company_freight' => $order->company_freight,
-                'price_freight' => $order->price_freight,
-                'created_at'     => $order->created_at,
-                'items'          => $infoproducts,
-                'logradouro' => $getLogradouro ?? null
+        $infoproducts = $orderItems->map(function ($item) {
+            return [
+                'nameProduct' => $item->product->name,
+                'quantityProduct' => $item->quantity,
+                'imageProduct' => $item->product->images->first()->image,
+                'colorProduct' => $item->color->name,
+                'sizeProduct' => $item->size->name,
+                'price' => $item->product->price
             ];
-        }
+        });
+
+        $orderComplet[] = [
+            'numberOrder'    => $orderById->number_order,
+            'status'         => $orderById->status,
+            'total'          => $orderById->total,
+            'payment_method' => $orderById->payment_method,
+            'name_freight' => $orderById->name_freight,
+            'company_freight' => $orderById->company_freight,
+            'price_freight' => $orderById->price_freight,
+            'created_at'     => $orderById->created_at,
+            'items'          => $infoproducts,
+            'logradouro' => $getLogradouro ?? null
+        ];
+
 
         return $orderComplet;
     }
