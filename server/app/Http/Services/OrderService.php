@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Models\Logradouro;
 use App\Models\Order;
 use App\Models\OrderItems;
 use App\Models\User;
@@ -99,6 +100,9 @@ class OrderService
         $orderById =  Order::where('id', $idOrder)->get();
 
 
+        $getLogradouro = Logradouro::find($orderById->idLogradouro);
+
+
         $orderComplet = [];
         foreach ($orderById as $order) {
             $orderItems = OrderItems::with('product.images', 'color', 'size')
@@ -126,7 +130,8 @@ class OrderService
                 'company_freight' => $order->company_freight,
                 'price_freight' => $order->price_freight,
                 'created_at'     => $order->created_at,
-                'items'          => $infoproducts
+                'items'          => $infoproducts,
+                'logradouro' => $getLogradouro
             ];
         }
 

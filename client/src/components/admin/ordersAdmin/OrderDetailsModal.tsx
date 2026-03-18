@@ -11,6 +11,8 @@ type OrderDetailsModalProps = {
 export function OrderDetailsModal({ isOpen, onClose, idOrder }: OrderDetailsModalProps) {
   const { data: itemsOrder, isLoading } = useListItemsOrder(idOrder);
 
+  console.log(itemsOrder)
+
   if (!isOpen || !idOrder) return null;
 
   const getStatusBadge = (status: string) => {
@@ -77,12 +79,27 @@ export function OrderDetailsModal({ isOpen, onClose, idOrder }: OrderDetailsModa
                 {/* Status e Total */}
                 <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-lg border border-gray-100">
                   <div className="flex items-center gap-3">
+                    <span className="text-sm font-medium text-gray-600">Forma de entrega:</span>
+                    {order.company_freight ? (
+                      <p className="text-sm font-medium text-gray-900">{order.company_freight} / {order.name_freight}</p>
+
+                    ) : (
+                      <p className="text-sm font-medium text-gray-900">Retirada</p>
+                    )}
+                  </div>
+                  <div className="text-right">
+                    <span className="text-sm text-gray-500 block">Valor frete</span>
+                    <span className="text-md font-bold ">{Number(order.price_freight).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-lg border border-gray-100">
+                  <div className="flex items-center gap-3">
                     <span className="text-sm font-medium text-gray-600">Status:</span>
                     {getStatusBadge(order.status)}
                   </div>
                   <div className="text-right">
                     <span className="text-sm text-gray-500 block">Valor Total</span>
-                    <span className="text-xl font-bold text-primary-50">{Number(order.total).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
+                    <span className="text-lg font-bold text-primary-50">{Number(order.total).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
                   </div>
                 </div>
 
@@ -110,7 +127,7 @@ export function OrderDetailsModal({ isOpen, onClose, idOrder }: OrderDetailsModa
                         </div>
 
                         <div className="text-right">
-                          <p className="text-sm font-bold text-primary-50">{(Number(item.price) || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+                          <p className="text-sm font-bold ">{(Number(item.price) || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
                         </div>
                       </div>
                     ))}
