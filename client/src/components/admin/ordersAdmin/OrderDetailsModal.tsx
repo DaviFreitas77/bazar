@@ -92,6 +92,22 @@ export function OrderDetailsModal({ isOpen, onClose, idOrder }: OrderDetailsModa
                     <span className="text-md font-bold ">{Number(order.price_freight).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
                   </div>
                 </div>
+
+                {order.company_freight && (
+                  <div className="flex flex-wrap flex-col  justify-between gap-2 p-4 rounded-lg border border-gray-100">
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm font-medium text-gray-600">Endereço:</span>
+                      <p className="text-sm font-medium text-gray-900">{order.logradouro.type},{order.logradouro.number}, {order.logradouro.district}, {order.logradouro.city} - {order.logradouro.state} </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm font-medium text-gray-600">Cep:</span>
+                      <p className="text-sm font-medium text-gray-900">{order.logradouro.zip_code} </p>
+                    </div>
+                  </div>
+                )}
+
+
+
                 <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-lg border border-gray-100">
                   <div className="flex items-center gap-3">
                     <span className="text-sm font-medium text-gray-600">Status:</span>
