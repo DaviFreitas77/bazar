@@ -100,7 +100,7 @@ class OrderService
         $orderById =  Order::where('id', $idOrder)->get();
 
 
-        $getLogradouro = Logradouro::find($orderById->idLogradouro);
+        $getLogradouro = Logradouro::find($orderById->fk_adress);
 
 
         $orderComplet = [];
