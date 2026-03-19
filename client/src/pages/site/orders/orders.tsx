@@ -7,6 +7,7 @@ import { DropDown, NativeSelectOption } from "@/components/ui/native-select";
 import { useMyOrders } from "@/hooks/site/useMyOrders";
 import { useMemo, useState } from "react";
 import { BsBoxSeam } from "react-icons/bs";
+import { SeoOrders } from "./layout";
 
 export function Orders() {
   const { data: myOrders, isLoading: isLoadingMyOrders } = useMyOrders();
@@ -36,6 +37,7 @@ export function Orders() {
  
   return (
     <main className="flex justify-center px-5 py-10 mt-25">
+      <SeoOrders/>
       <div className="w-full flex max-w-[1450px]">
         <AsideUser namePage="Meus pedidos" />
 

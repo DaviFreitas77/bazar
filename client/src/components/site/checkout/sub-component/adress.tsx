@@ -8,7 +8,7 @@ import { createLogradouro, getZipCode } from "@/api/site/logradouro.api";
 import { useMyLogradouro } from "@/hooks/site/useMyLogradouro";
 import { useCart } from "@/context/cartContext";
 import { CalculateFrete, type CalculateFreteProps } from "@/api/site/delivery.api";
-import type { FreteService } from "@/pages/site/product";
+import type { FreteService } from "@/pages/site/product/product";
 
 import { PiArrowArcLeft } from "react-icons/pi";
 

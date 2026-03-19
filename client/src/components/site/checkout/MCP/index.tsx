@@ -57,7 +57,7 @@ export function PaymentMercadoPago() {
         if (response.status === "canceled") {
           setStep((prev) => {
             if (prev == 5) return prev;
-            return prev + 1;
+            return prev + 2;
           });
           setPreference({
             id: "",

@@ -1,11 +1,11 @@
 import { Home } from "@/pages/site/home";
-import { Product } from "@/pages/site/product";
-import { Search } from "@/pages/site/search";
+import { Product } from "@/pages/site/product/product";
+import { Search } from "@/pages/site/search/search";
 import { Terms } from "@/pages/site/terms";
 import { Routes, Route, useLocation } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-import { Checkout } from "@/pages/site/checkout";
-import { Orders } from "@/pages/site/orders";
+import { Checkout } from "@/pages/site/checkout/checkout";
+import { Orders } from "@/pages/site/orders/orders";
 import { Footer } from "@/components/site/footer";
 import { NotFound } from "@/pages/notFound";
 import { Header } from "@/components/ui/header";

@@ -14,6 +14,7 @@ import { hookSearchParams } from "@/hooks/site/useSearchParams";
 import { useListSubCategories } from "@/hooks/site/useListSubCategories";
 import { useProductsByCategory } from "@/hooks/site/useProductsByCategory";
 import { useFilterSubCategory } from "@/hooks/site/useFilterProducts";
+import { SeoSearch } from "./layout";
 
 export function Search() {
   const { pathname } = useLocation();
@@ -203,15 +204,16 @@ export function Search() {
   if (isLoading) {
     return (
       <section className="flex items-center justify-center h-screen w-full mt-25">
+        <SeoSearch />
         <LoadingPage />
       </section>
     )
-
   }
 
   if (currentItems.length == 0) {
     return (
       <div className="flex h-[80vh] w-full justify-center items-center mt-25 px-5">
+        <SeoSearch />
         <EmptyProduct inputValue={inputValue} setInputValue={setInputValue} setSearchParams={setSearchParams} />
       </div>
     )
@@ -219,7 +221,7 @@ export function Search() {
 
   return (
     <main className=" md:px-6 flex flex-col gap-6 mt-25">
-
+      <SeoSearch />
       <section className="flex gap-6 justify-center">
         {currentItems.length === 0 ? null : (
           <>
