@@ -13,6 +13,7 @@ import { useCart } from "@/context/cartContext";
 import { apiLatestOrder } from "@/api/site/order.api";
 import { useNavigate } from "react-router-dom";
 import { OrderCanceled } from "@/components/site/checkout/orderCanceled";
+import { SeoCheckout } from "./layout";
 
 export function Checkout() {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ export function Checkout() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-2 md:px-6 py-2 lg:py-12">
+      <SeoCheckout/>
       <section className={`bg-gray-100 flex items-center justify-center rounded-md  w-full max-w-7xl mb-10`}>
         <img src="/images/banner.png" alt="" className="rounded-sm" />
       </section>

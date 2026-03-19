@@ -13,12 +13,12 @@ export function Retired() {
         </div>
         <div className="mb-3">
           <label className="block text-xs font-bold text-gray-900">Bairro</label>
-          <p className="text-gray-900">Jardim soares</p>
+          <p className="text-gray-900">Paulista</p>
         </div>
 
         <div>
           <label className="block text-xs font-bold text-gray-900">Endereço</label>
-          <p className="text-gray-600">Rua ilha de amboino, 10</p>
+          <p className="text-gray-600">Rua exemplo, 10</p>
         </div>
       </div>
       <div>
