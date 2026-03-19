@@ -43,12 +43,15 @@ class McphookController extends Controller
             return response()->json(['status' => 'ignored'], 200);
         }
 
+        Log::info('paymentID', ['id' => $paymentId]);
         if ($paymentId) {
             $response = Http::get("https://api.mercadopago.com/v1/payments/{$paymentId}", [
                 'access_token' => env('MERCADO_PAGO_ACCESS_TOKEN'),
             ]);
 
             $data = $response->json();
+
+            Log::info('data', $data);
 
             if (!isset($data['external_reference'])) {
                 Log::warning('Webhook recebido sem external_reference', [
@@ -59,6 +62,8 @@ class McphookController extends Controller
             }
 
             $externalReference = $data['external_reference'];
+
+            Log::info('externalReference', ['externalReferece' => $externalReference]);
 
             $order = Order::with('user')->find($externalReference);
 

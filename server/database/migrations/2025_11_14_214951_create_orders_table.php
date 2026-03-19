@@ -30,9 +30,11 @@ return new class extends Migration
             $table->text('pix_qr_code_base64')->nullable();
             $table->text("pix_code")->nullable();
             $table->string('payment_gateway_id')->nullable();
-            
-            $table->timestamp('created_at')->useCurrent();
+            $table->string('name_freight')->nullable();
+            $table->string('company_freight')->nullable();
+            $table->decimal('price_freight', 10, 2);
 
+            $table->timestamp('created_at')->useCurrent();
             $table->foreign('fk_user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('fk_cupom')->references('id')->on('discount_cupoms')->onDelete('set null');
             $table->foreign('fk_adress')->references('id')->on('tb_logradouro')->onDelete('cascade');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Models\Logradouro;
 use App\Models\Order;
 use App\Models\OrderItems;
 use App\Models\User;
@@ -10,18 +11,28 @@ use Illuminate\Support\Facades\Log;
 class OrderService
 {
 
-    public function create(int $idUser, string $status = 'pending', float $total = 0, ?int $idAdress = null)
-    {
-        $newOder = new Order;
-        $newOder->number_order = rand(10000, 99999);
-        $newOder->fk_user = $idUser;
-        $newOder->status = $status;
-        $newOder->payment_method = null;
-        $newOder->total = $total;
-        $newOder->fk_adress = $idAdress;
-        $newOder->created_at = now();
-        $newOder->save();
-        return $newOder;
+    public function create(
+        int $idUser,
+        string $status = 'pending',
+        float $total = 0,
+        ?int $idAdress = null,
+        ?string $nameFreight = null,
+        ?string $companyFreight = null,
+        float $priceFreight = 0
+    ) {
+        $newOrder = new Order;
+        $newOrder->number_order = rand(10000, 99999);
+        $newOrder->fk_user = $idUser;
+        $newOrder->status = $status;
+        $newOrder->payment_method = null;
+        $newOrder->total = $total;
+        $newOrder->fk_adress = $idAdress;
+        $newOrder->name_freight = $nameFreight;
+        $newOrder->company_freight = $companyFreight;
+        $newOrder->price_freight = $priceFreight;
+        $newOrder->created_at = now();
+        $newOrder->save();
+        return $newOrder;
     }
 
     public function changeOrderStatus($status, $idOrder)
@@ -86,36 +97,47 @@ class OrderService
     public function fetchItemsOrder($idOrder)
     {
 
-        $orderById =  Order::where('id', $idOrder)->get();
+        $orderById =  Order::where('id', $idOrder)->first();
+
+        if (!$orderById) {
+            return [];
+        }
+
+
+        $getLogradouro = Logradouro::find($orderById->fk_adress);
 
 
         $orderComplet = [];
-        foreach ($orderById as $order) {
-            $orderItems = OrderItems::with('product.images', 'color', 'size')
-                ->where('fk_order', $idOrder)
-                ->get();
+
+        $orderItems = OrderItems::with('product.images', 'color', 'size')
+            ->where('fk_order', $idOrder)
+            ->get();
 
 
-            $infoproducts = $orderItems->map(function ($item) {
-                return [
-                    'nameProduct' => $item->product->name,
-                    'quantityProduct' => $item->quantity,
-                    'imageProduct' => $item->product->images->first()->image,
-                    'colorProduct' => $item->color->name,
-                    'sizeProduct' => $item->size->name,
-                    'price' => $item->product->price
-                ];
-            });
-
-            $orderComplet[] = [
-                'numberOrder'    => $order->number_order,
-                'status'         => $order->status,
-                'total'          => $order->total,
-                'payment_method' => $order->payment_method,
-                'created_at'     => $order->created_at,
-                'items'          => $infoproducts
+        $infoproducts = $orderItems->map(function ($item) {
+            return [
+                'nameProduct' => $item->product->name,
+                'quantityProduct' => $item->quantity,
+                'imageProduct' => $item->product->images->first()->image,
+                'colorProduct' => $item->color->name,
+                'sizeProduct' => $item->size->name,
+                'price' => $item->product->price
             ];
-        }
+        });
+
+        $orderComplet[] = [
+            'numberOrder'    => $orderById->number_order,
+            'status'         => $orderById->status,
+            'total'          => $orderById->total,
+            'payment_method' => $orderById->payment_method,
+            'name_freight' => $orderById->name_freight,
+            'company_freight' => $orderById->company_freight,
+            'price_freight' => $orderById->price_freight,
+            'created_at'     => $orderById->created_at,
+            'items'          => $infoproducts,
+            'logradouro' => $getLogradouro ?? null
+        ];
+
 
         return $orderComplet;
     }

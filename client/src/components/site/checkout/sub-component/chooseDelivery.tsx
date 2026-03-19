@@ -20,7 +20,7 @@ export function Choose({ chooseDelivery, setChooseDelivery }: ChooseProps) {
           <p className="text-xs text-gray-600">Passe para buscar no endereço</p>
         </div>
       </div>
-      {/* <div
+      <div
         onClick={() => setChooseDelivery("delivery")}
         className={`${chooseDelivery == "delivery" ? "flex items-center gap-4 mt-4 bg-primary-50/20 py-4 px-2 rounded-sm border border-primary-50" : "flex items-center gap-4 mt-2  py-4 px-2 rounded-sm border border-gray-200 bg-[#F9FAFB]"} cursor-pointer`}
       >
@@ -31,7 +31,7 @@ export function Choose({ chooseDelivery, setChooseDelivery }: ChooseProps) {
           <p className={`${chooseDelivery == "delivery" ? "text-black text-base font-semibold" : "text-gray-400 text-base"}`}>Entregar em casa</p>
           <p className="text-xs text-gray-600">Receba rápido na sua casa</p>
         </div>
-      </div> */}
+      </div>
     </section>
   );
 }

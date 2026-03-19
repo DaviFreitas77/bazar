@@ -5,7 +5,7 @@ import { useProductById } from "@/hooks/site/useProductById";
 import { useProductsByCategory } from "@/hooks/site/useProductsByCategory";
 import type { Product } from "@/@types/product";
 import { LoadingPage } from "@/components/site/loading/loadingPage";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ChangeEvent } from "react";
 import { FaCircle, FaWhatsapp } from "react-icons/fa";
 import { useCart } from "@/context/cartContext";
 import { useUser } from "@/context/userContext";
@@ -19,14 +19,41 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { useCheckout } from "@/context/checkoutContext";
 import { useUI } from "@/context/UIContext";
+import { CalculateFrete, type CalculateFreteProps } from "@/api/site/delivery.api";
+import { Loading } from "@/components/site/loading/loading";
+import { useMyLogradouro } from "@/hooks/site/useMyLogradouro";
+
+
+
+export interface FreteService {
+  id: number;
+  company: {
+    id: number
+    name: string;
+    picture: string
+  };
+  name: string;
+  delivery_range: {
+    max: number;
+    min: number
+  }
+  price: number;
+  // add other fields you expect from the API here
+}
 export function Product() {
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
   const [selectedColorName, setSelectedColorName] = useState<string>("");
   const [selectedSizeName, setSelectedSizeName] = useState<string>("");
   const [numberImage, setNumberImage] = useState<number>(0);
+  const [postalCode, setPostalCode] = useState<string>('')
   const { setStep, setPreference, setDiscount } = useCheckout();
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingFrete, setLodingFrete] = useState<boolean>(false)
+  const [servicesFrete, setServicesFrete] = useState<FreteService[]>([]);
+  const [messageError, setMessageError] = useState<string>('')
+  const { data: myLogradouro } = useMyLogradouro()
+  const [showLogradouro, setShowLogradouro] = useState<boolean>(true)
   const { dispatch } = useCart();
   const { name } = useUser();
   const { pathname } = useLocation();
@@ -34,6 +61,7 @@ export function Product() {
   const { id } = useParams();
   const numberId = Number(id);
   const { data: product, isLoading: isLoadingProduct } = useProductById(numberId);
+
 
   const images = product?.image ?? [];
   const colors = product?.color ?? [];
@@ -119,7 +147,7 @@ export function Product() {
       Preço: ${Number(product?.price).toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
-      })}
+    })}
       Imagem: ${imageProduct}
 
   Poderia me ajudar?`;
@@ -128,6 +156,43 @@ export function Product() {
       `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
       "_blank"
     );
+  };
+
+
+  const calcFrete = async (zipCode?: string) => {
+    setMessageError("")
+    setLodingFrete(true)
+    try {
+      const data: CalculateFreteProps = {
+        to: {
+          postal_code: zipCode ?? postalCode
+        },
+        products: [
+          {
+            id: product!.id.toString(),
+            quantity: 1
+          }
+        ]
+      }
+      const response = await CalculateFrete(data)
+      console.log(response)
+      setServicesFrete(response)
+    } catch (error: any) {
+      if (error.response.status == 422) {
+        setMessageError(error.response.data.message)
+      }
+      console.log(error)
+    } finally {
+      setLodingFrete(false)
+    }
+
+  }
+
+
+
+  const handleChangeZipcode = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, '');
+    setPostalCode(value);
   };
   return (
     <main className="flex flex-col items-center justify-center md:py-10 min-h-screen mt-25">
@@ -235,7 +300,7 @@ export function Product() {
               </AccordionFilter>
               <button
                 onClick={handleAddCart}
-                className={`flex items-center justify-center gap-2 text-white font-medium transition duration-200 shadow-sm cursor-pointer  px-10 py-3 rounded-md ${loading ? "bg-primary-100 cursor-not-allowed" : "bg-primary-50 hover:bg-primary-100"}`}
+                className={`flex items-center justify-center gap-2 text-white font-medium transition duration-200 shadow-sm cursor-pointer  px-10 py-3 rounded-md ${loading ? "bg-primary-100 cursor-not-allowed" : "bg-primary-50 hover:opacity-85"}`}
                 disabled={loading}
               >
                 <LiaShoppingBagSolid size={22} />
@@ -247,17 +312,100 @@ export function Product() {
                 <FaWhatsapp size={22} />
                 Comprar pelo whatsApp
               </button>
-              {/* Entrega */}
-              {/* <AccordionFilter name="Entrega " value="item-2">
-                <div className="flex gap-1 mt-2 pl-1">
-                  <input type="text" placeholder="Digite seu CEP" className="border border-gray-200 p-3 rounded-xs w-full focus:outline-none focus:ring-1 focus:ring-primary-100" />
-                  <button className="bg-primary-50 text-white px-6 rounded-xs hover:bg-primary-100 transition cursor-pointer">Consultar</button>
-                </div>
-              </AccordionFilter> */}
+
               <AccordionFilter name="Descrição" value="item-2">
                 <p>{product?.description}</p>
               </AccordionFilter>
+
+              {/* Entrega */}
+              <AccordionFilter name="Consultar frete" value="item-2">
+                <div className="flex flex-col gap-4 mt-2 pl-1">
+
+
+                  {servicesFrete?.length > 0 && (
+                    <div className="space-y-3 mb-4">
+                      {servicesFrete.map((frete) => (
+                        <div key={frete.id} className="flex items-center justify-between gap-4 w-full p-2 border-b border-gray-100">
+                          <div className="flex items-center gap-4">
+                            <img src={frete.company.picture} alt={frete.company.name} className="w-16 h-auto object-contain" />
+                            <div>
+                              <p className="font-semibold text-sm">{frete.name}</p>
+                              <p className="text-xs text-gray-500">Chega em até {frete.delivery_range?.max} dias</p>
+                            </div>
+                          </div>
+                          <p className="font-bold text-primary-50">
+                            {Number(frete.price).toLocaleString("pt-BR", {
+                              currency: "BRL",
+                              style: "currency",
+                            })}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+
+                  {myLogradouro && myLogradouro.length > 0 && showLogradouro ? (
+                    <div className="w-full space-y-2">
+                      <p className="text-xs font-medium text-gray-400">Selecione um endereço salvo:</p>
+                      {myLogradouro.map((adress) => (
+                        <div
+                          key={adress.id}
+                          onClick={() => calcFrete(adress.zip_code)}
+                          className="border border-dashed p-3 border-gray-200 w-full cursor-pointer hover:border-primary-50 hover:bg-blue-50/20 transition-all duration-300 rounded-md"
+                        >
+                          <p className="font-bold text-base">{adress.zip_code}</p>
+                          <p className="font-light text-sm text-gray-600">
+                            {adress.type} - {adress.number}, {adress.district} - {adress.state}
+                          </p>
+                        </div>
+                      ))}
+                      <div className="text-end">
+                        <button
+                          onClick={() => setShowLogradouro(false)}
+                          className="text-primary-50 cursor-pointer hover:opacity-85">
+                          <p >Calcular pra outro endereço</p>
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="flex gap-2 w-full">
+                        <input
+                          type="text"
+                          onChange={handleChangeZipcode}
+                          value={postalCode}
+                          placeholder="Digite seu CEP"
+                          maxLength={8}
+                          className="border border-gray-200 p-3 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-50 transition-all duration-300 flex-1"
+                        />
+                        <button
+                          onClick={() => calcFrete()}
+                          disabled={loadingFrete}
+                          className="bg-primary-50 text-white px-4 rounded-md hover:opacity-85 transition cursor-pointer disabled:opacity-50"
+                        >
+                          {loadingFrete ? <Loading /> : "Consultar"}
+                        </button>
+                      </div>
+                      {myLogradouro && myLogradouro.length > 0 && (
+                        <div className="mt-2">
+                          <button
+                            onClick={() => setShowLogradouro(true)}
+                            className="text-primary-50 cursor-pointer hover:opacity-85">
+                            <p >Exibir meus endereços</p>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {messageError && (
+                  <p className="px-2 text-red-500 text-sm mt-2 italic">{messageError}</p>
+                )}
+              </AccordionFilter>
             </div>
+
           </div>
 
           <div className="w-full">

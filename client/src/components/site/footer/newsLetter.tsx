@@ -36,7 +36,7 @@ export function NewsLetter() {
           </h1>
           <div className="flex flex-col w-full md:w-145 md:flex-row gap-1 relative mt-10">
             <div>
-              <input disabled={newsLetter} className={`border border-primary-50 text-gray-500 bg-white pl-10  py-3 w-full md:w-100 outline-none  rounded-sm" type="text`} placeholder="seumelhor@email.com" onChange={(e) => setEmailNewsLetter(e.target.value)} defaultValue={email ?? ""} />
+              <input disabled={newsLetter} className={`border rounded-md border-primary-50 text-gray-500 bg-white pl-10  py-3 w-full md:w-100 outline-none  rounded-sm" type="text`} placeholder="seumelhor@email.com" onChange={(e) => setEmailNewsLetter(e.target.value)} defaultValue={email ?? ""} />
               <p className="text-red-500 my-1">{message && message}</p>
             </div>
 

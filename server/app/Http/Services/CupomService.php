@@ -26,14 +26,14 @@ class CupomService
         $newCupom->limitUse = $data['limitUse'];
         $newCupom->save();
 
-        return response()->json(['message' => 'Cupom criado com sucesso'],Response::HTTP_CREATED);
+        return response()->json(['message' => 'Cupom criado com sucesso'], Response::HTTP_CREATED);
     }
 
 
     public function listAllCupom()
     {
         $cupons = DiscountCupom::all();
-        return response()->json($cupons,Response::HTTP_OK);
+        return response()->json($cupons, Response::HTTP_OK);
     }
 
 
@@ -45,7 +45,7 @@ class CupomService
         }
 
         $cupom->delete();
-        return response()->json(['message' => 'Cupom deletado com sucesso'],Response::HTTP_OK);
+        return response()->json(['message' => 'Cupom deletado com sucesso'], Response::HTTP_OK);
     }
 
     public function deleteUsedCupom($idOrder)
@@ -56,7 +56,7 @@ class CupomService
         }
 
         $usedCupom->delete();
-        return response()->json(['message' => 'Cupom usado deletado com sucesso'],Response::HTTP_OK);
+        return response()->json(['message' => 'Cupom usado deletado com sucesso'], Response::HTTP_OK);
     }
 
     public function getCupomById($id)
@@ -66,7 +66,7 @@ class CupomService
     }
 
 
-    public function useCupom(array $data,User $user)
+    public function useCupom(array $data, User $user)
     {
         $idUser = $user['id'];
         $userCupom = new CupomUser;

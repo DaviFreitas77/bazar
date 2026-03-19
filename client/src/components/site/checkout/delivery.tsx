@@ -1,10 +1,10 @@
 import { CiDeliveryTruck } from "react-icons/ci";
 import { Choose } from "./sub-component/chooseDelivery";
-// import { Adress } from "./sub-component/adress";
+import { Adress } from "./sub-component/adress";
 import { useState } from "react";
 import { Retired } from "./sub-component/retired";
 
-export type ChooseDelivery = "retired" ;
+export type ChooseDelivery = "retired" | "delivery" ;
 
 export function ChooseDelivery() {
   const [chooseDelivery, setChooseDelivery] = useState<ChooseDelivery>("retired");
@@ -25,7 +25,7 @@ export function ChooseDelivery() {
 
         <Choose chooseDelivery={chooseDelivery} setChooseDelivery={setChooseDelivery} />
 
-       {chooseDelivery == 'retired' &&  <Retired/>}
+       {chooseDelivery == 'retired' ?  <Retired/> : <Adress/>}
       </div>
     </section>
   );

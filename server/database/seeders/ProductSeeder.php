@@ -15,7 +15,6 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        // Cria 10 produtos via Factory
         Product::factory()->count(30)->create()->each(function ($product) {
 
             // Associa 1 a 3 cores existentes
