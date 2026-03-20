@@ -178,8 +178,14 @@ export function FormRegister({ onChangeForm, onClose }: FormRegisterProps) {
                 <input type="checkbox" {...register("terms")} className="mr-2" />
                 <label className="text-sm text-gray-600">
                   Li e concordo com os{" "}
-                  <a href="/termos" className="text-primary hover:underline">
-                    Termos de Uso
+                  <a href="/termos" className="text-primary-50 hover:underline">
+                    Termos de Uso {" "}
+                  </a>
+                </label>
+                <label className="text-sm text-gray-600">
+                  e{" "}
+                  <a href="/politicas-de-privacidade" className="text-primary-50 hover:underline">
+                    Politicas de privacidade
                   </a>
                 </label>
                 <div className="h-2 my-2">{errors.terms && <span className="text-red-500 text-xs">{errors.terms.message}</span>}</div>

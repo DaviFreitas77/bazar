@@ -11,6 +11,7 @@ import { NotFound } from "@/pages/notFound";
 import { Header } from "@/components/ui/header";
 import { ModalAuth } from "@/components/site/auth/modalAuth";
 import { useUI } from "@/context/UIContext";
+import { PoliticPrivacity } from "@/pages/site/politicPrivacity/politicPrivacity";
 
 function SiteRoutes() {
   const location = useLocation();
@@ -23,6 +24,8 @@ function SiteRoutes() {
         <Route path="/pesquisa" element={<Search />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/termos" element={<Terms />} />
+        <Route path="/politicas-de-privacidade" element={<PoliticPrivacity /> }
+        />
         <Route
           path="/checkout"
           element={
@@ -39,6 +42,7 @@ function SiteRoutes() {
             </PrivateRoute>
           }
         />
+      
         {/* 
         <Route
           path="/meus-enderecos"

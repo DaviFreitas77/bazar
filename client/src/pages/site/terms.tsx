@@ -1,8 +1,13 @@
+import { NavigationInformation } from "@/components/site/InfoNav/navigationInformations";
+
 export function Terms() {
+
   return (
-    <main className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-20">
-      <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8">
-        <h1 className="text-3xl font-bold mb-6">Termos de Uso</h1>
+    <main className="min-h-screen  py-30 px-4">
+
+      <NavigationInformation />
+      <div className="max-w-4xl mx-auto rounded-lg p-8 md:p-12">
+        <h1 className="text-2xl font-bold mb-6">Termos de Uso</h1>
         <p className="text-gray-600 mb-4">
           <strong>Última atualização:</strong> 21/08/2025
         </p>
