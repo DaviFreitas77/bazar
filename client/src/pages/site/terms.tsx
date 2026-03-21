@@ -1,4 +1,4 @@
-import { NavigationInformation } from "@/components/site/infoNav/NavigationInformations";
+import { NavigationInformation } from "@/components/site/InfoNav/NavigationInformations";
 
 export function Terms() {
 
