@@ -1,4 +1,4 @@
-import { NavigationInformation } from "@/components/site/InfoNav/navigationInformations";
+import { NavigationInformation } from "@/components/site/InfoNav/NavigationInformations";
 
 export function PoliticPrivacity() {
 
