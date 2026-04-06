@@ -7,10 +7,10 @@ services:
       - "8000:8000"
     environment:
       - DB_HOST=mysql
-      - DB_PORT=3306
-      - DB_USERNAME=root
-      - DB_PASSWORD=root
-      - DB_DATABASE=ecommerce
+      - DB_PORT=mysql
+      - DB_USERNAME=bazar_user
+      - DB_PASSWORD=bazarroot
+      - DB_DATABASE=db_bazar
       - QUEUE_CONNECTION=redis
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -75,7 +75,7 @@ services:
       MYSQL_DATABASE: ecommerce
 
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
