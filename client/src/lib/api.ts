@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://bazar-production-4a07.up.railway.app/api",
+  baseURL: "https://api.freitasz.com.br/api",
 });
 
 export const api = instance;
