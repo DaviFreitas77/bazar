@@ -25,6 +25,7 @@ services:
     networks:
       - laravel
 
+    
   # Queue Laravel
   queue:
     build:
