@@ -78,11 +78,13 @@ services:
     restart: always
     ports:
       - "80:80"
-      
+      - "443:443"
     volumes:
       - ./server:/var/www/html
       - ./client/dist:/app/dist:ro   
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+
     depends_on:
       - server
     networks:
