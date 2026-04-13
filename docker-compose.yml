@@ -61,6 +61,8 @@ services:
     image: mysql:8.0
     container_name: ecommerce
     restart: always
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db_bazar
@@ -70,6 +72,7 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - laravel
+  
 
 
   nginx:
