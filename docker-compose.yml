@@ -6,14 +6,12 @@ services:
       context: ./server
       dockerfile: Dockerfile.production
     container_name: bazar_server
+    env_file:
+      - ./server/.env
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
       - DB_HOST=mysql
-      - DB_PORT=3306
-      - DB_USERNAME=bazar_user
-      - DB_PASSWORD=bazarroot
-      - DB_DATABASE=db_bazar
       - QUEUE_CONNECTION=redis
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -34,9 +32,12 @@ services:
       dockerfile: Dockerfile.production
     container_name: bazar_queue
     command: php artisan queue:work --sleep=3 --tries=3 --timeout=90
+    env_file:
+      - ./server/.env
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
+      - DB_HOST=mysql
       - QUEUE_CONNECTION=redis
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -65,11 +66,8 @@ services:
     restart: always
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: db_bazar
-      MYSQL_USER: bazar_user
-      MYSQL_PASSWORD: bazarroot
+    env_file:
+      - ./server/.env
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
