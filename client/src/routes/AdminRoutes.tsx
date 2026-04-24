@@ -6,6 +6,7 @@ import { ProductsAdmin } from "@/pages/admin/ProductsAdmin";
 import { RegisterProduct } from "@/pages/admin/RegisterProduct";
 import { Dashboard } from "@/pages/admin/Dashboard";
 import { EmailAdmin } from "@/pages/admin/Email";
+import { RegisterCupom } from "@/pages/admin/RegisterCupom";
 import { Home } from "@/pages/site/home";
 
 export default function AdminRoutes() {
@@ -50,6 +51,15 @@ export default function AdminRoutes() {
         element={
           <PrivateRoute role="admin">
             <RegisterProduct />
+          </PrivateRoute>
+        }
+      ></Route>
+
+      <Route
+        path="/admin-cupons"
+        element={
+          <PrivateRoute role="admin">
+            <RegisterCupom />
           </PrivateRoute>
         }
       ></Route>

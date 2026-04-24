@@ -5,19 +5,20 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+
+    env_file:
+      - ./server/.env
+
     environment:
-      - DB_HOST=mysql
-      - DB_PORT=3306
-      - DB_USERNAME=root
-      - DB_PASSWORD=root
-      - DB_DATABASE=ecommerce
+      - APP_ENV=local
+      - APP_DEBUG=false
       - QUEUE_CONNECTION=redis
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_CLIENT=predis
       
     depends_on:
-      - mysql
+      # - mysql
       - redis
     networks:
       - laravel
@@ -46,7 +47,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_CLIENT=predis
     depends_on:
-      - mysql
+      # - mysql
       - redis
     restart: always
     networks:
@@ -78,24 +79,24 @@ services:
     networks:
       - laravel
 
-  mysql:
-    image: mysql:8.0
-    container_name: ecommerce
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: ecommerce
+  # mysql:
+  #   image: mysql:8.0
+  #   container_name: ecommerce
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: ecommerce
 
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - laravel
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #   networks:
+  #     - laravel
 
 networks:
   laravel:
 
 volumes:
-  mysql_data:
+  # mysql_data:
   redis_data:

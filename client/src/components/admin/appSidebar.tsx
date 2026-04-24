@@ -28,9 +28,9 @@ const menuGroups = [
       },
       {
         title: "Cupons",
-        url: "/admin-produtos",
+        url: "/admin-cupons",
         icon: CiDiscount1,
-        disabled: true,
+        disabled: false,
       },
     ],
   },
