@@ -29,6 +29,7 @@ require __DIR__ . '/api/subCategory.php';
 require __DIR__ . '/api/adm/dashboardRoute.php';
 require __DIR__ . '/api/forgotPassword.api.php';
 require __DIR__ . '/api/delivery.api.php';
+require __DIR__ . '/api/notification.php';
 
 
 Route::prefix('auth')->group(function () {
