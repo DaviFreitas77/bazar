@@ -18,11 +18,16 @@ services:
       - REDIS_CLIENT=predis
       
     depends_on:
-      # - mysql
+      - mysql
       - redis
     networks:
       - laravel
 
+    volumes:
+    - ./server:/var/www/html
+
+
+  
   client:
     build:
       context: ./client
@@ -47,7 +52,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_CLIENT=predis
     depends_on:
-      # - mysql
+      - mysql
       - redis
     restart: always
     networks:
@@ -64,39 +69,25 @@ services:
     volumes:
       - redis_data:/data
 
-  nginx:
-    image: nginx:1.25-alpine
-    container_name: nginx_all
+
+  mysql:
+    image: mysql:8.0
+    container_name: ecommerce
     restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ecommerce
+
     ports:
-      - "80:80"
-      
+      - "3306:3306"
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-    depends_on:
-      - server
-      - client
+      - mysql_data:/var/lib/mysql
     networks:
       - laravel
-
-  # mysql:
-  #   image: mysql:8.0
-  #   container_name: ecommerce
-  #   restart: always
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: root
-  #     MYSQL_DATABASE: ecommerce
-
-  #   ports:
-  #     - "3306:3306"
-  #   volumes:
-  #     - mysql_data:/var/lib/mysql
-  #   networks:
-  #     - laravel
 
 networks:
   laravel:
 
 volumes:
-  # mysql_data:
+  mysql_data:
   redis_data:

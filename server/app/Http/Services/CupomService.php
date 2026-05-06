@@ -7,14 +7,15 @@ use App\Models\DiscountCupom;
 use App\Models\OrderItems;
 use App\Models\User;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
+
 
 class CupomService
 {
-    public function __construct(private OrderService $orderService, private MCPService $mcpService)
+    public function __construct(private OrderService $orderService, private MCPService $mcpService,private NotificationService $notificationService)
     {
         $this->orderService = $orderService;
         $this->mcpService = $mcpService;
+        $this->notificationService = $notificationService;
     }
 
     public function createCupom(array $data)
@@ -25,6 +26,9 @@ class CupomService
         $newCupom->validity = $data['validity'];
         $newCupom->limitUse = $data['limitUse'];
         $newCupom->save();
+
+        $this->notificationService->createNotification('Novo cupom', "O cupom {$newCupom->nameCupom} foi criado com sucesso!");
+        
 
         return response()->json(['message' => 'Cupom criado com sucesso'], Response::HTTP_CREATED);
     }
