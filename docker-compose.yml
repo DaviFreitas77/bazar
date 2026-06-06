@@ -16,7 +16,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_CLIENT=predis
     depends_on:
-      # - mysql
+      - mysql
       - redis
     restart: always
     networks:
@@ -41,7 +41,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_CLIENT=predis
     depends_on:
-      # - mysql
+      - mysql
       - redis
     restart: always
     networks:
