@@ -57,7 +57,7 @@ services:
     networks:
       - laravel
 
-  MySQL
+  #MySQL
   mysql:
     image: mysql:8.0
     container_name: ecommerce
