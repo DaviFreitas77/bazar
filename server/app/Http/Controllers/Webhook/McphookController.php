@@ -33,7 +33,12 @@ class McphookController extends Controller
     public function __invoke(Request $request)
     {
 
-        $paymentId = $request->input('id');
+        $paymentId = $request->input('data.id');
+
+        Log::info('Webhook recebido', [
+            'payment_id' => $paymentId,
+            'payload' => $request->all()
+        ]);
 
         if (!$paymentId) {
             Log::warning('Webhook sem payment id', [
@@ -44,6 +49,7 @@ class McphookController extends Controller
         }
 
         Log::info('paymentID', ['id' => $paymentId]);
+
         if ($paymentId) {
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . env('MERCADO_PAGO_ACCESS_TOKEN'),
