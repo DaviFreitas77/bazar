@@ -45,9 +45,9 @@ class McphookController extends Controller
 
         Log::info('paymentID', ['id' => $paymentId]);
         if ($paymentId) {
-            $response = Http::get("https://api.mercadopago.com/v1/payments/{$paymentId}", [
-                'access_token' => env('MERCADO_PAGO_ACCESS_TOKEN'),
-            ]);
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . env('MERCADO_PAGO_ACCESS_TOKEN'),
+            ])->get("https://api.mercadopago.com/v1/payments/{$paymentId}");
 
             $data = $response->json();
 
