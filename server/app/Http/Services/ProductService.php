@@ -22,6 +22,11 @@ class ProductService
         $product->lastPrice = $products['lastPrice'] ?? null;
         $product->fkCategory = $products['idCategory'];
         $product->fkSubcategory = $products['idSubcategory'];
+        $product->stock = $products['stock'];
+        $product->width = $products['width'];
+        $product->height = $products['height'];
+        $product->length = $products['length'];
+        $product->weight = $products['weight'];
         $product->visible = true;
         $product->save();
 

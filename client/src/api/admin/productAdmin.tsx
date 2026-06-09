@@ -7,7 +7,12 @@ interface CretedProductProps {
   description: string;
   price: number;
   idCategory: number;
-  lastPrice: number;
+  lastPrice: number | null;
+  stock: number;
+  width: number;
+  height: number;
+  length: number;
+  weight: number;
   images: string[];
   sizes: number[];
   colors: number[];
@@ -20,6 +25,11 @@ export const createdProduct = async (data: CretedProductProps) => {
     price: data.price,
     idCategory: data.idCategory,
     lastPrice: data.lastPrice,
+    stock: data.stock,
+    width: data.width,
+    height: data.height,
+    length: data.length,
+    weight: data.weight,
     images: data.images,
     sizes: data.sizes,
     colors: data.colors,

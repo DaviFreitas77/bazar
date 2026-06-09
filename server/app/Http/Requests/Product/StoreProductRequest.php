@@ -28,6 +28,11 @@ class StoreProductRequest extends FormRequest
             'idCategory' => 'required|integer',
             'idSubcategory' => 'required|integer',
             'lastPrice' => 'nullable|numeric',
+            'stock' => 'required|integer|min:0',
+            'width' => 'required|numeric|gt:0',
+            'height' => 'required|numeric|gt:0',
+            'length' => 'required|numeric|gt:0',
+            'weight' => 'required|numeric|gt:0',
             'images' => 'required|array',
             'colors' => 'required|array',
             'sizes' => 'required|array',
@@ -45,6 +50,26 @@ class StoreProductRequest extends FormRequest
             "price.numeric"=> "O preço deve ser um número",
             
             "lastPrice.numeric"=> "O preço anterior deve ser um número",
+
+            "stock.required"=> "O estoque é obrigatório",
+            "stock.integer"=> "O estoque deve ser um número inteiro",
+            "stock.min"=> "O estoque não pode ser negativo",
+
+            "width.required"=> "A largura é obrigatória",
+            "width.numeric"=> "A largura deve ser numérica",
+            "width.gt"=> "A largura deve ser maior que zero",
+
+            "height.required"=> "A altura é obrigatória",
+            "height.numeric"=> "A altura deve ser numérica",
+            "height.gt"=> "A altura deve ser maior que zero",
+
+            "length.required"=> "O comprimento é obrigatório",
+            "length.numeric"=> "O comprimento deve ser numérico",
+            "length.gt"=> "O comprimento deve ser maior que zero",
+
+            "weight.required"=> "O peso é obrigatório",
+            "weight.numeric"=> "O peso deve ser numérico",
+            "weight.gt"=> "O peso deve ser maior que zero",
             
             "description.string"=> "A descrição deve ser uma string",
             "description.required"=> "A descrição é obrigatória",

@@ -20,6 +20,11 @@ export function FormRegisterProduct() {
     const [description, setDescription] = useState("");
     const [oldPrice, setOldPrice] = useState("");
     const [price, setPrice] = useState("");
+    const [stock, setStock] = useState("1");
+    const [width, setWidth] = useState("");
+    const [height, setHeight] = useState("");
+    const [length, setLength] = useState("");
+    const [weight, setWeight] = useState("");
     const [selectedSize, setSelectedSize] = useState<number[]>([]);
     const [selectedColors, setSelectedColors] = useState<number[]>([]);
     const [selectedCategory, setSelectedCategory] = useState("");
@@ -69,12 +74,15 @@ export function FormRegisterProduct() {
         setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
     };
 
+    const parseNumberInput = (value: string) => Number(value.replace(",", "."));
+
 
 
 
     const handleCreatedProduct = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!selectedCategory) return toast.error("Selecione uma categoria");
+        if (!selectedSubCategory) return toast.error("Selecione um modelo");
 
         setLoading(true);
         try {
@@ -83,9 +91,13 @@ export function FormRegisterProduct() {
                 description,
                 idCategory: Number(selectedCategory),
                 idSubCategory: Number(selectedSubCategory),
-                oldPrice: oldPrice ? Number(oldPrice.replace(",", ".")) : null,
-                lastPrice: Number(oldPrice.replace(",", ".")),
-                price: Number(price.replace(",", ".")),
+                lastPrice: oldPrice ? parseNumberInput(oldPrice) : null,
+                price: parseNumberInput(price),
+                stock: Number(stock),
+                width: parseNumberInput(width),
+                height: parseNumberInput(height),
+                length: parseNumberInput(length),
+                weight: parseNumberInput(weight),
                 colors: selectedColors,
                 sizes: selectedSize,
                 images,
@@ -99,6 +111,11 @@ export function FormRegisterProduct() {
             setDescription("");
             setOldPrice("");
             setPrice("");
+            setStock("1");
+            setWidth("");
+            setHeight("");
+            setLength("");
+            setWeight("");
             setSelectedSize([]);
             setSelectedColors([]);
             setSelectedCategory("");
@@ -250,6 +267,40 @@ export function FormRegisterProduct() {
                             <span className="absolute left-3 top-3 text-gray-400 text-sm">R$</span>
                             <input required onChange={(e) => setPrice(e.target.value)} value={price} type="text" placeholder="0,00" className={`${inputStyle} w-full pl-10`} />
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ESTOQUE E DIMENSÕES */}
+            <section className="bg-white p-8 rounded-xl  border border-gray-200">
+                <h2 className="text-lg font-semibold text-gray-700 mb-6 flex items-center gap-2">
+                    <span className="w-1 h-6 bg-primary-50 rounded-full"></span>
+                    Estoque e Dimensões
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-sm font-bold text-gray-700  tracking-wider">Estoque</label>
+                        <input required min={0} onChange={(e) => setStock(e.target.value)} value={stock} type="number" placeholder="1" className={inputStyle} />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-sm font-bold text-gray-700  tracking-wider">Largura (cm)</label>
+                        <input required min="0.01" step="0.01" onChange={(e) => setWidth(e.target.value)} value={width} type="number" placeholder="26" className={inputStyle} />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-sm font-bold text-gray-700  tracking-wider">Altura (cm)</label>
+                        <input required min="0.01" step="0.01" onChange={(e) => setHeight(e.target.value)} value={height} type="number" placeholder="12" className={inputStyle} />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-sm font-bold text-gray-700  tracking-wider">Comprimento (cm)</label>
+                        <input required min="0.01" step="0.01" onChange={(e) => setLength(e.target.value)} value={length} type="number" placeholder="36" className={inputStyle} />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-sm font-bold text-gray-700  tracking-wider">Peso (kg)</label>
+                        <input required min="0.01" step="0.01" onChange={(e) => setWeight(e.target.value)} value={weight} type="number" placeholder="0.3" className={inputStyle} />
                     </div>
                 </div>
             </section>
