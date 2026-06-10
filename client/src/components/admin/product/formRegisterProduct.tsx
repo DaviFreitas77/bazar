@@ -74,7 +74,10 @@ export function FormRegisterProduct() {
         setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
     };
 
-    const parseNumberInput = (value: string) => Number(value.replace(",", "."));
+    const parseNumberInput = (value: string) => {
+        const numeric = value.replace(/\D/g, "");
+        return Number(numeric) / 100;
+    };
 
 
 
@@ -129,6 +132,8 @@ export function FormRegisterProduct() {
     };
 
 
+
+
     const handleCreatedCategory = async () => {
         try {
             await apiCreateCategory(newCategory)
@@ -159,6 +164,15 @@ export function FormRegisterProduct() {
             console.log(error)
         }
     }
+
+    const formatterPrice = (value: string) => {
+        const numericValue = value.replace(/\D/g, "");
+        const formattedValue = (Number(numericValue) / 100).toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+        return formattedValue;
+    };
 
     const inputStyle = "border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary-50/20 focus:border-primary-50 outline-none transition-all bg-gray-50/30 focus:bg-white";
 
@@ -257,15 +271,14 @@ export function FormRegisterProduct() {
                     <div className="flex flex-col gap-1.5">
                         <label className="text-sm font-bold text-gray-700  tracking-wider">Preço Antigo (Opcional)</label>
                         <div className="relative">
-                            <span className="absolute left-3 top-3 text-gray-400 text-sm">R$</span>
-                            <input onChange={(e) => setOldPrice(e.target.value)} value={oldPrice} type="text" placeholder="0,00" className={`${inputStyle} w-full pl-10`} />
+
+                            <input onChange={(e) => setOldPrice(formatterPrice(e.target.value))} value={oldPrice} type="text" placeholder="R$ 0,00" className={`${inputStyle} w-full pl-4`} />
                         </div>
                     </div>
                     <div className="flex flex-col gap-1.5">
                         <label className="text-sm font-bold text-gray-700  tracking-wider">Preço de Venda</label>
                         <div className="relative">
-                            <span className="absolute left-3 top-3 text-gray-400 text-sm">R$</span>
-                            <input required onChange={(e) => setPrice(e.target.value)} value={price} type="text" placeholder="0,00" className={`${inputStyle} w-full pl-10`} />
+                            <input required onChange={(e) => setPrice(formatterPrice(e.target.value))} value={price} type="text" placeholder="R$ 0,00" className={`${inputStyle} w-full pl-4`} />
                         </div>
                     </div>
                 </div>
