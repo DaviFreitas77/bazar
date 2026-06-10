@@ -4,14 +4,24 @@ import { useMetricsBilling } from "@/hooks/admin/useMetrics";
 export function useDashboardMetrics() {
   const { data: metricsBilling, isLoading } = useMetricsBilling();
 
+  const formatVariation = (variation?: number) => {
+    if (variation === undefined || variation === 0) {
+      return { footer: "", footerColor: "text-gray-500" };
+    }
+
+    return {
+      footer: `${variation > 0 ? "+" : ""}${variation}% vs período anterior`,
+      footerColor: variation < 0 ? "text-red-500" : "text-green-600",
+    };
+  };
+
 
 
   const metricsData = [
     {
       title: "Faturamento do dia",
       value: metricsBilling?.billingToday.value  ?? 0,
-      footer: metricsBilling ? `${metricsBilling.billingToday.variation}% vs dia anterior` : "",
-      footerColor: "text-green-600",
+      ...formatVariation(metricsBilling?.billingToday.variation),
     
       prefix: "R$",
      
@@ -21,8 +31,7 @@ export function useDashboardMetrics() {
     {
       title: "Faturamento Mensal",
       value: metricsBilling?.billingMonth.value ?? 0,
-      footer: metricsBilling ? `${metricsBilling.billingMonth.variation}% vs mês anterior` : "",
-      footerColor: "text-green-600",
+      ...formatVariation(metricsBilling?.billingMonth.variation),
     
         prefix: "R$"
     },
@@ -30,8 +39,7 @@ export function useDashboardMetrics() {
     {
       title: "Faturamento Trimestral",
       value: metricsBilling?.billingCurrentTrimester.value ?? 0,
-      footer: metricsBilling ? `${metricsBilling.billingCurrentTrimester.variation}% vs trimestre anterior` : "",
-      footerColor: metricsBilling && metricsBilling.billingCurrentTrimester.variation < 0 ? "text-red-500" : "text-green-600",
+      ...formatVariation(metricsBilling?.billingCurrentTrimester.variation),
     
         prefix: "R$"
     },
