@@ -19,13 +19,13 @@ export function MyAdress() {
   };
 
   return (
-    <main className="flex justify-center px-5 py-10">
-      <div className="w-full flex max-w-[1450px]">
+    <main className="flex justify-center px-5 py-40">
+      <div className="w-full flex max-w-[1450px] h-full">
         <AsideUser namePage="Meus endereços" />
 
         <section className="w-full lg:ml-15  ">
           <div className="flex justify-between items-center w-full">
-            <h1 className="text-xl text-gray-700 font-bold">Meus endereços</h1>
+            <h1 className="text-lg text-gray-700 font-bold">Meus endereços</h1>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 ">

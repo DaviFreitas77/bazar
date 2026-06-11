@@ -140,23 +140,24 @@ export function Product() {
 
 
   const openWhatsap = () => {
-    const phoneNumber = "5511976145291";
+    alert("rs")
+  //   const phoneNumber = "5511976145291";
 
-    const message = `Olá! Tenho interesse no produto:
+  //   const message = `Olá! Tenho interesse no produto:
 
-      Produto: ${product?.name}
-      Preço: ${Number(product?.price).toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    })}
-      Imagem: ${imageProduct}
+  //     Produto: ${product?.name}
+  //     Preço: ${Number(product?.price).toLocaleString("pt-BR", {
+  //     style: "currency",
+  //     currency: "BRL",
+  //   })}
+  //     Imagem: ${imageProduct}
 
-  Poderia me ajudar?`;
+  // Poderia me ajudar?`;
 
-    window.open(
-      `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
-      "_blank"
-    );
+  //   window.open(
+  //     `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
+  //     "_blank"
+  //   );
   };
 
 

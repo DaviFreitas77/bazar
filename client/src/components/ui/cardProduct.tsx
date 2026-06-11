@@ -176,7 +176,7 @@ export function CardProduct({ id, image, lastPrice, name, price, sizes, color }:
 
         <button
           onClick={() => handleAddCart(id, name, Number(price), image[0],)}
-          className="text-sm  w-full bg-primary-50 text-white py-2 px-2 rounded-xs font-semibold hover:bg-primary-100 cursor-pointer transition-colors">Adicionar à sacola</button>
+          className="text-sm  w-full bg-primary-50 text-white py-2 px-2 rounded-xs font-semibold hover:opacity-85 cursor-pointer transition-colors">Adicionar à sacola</button>
       </div>
     </div>
   );

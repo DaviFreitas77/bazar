@@ -1,7 +1,7 @@
 import { AiOutlineUser } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
 import { LiaShoppingBagSolid } from "react-icons/lia";
-// import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeartEmpty } from "react-icons/io";
 import { SheetSearch } from "./sheet";
 import { PopularSearches } from "../site/searchBar/PopularSearches";
 import { InputSearch } from "../site/searchBar/inputSearch";
@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 export function Header() {
   const { name } = useUser();
   const { state } = useCart();
-  const { setOpenSearch, setOpenCart, setOpenFavorite, openSearch, openCart, openFavorite, setModalAuth, setOpenDrawer } = useUI();
+  const { setOpenSearch, setOpenCart, setOpenFavorite, openSearch, openCart, openFavorite, setModalAuth, setOpenDrawer} = useUI();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const { setNameProduct } = useProductsSearched();
@@ -95,6 +95,14 @@ export function Header() {
               aria-label="Pesquisar produtos"
             >
               <CiSearch size={22} />
+            </button>
+
+            <button
+              onClick={() => setOpenFavorite(true)}
+              className="hover:text-primary-50 transition-colors cursor-pointer"
+              aria-label="Pesquisar produtos"
+            >
+              <IoMdHeartEmpty size={22} />
             </button>
 
 

@@ -3,15 +3,15 @@ import { SheetSearch } from "../../ui/sheet";
 import { useListCategories } from "@/hooks/site/useListCategories";
 import { Link } from "react-router-dom";
 import { useUser } from "@/context/userContext";
-// import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeartEmpty } from "react-icons/io";
 import { BsBoxSeam } from "react-icons/bs";
-// import { CiLocationOn } from "react-icons/ci";
+import { CiLocationOn } from "react-icons/ci";
 import { LogOutIcon, UserIcon } from "lucide-react";
 import { logout } from "@/api/site/auth.api";
 import { Loading } from "../loading/loading";
 export function DrawerResponsive() {
   const { data: categories } = useListCategories();
-  const { openDrawer, setOpenDrawer, setModalAuth } = useUI();
+  const { openDrawer, setOpenDrawer, setModalAuth,setOpenFavorite } = useUI();
   const { name, setEmail, setLastName, setTel, setName } = useUser();
 
   const logOut = async () => {
@@ -64,7 +64,7 @@ export function DrawerResponsive() {
           Pedidos
         </Link>
 
-        {/* <button
+        <button
           onClick={() => {
             setOpenDrawer(false), setOpenFavorite(true);
           }}
@@ -72,9 +72,9 @@ export function DrawerResponsive() {
         >
           <IoMdHeartEmpty size={18} />
           Wishlist
-        </button> */}
+        </button>
 
-        {/* <Link
+        <Link
           to="/meus-enderecos"
           onClick={() => {
             setOpenDrawer(false);
@@ -83,7 +83,7 @@ export function DrawerResponsive() {
         >
           <CiLocationOn size={18} />
           Endereços
-        </Link> */}
+        </Link>
 
         {name !== null ? (
           <button

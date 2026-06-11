@@ -12,6 +12,7 @@ import { Header } from "@/components/ui/header";
 import { ModalAuth } from "@/components/site/auth/modalAuth";
 import { useUI } from "@/context/UIContext";
 import { PoliticPrivacity } from "@/pages/site/politicPrivacity/politicPrivacity";
+import { MyAdress } from "@/pages/site/myAdress";
 
 function SiteRoutes() {
   const location = useLocation();
@@ -43,7 +44,7 @@ function SiteRoutes() {
           }
         />
       
-        {/* 
+        
         <Route
           path="/meus-enderecos"
           element={
@@ -51,7 +52,7 @@ function SiteRoutes() {
               <MyAdress />
             </PrivateRoute>
           }
-        /> */}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ModalAuth open={modalAuth} onClose={() => setModalAuth(false)} />

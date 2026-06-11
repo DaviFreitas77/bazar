@@ -220,7 +220,7 @@ export function FormForgotPassword({ onChangeForm }: FormForgotPasswordProps) {
                     <button
                         type="button"
                         onClick={handleVerifyMail}
-                        className="bg-primary-50 transition-colors text-white px-6 p-3 rounded-sm font-semibold w-full hover:bg-primary-100 cursor-pointer mt-4"
+                        className="bg-primary-50 transition-colors text-white px-6 p-3 rounded-sm font-semibold w-full hover:bg-primary-400 cursor-pointer mt-4"
                     >
                         {loading ? <Loading /> : "Enviar email"}
                     </button>
@@ -230,7 +230,7 @@ export function FormForgotPassword({ onChangeForm }: FormForgotPasswordProps) {
                     <button
                         type="button"
                         onClick={handleVerifyCode}
-                        className="bg-primary-50 transition-colors text-white px-6 p-3 rounded-sm font-semibold w-full hover:bg-primary-100 cursor-pointer mt-4"
+                        className="bg-primary-50 transition-colors text-white px-6 p-3 rounded-sm font-semibold w-full hover:bg-primary-400 cursor-pointer mt-4"
                     >
                         {loading ? <Loading /> : "Enviar código"}
                     </button>
@@ -239,7 +239,7 @@ export function FormForgotPassword({ onChangeForm }: FormForgotPasswordProps) {
                 <div className={`flex w-full ${stepForgot !== 3 && "hidden"}`}>
                     <button
                         type="submit"
-                        className="bg-primary-50 transition-colors text-white px-6 p-3 rounded-sm font-semibold w-full hover:bg-primary-100 cursor-pointer mt-4"
+                        className="bg-primary-50 transition-colors text-white px-6 p-3 rounded-sm font-semibold w-full hover:bg-primary-400 cursor-pointer mt-4"
                     >
                         {loading ? <Loading /> : "Alterar senha"}
                     </button>

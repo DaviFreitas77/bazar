@@ -209,6 +209,14 @@ const logOut = async () => {
           </Link>
         </DropdownMenuItem>
 
+
+        <DropdownMenuItem asChild>
+          <Link to="/meus-enderecos" className="flex items-center gap-2 cursor-pointer hover:opacity-60">
+            <HiOutlineShoppingBag />
+            Endereços
+          </Link>
+        </DropdownMenuItem>
+
         <DropdownMenuItem
           onSelect={logOut}
           className="flex items-center gap-2 text-red-500 cursor-pointer hover:opacity-60"
