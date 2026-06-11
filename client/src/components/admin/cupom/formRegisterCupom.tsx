@@ -13,7 +13,8 @@ export function FormRegisterCupom() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const inputStyle = "border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary-50/20 focus:border-primary-50 outline-none transition-all bg-gray-50/30 focus:bg-white";
-
+  const today = new Date().toISOString().split("T")[0];
+  console.log(today)
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -48,9 +49,9 @@ export function FormRegisterCupom() {
     } catch (error: unknown) {
       const message =
         typeof error === "object" &&
-        error !== null &&
-        "response" in error &&
-        typeof (error as { response?: { data?: { message?: string } } }).response?.data?.message === "string"
+          error !== null &&
+          "response" in error &&
+          typeof (error as { response?: { data?: { message?: string } } }).response?.data?.message === "string"
           ? (error as { response: { data: { message: string } } }).response.data.message
           : "Erro ao cadastrar cupom.";
 
@@ -99,6 +100,7 @@ export function FormRegisterCupom() {
           <input
             required
             type="date"
+            min={today}
             value={validity}
             onChange={(event) => setValidity(event.target.value)}
             className={inputStyle}

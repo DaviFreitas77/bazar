@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Services;
+
 use App\Models\Product;
 use Exception;
 use Illuminate\Support\Facades\Cache;
@@ -84,7 +86,9 @@ class DeliveryService
                 return response()->json($filterServices);
             } else {
                 $data = $response->json();
-                Log::error("Erro ao calcular frete", $data);
+                Log::error("Erro ao calcular frete", [
+                    'response' => $data
+                ]);
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());

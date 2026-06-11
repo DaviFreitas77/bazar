@@ -267,7 +267,7 @@ export function FormRegisterProduct() {
                     <span className="w-1 h-6 bg-primary-50 rounded-full"></span>
                     Precificação
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">  
                     <div className="flex flex-col gap-1.5">
                         <label className="text-sm font-bold text-gray-700  tracking-wider">Preço Antigo (Opcional)</label>
                         <div className="relative">
