@@ -75,8 +75,9 @@ class DeliveryService
             if ($response->successful()) {
                 $data = $response->json();
 
-                Log::info("Frete calculado", $data);
-
+                Log::info("Frete calculado", [
+                    'response' => $data
+                ]);
                 $filterServices = array_values(array_filter(
                     $data,
                     fn($service) => isset($service['name'])
@@ -90,9 +91,16 @@ class DeliveryService
                     'response' => $data
                 ]);
             }
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return response()->json(['message' => "Não foi possivel calcular o frete"]);
+        } catch (\Exception $e) {
+            Log::error('Erro calculate-frete', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return response()->json([
+                'message' => 'Não foi possível calcular o frete'
+            ], 500);
         }
     }
 }
