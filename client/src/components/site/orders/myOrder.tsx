@@ -45,7 +45,7 @@ export function MyOrder({
     : "Não informado";
 
     
-    console.log(name_freight)
+
 
   return (
     <div className="mt-8 border rounded-md border-gray-200 overflow-hidden">
