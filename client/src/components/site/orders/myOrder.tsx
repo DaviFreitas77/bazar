@@ -44,6 +44,9 @@ export function MyOrder({
     ? paymentMethodMap[payment_method as keyof typeof paymentMethodMap] || payment_method
     : "Não informado";
 
+    
+    console.log(name_freight)
+
   return (
     <div className="mt-8 border rounded-md border-gray-200 overflow-hidden">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b p-4 border-gray-200 bg-gray-100/60">
@@ -63,19 +66,7 @@ export function MyOrder({
             </span>
           </p>
 
-          <p className="font-semibold">
-            Pagamento: <span className="font-normal text-green-600">{paymentLabel}</span>
-          </p>
-
-          <p className="font-semibold">
-            Total:{" "}
-            <span className="font-normal">
-              {Number(total).toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-              })}
-            </span>
-          </p>
+          {/* Pagamento e Total agora aparecem no painel de detalhes abaixo */}
 
           <div className={`${currentStatus.style} px-3 py-1 rounded-full text-center w-fit`}>
             <p className="text-xs font-medium">{currentStatus.label}</p>
@@ -105,12 +96,18 @@ export function MyOrder({
           onClick={() => setShowDetails(!showDetails)}
           className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 transition border-b border-gray-200"
         >
-          <span className="font-semibold text-gray-700 text-sm">Detalhes da Entrega</span>
+          <span className="font-semibold text-gray-700 text-sm">Detalhes</span>
           <ChevronDown size={18} className={`transition-transform ${showDetails ? "rotate-180" : ""}`} />
         </button>
 
         {showDetails && (
           <div className="px-4 py-4 space-y-3 bg-gray-50 border-b border-gray-200">
+            {/* Detalhes de Pagamento */}
+            <div className="pb-3">
+              <p className="text-xs text-gray-500 font-bold mb-2">PAGAMENTO</p>
+              <p className="text-sm font-medium text-gray-800 mt-1">{paymentLabel}</p>
+            </div>
+
             {/* Forma de Entrega */}
             <div className="flex justify-between items-start pb-3 border-b border-gray-200">
               <div>
@@ -183,9 +180,7 @@ export function MyOrder({
 
       {/* Produtos */}
       <div className="bg-white">
-        <div className="px-4 py-3 font-semibold text-gray-700 text-sm border-b border-gray-200">
-          Itens ({item?.length || 0})
-        </div>
+      
         
         {item &&
           item.map((product, index) => (

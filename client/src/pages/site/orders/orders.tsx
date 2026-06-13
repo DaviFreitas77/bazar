@@ -12,8 +12,9 @@ import { SeoOrders } from "./layout";
 export function Orders() {
   const { data: myOrders, isLoading: isLoadingMyOrders } = useMyOrders();
 
-  console.log(myOrders);
 
+  console.log(myOrders)
+  
   const [filterOrder, setFilterOrder] = useState("relevance");
 
   const sortedOrders = useMemo(() => {

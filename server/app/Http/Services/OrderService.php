@@ -81,7 +81,7 @@ class OrderService
             });
 
             $orderComplet[] = [
-                'numberOrder'    => $order->number_order,
+                // 'numberOrder'    => $order->number_order,
                 'status'         => $order->status,
                 'total'          => $order->total,
                 'payment_method' => $order->payment_method,

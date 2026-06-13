@@ -11,7 +11,8 @@ type OrderDetailsModalProps = {
 export function OrderDetailsModal({ isOpen, onClose, idOrder }: OrderDetailsModalProps) {
   const { data: itemsOrder, isLoading } = useListItemsOrder(idOrder);
 
-  console.log(itemsOrder)
+ 
+
 
   if (!isOpen || !idOrder) return null;
 
