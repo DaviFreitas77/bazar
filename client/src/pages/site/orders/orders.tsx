@@ -11,8 +11,8 @@ import { SeoOrders } from "./layout";
 
 export function Orders() {
   const { data: myOrders, isLoading: isLoadingMyOrders } = useMyOrders();
-  
 
+  console.log(myOrders);
 
   const [filterOrder, setFilterOrder] = useState("relevance");
 
@@ -56,7 +56,23 @@ export function Orders() {
               <Loading />
             </div>
           ) : sortedOrders && sortedOrders.length > 0 ? (
-            sortedOrders.map((order: any) => <MyOrder key={order.numberOrder} number_order={order.numberOrder} created_at={order.created_at} total={order.total} status={order.status} item={order.items}  pix_qr_code_base64={order.pix_qr_code_base64} pix_code={order.pix_code}/>)
+            sortedOrders.map((order: any) => (
+              <MyOrder 
+                key={order.numberOrder} 
+                number_order={order.numberOrder} 
+                created_at={order.created_at} 
+                total={order.total} 
+                status={order.status} 
+                item={order.items}  
+                pix_qr_code_base64={order.pix_qr_code_base64} 
+                pix_code={order.pix_code}
+                payment_method={order.payment_method}
+                name_freight={order.name_freight}
+                company_freight={order.company_freight}
+                price_freight={order.price_freight}
+                logradouro={order.logradouro}
+              />
+            ))
           ) : (
             <div className="flex justify-center items-center mt-30">
               <p className="text-center text-gray-500  flex flex-col items-center gap-4">

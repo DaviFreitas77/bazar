@@ -74,6 +74,7 @@ class OrderService
                 ->where('fk_order', $order->id)
                 ->get();
 
+            $getLogradouro = Logradouro::find($order->fk_adress);
 
             $infoproducts = $orderItems->map(function ($item) {
                 return ['nameProduct' => $item->product->name, 'quantityProduct' => $item->quantity, 'imageProduct' => $item->product->images->first()->image, 'colorProduct' => $item->color->hexadecimal, 'sizeProduct' => $item->size->name];
@@ -87,7 +88,11 @@ class OrderService
                 'created_at'     => $order->created_at,
                 'items'          => $infoproducts,
                 'pix_code'        => $order->pix_code,
-                'pix_qr_code_base64' => $order->pix_qr_code_base64
+                'pix_qr_code_base64' => $order->pix_qr_code_base64,
+                'name_freight'    => $order->name_freight,
+                'company_freight' => $order->company_freight,
+                'price_freight'   => $order->price_freight,
+                'logradouro'      => $getLogradouro
             ];
         }
 
