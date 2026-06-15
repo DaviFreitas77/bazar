@@ -21,7 +21,9 @@ export function PaymentMercadoPago() {
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [customerId, setCustomerId] = useState<string | null>(null);
+  const [cardsIds, setCardsIds] = useState<string[] | null>(null);
   const { name, email, lastName } = useUser();
+
 
   useEffect(() => {
     const CreateCustomer = async () => {
@@ -33,6 +35,11 @@ export function PaymentMercadoPago() {
         console.log(error)
       }
     }
+    CreateCustomer()
+  }, [])
+
+  useEffect(() => {
+
 
     const createPreference = async () => {
       if (!preference.id) {
@@ -49,7 +56,7 @@ export function PaymentMercadoPago() {
         }
       }
     };
-    CreateCustomer();
+
     createPreference();
   }, [state, preference.id]);
 
@@ -93,15 +100,17 @@ export function PaymentMercadoPago() {
     amount: Number(preference.total.toFixed(2)),
     payer: {
       firstName: name || "",
-      lastName: email || "",
-      email: lastName || "",
+      lastName: lastName || "",
+      email: email || "",
+      customerId: customerId ?? undefined,
+      cardsIds: cardsIds?.length ? cardsIds : undefined
     },
   };
   const customization = {
     paymentMethods: {
       bankTransfer: ["all"],
       creditCard: ["all"],
-      customerId: customerId
+
     },
     visual: {},
   };
