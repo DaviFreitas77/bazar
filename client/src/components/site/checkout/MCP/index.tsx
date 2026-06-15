@@ -8,6 +8,7 @@ import { Loading } from "@/components/site/loading/loading";
 import { PixQRCode } from "./PixQrCode";
 import { apiLatestOrder, createOrder } from "@/api/site/order.api";
 import { useUser } from "@/context/userContext";
+import { apiCreateCustomer } from "@/api/site/customer.api";
 
 const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
 
@@ -19,9 +20,20 @@ export function PaymentMercadoPago() {
   const { setStep, setPreference, preference, idLogradouro, freight } = useCheckout();
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
+  const [customerId, setCustomerId] = useState<string | null>(null);
   const { name, email, lastName } = useUser();
 
   useEffect(() => {
+    const CreateCustomer = async () => {
+      try {
+        const response = await apiCreateCustomer()
+        console.log(response)
+        setCustomerId(response.id);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     const createPreference = async () => {
       if (!preference.id) {
         try {
@@ -37,6 +49,7 @@ export function PaymentMercadoPago() {
         }
       }
     };
+    CreateCustomer();
     createPreference();
   }, [state, preference.id]);
 
@@ -88,6 +101,7 @@ export function PaymentMercadoPago() {
     paymentMethods: {
       bankTransfer: ["all"],
       creditCard: ["all"],
+      customerId: customerId
     },
     visual: {},
   };
