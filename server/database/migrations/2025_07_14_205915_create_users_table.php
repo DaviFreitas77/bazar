@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('tel')->nullable();
             $table->string('role')->default('user'); 
             $table->boolean('receive_newsletter')->default(false);
+            $table->string('customer_id')->nullable();
         });
     }
 

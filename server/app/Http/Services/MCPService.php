@@ -17,6 +17,7 @@ use MercadoPago\Client\Common\RequestOptions;
 use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\Exceptions\MPApiException;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
@@ -69,12 +70,12 @@ class MCPService
 
     public function processPayment($formdata, $orderId)
     {
-     
+
         try {
             $data = $formdata;
             $order = Order::where('id', $orderId)->first();
-            
-            Log::info('orderID', ['orderId'=> $order]);
+
+            Log::info('orderID', ['orderId' => $order]);
 
 
             if (!$data) {
@@ -106,7 +107,7 @@ class MCPService
 
             //numero do pedido
             $numberOrder = Order::where('id', $payment->external_reference)->first();
-            
+
             $order->payment_gateway_id = $payment->id;
             $order->save();
             return response()->json([
@@ -118,6 +119,40 @@ class MCPService
                 'status' => $e->getApiResponse()->getStatusCode(),
                 'error'  => $e->getApiResponse()->getContent(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function createCustomer($email, $name, $idUser)
+    {
+        try {
+            $user = User::find($idUser);
+            if (!$user) {
+                throw new \Exception("Usuário não encontrado: ID {$idUser}");
+            }
+
+            if ($user->customer_id) {
+                return response()->json($user->customer_id, Response::HTTP_OK);
+            }
+
+            $response = Http::withHeaders([
+                'Content-Type => application/json',
+                'Authorization' => 'Bearer ' . env('MERCADO_PAGO_ACCESS_TOKEN'),
+            ])->post("https://api.mercadopago.com/v1/customers", [
+                "email" => $email,
+                "name" => $name
+            ]);
+
+            $data = $response->json();
+            log::info('createCustomerResponse', [
+                'response' => $data
+            ]);
+
+            $user->customer_id = $data['id'];
+            $user->save();
+            
+            return response()->json($data['id'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
