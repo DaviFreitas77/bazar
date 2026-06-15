@@ -24,6 +24,7 @@ class CreateCustomerController extends Controller
         $name = $user->name;
         $id = $user->id;
 
+        
         return $this->mcPService->createCustomer($email, $name, $id);
     }
 }
