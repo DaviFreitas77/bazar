@@ -87,6 +87,27 @@ class MCPService
             $client = new PaymentClient();
             $request_options = new RequestOptions();
 
+            if (
+                isset($data['payer']['type']) &&
+                $data['payer']['type'] === 'customer'
+            ) {
+
+                $payer = [
+                    'email' => $userEmailFallback,
+                    'type' => 'customer',
+                    'id' => $data['payer']['id']
+                ];
+            } else {
+
+                $payer = [
+                    'email' => $data['payer']['email'],
+                    'identification' => [
+                        'type' => $data['payer']['identification']['type'],
+                        'number' => $data['payer']['identification']['number']
+                    ]
+                ];
+            }
+
             $payment = $client->create([
                 "transaction_amount"   => (float) $data["transaction_amount"],
                 "token"                => $data["token"],
@@ -97,13 +118,7 @@ class MCPService
                 "issuer_id" => (int) $data["issuer_id"],
 
 
-                "payer" => [
-                    "email" => $data["payer"]["email"] ?? $userEmailFallback,
-                    "identification" => [
-                        "type"   => $data["payer"]["identification"]["type"] ?? $data["payer"]["type"],
-                        "number" => $data["payer"]["identification"]["number"] ?? $data["payer"]["id"]
-                    ]
-                ],
+                "payer" => $payer,
                 "external_reference" => strval($orderId),
             ], $request_options);
 
@@ -186,7 +201,7 @@ class MCPService
             return response()->json(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     public function getCard($customerId)
     {
         try {
