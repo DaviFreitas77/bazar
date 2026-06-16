@@ -1,7 +1,7 @@
 import { api } from "@/lib/api";
 
-export const apiCreateCustomer = async () => {
-    const response = await api.post('mcp/createCustomer');
+export const apiGetCustomer = async () => {
+    const response = await api.get('mcp/getCustomer');
     return response.data;
 }
 

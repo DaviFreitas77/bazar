@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Services\MCPService;
 use Illuminate\Http\Request;
 
-class CreateCustomerController extends Controller
+class GetCustomerController extends Controller
 {
     public function __construct(private MCPService $mcPService)
     {
@@ -25,6 +25,6 @@ class CreateCustomerController extends Controller
         $id = $user->id;
 
         
-        return $this->mcPService->createCustomer($email, $name, $id);
+        return $this->mcPService->getCustomer($email, $name, $id);
     }
 }

@@ -124,7 +124,7 @@ class MCPService
         }
     }
 
-    public function createCustomer($email, $name, $idUser)
+    public function getCustomer($email, $name, $idUser)
     {
         try {
             $user = User::find($idUser);

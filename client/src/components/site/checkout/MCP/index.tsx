@@ -8,7 +8,8 @@ import { Loading } from "@/components/site/loading/loading";
 import { PixQRCode } from "./PixQrCode";
 import { apiLatestOrder, createOrder } from "@/api/site/order.api";
 import { useUser } from "@/context/userContext";
-import { apiCreateCustomer, apiGetCardSaved, apiSaveCard } from "@/api/site/customer.api";
+import { apiGetCardSaved, apiSaveCard } from "@/api/site/customer.api";
+import { useCustomer } from "@/hooks/site/useCustomer";
 
 const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
 
@@ -18,35 +19,24 @@ initMercadoPago(publicKey, {
 export function PaymentMercadoPago() {
   const { state } = useCart();
   const { setStep, setPreference, preference, idLogradouro, freight } = useCheckout();
+  const { data: customer } = useCustomer();
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
-  const [customerId, setCustomerId] = useState<string | null>(null);
   const [cardsIds, setCardsIds] = useState<string[] | null>(null);
   const { name, email, lastName } = useUser();
 
 
-  useEffect(() => {
-    const CreateCustomer = async () => {
-      try {
-        const response = await apiCreateCustomer()
-        console.log(response)
-        setCustomerId(response.id);
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    CreateCustomer()
-  }, [])
+
 
   useEffect(() => {
-    if (customerId) {
-      const fetchCards = async () => {
-        const response = await apiGetCardSaved();
-        setCardsIds(response.map((card: any) => card.id));
-      };
-      fetchCards();
-    }
-  }, [customerId]);
+
+    const fetchCards = async () => {
+      const response = await apiGetCardSaved();
+      setCardsIds(response.map((card: any) => card.id));
+    };
+    fetchCards();
+
+  }, []);
 
   useEffect(() => {
     const createPreference = async () => {
@@ -110,7 +100,7 @@ export function PaymentMercadoPago() {
       firstName: name || "",
       lastName: lastName || "",
       email: email || "",
-      customerId: customerId ?? undefined,
+      customerId: customer ?? undefined,
       cardsIds: cardsIds?.length ? cardsIds : undefined
     },
   };
