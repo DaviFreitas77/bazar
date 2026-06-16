@@ -110,6 +110,8 @@ class MCPService
 
             $order->payment_gateway_id = $payment->id;
             $order->save();
+            
+            
             return response()->json([
                 'payment' => $payment,
                 'numberOrder' => $numberOrder->number_order
@@ -151,6 +153,28 @@ class MCPService
             $user->save();
             
             return response()->json($data['id'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    public function saveCard($customerId, $token)
+    {
+        try {
+            $response = Http::withHeaders([
+                'Content-Type => application/json',
+                'Authorization' => 'Bearer ' . env('MERCADO_PAGO_ACCESS_TOKEN'),
+            ])->post("https://api.mercadopago.com/v1/customers/{$customerId}/cards", [
+                "token" => $token
+            ]);
+
+            $data = $response->json();
+            log::info('saveCardResponse', [
+                'response' => $data
+            ]);
+
+            return response()->json($data, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

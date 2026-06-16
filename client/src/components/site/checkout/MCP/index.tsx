@@ -8,7 +8,7 @@ import { Loading } from "@/components/site/loading/loading";
 import { PixQRCode } from "./PixQrCode";
 import { apiLatestOrder, createOrder } from "@/api/site/order.api";
 import { useUser } from "@/context/userContext";
-import { apiCreateCustomer } from "@/api/site/customer.api";
+import { apiCreateCustomer, apiSaveCard } from "@/api/site/customer.api";
 
 const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
 
@@ -116,14 +116,12 @@ export function PaymentMercadoPago() {
 
     if (selectedPaymentMethod === "bank_transfer") {
       const response = await apiProcessPaymentPix(formData, preference.orderId);
-
       setQrCodeBase64(response.point_of_interaction.transaction_data.qr_code_base64);
-
       setQrCode(response.point_of_interaction.transaction_data.qr_code);
-
       return;
     }
     await apiProcessPayment(formData, preference.orderId);
+    await apiSaveCard(formData.token);
   };
 
   if (qrCodeBase64 && qrCode) {
