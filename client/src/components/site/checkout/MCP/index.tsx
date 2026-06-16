@@ -11,7 +11,7 @@ import { useUser } from "@/context/userContext";
 import { apiGetCardSaved, apiSaveCard } from "@/api/site/customer.api";
 import { useCustomer } from "@/hooks/site/useCustomer";
 
-const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
+const publicKey = "APP_USR-ea6cbb6f-9a22-476b-a44c-d3270ec16d20";
 
 initMercadoPago(publicKey, {
   locale: "pt-BR",
@@ -128,12 +128,13 @@ export function PaymentMercadoPago() {
   if (qrCodeBase64 && qrCode) {
     return <PixQRCode qrCode={qrCode} qrCodeBase64={qrCodeBase64} />;
   }
-  if (!preference.id && !preference.total) {
+  if (!preference.id && !preference.total && !customer && cardsIds === null) {
     return (
       <div className="mt-10">
         <Loading />
       </div>
     );
   }
+  console.log(cardsIds,customer,initialization);
   return <div className="w-full mt-10">{preference.total !== null && preference.id && <Payment customization={customization} initialization={initialization} onSubmit={handleSubmit} />}</div>;
 }
