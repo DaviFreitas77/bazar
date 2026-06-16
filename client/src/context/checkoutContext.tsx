@@ -9,6 +9,8 @@ interface CheckoutContextType {
   setTotal: React.Dispatch<React.SetStateAction<number>>;
   discount: number;
   setDiscount: React.Dispatch<React.SetStateAction<number>>;
+  saveCard: boolean;
+  setSaveCard: React.Dispatch<React.SetStateAction<boolean>>;
   idLogradouro: number;
   setIdLogradouro: React.Dispatch<React.SetStateAction<number>>;
   preference: {
@@ -48,6 +50,7 @@ export function CheckoutProvider({ children }: { children: React.ReactNode }) {
   const [total, setTotal] = useState<number>(0);
   const [idLogradouro, setIdLogradouro] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
+  const [saveCard, setSaveCard] = useState(false);
   const [freight, setFreight] = useState({
     company: "",
     name: "",
@@ -61,7 +64,7 @@ export function CheckoutProvider({ children }: { children: React.ReactNode }) {
   });
 
 
-  return <CheckoutContext.Provider value={{ step, setStep, total, setTotal, discount, setDiscount, preference, setPreference, idLogradouro, setIdLogradouro, setFreight, freight }}>{children}</CheckoutContext.Provider>;
+  return <CheckoutContext.Provider value={{ step, setStep, total, setTotal, discount, setDiscount, saveCard, setSaveCard, preference, setPreference, idLogradouro, setIdLogradouro, setFreight, freight }}>{children}</CheckoutContext.Provider>;
 }
 
 // para consumir o contexto

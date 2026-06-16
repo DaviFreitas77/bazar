@@ -1,5 +1,4 @@
 import { initMercadoPago } from "@mercadopago/sdk-react";
-import { useEffect, useState } from "react";
 import { Payment } from "@mercadopago/sdk-react";
 import { apiProcessPayment, apiProcessPaymentPix } from "@/api/site/payment.api";
 import { useCart } from "@/context/cartContext";
@@ -10,6 +9,7 @@ import { apiLatestOrder, createOrder } from "@/api/site/order.api";
 import { useUser } from "@/context/userContext";
 import { apiGetCardSaved, apiSaveCard } from "@/api/site/customer.api";
 import { useCustomer } from "@/hooks/site/useCustomer";
+import { useEffect, useState } from "react";
 
 const publicKey = "APP_USR-ea6cbb6f-9a22-476b-a44c-d3270ec16d20";
 
@@ -23,10 +23,8 @@ export function PaymentMercadoPago() {
   const [qrCodeBase64, setQrCodeBase64] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [cardsIds, setCardsIds] = useState<string[] | null>(null);
+  const [saveCard, setSaveCard] = useState(false);
   const { name, email, lastName } = useUser();
-
-
-
 
   useEffect(() => {
 
@@ -122,7 +120,9 @@ export function PaymentMercadoPago() {
       return;
     }
     await apiProcessPayment(formData, preference.orderId);
-    await apiSaveCard(formData.token);
+    if (saveCard && formData.token) {
+      await apiSaveCard(formData.token);
+    }
   };
 
   if (qrCodeBase64 && qrCode) {
@@ -135,6 +135,22 @@ export function PaymentMercadoPago() {
       </div>
     );
   }
-  console.log(cardsIds,customer,initialization);
-  return <div className="w-full mt-10">{preference.total !== null && preference.id && <Payment customization={customization} initialization={initialization} onSubmit={handleSubmit} />}</div>;
+
+  return (
+    <div className="w-full mt-10">
+      <label className="mb-4 flex items-start gap-2 text-sm text-gray-700">
+        <input
+          type="checkbox"
+          checked={saveCard}
+          onChange={(event) => setSaveCard(event.target.checked)}
+          className="mt-0.5 h-4 w-4 accent-primary-50"
+        />
+        <span>Aceito salvar este cartão para futuras compras.</span>
+      </label>
+      {preference.total !== null && preference.id && <Payment customization={customization} initialization={initialization} onSubmit={handleSubmit} />}
+
+    </div>
+  );
 }
+
+
