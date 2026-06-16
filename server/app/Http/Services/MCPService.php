@@ -83,6 +83,8 @@ class MCPService
             }
 
             $userEmailFallback = $data['payer']['email'] ?? $user->email;
+            $identificationTypeFallback = $data['payer']['identification']['type'] ?? "CPF";
+            $identificationNumberFallback = $data['payer']['identification']['number'] ?? $user->cpf;
 
             $client = new PaymentClient();
             $request_options = new RequestOptions();
@@ -100,8 +102,8 @@ class MCPService
                 "payer" => [
                     "email" => $data["payer"]["email"] ?? $userEmailFallback,
                     "identification" => [
-                        "type"   => $data["payer"]["identification"]["type"] ?? null,
-                        "number" => $data["payer"]["identification"]["number"] ?? null
+                        "type"   => $data["payer"]["identification"]["type"] ?? $identificationTypeFallback,
+                        "number" => $data["payer"]["identification"]["number"] ?? $identificationNumberFallback
                     ]
                 ],
                 "external_reference" => strval($orderId),
