@@ -100,8 +100,8 @@ class MCPService
                 "payer" => [
                     "email" => $data["payer"]["email"] ?? $userEmailFallback,
                     "identification" => [
-                        "type"   => $data["payer"]["identification"]["type"],
-                        "number" => $data["payer"]["identification"]["number"]
+                        "type"   => $data["payer"]["identification"]["type"] ?? null,
+                        "number" => $data["payer"]["identification"]["number"] ?? null
                     ]
                 ],
                 "external_reference" => strval($orderId),
