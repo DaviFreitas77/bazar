@@ -110,8 +110,8 @@ class MCPService
 
             $order->payment_gateway_id = $payment->id;
             $order->save();
-            
-            
+
+
             return response()->json([
                 'payment' => $payment,
                 'numberOrder' => $numberOrder->number_order
@@ -151,7 +151,7 @@ class MCPService
 
             $user->customer_id = $data['id'];
             $user->save();
-            
+
             return response()->json($data['id'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -161,6 +161,11 @@ class MCPService
 
     public function saveCard($customerId, $token)
     {
+
+        Log::info('saveCardData', [
+            'customerId' => $customerId,
+            'token' => $token
+        ]);
         try {
             $response = Http::withHeaders([
                 'Content-Type => application/json',
