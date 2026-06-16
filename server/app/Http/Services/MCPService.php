@@ -152,7 +152,7 @@ class MCPService
             $user->customer_id = $data['id'];
             $user->save();
 
-            return response()->json($data['id'], 200);
+            return response()->json($data, Response::HTTP_OK);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
