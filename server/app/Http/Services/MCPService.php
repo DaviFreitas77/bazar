@@ -75,17 +75,14 @@ class MCPService
             $data = $formdata;
             $order = Order::where('id', $orderId)->first();
 
-            Log::info('data', ['data' => $data]);
+            Log::info('orderID', ['orderId' => $order]);
 
 
             if (!$data) {
                 return response()->json(["error" => "formData ausente"], 400);
             }
 
-
             $userEmailFallback = $data['payer']['email'] ?? $user->email;
-            $identificationTypeFallback = $data['payer']['identification']['type'] ?? "CPF";
-            $identificationNumberFallback = $data['payer']['identification']['number'] ?? $user->tel;
 
             $client = new PaymentClient();
             $request_options = new RequestOptions();
@@ -103,8 +100,8 @@ class MCPService
                 "payer" => [
                     "email" => $data["payer"]["email"] ?? $userEmailFallback,
                     "identification" => [
-                        "type"   => $data["payer"]["identification"]["type"] ?? $identificationTypeFallback,
-                        "number" => $data["payer"]["identification"]["number"] ?? $identificationNumberFallback
+                        "type"   => $data["payer"]["identification"]["type"] ?? $data["payer"]["type"],
+                        "number" => $data["payer"]["identification"]["number"] ?? $data["payer"]["id"]
                     ]
                 ],
                 "external_reference" => strval($orderId),
