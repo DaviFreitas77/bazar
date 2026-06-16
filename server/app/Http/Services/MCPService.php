@@ -68,7 +68,7 @@ class MCPService
     }
 
 
-    public function processPayment($formdata, $orderId)
+    public function processPayment($formdata, $orderId, $user)
     {
 
         try {
@@ -81,6 +81,8 @@ class MCPService
             if (!$data) {
                 return response()->json(["error" => "formData ausente"], 400);
             }
+
+            $userEmailFallback = $data['payer']['email'] ?? $user->email;
 
             $client = new PaymentClient();
             $request_options = new RequestOptions();
@@ -96,7 +98,7 @@ class MCPService
 
 
                 "payer" => [
-                    "email" => $data["payer"]["email"],
+                    "email" => $data["payer"]["email"] ?? $userEmailFallback,
                     "identification" => [
                         "type"   => $data["payer"]["identification"]["type"],
                         "number" => $data["payer"]["identification"]["number"]
