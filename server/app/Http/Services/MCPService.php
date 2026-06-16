@@ -84,7 +84,7 @@ class MCPService
 
             $userEmailFallback = $data['payer']['email'] ?? $user->email;
             $identificationTypeFallback = $data['payer']['identification']['type'] ?? "CPF";
-            $identificationNumberFallback = $data['payer']['identification']['number'] ?? $user->cpf;
+            $identificationNumberFallback = $data['payer']['identification']['number'] ?? $user->tel;
 
             $client = new PaymentClient();
             $request_options = new RequestOptions();
