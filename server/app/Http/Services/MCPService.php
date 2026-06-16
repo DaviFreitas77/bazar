@@ -75,12 +75,13 @@ class MCPService
             $data = $formdata;
             $order = Order::where('id', $orderId)->first();
 
-            Log::info('orderID', ['orderId' => $order]);
+            Log::info('data', ['data' => $data]);
 
 
             if (!$data) {
                 return response()->json(["error" => "formData ausente"], 400);
             }
+
 
             $userEmailFallback = $data['payer']['email'] ?? $user->email;
             $identificationTypeFallback = $data['payer']['identification']['type'] ?? "CPF";
