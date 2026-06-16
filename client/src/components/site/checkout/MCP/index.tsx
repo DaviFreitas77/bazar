@@ -30,6 +30,7 @@ export function PaymentMercadoPago() {
       try {
         const response = await apiCreateCustomer()
         setCustomerId(response.id);
+        setCardsIds(response.cards?.map((card: any) => card.id) ?? null);
       } catch (error) {
         console.log(error)
       }
