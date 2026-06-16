@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MercadoPago\CreateCustomerController;
 use App\Http\Controllers\MercadoPago\CreatePreferenceController;
+use App\Http\Controllers\MercadoPago\GetCardsSaved;
 use App\Http\Controllers\MercadoPago\ProccessPaymentCard;
 use App\Http\Controllers\MercadoPago\ProccessPaymentPix;
 use App\Http\Controllers\MercadoPago\SaveCardController;
@@ -14,6 +15,7 @@ Route::middleware('auth:sanctum')->prefix('mcp')->group(function () {
   Route::post('/proccessPaymentPix', ProccessPaymentPix::class);
   Route::post('/createCustomer', CreateCustomerController::class);
   Route::post('/saveCard', SaveCardController::class);
+  Route::get('/getCardsSaved', GetCardsSaved::class);
 });
 
 Route::post('/webhook/mercadopago', McphookController::class);

@@ -11,3 +11,8 @@ export const apiSaveCard = async (cardToken: string) => {
     });
     return response.data;
 }
+
+export const apiGetCardSaved = async () => {
+    const response = await api.get('mcp/getCardsSaved');
+    return response.data;
+}

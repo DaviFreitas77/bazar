@@ -8,7 +8,7 @@ import { Loading } from "@/components/site/loading/loading";
 import { PixQRCode } from "./PixQrCode";
 import { apiLatestOrder, createOrder } from "@/api/site/order.api";
 import { useUser } from "@/context/userContext";
-import { apiCreateCustomer, apiSaveCard } from "@/api/site/customer.api";
+import { apiCreateCustomer, apiGetCardSaved, apiSaveCard } from "@/api/site/customer.api";
 
 const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
 
@@ -31,13 +31,22 @@ export function PaymentMercadoPago() {
         const response = await apiCreateCustomer()
         console.log(response)
         setCustomerId(response.id);
-        setCardsIds(response.cards?.map((card: any) => card.id) ?? null);
       } catch (error) {
         console.log(error)
       }
     }
     CreateCustomer()
   }, [])
+
+  useEffect(() => {
+    if (customerId) {
+      const fetchCards = async () => {
+        const response = await apiGetCardSaved();
+        setCardsIds(response.map((card: any) => card.id));
+      };
+      fetchCards();
+    }
+  }, [customerId]);
 
   useEffect(() => {
     const createPreference = async () => {
