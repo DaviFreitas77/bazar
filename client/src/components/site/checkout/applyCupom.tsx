@@ -37,7 +37,7 @@ export function ApplyCupom({ step }: { step: number }) {
         <div className="flex items-center gap-2 mb-2">
           <div className="bg-primary-50 rounded-full w-5 h-5 flex justify-center items-center font-bold text-white">%</div>
 
-          <label className="text-primary-100 font-medium text-sm mb-1 block">Cupom de desconto</label>
+          <label className="text-primary-400 font-medium text-sm mb-1 block">Cupom de desconto</label>
         </div>
 
         <div className={`relative flex items-center ${step === 3 ? "opacity-100" : "opacity-50 pointer-events-none"}`}>

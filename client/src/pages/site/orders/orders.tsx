@@ -13,7 +13,6 @@ export function Orders() {
   const { data: myOrders, isLoading: isLoadingMyOrders } = useMyOrders();
 
 
-  console.log(myOrders)
   
   const [filterOrder, setFilterOrder] = useState("relevance");
 
