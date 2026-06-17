@@ -36,14 +36,17 @@ export function Orders() {
 
  
   return (
-    <main className="flex justify-center px-5 py-10 mt-25">
+    <main className="flex justify-center px-5 pt-10 pb-28 mt-25 min-h-[70vh]">
       <SeoOrders/>
       <div className="w-full flex max-w-[1450px]">
         <AsideUser namePage="Meus pedidos" />
 
         <section className="w-full lg:ml-15 ">
           <div className="flex justify-between items-center w-full">
-            <h1 className="text-xl text-gray-700 font-bold">Meus pedidos</h1>
+            <div>
+              <h1 className="text-xl text-gray-700 font-bold">Meus pedidos</h1>
+              <p className="text-gray-800 text-sm">Acompanhe seus pedidos, pagamentos e detalhes de entrega.</p>
+            </div>
             <DropDown title="Ordenar por" value={filterOrder} onChange={setFilterOrder}>
               <NativeSelectOption value="relevance">Relevância</NativeSelectOption>
               <NativeSelectOption value="highestTotal">Maior total</NativeSelectOption>

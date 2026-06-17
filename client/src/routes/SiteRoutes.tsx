@@ -13,6 +13,7 @@ import { ModalAuth } from "@/components/site/auth/modalAuth";
 import { useUI } from "@/context/UIContext";
 import { PoliticPrivacity } from "@/pages/site/politicPrivacity/politicPrivacity";
 import { MyAdress } from "@/pages/site/myAdress";
+import { SavedCard } from "@/pages/site/savedCards/savedCard";
 
 function SiteRoutes() {
   const location = useLocation();
@@ -50,6 +51,15 @@ function SiteRoutes() {
           element={
             <PrivateRoute>
               <MyAdress />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/cartoes-salvos"
+          element={
+            <PrivateRoute>
+              <SavedCard/>
             </PrivateRoute>
           }
         />

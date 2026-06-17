@@ -29,8 +29,11 @@ export function AsideUser({ namePage }: AsideUserProps) {
           </Link>
           <FaChevronRight size={13} className="text-primary-400" />
         </div>
+        
         <div className="flex items-center justify-between hover:text-primary-400 cursor-pointer">
-          <p className="text-sm">Meus cartões</p>
+          <Link to="/cartoes-salvos" className={`text-sm ${namePage === "Meus cartões" ? "text-primary-400" : "text-gray-700"}`}>
+            Meus cartões
+          </Link>
           <FaChevronRight size={13} className="text-primary-400" />
         </div>
       </div>
