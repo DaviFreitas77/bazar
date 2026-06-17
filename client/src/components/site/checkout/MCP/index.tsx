@@ -11,7 +11,7 @@ import { apiGetCardSaved, apiSaveCard } from "@/api/site/customer.api";
 import { useCustomer } from "@/hooks/site/useCustomer";
 import { useEffect, useState } from "react";
 
-const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
+const publicKey = "APP_USR-ea6cbb6f-9a22-476b-a44c-d3270ec16d20";
 
 initMercadoPago(publicKey, {
   locale: "pt-BR",
