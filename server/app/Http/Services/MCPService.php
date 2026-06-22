@@ -220,4 +220,25 @@ class MCPService
             return response()->json(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+
+    public function deleteCard($customerId, $cardId)
+    {
+        try {
+            $response = Http::withHeaders([
+                'Content-Type => application/json',
+                'Authorization' => 'Bearer ' . env('MERCADO_PAGO_ACCESS_TOKEN'),
+            ])->delete("https://api.mercadopago.com/v1/customers/{$customerId}/cards/{$cardId}");
+
+            $data = $response->json();
+            log::info('deleteCardResponse', [
+                'response' => $data
+            ]);
+
+            return response()->json($data, Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

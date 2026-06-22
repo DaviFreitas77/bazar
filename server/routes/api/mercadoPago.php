@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\MercadoPago\CreatePreferenceController;
+use App\Http\Controllers\MercadoPago\DeleteCardController;
 use App\Http\Controllers\MercadoPago\GetCardsSaved;
 use App\Http\Controllers\MercadoPago\GetCustomerController;
 use App\Http\Controllers\MercadoPago\ProccessPaymentCard;
@@ -17,6 +18,7 @@ Route::middleware('auth:sanctum')->prefix('mcp')->group(function () {
   Route::get('/getCustomer', GetCustomerController::class);
   Route::post('/saveCard', SaveCardController::class);
   Route::get('/getCardsSaved', GetCardsSaved::class);
+  Route::delete('/deleteCard', DeleteCardController::class);
 });
 
 Route::post('/webhook/mercadopago', McphookController::class);

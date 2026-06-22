@@ -36,3 +36,13 @@ export const apiGetCardSaved = async () => {
     const response = await api.get('mcp/getCardsSaved');
     return response.data as CardSaved[];
 }
+
+export const apiDeleteCard = async (cardId: string) => {
+    const response = await api.delete('mcp/deleteCard', {
+        data: {
+            cardId,
+        },
+    });
+
+    return response.data;
+}

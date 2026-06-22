@@ -1,11 +1,45 @@
+import { apiDeleteCard } from "@/api/site/customer.api";
 import { AsideUser } from "@/components/site/aside/userAccount";
 import { Loading } from "@/components/site/loading/loading";
 import { useGetCardsSaved } from "@/hooks/site/useCustomer";
+import { useQueryClient } from "@tanstack/react-query";
+import { Trash } from "lucide-react";
+import { useState } from "react";
 import { CiCreditCard2 } from "react-icons/ci";
+import { toast } from "sonner";
 import { SeoOrders } from "../orders/layout";
 
 export function SavedCard() {
     const { data: savedCards, isLoading } = useGetCardsSaved();
+    const queryClient = useQueryClient();
+    const [deletingCardId, setDeletingCardId] = useState<string | null>(null);
+
+    const handleDeleteCard = async (cardId?: string) => {
+        if (!cardId) return;
+
+        const canDelete = window.confirm("Deseja realmente excluir este cartao salvo?");
+        if (!canDelete) return;
+
+        setDeletingCardId(cardId);
+
+        try {
+            await apiDeleteCard(cardId);
+            toast.success("Cartao removido com sucesso.");
+            await queryClient.invalidateQueries({ queryKey: ["cardsSaved"] });
+        } catch (error: unknown) {
+            const message =
+                typeof error === "object" &&
+                error !== null &&
+                "response" in error &&
+                typeof (error as { response?: { data?: { message?: string } } }).response?.data?.message === "string"
+                    ? (error as { response: { data: { message: string } } }).response.data.message
+                    : "Erro ao remover cartao.";
+
+            toast.error(message);
+        } finally {
+            setDeletingCardId(null);
+        }
+    };
 
     return (
         <main className="flex justify-center px-5 pt-10 pb-28 mt-25 min-h-[70vh]">
@@ -45,7 +79,20 @@ export function SavedCard() {
                                                 </div>
                                             </div>
 
-                                            {card.payment_method?.thumbnail && <img src={card.payment_method.thumbnail} alt={brand} className="h-6 max-w-12 object-contain" />}
+                                            <div className="flex items-center gap-2">
+                                                {card.payment_method?.thumbnail && <img src={card.payment_method.thumbnail} alt={brand} className="h-6 max-w-12 object-contain" />}
+
+                                                <button
+                                                    type="button"
+                                                    title="Excluir cartao"
+                                                    aria-label="Excluir cartao salvo"
+                                                    onClick={() => handleDeleteCard(card.id)}
+                                                    disabled={!card.id || deletingCardId === card.id}
+                                                    className="p-2 rounded-md text-red-500 hover:bg-red-50 transition cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+                                                >
+                                                    {deletingCardId === card.id ? <Loading width={18} height={18} /> : <Trash size={18} />}
+                                                </button>
+                                            </div>
                                         </div>
 
                                         <div className="flex items-end justify-between gap-4">
