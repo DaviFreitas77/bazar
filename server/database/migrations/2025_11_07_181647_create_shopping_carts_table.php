@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('shopping_cart', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('fkUser');
-            $table->decimal('totalPrice',10,2);
+            $table->decimal('totalPrice', 10, 2);
             $table->foreign('fkUser')->references('id')->on('users')->onDelete('cascade');
-       
         });
     }
 
@@ -25,6 +24,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shopping_carts');
+        Schema::table('shopping_cart', function (Blueprint $table) {
+            $table->dropForeign(['fkUser']);
+        });
+
+        Schema::dropIfExists('shopping_cart');
     }
 };

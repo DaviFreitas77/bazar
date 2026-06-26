@@ -241,4 +241,27 @@ class MCPService
         }
     }
 
+
+    public function createRefund($paymentId, $amount)
+    {
+        try {
+            $response = Http::withHeaders([
+                'Content-Type => application/json',
+                'Authorization' => 'Bearer ' . env('MERCADO_PAGO_ACCESS_TOKEN'),
+            ])->post("https://api.mercadopago.com/v1/refunds", [
+                "payment_id" => $paymentId,
+                "amount" => $amount
+            ]);
+
+            $data = $response->json();
+            log::info('createRefundResponse', [
+                'response' => $data
+            ]);
+
+            return response()->json($data, Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
