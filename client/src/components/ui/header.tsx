@@ -99,7 +99,7 @@ export function Header() {
 
             <button
               onClick={() => setOpenFavorite(true)}
-              className="hover:text-primary-50 transition-colors cursor-pointer"
+              className="hover:text-primary-50 transition-colors cursor-pointer hidden lg:block"
               aria-label="Pesquisar produtos"
             >
               <IoMdHeartEmpty size={22} />

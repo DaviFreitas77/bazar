@@ -147,7 +147,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
           </button>
         </div>
         <div className="flex w-full">
-          <button type="submit" className="bg-primary-50 transition-colors text-white px-6 py-3 rounded-sm font-semibold w-full hover:bg-primary-100 cursor-pointer">
+          <button type="submit" className={`${loading ? 'bg-primary-100' : 'bg-primary-50'} transition-colors text-white px-6 py-3 rounded-sm font-semibold w-full hover:bg-primary-100 cursor-pointer`}>
             {loading ? <Loading /> : "Entrar"}
           </button>
         </div>

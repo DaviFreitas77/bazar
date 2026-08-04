@@ -19,7 +19,7 @@ export function ModalAuth({ open, onClose }: ModalAuthProps) {
         className="relative bg-white rounded-2xl  w-full max-w-5xl 
         flex "
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-black transition text-xl ">
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-black transition text-xl cursor-pointer">
           ✕
         </button>
         <div className="w-full md:w-1/2 p-5 lg:p-8 flex items-center justify-center h-160 custom-scrollbar">
@@ -37,7 +37,7 @@ export function ModalAuth({ open, onClose }: ModalAuthProps) {
           )}
         </div>
         <div className="hidden md:block md:w-1/2">
-          <img src="/images/login.jpg" alt="Moda feminina elegante" className="w-full h-full object-cover" />
+          <img src="/images/login.jpg" alt="Moda feminina elegante" className="w-full h-full object-cover rounded-r-2xl" />
         </div>
       </section>
     </main>
