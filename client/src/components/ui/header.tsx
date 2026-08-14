@@ -7,6 +7,7 @@ import { PopularSearches } from "../site/searchBar/PopularSearches";
 import { InputSearch } from "../site/searchBar/inputSearch";
 import { ShowProductsSearched } from "../site/searchBar/showProductsSearched";
 import { CartProducts } from "../site/shoppingCart/cartProducts";
+import { CiDiscount1 } from "react-icons/ci";
 
 import { useUser } from "@/context/userContext";
 import { useCart } from "@/context/cartContext";
@@ -50,8 +51,9 @@ export function Header() {
         }`}
     >
 
-      <aside className="bg-primary-50 text-white text-center py-2 text-xs tracking-wide" role="banner">
-        RETIRE EM NOSSO BAZAR FÍSICO
+      <aside className="bg-primary-50 text-white text-center py-2 text-sm tracking-wide flex items-center justify-center gap-2" role="banner">
+        <CiDiscount1 size={20} />
+         <strong>10% OFF </strong>  na primeira compra  -  Frete grátis
       </aside>
 
       <div className="flex justify-center items-center h-20 bg-white">

@@ -55,16 +55,25 @@ function SliderProduct({ maxPrice, minPrice, valueChange }: SliderPriceProps) {
       <div className="flex justify-between items-center mt-4 text-sm text-gray-600">
 
         {/* Botão */}
-        <button onClick={() => valueChange(value)} className="bg-primary-50 text-white px-6 py-1 rounded-xs hover:bg-primary-100 transition cursor-pointer">
-          Filtrar
-        </button>
+        <div className="flex  flex-col gap-2 w-full">
+          <div className="flex items-center gap-2 w-full justify-between " >
+            <button onClick={() => valueChange([])} className="  bg-primary-50 text-white px-6 py-1 rounded-xs hover:opacity-85 transition cursor-pointer">
+              Limpar
+            </button>
+            <div className="flex items-center gap-1 text-gray-800 font-medium">
+              <span>{value[0].toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
+              <span>-</span>
+              <span>{value[1].toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
+            </div>
+          </div>
+          <button onClick={() => valueChange(value)} className="bg-primary-50 text-white px-6 py-1 rounded-xs hover:opacity-85 transition cursor-pointer">
+            Filtrar
+          </button>
+
+        </div>
 
         {/* Valores */}
-        <div className="flex items-center gap-1 text-gray-800 font-medium">
-          <span>R$ {value[0]}</span>
-          <span>-</span>
-          <span>R$ {value[1]}</span>
-        </div>
+
       </div>
     </div>
   );

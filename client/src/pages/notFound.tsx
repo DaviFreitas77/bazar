@@ -1,6 +1,6 @@
 import FuzzyText from "@/components/styles/fuzzyText";
 import { Link } from "react-router-dom";
-
+import { FaShoppingBasket } from "react-icons/fa";
 export function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center">
@@ -10,7 +10,11 @@ export function NotFound() {
       <p className="mt-10 font-semibold text-gray-800 ">Ops! Página não encontrada.</p>
       <p className="mt-1 text-gray-500">Parece que o link que você seguiu está quebrado ou a página foi movida.</p>
 
-      <Link className="bg-primary-50 mt-20 text-white px-20 py-3 rounded-sm  uppercase tracking-wider" to={"/"}>Voltar as compras</Link>
+      <Link className="bg-primary-50 mt-20 text-white px-20 py-3 rounded-sm font-bold tracking-wider flex justify-center items-center gap-5" to={"/"}>
+      <FaShoppingBasket size={20}/>
+      Voltar as compras
+
+      </Link>
       
     </div>
   );

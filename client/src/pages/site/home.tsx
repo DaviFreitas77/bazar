@@ -4,13 +4,14 @@ import { useAllProducts } from "@/hooks/site/useAllProducts";
 import { filterProductByCategory } from "@/utils/productsUtild";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-
+import echo from "@/lib/echo";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { SlidesImagesHome, SlidesImagesHomeMobile } from "@/data/carouselImagesHome";
 import { useLocation } from "react-router-dom";
 import { NewsLetter } from "@/components/site/footer/newsLetter";
+import { useEffect } from "react";
 
 
 export function Home() {
@@ -20,7 +21,31 @@ export function Home() {
   const calca = filterProductByCategory("Calças", products ?? []);
   const camisetas = filterProductByCategory("Camisetas", products ?? []);
 
+  useEffect(() => {
+    console.log("🔌 Conectando ao Reverb...");
 
+    const channel = echo.channel("teste");
+
+    channel.listen(".TesteReverb", (data: any) => {
+      console.log("🔥 EVENTO RECEBIDO:", data);
+    });
+
+    echo.connector.pusher.connection.bind("connected", () => {
+      console.log("✅ WebSocket conectado!");
+    });
+
+    echo.connector.pusher.connection.bind("disconnected", () => {
+      console.log("❌ WebSocket desconectado!");
+    });
+
+    echo.connector.pusher.connection.bind("error", (error: any) => {
+      console.error("💥 Erro WebSocket:", error);
+    });
+
+    return () => {
+      echo.leaveChannel("teste");
+    };
+  }, []);
   return (
     <main>
       <section>
@@ -28,7 +53,7 @@ export function Home() {
           <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
             {SlidesImagesHome.map((item, index) => (
               <SwiperSlide key={index} className="relative">
-                <img src={item} alt={`Slide ${index + 1}`} className="w-full  object-cover" />
+                <img src={item} alt={`Slide ${index + 1}`} className="w-full  object-cover hover:scale-102 transition-transform duration-300 cursor-pointer" />
               </SwiperSlide>
             ))}
           </Swiper>

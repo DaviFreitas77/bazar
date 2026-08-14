@@ -111,7 +111,7 @@ export function CartProducts() {
           );
         })
       ) : (
-        <div className="text-gray-600 flex flex-col justify-center items-center gap-2 mt-4">
+        <div className="text-gray-600 flex flex-col justify-center items-center gap-2 mt-4 ">
           <TbMoodConfuzed size={40} />
           <div className="text-center">
             <p>sua sacola ainda está vazia,</p>
@@ -120,7 +120,7 @@ export function CartProducts() {
 
           {limited && limited.length > 0 ? (
             limited?.map((product) => (
-              <div className="flex gap-2 w-full mt-5">
+              <div className="flex gap-2 w-full mt-10">
                 <div className="flex gap-2 w-full">
                   <img src={product.image[0]} alt="" className="w-20" />
                   <div className="w-full">

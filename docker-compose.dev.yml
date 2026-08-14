@@ -16,10 +16,14 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_CLIENT=predis
+      - REVERB_HOST=reverb
+      - REVERB_PORT=8080
+      - REVERB_SCHEME=http
       
     depends_on:
       - mysql
       - redis
+      - reverb
     networks:
       - laravel
 
@@ -82,6 +86,20 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - laravel
+
+  reverb:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: reverb
+    restart: always
+    command: php artisan reverb:start --host=0.0.0.0 --port=8080
+    env_file:
+      - ./server/.env
+    ports:
+      - "8080:8080"
     networks:
       - laravel
 
