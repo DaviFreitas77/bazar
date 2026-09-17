@@ -44,8 +44,8 @@ export function Orders() {
         <section className="w-full lg:ml-15 ">
           <div className="flex justify-between items-center w-full">
             <div>
-              <h1 className="text-xl text-gray-700 font-bold">Meus pedidos</h1>
-              <p className="text-gray-800 text-sm">Acompanhe seus pedidos, pagamentos e detalhes de entrega.</p>
+              <h1 className="text-xl  font-bold">Meus pedidos</h1>
+              <p className="text-gray-500 text-sm mt-2">Acompanhe seus pedidos, pagamentos e detalhes de entrega.</p>
             </div>
             <DropDown title="Ordenar por" value={filterOrder} onChange={setFilterOrder}>
               <NativeSelectOption value="relevance">Relevância</NativeSelectOption>

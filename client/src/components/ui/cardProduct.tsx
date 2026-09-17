@@ -53,7 +53,7 @@ export function CardProduct({ id, image, lastPrice, name, price }: Product) {
 
         <div className="">
           <div className="flex  items-center gap-2 ">
-            <p className="text-base font-semibold text-primary-50">
+            <p className=" text-base xl:text-lg font-semibold text-primary-50">
               {Number(price).toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",

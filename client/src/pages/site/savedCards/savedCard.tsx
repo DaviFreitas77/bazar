@@ -48,8 +48,8 @@ export function SavedCard() {
                 <AsideUser namePage="Meus cartões" />
 
                 <section className="w-full lg:ml-15">
-                    <h1 className="text-xl text-gray-700 font-bold">Meus cartões</h1>
-                    <p className="text-gray-800 text-sm">Cartões salvos a partir das suas compras no nosso site.</p>
+                    <h1 className="text-xl  font-bold">Meus cartões</h1>
+                    <p className="text-gray-500  text-sm mt-2">Cartões salvos a partir das suas compras no nosso site.</p>
 
                     {isLoading ? (
                         <div className="flex justify-center items-center w-full mt-30">

@@ -26,8 +26,8 @@ export function MyAdress() {
         <section className="w-full lg:ml-15  ">
           <div className="flex justify-between items-center w-full">
             <div>
-              <h1 className="text-xl text-gray-700 font-bold">Meus endereços</h1>
-              <p className="text-gray-800 text-sm">Gerencie os endereços usados nas suas entregas.</p>
+              <h1 className="text-xl  font-bold">Meus endereços</h1>
+              <p className="text-gray-500  text-sm mt-2">Gerencie os endereços usados nas suas entregas.</p>
             </div>
           </div>
 

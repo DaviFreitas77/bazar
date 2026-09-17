@@ -14,7 +14,7 @@ export function ChooseDelivery() {
       <div className="p-5 md:p-8 rounded-md">
         {/* Título */}
         <div className="flex items-center gap-3 border-b border-gray-100 pb-4">
-          <div className="bg-[#F4EDE7] p-2 rounded-full text-primary-50">
+          <div className="bg-[#eaf7f5] p-2 rounded-full text-primary-50">
             <CiDeliveryTruck size={22} />
           </div>
           <div>

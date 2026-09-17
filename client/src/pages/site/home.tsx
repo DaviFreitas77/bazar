@@ -56,51 +56,25 @@ export function Home() {
         <SuggestionProduct suggestionProducts={vestidos} />
       </section>
 
-      <div className="max-w-[1445px] mx-auto mt-20 px-4">
-        <div className="relative bg-[#FFFBF8] w-full rounded-2xl min-h-[360px] flex items-center justify-between overflow-hidden px-5 lg:px-20">
-          <div className="flex flex-col gap-6 max-w-xl  z-10 w-full md:w-50 ">
-            <div className="flex items-center gap-2 flex-col lg:ml-20">
-              <h1 className="text-5xl lg:text-7xl font-light text-[#6b5a55] leading-tight flex flex-col ">
-                <span>Conforto</span>
-
-                <span className="font-normal text-5xl lg:text-6xl text-center self-center">e Estilo</span>
-              </h1>
-
-              <span className="inline-block mt-4 border border-[#6b5a55]/40 text-[#6b5a55] text-sm w-40 text-center py-1 rounded-full">Para cada ocasião</span>
-            </div>
-
-            <img
-              src="images/butterfly.png"
-              className="absolute -left-20
-            -bottom-35 opacity-20 w-120"
-              alt=""
-            />
+      <section className="mx-auto mt-20 max-w-[1445px] px-4" >
+        <div className="relative min-h-[310px] overflow-hidden rounded-2xl bg-[#fffbf7] md:hidden">
+          <div className="absolute left-7 top-1/2 z-10 -translate-y-1/2">
+            <h2 className="font-serif text-4xl leading-[0.92] tracking-[-0.04em] text-[#4b3733]">
+              Conforto <span className="block pl-5 font-normal italic text-[#bd846b]">e Estilo</span>
+            </h2>
+            <div className="mt-5 h-px w-7 bg-[#bd846b]" />
+            <span className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#bd846b]/60 px-4 py-1.5 text-xs text-[#765b51]">
+              Para cada ocasião <span aria-hidden="true">→</span>
+            </span>
           </div>
-
-          <div className="hidden md:flex flex-1 justify-center items-end h-full relative  max-w-md">
-            <img src="images/banner-model.png" alt="Modelo vestindo roupa elegante" className="h-full object-cover w-60" />
-
-            <img src="images/butterfly.png" className="absolute top-20 right-10 w-10 opacity-80 hidden lg:block" alt="" />
-            <img src="images/butterfly.png" className="absolute bottom-20 left-10 w-10 opacity-80 hidden lg:block" alt="" />
-          </div>
-
-          <div className="hidden md:flex flex-col  text-right z-10">
-            <p className="text-[#6b5a55] text-2xl">
-              Modelos para <br /> todos os gostos
-            </p>
-
-            <p className="mt-4 text-[#6b5a55] text-sm">A partir de</p>
-
-            <p className="text-5xl font-semibold text-[#6b5a55]">
-              R$ 10<span className="text-3xl">,90</span>
-            </p>
-          </div>
-
-          <img src="images/butterfly.png" className="absolute top-10 right-20 w-10 opacity-80 hidden lg:block" alt="" />
-
-          <img src="images/butterfly.png" className="absolute bottom-10 right-40 w-6 opacity-60 hidden lg:block" alt="" />
+          <img src="images/banner-model.png" alt="Modelo vestindo roupa elegante" className="absolute bottom-0 left-[80%] h-[90%] w-auto -translate-x-1/2 object-contain" />
         </div>
-      </div>
+        <img
+          src="images/bannerConfort.png"
+          alt="Conforto e Estilo — modelos para todos os gostos, a partir de R$ 10,90"
+          className="hidden aspect-[7/3] w-full rounded-2xl object-cover object-center md:block"
+        />
+      </section>
 
       <section className="mt-20 space-y-20">
         <SuggestionProduct suggestionProducts={vestidos} tittle="Vestidos que falam por você" overline="APROVEITE" />

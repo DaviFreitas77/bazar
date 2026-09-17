@@ -53,7 +53,7 @@ export function Header() {
 
       <aside className="bg-primary-50 text-white text-center py-2 text-sm tracking-wide flex items-center justify-center gap-2" role="banner">
         <CiDiscount1 size={20} />
-         <strong>10% OFF </strong>  na primeira compra  -  Frete grátis
+         <strong>10% OFF </strong>  na primeira compra 
       </aside>
 
       <div className="flex justify-center items-center h-20 bg-white">
