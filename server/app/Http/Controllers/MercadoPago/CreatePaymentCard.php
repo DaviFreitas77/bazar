@@ -11,10 +11,11 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
 #[Group('MercadoPago')]
-class ProccessPaymentCard extends Controller
+   
+class CreatePaymentCard extends Controller
 {
     /**
-     * Process payment card
+     * Create payment card
      */
 
     public function __construct(private MCPService $mcpService)
@@ -40,6 +41,6 @@ class ProccessPaymentCard extends Controller
 
         
 
-        return $this->mcpService->processPayment($request->formdata, $request->order,$user);
+        return $this->mcpService->createPayment($request->formdata, $request->order,$user);
     }
 }

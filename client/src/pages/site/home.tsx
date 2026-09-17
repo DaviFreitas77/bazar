@@ -21,39 +21,15 @@ export function Home() {
   const calca = filterProductByCategory("Calças", products ?? []);
   const camisetas = filterProductByCategory("Camisetas", products ?? []);
 
-  useEffect(() => {
-    console.log("🔌 Conectando ao Reverb...");
-
-    const channel = echo.channel("teste");
-
-    channel.listen(".TesteReverb", (data: any) => {
-      console.log("🔥 EVENTO RECEBIDO:", data);
-    });
-
-    echo.connector.pusher.connection.bind("connected", () => {
-      console.log("✅ WebSocket conectado!");
-    });
-
-    echo.connector.pusher.connection.bind("disconnected", () => {
-      console.log("❌ WebSocket desconectado!");
-    });
-
-    echo.connector.pusher.connection.bind("error", (error: any) => {
-      console.error("💥 Erro WebSocket:", error);
-    });
-
-    return () => {
-      echo.leaveChannel("teste");
-    };
-  }, []);
+   
   return (
     <main>
       <section>
-        <div className="relative w-full hidden md:block mt-20">
+        <div className="relative w-full hidden md:block mt-28">
           <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
             {SlidesImagesHome.map((item, index) => (
               <SwiperSlide key={index} className="relative">
-                <img src={item} alt={`Slide ${index + 1}`} className="w-full  object-cover hover:scale-102 transition-transform duration-300 cursor-pointer" />
+                <img src={item} alt={`Slide ${index + 1}`} className="w-full  object-cover   " />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -62,7 +38,7 @@ export function Home() {
           <Swiper modules={[Navigation, Pagination, Autoplay]} loop speed={500} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} className="w-full home-swiper">
             {SlidesImagesHomeMobile.map((item, index) => (
               <SwiperSlide key={index} className="relative">
-                <img src={item} alt={`Slide ${index + 1}`} className="w-full h-[60vh] lg:h-[90vh] object-cover" />
+                <img src={item} alt={`Slide ${index + 1}`} className="w-full  object-cover" />
 
               </SwiperSlide>
             ))}
@@ -72,8 +48,12 @@ export function Home() {
 
       <Stamps />
 
-      <section className="mt-5 ">
-        <SuggestionProduct suggestionProducts={calca} tittle="Calças com precinho" />
+      <section className="mt-10">
+        <div className="mx-auto mb-4 flex max-w-[1450px] flex-col items-start gap-4 px-4 sm:mb-6 sm:flex-row sm:items-end sm:justify-between md:px-8 lg:px-12 2xl:px-0">
+          <h4 className="max-w-[320px] text-2xl leading-8 sm:text-3xl sm:leading-9 lg:text-4xl lg:leading-10 ">Looks novos <br />na nossa coleção</h4>
+          <button className="w-full rounded-full bg-primary-50 px-4 py-2 text-sm font-light text-white cursor-pointer hover:opacity-85 sm:w-auto uppercase tracking-wider">Conferir coleção</button>
+        </div>
+        <SuggestionProduct suggestionProducts={vestidos} />
       </section>
 
       <div className="max-w-[1445px] mx-auto mt-20 px-4">
@@ -123,8 +103,8 @@ export function Home() {
       </div>
 
       <section className="mt-20 space-y-20">
-        <SuggestionProduct suggestionProducts={vestidos} tittle="Vestidos que falam por você" />
-        <SuggestionProduct suggestionProducts={camisetas} tittle="Garimpo de camisetas" />
+        <SuggestionProduct suggestionProducts={vestidos} tittle="Vestidos que falam por você" overline="APROVEITE" />
+        <SuggestionProduct suggestionProducts={camisetas} tittle="Garimpo de camisetas" overline="NOVIDADES" />
       </section>
 
       {pathname === "/" && (

@@ -1,15 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @theme inline {
   --radius: 0.625rem;
   --color-background: #ffffff;
   --color-primary-50: #a2785a;
-  --color-primary-100: #ebe3d0;
+  --color-primary-100: #00000;
   --color-primary-200: #ffff;
   --color-primary-300: #f9fafb;
-  --color-primary-400:#9e5330;
+  --color-primary-400: #9e5330;
 
   --color-primary: #000;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -32,8 +31,18 @@ html {
 
 
 * {
-  font-family: "Montserrat", sans-serif;
-  
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .swiper-button-prev,
@@ -48,6 +57,7 @@ html {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease-in-out;
+  margin-top: -55px !important;
 }
 
 .swiper-button-prev::after {
@@ -74,10 +84,24 @@ html {
   background-color: var(--color-primary-50) !important;
 }
 
+.suggestion-swiper .swiper-pagination-bullet {
+  width: 15px;
+  height: 4px;
+
+
+}
+
+
+
+.suggestion-swiper .swiper-pagination-bullet-active {
+  background-color: var(--color-primary-50) !important;
+  width: 15px;
+  height: 4px;
+}
+
 
 
 .home-swiper .swiper-pagination-bullet {
-  background-color: #ffffff;
   width: 15px;
   height: 4px;
   border-radius: 2px;
@@ -85,12 +109,13 @@ html {
 }
 
 .home-swiper .swiper-pagination-bullet-active {
-  background-color: #ffffff;
+  background-color: var(--color-primary-50);
   opacity: 1;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px; /* espessura */
+  width: 6px;
+  /* espessura */
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -98,9 +123,12 @@ html {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #9e5330; /* cor da barra */
-  border-radius: 10px; /* arredondada */
-  border: 2px solid #f0f0f0; /* espaço ao redor */
+  background-color: #9e5330;
+  /* cor da barra */
+  border-radius: 10px;
+  /* arredondada */
+  border: 2px solid #f0f0f0;
+  /* espaço ao redor */
 }
 
 .linear-swiper .swiper-wrapper {
@@ -111,6 +139,7 @@ html {
 .mp-checkout-bricks__payment-form {
   padding: 0px !important;
 }
+
 .mp-checkout-bricks__payment-options-_ANPQa {
   display: flex !important;
   flex-direction: column !important;
@@ -123,32 +152,11 @@ html {
   padding: 20px !important;
   width: 100% !important;
 }
+
 .mp-checkout-bricks__selector-NagIaJ:hover {
   background-color: #fcfcfc !important;
 }
 
 .svelte-r6lpve {
   display: none !important;
-}
-
-:root {
-  --sidebar: hsl(0 0% 98%);
-  --sidebar-foreground: hsl(240 5.3% 26.1%);
-  --sidebar-primary: hsl(240 5.9% 10%);
-  --sidebar-primary-foreground: hsl(0 0% 98%);
-  --sidebar-accent: hsl(240 4.8% 95.9%);
-  --sidebar-accent-foreground: hsl(240 5.9% 10%);
-  --sidebar-border: hsl(220 13% 91%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
-}
-
-.dark {
-  --sidebar: hsl(240 5.9% 10%);
-  --sidebar-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-primary: hsl(224.3 76.3% 48%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(240 3.7% 15.9%);
-  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-border: hsl(240 3.7% 15.9%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }

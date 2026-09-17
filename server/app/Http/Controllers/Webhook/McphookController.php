@@ -16,8 +16,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-
-
+use App\Events\UpdateOrderStatus;
+use App\Jobs\ProcessPaymentJob;
 
 class McphookController extends Controller
 {
@@ -50,106 +50,9 @@ class McphookController extends Controller
 
         Log::info('paymentID', ['id' => $paymentId]);
 
-        if ($paymentId) {
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('MERCADO_PAGO_ACCESS_TOKEN'),
-            ])->get("https://api.mercadopago.com/v1/payments/{$paymentId}");
 
-            $data = $response->json();
+        ProcessPaymentJob::dispatch($paymentId);
 
-            Log::info('data', $data);
-
-            if (!isset($data['external_reference'])) {
-                Log::warning('Webhook recebido sem external_reference', [
-                    'payment_id' => $paymentId,
-                    'response' => $data
-                ]);
-                return response()->json(['status' => 'ignored'], 200);
-            }
-
-            $externalReference = $data['external_reference'];
-
-            Log::info('externalReference', ['externalReferece' => $externalReference]);
-
-            $order = Order::with('user')->find($externalReference);
-
-
-
-            $user = $order->user;
-            $orderItems = OrderItems::with('product.images')
-                ->where('fk_order', $order->id)
-                ->get();
-
-            $productsData = $orderItems->map(function ($item) {
-                $firstImage = $item->product->images->first();
-                return [
-                    'id'       => $item->product->id,
-                    'name'     => $item->product->name,
-                    'price'    => $item->product->price,
-                    'color'    => $this->colorService->getColorById($item->fk_color),
-                    'size'     => $this->sizeService->getSizeById($item->fk_size),
-                    'quantity' => $item->quantity,
-                    'image'    => $firstImage ? $firstImage->image : null
-                ];
-            })->toArray();
-
-
-            switch ($data['status']) {
-                case 'approved':
-
-                    $this->orderService->changeOrderStatus('paid', $order->id);
-
-                    $this->orderService->updatePaymentOrderService($data['payment_type_id'], $order->id, $user->id);
-
-                    foreach ($productsData as $productItem) {
-                        if (isset($productItem['id'])) {
-                            $this->productService->updateProduct($productItem['id'], ["visible" => false]);
-                        }
-                    }
-
-
-                    // Disparar os Jobs
-                    SendOrderCreatedEmailJob::dispatch(
-                        $user->email,
-                        $user->name,
-                        $order->number_order,
-                        $productsData,
-                        $data['payment_type_id'],
-                        $data['transaction_amount']
-                    );
-
-                    SendNewOrderEmailToAdminJob::dispatch(
-                        $user->name,
-                        $order->number_order,
-                        $productsData,
-                        $user->tel,
-                        $data['payment_type_id'],
-                        $data['transaction_amount']
-                    );
-
-                    break;
-
-                case 'pending':
-                    $this->orderService->changeOrderStatus('pending', $externalReference);
-                    break;
-
-                case 'rejected':
-                    $this->orderService->changeOrderStatus('canceled', $externalReference);
-                    break;
-
-                case 'in_process':
-                    $this->orderService->changeOrderStatus('processing', $externalReference);
-                    break;
-
-                case 'refunded':
-                    $this->orderService->changeOrderStatus('refunded', $externalReference);
-
-                    break;
-
-                default:
-                    Log::warning("Payment {$paymentId}  {$data['status']}.");
-            }
-        }
         return response()->json(['status' => 'success'], 200);
     }
 }

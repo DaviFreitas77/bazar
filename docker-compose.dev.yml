@@ -59,6 +59,8 @@ services:
       - mysql
       - redis
     restart: always
+    volumes:
+      - ./server:/var/www/html
     networks:
       - laravel
 
@@ -94,7 +96,7 @@ services:
       context: ./server
       dockerfile: Dockerfile
     container_name: reverb
-    restart: always
+    restart: no
     command: php artisan reverb:start --host=0.0.0.0 --port=8080
     env_file:
       - ./server/.env

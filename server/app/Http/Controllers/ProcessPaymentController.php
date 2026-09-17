@@ -1,0 +1,138 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Events\UpdateOrderStatus;
+use App\Http\Services\ColorService;
+use App\Http\Services\OrderService;
+use App\Http\Services\ProductService;
+use App\Http\Services\ShoppingCartService;
+use App\Http\Services\SizeService;
+use App\Jobs\SendNewOrderEmailToAdminJob;
+use App\Jobs\SendOrderCreatedEmailJob;
+use App\Models\Order;
+use App\Models\OrderItems;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
+class ProcessPaymentController extends Controller
+{
+    public function __construct(private ColorService $colorService, private SizeService $sizeService, private OrderService $orderService, private ShoppingCartService $shoppingCartService, private ProductService $productService)
+    {
+        $this->colorService = $colorService;
+        $this->sizeService = $sizeService;
+        $this->orderService = $orderService;
+        $this->shoppingCartService = $shoppingCartService;
+        $this->productService = $productService;
+    }
+
+    public function ProcessPayment($paymentId)
+    {
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . env('MERCADO_PAGO_ACCESS_TOKEN'),
+        ])->get("https://api.mercadopago.com/v1/payments/{$paymentId}");
+
+        $data = $response->json();
+
+        Log::info('data', $data);
+
+        if (!isset($data['external_reference'])) {
+            Log::warning('Webhook recebido sem external_reference', [
+                'payment_id' => $paymentId,
+                'response' => $data
+            ]);
+            return response()->json(['status' => 'ignored'], 200);
+        }
+
+        $externalReference = $data['external_reference'];
+
+        Log::info('externalReference', ['externalReferece' => $externalReference]);
+
+        $order = Order::with('user')->find($externalReference);
+
+
+
+        $user = $order->user;
+        $orderItems = OrderItems::with('product.images')
+            ->where('fk_order', $order->id)
+            ->get();
+
+        $productsData = $orderItems->map(function ($item) {
+            $firstImage = $item->product->images->first();
+            return [
+                'id'       => $item->product->id,
+                'name'     => $item->product->name,
+                'price'    => $item->product->price,
+                'color'    => $this->colorService->getColorById($item->fk_color),
+                'size'     => $this->sizeService->getSizeById($item->fk_size),
+                'quantity' => $item->quantity,
+                'image'    => $firstImage ? $firstImage->image : null
+            ];
+        })->toArray();
+
+
+        switch ($data['status']) {
+            case 'approved':
+
+                $this->orderService->changeOrderStatus('paid', $order->id);
+
+                $this->orderService->updatePaymentOrderService($data['payment_type_id'], $order->id, $user->id);
+
+                foreach ($productsData as $productItem) {
+                    if (isset($productItem['id'])) {
+                        $this->productService->updateProduct($productItem['id'], ["visible" => false]);
+                    }
+                }
+
+
+                broadcast(new UpdateOrderStatus('paid'));
+
+                // Disparar os Jobs
+                SendOrderCreatedEmailJob::dispatch(
+                    $user->email,
+                    $user->name,
+                    $order->number_order,
+                    $productsData,
+                    $data['payment_type_id'],
+                    $data['transaction_amount']
+                );
+
+                SendNewOrderEmailToAdminJob::dispatch(
+                    $user->name,
+                    $order->number_order,
+                    $productsData,
+                    $user->tel,
+                    $data['payment_type_id'],
+                    $data['transaction_amount']
+                );
+
+                break;
+
+            case 'pending':
+                $this->orderService->changeOrderStatus('pending', $externalReference);
+                break;
+
+            case 'rejected':
+                $this->orderService->changeOrderStatus('canceled', $externalReference);
+
+                broadcast(new UpdateOrderStatus('canceled'));
+                break;
+
+            case 'in_process':
+                $this->orderService->changeOrderStatus('processing', $externalReference);
+                broadcast(new UpdateOrderStatus('processing'));
+                break;
+
+            case 'refunded':
+                $this->orderService->changeOrderStatus('refunded', $externalReference);
+
+                broadcast(new UpdateOrderStatus('refunded'));
+
+                break;
+
+            default:
+                Log::warning("Payment {$paymentId}  {$data['status']}.");
+        }
+    }
+}

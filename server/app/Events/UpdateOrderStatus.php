@@ -8,7 +8,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TesteWebSocket implements ShouldBroadcastNow
+class UpdateOrderStatus implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,12 +19,12 @@ class TesteWebSocket implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new Channel('teste'),
+            new Channel('updateOrderStatus'),
         ];
     }
 
     public function broadcastAs(): string
     {
-        return 'TesteReverb';
+        return 'OrderStatus';
     }
 }

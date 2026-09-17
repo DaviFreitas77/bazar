@@ -10,8 +10,9 @@ import { useUser } from "@/context/userContext";
 import { apiGetCardSaved, apiSaveCard } from "@/api/site/customer.api";
 import { useCustomer } from "@/hooks/site/useCustomer";
 import { useEffect, useState } from "react";
+import echo from "@/lib/echo";
 
-const publicKey = "APP_USR-ea6cbb6f-9a22-476b-a44c-d3270ec16d20";
+const publicKey = "TEST-963bf96a-8793-4051-8c3b-67f65002ac60";
 
 initMercadoPago(publicKey, {
   locale: "pt-BR",
@@ -56,39 +57,41 @@ export function PaymentMercadoPago() {
     createPreference();
   }, [state, preference.id]);
 
+
+
   useEffect(() => {
     if (!preference.orderId) return;
 
-    const interval = setInterval(async () => {
-      try {
-        const response = await apiLatestOrder();
-        if (response.status === "paid") {
-          clearInterval(interval);
-          setStep((prev) => {
-            if (prev == 4) return prev;
-            return prev + 1;
-          });
-        }
+    const channel = echo.channel("updateOrderStatus");
 
-        if (response.status === "canceled") {
-          setStep((prev) => {
-            if (prev == 5) return prev;
-            return prev + 2;
-          });
-          setPreference({
-            id: "",
-            total: 0,
-            orderId: "",
-            created_at: "",
-          });
-          clearInterval(interval);
-        }
-      } catch (err) {
-        console.error(err);
+    channel.listen(".OrderStatus", (data: any) => {
+
+      if (data.mensagem === "paid") {
+        setStep((prev) => {
+          if (prev == 4) return prev;
+          return prev + 1;
+        });
       }
-    }, 5000);
 
-    return () => clearInterval(interval);
+      if (data.mensagem === "canceled") {
+
+        setStep((prev) => {
+          if (prev == 5) return prev;
+          return prev + 2;
+        });
+        setPreference({
+          id: "",
+          total: 0,
+          orderId: "",
+          created_at: "",
+        });
+
+      }
+
+
+    });
+
+    return () => echo.leaveChannel("updateOrderStatus");
   }, [preference.orderId]);
 
   const initialization = {

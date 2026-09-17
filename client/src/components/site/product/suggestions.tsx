@@ -10,12 +10,13 @@ import type { Product } from "@/@types/product";
 import { SkeletoSliderProducts } from "./skeleton";
 
 interface SuggestionProductProps {
+  overline?:string;
   suggestionProducts: Product[];
   tittle?: string;
 
 }
 
-export function SuggestionProduct({ suggestionProducts, tittle }: SuggestionProductProps) {
+export function SuggestionProduct({ suggestionProducts, tittle,overline}: SuggestionProductProps) {
   const limitedProduct = suggestionProducts.slice(0, 8);
 
     
@@ -25,9 +26,10 @@ export function SuggestionProduct({ suggestionProducts, tittle }: SuggestionProd
 
   return (
     <section className="w-full px-4 md:px-8">
-      <div className="mx-auto max-w-[1450px] w-full">
-        <div className="flex w-full justify-between">
-          <h2 className="text-lg 2xl:text-2xl font-semibold mb-3 text-gray-800">{tittle}</h2>
+      <div className="mx-auto max-w-[1450px] w-full flex flex-col items-center">
+        <div className="flex flex-col justify-center items-center gap-2 ">
+          <p className="text-xs font-light text-primary-50 tracking-widest">{overline}</p>
+          <h2 className="text-lg 2xl:text-2xl  mb-5 font-semibold ">{tittle}</h2>
 
         </div>
         <Swiper
@@ -40,11 +42,12 @@ export function SuggestionProduct({ suggestionProducts, tittle }: SuggestionProd
             530: { slidesPerView: 2.5, spaceBetween: 15, slidesPerGroup: 1 },
             800: { slidesPerView: 3.5, spaceBetween: 10, slidesPerGroup: 1 },
             1024: { slidesPerView: 4.5, spaceBetween: 10, slidesPerGroup: 1 },
-            1366: { slidesPerView: 5.5, spaceBetween: 10, slidesPerGroup: 1 },
-            1536: { slidesPerView: 5.5, spaceBetween: 25, slidesPerGroup: 1 },
+            1366: { slidesPerView: 5, spaceBetween: 10, slidesPerGroup: 1 },
+        
           }}
           navigation
-          className="w-full"
+          pagination={{ clickable: true }}
+          className="w-full suggestion-swiper h-100 lg:h-120 2xl:h-130"
         >
           {limitedProduct.length > 0 &&
             limitedProduct.map((item) => (

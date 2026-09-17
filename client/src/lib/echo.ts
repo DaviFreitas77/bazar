@@ -6,8 +6,8 @@ import Pusher from "pusher-js";
 
 const echo = new Echo({
     broadcaster: "reverb",
-    key: "3hub7jghiune934zlf0r",
-    wsHost: "localhost",
+    key: "sk9tvwlypxvpbgiiytie",
+    wsHost: "127.0.0.1",
     wsPort: 8080,
     wssPort: 8080,
     forceTLS: false,
