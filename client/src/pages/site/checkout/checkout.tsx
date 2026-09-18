@@ -13,6 +13,8 @@ import { useCart } from "@/context/cartContext";
 import { apiLatestOrder } from "@/api/site/order.api";
 import { useNavigate } from "react-router-dom";
 import { OrderCanceled } from "@/components/site/checkout/orderCanceled";
+import { PaymentPending } from "@/components/site/checkout/paymentPending";
+import { PaymentProcessing } from "@/components/site/checkout/paymentProcessing";
 import { SeoCheckout } from "./layout";
 
 export function Checkout() {
@@ -36,7 +38,7 @@ export function Checkout() {
   }, []);
 
   useEffect(() => {
-    if (step === 4 || step === 5) {
+    if ([4, 5, 6, 7].includes(step)) {
       const fetchOrder = async () => {
         try {
           const response = await apiLatestOrder();
@@ -63,7 +65,15 @@ export function Checkout() {
       </div>
 
       <div className="w-full max-w-7xl flex gap-10 flex-wrap lg:flex-nowrap">
-        <div className="w-full h-fit border border-gray-200 rounded-md">{step === 1 ? <PeopleInformation /> : step === 2 ? <ChooseDelivery /> : step === 3 ? <Payment /> : step === 4 ? <PaymentConfirmed numberOrder={numberOrder} /> : <OrderCanceled numberOrder={numberOrder} />}</div>
+        <div className="w-full h-fit border border-gray-200 rounded-md">
+          {step === 1 ? <PeopleInformation />
+            : step === 2 ? <ChooseDelivery />
+              : step === 3 ? <Payment />
+                : step === 4 ? <PaymentConfirmed numberOrder={numberOrder} />
+                  : step === 5 ? <OrderCanceled numberOrder={numberOrder} />
+                    : step === 6 ? <PaymentPending numberOrder={numberOrder} />
+                      : <PaymentProcessing numberOrder={numberOrder} />}
+        </div>
 
         <Summary products={state} numberOrder={numberOrder} />
       </div>

@@ -18,7 +18,7 @@ const personalLinks = [
 export function DrawerResponsive() {
   const { data: categories } = useListCategories();
   const { openDrawer, setOpenDrawer, setModalAuth, setOpenFavorite } = useUI();
-  const { name, setEmail, setLastName, setTel, setName } = useUser();
+  const { name, setEmail, setLastName, setTel, setName,setId } = useUser();
   const { pathname } = useLocation();
 
   const closeDrawer = () => setOpenDrawer(false);
@@ -30,6 +30,7 @@ export function DrawerResponsive() {
       setEmail(null);
       setLastName(null);
       setTel(null);
+      setId(null);
     }
   };
 

@@ -5,7 +5,7 @@ import { useCart } from "@/context/cartContext";
 import { useCheckout } from "@/context/checkoutContext";
 import { Loading } from "@/components/site/loading/loading";
 import { PixQRCode } from "./PixQrCode";
-import { apiLatestOrder, createOrder } from "@/api/site/order.api";
+import { createOrder } from "@/api/site/order.api";
 import { useUser } from "@/context/userContext";
 import { apiGetCardSaved, apiSaveCard } from "@/api/site/customer.api";
 import { useCustomer } from "@/hooks/site/useCustomer";
@@ -25,7 +25,7 @@ export function PaymentMercadoPago() {
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [cardsIds, setCardsIds] = useState<string[] | null>(null);
   const [saveCard, setSaveCard] = useState(false);
-  const { name, email, lastName } = useUser();
+  const { name, email, lastName, id } = useUser();
 
   useEffect(() => {
 
@@ -62,36 +62,39 @@ export function PaymentMercadoPago() {
   useEffect(() => {
     if (!preference.orderId) return;
 
-    const channel = echo.channel("updateOrderStatus");
+    const channel = echo.private(`updateOrderStatus.${id}`);
+    channel.subscribed(() => {
+      console.log("✅ ENTROU NO CANAL");
+    });
 
     channel.listen(".OrderStatus", (data: any) => {
+      console.log(data);
 
       if (data.mensagem === "paid") {
-        setStep((prev) => {
-          if (prev == 4) return prev;
-          return prev + 1;
-        });
+        setStep(4);
       }
 
       if (data.mensagem === "canceled") {
-
-        setStep((prev) => {
-          if (prev == 5) return prev;
-          return prev + 2;
-        });
+        setStep(5);
         setPreference({
           id: "",
           total: 0,
           orderId: "",
           created_at: "",
         });
-
       }
 
+      if (data.mensagem === "pending") {
+        setStep(6);
+      }
+      if (data.mensagem === "processing") {
+        setStep(7);
+      }
 
     });
 
-    return () => echo.leaveChannel("updateOrderStatus");
+    return () => echo.leaveChannel(`updateOrderStatus.${id}`);
+
   }, [preference.orderId]);
 
   const initialization = {
@@ -155,5 +158,3 @@ export function PaymentMercadoPago() {
     </div>
   );
 }
-
-

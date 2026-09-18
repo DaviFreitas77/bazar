@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 import { SlidesImagesHome, SlidesImagesHomeMobile } from "@/data/carouselImagesHome";
 import { useLocation } from "react-router-dom";
 import { NewsLetter } from "@/components/site/footer/newsLetter";
-import { useEffect } from "react";
+
 
 
 export function Home() {
@@ -21,7 +21,8 @@ export function Home() {
   const calca = filterProductByCategory("Calças", products ?? []);
   const camisetas = filterProductByCategory("Camisetas", products ?? []);
 
-   
+
+
   return (
     <main>
       <section>
@@ -56,28 +57,32 @@ export function Home() {
         <SuggestionProduct suggestionProducts={vestidos} />
       </section>
 
-      <section className="mx-auto mt-20 max-w-[1445px] px-4" >
-        <div className="relative min-h-[310px] overflow-hidden rounded-2xl bg-[#fffbf7] md:hidden">
-          <div className="absolute left-7 top-1/2 z-10 -translate-y-1/2">
-            <h2 className="font-serif text-4xl leading-[0.92] tracking-[-0.04em] text-[#4b3733]">
-              Conforto <span className="block pl-5 font-normal italic text-[#bd846b]">e Estilo</span>
-            </h2>
-            <div className="mt-5 h-px w-7 bg-[#bd846b]" />
-            <span className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#bd846b]/60 px-4 py-1.5 text-xs text-[#765b51]">
-              Para cada ocasião <span aria-hidden="true">→</span>
-            </span>
-          </div>
-          <img src="images/banner-model.png" alt="Modelo vestindo roupa elegante" className="absolute bottom-0 left-[80%] h-[90%] w-auto -translate-x-1/2 object-contain" />
-        </div>
-        <img
-          src="images/bannerConfort.png"
-          alt="Conforto e Estilo — modelos para todos os gostos, a partir de R$ 10,90"
-          className="hidden aspect-[7/3] w-full rounded-2xl object-cover object-center md:block"
-        />
-      </section>
 
       <section className="mt-20 space-y-20">
         <SuggestionProduct suggestionProducts={vestidos} tittle="Vestidos que falam por você" overline="APROVEITE" />
+
+
+        <section className="mx-auto mt-20 max-w-[1445px] px-4" >
+          <div className="relative min-h-[310px] overflow-hidden rounded-2xl bg-[#fffbf7] md:hidden">
+            <div className="absolute left-7 top-1/2 z-10 -translate-y-1/2">
+              <h2 className="font-serif text-4xl leading-[0.92] tracking-[-0.04em] text-[#4b3733]">
+                Conforto <span className="block pl-5 font-normal italic text-[#bd846b]">e Estilo</span>
+              </h2>
+              <div className="mt-5 h-px w-7 bg-[#bd846b]" />
+              <span className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#bd846b]/60 px-4 py-1.5 text-xs text-[#765b51]">
+                Para cada ocasião <span aria-hidden="true">→</span>
+              </span>
+            </div>
+            <img src="images/banner-model.png" alt="Modelo vestindo roupa elegante" className="absolute bottom-0 left-[80%] h-[90%] w-auto -translate-x-1/2 object-contain" />
+          </div>
+          <img
+            src="images/bannerConfort.png"
+            alt="Conforto e Estilo — modelos para todos os gostos, a partir de R$ 10,90"
+            className="hidden aspect-[7/3] w-full rounded-2xl object-cover object-center md:block"
+          />
+        </section>
+
+
         <SuggestionProduct suggestionProducts={camisetas} tittle="Garimpo de camisetas" overline="NOVIDADES" />
       </section>
 

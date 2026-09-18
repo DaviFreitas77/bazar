@@ -12,6 +12,7 @@ use App\Jobs\SendNewOrderEmailToAdminJob;
 use App\Jobs\SendOrderCreatedEmailJob;
 use App\Models\Order;
 use App\Models\OrderItems;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -29,8 +30,9 @@ class ProcessPaymentController extends Controller
     public function ProcessPayment($paymentId)
     {
 
+
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . env('MERCADO_PAGO_ACCESS_TOKEN'),
+            'Authorization' => 'Bearer ' . env('MERCADO_PAGO_ACCESS_TOKEN', 'TEST-7286572818577588-122616-d9a101176309c7bbbc2b6e85ba0b4b9f-764163220'),
         ])->get("https://api.mercadopago.com/v1/payments/{$paymentId}");
 
         $data = $response->json();
@@ -84,9 +86,14 @@ class ProcessPaymentController extends Controller
                         $this->productService->updateProduct($productItem['id'], ["visible" => false]);
                     }
                 }
+                Log::info('ENVIANDO EVENTO', [
+                    'mensagem' => 'paid',
+                    'user_id' => $user->id,
+                    'channel' => 'updateOrderStatus.' . $user->id,
+                ]);
 
 
-                broadcast(new UpdateOrderStatus('paid'));
+                broadcast(new UpdateOrderStatus('paid', $user->id));
 
                 // Disparar os Jobs
                 SendOrderCreatedEmailJob::dispatch(
@@ -111,23 +118,23 @@ class ProcessPaymentController extends Controller
 
             case 'pending':
                 $this->orderService->changeOrderStatus('pending', $externalReference);
+                broadcast(new UpdateOrderStatus('pending', $user->id));
                 break;
 
             case 'rejected':
                 $this->orderService->changeOrderStatus('canceled', $externalReference);
 
-                broadcast(new UpdateOrderStatus('canceled'));
+                broadcast(new UpdateOrderStatus('canceled', $user->id));
                 break;
 
             case 'in_process':
                 $this->orderService->changeOrderStatus('processing', $externalReference);
-                broadcast(new UpdateOrderStatus('processing'));
+                broadcast(new UpdateOrderStatus('processing', $user->id));
                 break;
-
             case 'refunded':
                 $this->orderService->changeOrderStatus('refunded', $externalReference);
 
-                broadcast(new UpdateOrderStatus('refunded'));
+                broadcast(new UpdateOrderStatus('refunded', $user->id));
 
                 break;
 

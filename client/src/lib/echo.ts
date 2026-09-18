@@ -2,7 +2,8 @@ import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 
 
-(window as any).Pusher = Pusher;
+(window as any).Pusher = Pusher
+const token = localStorage.getItem("token");
 
 const echo = new Echo({
     broadcaster: "reverb",
@@ -12,6 +13,16 @@ const echo = new Echo({
     wssPort: 8080,
     forceTLS: false,
     enabledTransports: ["ws"],
+    authEndpoint: "https://16d9-2804-214-8023-5dee-cc8b-194b-6231-2ec8.ngrok-free.app/api/broadcasting/auth",
+    withCredentials: true,
+
+
+    auth: {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+        },
+    },
 });
 
 export default echo;

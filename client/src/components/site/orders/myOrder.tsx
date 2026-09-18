@@ -24,6 +24,7 @@ export function MyOrder({
 
   const statusMap = {
     pending: { label: "Pendente", style: "bg-orange-300" },
+    processing: { label: "Processando", style: "bg-blue-200" },
     paid: { label: "Pago", style: "bg-yellow-200" },
     completed: { label: "Completo", style: "bg-green-300" },
     canceled: { label: "Cancelado", style: "bg-red-300" },

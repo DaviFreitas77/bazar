@@ -10,6 +10,7 @@ interface UserContextType {
   role: string | null;
   newsLetter: boolean;
   customerId?: string | null;
+  id: number | null;
   setName: React.Dispatch<React.SetStateAction<string | null>>;
   setEmail: React.Dispatch<React.SetStateAction<string | null>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,6 +19,8 @@ interface UserContextType {
   setRole: React.Dispatch<React.SetStateAction<string | null>>;
   setNewsLetter: React.Dispatch<React.SetStateAction<boolean>>;
   setCustomerId?: React.Dispatch<React.SetStateAction<string | null>>;
+  setId: React.Dispatch<React.SetStateAction<number | null>>;
+
 }
 
 const userContext = createContext<UserContextType | undefined>(undefined);
@@ -31,9 +34,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [role, setRole] = useState<string | null>(null);
   const [newsLetter, setNewsLetter] = useState<boolean>(false);
   const [customerId, setCustomerId] = useState<string | null>(null);
+  const [id, setId] = useState<number | null>(null);
 
 
-  return <userContext.Provider value={{ name, email, setName, setEmail, loading, setLoading, setLastName, lastName, tel, setTel, setRole, role, newsLetter, setNewsLetter, customerId, setCustomerId  }}>{children}</userContext.Provider>;
+  return <userContext.Provider value={{ name, email, setName, setEmail, loading, setLoading, setLastName, lastName, tel, setTel, setRole, role, newsLetter, setNewsLetter, customerId, setCustomerId, id, setId }}>{children}</userContext.Provider>;
 }
 
 export function useUser() {

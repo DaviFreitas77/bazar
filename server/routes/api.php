@@ -15,6 +15,8 @@ use App\Http\Controllers\Upload\UploadController;
 use App\Http\Controllers\User\RegisterNewLetterController;
 use App\Mail\MailOrderCreated;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Http\Request;
 
 require __DIR__ . '/api/category.php';
 require __DIR__ . '/api/order.php';
@@ -30,6 +32,10 @@ require __DIR__ . '/api/adm/dashboardRoute.php';
 require __DIR__ . '/api/forgotPassword.api.php';
 require __DIR__ . '/api/delivery.api.php';
 require __DIR__ . '/api/notification.php';
+
+Route::post('/broadcasting/auth', function (Request $request) {
+  return Broadcast::auth($request);
+})->middleware('auth:sanctum');
 
 
 Route::prefix('auth')->group(function () {

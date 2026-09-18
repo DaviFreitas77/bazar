@@ -26,7 +26,7 @@ class ProcessPaymentJob implements ShouldQueue
      */
     public function handle(ProcessPaymentController $mcpService): void
     {
-        Log::info("aqui");
+
         $mcpService->processPayment($this->paymentId);
     }
 }

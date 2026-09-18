@@ -18,7 +18,7 @@ const queryClient = new QueryClient();
 
 function InitApp() {
   const navigate = useNavigate();
-  const { setName, setEmail, setLoading, setLastName, setTel, setRole, setNewsLetter } = useUser();
+  const { setName, setEmail, setLoading, setLastName, setTel, setRole, setNewsLetter, setId } = useUser();
 
   useEffect(() => {
     async function fetchCsrfAndUser() {
@@ -37,6 +37,7 @@ function InitApp() {
           setTel(user.tel);
           setLastName(user.lastName);
           setRole(user.role);
+          setId(user.id);
 
           if (user.role === "admin") {
             navigate("/admin-dashboard");

@@ -18,7 +18,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorGoogle, setErrorGoogle] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const { setName, setEmail, setLastName, setTel, setRole, setNewsLetter } = useUser();
+  const { setName, setEmail, setLastName, setTel, setRole, setNewsLetter,setId } = useUser();
   const navigate = useNavigate();
   const {
     register,
@@ -41,6 +41,7 @@ export function FormLogin({ onChangeForm, onClose }: FormLoginProps) {
       setTel(response.user.tel);
       setRole(response.user.role);
       setNewsLetter(response.user.receive_newsletter);
+      setId(response.user.id);
       localStorage.setItem("token", response.token);
 
       if (response.user.role === "admin") {
