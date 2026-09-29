@@ -87,7 +87,7 @@ export function Home() {
       </section>
 
       {pathname === "/" && (
-        <div className="bg-[#FFFBF8] py-10  my-20">
+        <div className="py-10  my-20">
           <NewsLetter />
         </div>
       )}

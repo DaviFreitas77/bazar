@@ -8,6 +8,7 @@ import { Dashboard } from "@/pages/admin/Dashboard";
 import { EmailAdmin } from "@/pages/admin/Email";
 import { RegisterCupom } from "@/pages/admin/RegisterCupom";
 import { Home } from "@/pages/site/home";
+import { Banner } from "@/pages/admin/Banner";
 
 export default function AdminRoutes() {
   return (
@@ -60,6 +61,15 @@ export default function AdminRoutes() {
         element={
           <PrivateRoute role="admin">
             <RegisterCupom />
+          </PrivateRoute>
+        }
+      ></Route>
+
+      <Route
+        path="/admin-banners"
+        element={
+          <PrivateRoute role="admin">
+            <Banner />
           </PrivateRoute>
         }
       ></Route>

@@ -32,6 +32,12 @@ const menuGroups = [
         icon: CiDiscount1,
         disabled: false,
       },
+      {
+        title: "banners",
+        url: "/admin-banners",
+        icon: CiDiscount1,
+        disabled: false,
+      },
     ],
   },
   {
