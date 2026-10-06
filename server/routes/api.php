@@ -32,6 +32,7 @@ require __DIR__ . '/api/adm/dashboardRoute.php';
 require __DIR__ . '/api/forgotPassword.api.php';
 require __DIR__ . '/api/delivery.api.php';
 require __DIR__ . '/api/notification.php';
+require __DIR__ . '/api/banner.api.php';
 
 Route::post('/broadcasting/auth', function (Request $request) {
   return Broadcast::auth($request);
